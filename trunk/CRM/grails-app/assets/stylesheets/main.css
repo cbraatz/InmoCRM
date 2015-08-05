@@ -185,6 +185,18 @@ img {
     background-image: url(../images/skin/database_add.png);
 }
 
+a.add {/*added by me*/
+	background-image: url(../images/skin/database_add_new.png);
+	color: transparent;/*to display the icon*/
+	font-size: 20px;
+	margin-left: 10px;
+}
+a.edit {/*added by me*/
+	background-image: url(../images/skin/database_edit.png);
+	color: transparent;/*to display the icon*/
+	font-size: 14px;
+	margin-left: 10px;
+}
 /* CREATE/EDIT FORMS AND SHOW PAGES */
 
 fieldset,
@@ -211,8 +223,15 @@ fieldset,
     color: #666666;
     text-align: right;
     width: 25%;
+    font-weight: bold;
+    padding-top:7px;
+    padding-bottom:7px;
 }
-
+.fieldcontain .property-value {/*added by me*/
+    padding-top:7px;
+    padding-bottom:7px;
+    max-width: 450px;
+}
 .fieldcontain .property-label {
     float: left;
 }
@@ -244,8 +263,8 @@ select[multiple] {
 }
 
 textarea {
-    width: 250px;
-    height: 150px;
+    /*width: 250px;
+    height: 150px;*/
     overflow: auto; /* IE always renders vertical scrollbar without this */
     vertical-align: top;
 }

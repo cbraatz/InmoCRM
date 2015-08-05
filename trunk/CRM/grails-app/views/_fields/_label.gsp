@@ -1,0 +1,1 @@
+<span id="${property}-label" class="property-label">${label}</span>
