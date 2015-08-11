@@ -9,6 +9,8 @@ class Advertisement {
 	boolean byCompany;
 	Date postDate;
 	String urlToPost;
+	String relatedInternalID;
+	Language language;
 	PropertyDemand propertyDemand;
 	ManagedProperty managedProperty;
     static constraints = {
@@ -20,6 +22,8 @@ class Advertisement {
 		byCompany(nullable:false);
 		postDate(blank: true, nullable:true);
 		urlToPost(blank: true, nullable:true, size:0..200);
+		relatedInternalID(blank: true, nullable: true, size:0..40);//to define related transactions, transactions without related transactions will be null
+		language(nullable:false);
 		propertyDemand(nullable:true);
 		managedProperty(nullable:true);
     }

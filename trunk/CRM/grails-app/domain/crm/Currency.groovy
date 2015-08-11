@@ -21,6 +21,6 @@ class Currency {
 		symbol(blank:false, nullable:false, unique:true, size:1..10);
 		decimals(blank:false, nullable:false);
 		isDefault(nullable:false);
-		country(nullable:false);
+		country(nullable:true);
     }
 }

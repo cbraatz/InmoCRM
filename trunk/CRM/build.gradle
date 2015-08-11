@@ -79,3 +79,12 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
 }
+
+/*added by me due to OutOfMemoryError: PermGen space..correct conf added to gradle.properties
+'grails-run-app' {
+	jvmOptions {
+		minHeapSize = '1g'
+		maxHeapSize = '1g'
+		jvmArgs("-Xmx384mx", "-XX:MaxPermSize=512m")
+	}
+}*/

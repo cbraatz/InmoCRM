@@ -13,6 +13,7 @@ class Partner {
 	Profession profession;
 	PartnerRole partnerRole;
 	MaritalStatus maritalStatus;
+	Address address;
 	Partner invitedBy;
 	boolean isActive;
 	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount/*,realEstateAction,tagSelectedValue,CustomFieldSelectedValue*/];
@@ -24,11 +25,12 @@ class Partner {
 		birthDate(blank:false, nullable:false);
 		phone(blank:false, nullable:false, size:1..40);
 		emailAddress(blank:false, nullable:false, email: true);
-		isActive(nullable:false);
 		gender(nullable:true);
+		profession(nullable:true);
 		partnerRole(nullable:false);
 		maritalStatus(nullable:true);
-		profession(nullable:true);
+		address(nullable:false);
 		invitedBy(nullable:true);
+		isActive(nullable:false);
 	}
 }

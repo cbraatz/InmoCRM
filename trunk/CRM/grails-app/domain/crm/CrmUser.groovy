@@ -4,18 +4,18 @@ package crm
 
 class CrmUser {
 	String login;
-	String pass;
+	String password;
 	String emailAddress;
 	boolean isAdmin;
 	boolean isActive;
 	boolean isDefault;
 	Partner partner;
-	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comment:Comment, userNotificationSuscription:UserNotificationSubscription/*,UserContextRole, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription/*,UserContextRole, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [createdPropertyDemands: "creator", assignedPropertyDemands: "assignee"];
 
 	static constraints = {
 		login(blank:false, nullable:false, unique:true, size:5..20);
-		pass(blank:false, nullable:false, size:5..30);
+		password(blank:false, nullable:false, size:5..30);
 		emailAddress(blank:false, nullable:false, unique:true, email: true);
 		isAdmin(nullable:false);
 		isActive(nullable:false);
