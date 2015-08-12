@@ -64,17 +64,17 @@ class BootStrap {
 		this.saveObj(new PartnerRole(name: "Admin", isEmployee:"false", description:"Default Partner."));
 		
 		//Partner
-		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.comx", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:"true", partnerRole:PartnerRole.findByName("Admin")));
+		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:"true", partnerRole:PartnerRole.findByName("Admin")));
 		
 		//crmuser
-		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), login:"nobody", password:"123", emailAddress: "default_user@test.comx", isAdmin:"true", isActive:"true", isDefault:"true"));
+		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:"true", isActive:"true", isDefault:"true"));
 		
 		//ClientCategory
 		this.saveObj(new ClientCategory(name: "Pequeño", description:"Clientes con sueldo mínimo o menos."));		
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//client
-		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.comx", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), creator: CrmUser.findByLogin("nobody"), isActive:"true", readsEmail:"true", readsSms:"true", receiveNotifications:"true", isProspectiveClient:"false"));
+		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:"true", readsEmail:"true", readsSms:"true", receiveNotifications:"true", isProspectiveClient:"false"));
 		
 		//TaxRate
 		this.saveObj(new TaxRate(name: "10 %", percentage:10));		
@@ -161,19 +161,19 @@ class BootStrap {
 		this.saveObj(new PropertyType(name:"Estancia", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal."));
 		
 		//ManagedProperty
-		this.saveObj(new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", description:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", propertyID1:"U5214", propertyID2:"1254", propertyID3:"21548", addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio")));
+		this.saveObj(new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", description:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000, 
+									clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), isSoldByCompany:"false", inWeb:"true"));
 		
 		//PropertyUsage
-		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), managedProperty:ManagedProperty.findByPropertyID1("U5214"), quantity:100, isQuantityInPercentage:"true", isCurrentUsage:"false"));
-		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso comercial"), managedProperty:ManagedProperty.findByPropertyID1("U5214"), quantity:100, isQuantityInPercentage:"true", isCurrentUsage:"false"));
+		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:"true", isCurrentUsage:"false"));
+		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso comercial"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:"true", isCurrentUsage:"false"));
 		
 		//Building
-		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByPropertyID1("U5214"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), description:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
+		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), description:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
 		//Concession
-		this.saveObj(new Concession(adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), appraisedPrice:250000, 
-									clientInitialPrice:240000, isNegotiable:"false", startDate:new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2015"), endDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2016"), valueDegree:1, commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
-									contract:Contract.findByInternalID("1"), publishInMLS:"false", publishInPortals:"false", keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), creator:CrmUser.findByLogin("nobody"), isConfirmed:"true", isSoldByCompany:"false", isCanceled:"false"));
+		this.saveObj(new Concession(adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", isNegotiable:"false", startDate:new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2015"), endDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2016"), valueDegree:1, commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
+									contract:Contract.findByInternalID("1"), publishInMLS:"false", publishInPortals:"false", keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), owner:CrmUser.findByName("nobody"), isActive:"true"));
 								
 		//InterestType
 		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:"true"));

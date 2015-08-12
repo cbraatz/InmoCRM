@@ -5,9 +5,12 @@ class ManagedProperty {
 	String description;
 	String measures;
 	String publicAddress;
-	String propertyID1;
-	String propertyID2;
-	String propertyID3;
+	String publicCashPrice;
+	String publicCreditPrice;
+	Float price;
+	Float value;
+	Float clientInitialPrice;
+	Currency currency;
 	Date addedDate;
 	int placedBillboards;
 	Float area;
@@ -15,15 +18,21 @@ class ManagedProperty {
 	Client owner;
 	Address address;
 	PropertyType propertyType;
-	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, advertisements:Advertisement, concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, propertyImages:PropertyImage/*,realEstateAction,propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
+	boolean isSoldByCompany;
+	boolean isCanceled;
+	boolean inWeb;
+	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, advertisements:Advertisement, concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, propertyImages:PropertyImage, propertyUnits:PropertyUnit/*,realEstateAction,propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
     static constraints = {
-		title(blank:false, nullable:false, size:10..80);
+		title(blank:false, nullable:false, size:1..100, unique:true);
 		description(blank:false, nullable:false, widget:'textArea', size:20..500);
 		measures(blank:false, nullable:false, size:1..40);
 		publicAddress(blank:false, nullable:false, size:1..100);
-		propertyID1(blank:false, nullable:false, size:1..20);
-		propertyID2(blank:true, nullable:true, size:0..20);
-		propertyID3(blank:true, nullable:true, size:0..20);
+		publicCashPrice(blank:false, nullable:false, size:1..25);
+		publicCreditPrice(blank:true, nullable:true, size:0..50);
+		price(blank:false, nullable:false);
+		value(blank:false, nullable:false);
+		clientInitialPrice(blank:false, nullable:false);
+		currency(blank:false, nullable:false);
 		addedDate(nullable:false);
 		placedBillboards(nullable:false);
 		area(nullable:false);
@@ -31,5 +40,7 @@ class ManagedProperty {
 		owner(nullable:false);
 		address(nullable:false);
 		propertyType(nullable:false);
+		isSoldByCompany(nullable:false);
+		inWeb(nullable:false);
     }
 }

@@ -34,8 +34,6 @@ class CrmUserController {
             return
         }
 		if(params.pass2!=crmUser.password){
-			def msg=message(code:'crmUser.password.doesnotmatch');
-			println msg.toString()
 			crmUser.errors.rejectValue('',message(code:'crmUser.password.doesnotmatch').toString());
 			transactionStatus.setRollbackOnly();
             respond crmUser.errors, view:'create';

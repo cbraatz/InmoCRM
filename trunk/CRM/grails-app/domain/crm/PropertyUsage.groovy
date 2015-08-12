@@ -2,14 +2,12 @@ package crm
 
 class PropertyUsage {
 	Usage usage;
-	ManagedProperty managedProperty;
 	Float quantity;
 	boolean isQuantityInPercentage;
 	boolean isCurrentUsage;
 	String description;
     static constraints = {
 		usage(nullable: false);
-		managedProperty(nullable: false);
 		quantity(blank:true, nullable: true);
 		isQuantityInPercentage(nullable: true);
 		isCurrentUsage(nullable: false);

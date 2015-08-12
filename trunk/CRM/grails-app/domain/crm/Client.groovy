@@ -12,7 +12,7 @@ class Client {
 	String emailAddress;
 	Country nationality;
 	Profession profession;
-	CrmUser creator;
+	CrmUser owner;
 	MaritalStatus maritalStatus;
 	Gender gender;
 	Address address;
@@ -39,7 +39,7 @@ class Client {
 		emailAddress(blank:true, nullable:true, email: true);
 		nationality(nullable:true);
 		profession(nullable:true);
-		creator(nullable:false);
+		owner(nullable:false);
 		maritalStatus(nullable:true);
 		gender(nullable:true);
 		address(nullable:true);

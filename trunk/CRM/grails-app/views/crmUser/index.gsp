@@ -19,7 +19,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             
-            <f:table collection="${crmUserList}" properties="['login', 'emailAddress', 'partner', 'isAdmin', 'isActive']"/>
+            <f:table collection="${crmUserList}" properties="['name', 'emailAddress', 'partner', 'isAdmin', 'isActive']"/>
 
             <div class="pagination">
                 <g:paginate total="${crmUserCount ?: 0}" />

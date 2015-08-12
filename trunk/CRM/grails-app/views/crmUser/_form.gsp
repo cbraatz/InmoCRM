@@ -1,6 +1,6 @@
 
 <fieldset class="form">
-	<f:field bean="crmUser" property="login"/>
+	<f:field bean="crmUser" property="name"/>
 	<f:field bean="crmUser" property="password">
 		<g:passwordField name="${property}" value="${it.value}" />
 	</f:field>

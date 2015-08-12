@@ -7,7 +7,6 @@ class ContractType {
 	String templateURL;
 	Float commissionPercentage;
 	String billingDefaultDescription;
-	TaxRate taxRate;
 	static hasMany = [contracts:Contract];
     static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..40);
@@ -16,6 +15,5 @@ class ContractType {
 		templateURL(blank:true, nullable:true, size:0..200);
 		commissionPercentage(blank:false, nullable:false);
 		billingDefaultDescription(blank:false, nullable:false, size:1..100);
-		taxRate(nullable:false);
     }
 }

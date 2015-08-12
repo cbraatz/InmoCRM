@@ -13,7 +13,7 @@
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.latitude' : 'latitude'}"/>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.longitude' : 'longitude'}"/>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.homePhone' : 'homePhone'}"/>
-	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.city' : 'city'}" input-propId="${parentBean? (parentBean=='partner'? partner?.address?.city?.id : 'other_parent') : address?.city?.id}"/>
-	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.neighborhood' : 'neighborhood'}" input-propId="${parentBean? (parentBean=='partner'? partner?.address?.neighborhood?.id : 'other_parent') : address?.neighborhood?.id}"/>
-	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.zone' : 'zone'}" input-propId="${parentBean? (parentBean=='partner'? partner?.address?.zone?.id : 'other_parent') : address?.zone?.id}"/>
+	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.city' : 'city'}" input-propId="${parentBean? (parentBean=='managedProperty'? managedProperty?.address?.city?.id : (parentBean=='client'? client?.address?.city?.id : (parentBean=='partner'? partner?.address?.city?.id : 'other_parent'))) : address?.city?.id}"/>
+	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.neighborhood' : 'neighborhood'}" input-propId="${parentBean? (parentBean=='managedProperty'? managedProperty?.address?.neighborhood?.id : (parentBean=='client'? client?.address?.neighborhood?.id : (parentBean=='partner'? partner?.address?.neighborhood?.id : 'other_parent'))) : address?.neighborhood?.id}"/>
+	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.zone' : 'zone'}" input-propId="${parentBean? (parentBean=='managedProperty'? managedProperty?.address?.zone?.id : (parentBean=='client'? client?.address?.zone?.id : (parentBean=='partner'? partner?.address?.zone?.id : 'other_parent'))) : address?.zone?.id}"/>
 </fieldset>

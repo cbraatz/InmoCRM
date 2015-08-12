@@ -34,8 +34,36 @@ class ClientController {
             respond client.errors, view:'create'
             return
         }
-
-        client.save flush:true
+		
+		//////
+		client.address = new Address();
+		client.address.properties=params.address;
+		client.address.validate();
+		if (client.address.hasErrors()) {
+			transactionStatus.setRollbackOnly();
+			respond client.errors, view:'create', controller:'client'
+			return
+		}
+		
+		if(client.address.save(flush: true)){
+			println "Address SAVED";
+			if(client.save(flush: true)){
+				println "client SAVED";
+			}else{
+				println "client DONT SAVED";
+				client.errors.each {
+					println it
+				}
+				client.delete flush:true
+			}
+		}else{
+			println "Address DONT SAVED";
+			client.address.errors.each {
+				println it
+			}
+		}
+		
+		///////
 
         request.withFormat {
             form multipartForm {

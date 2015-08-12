@@ -37,7 +37,6 @@ class PartnerController {
         }
 		
 		//////
-		println "UserController save params: " + params;
 		partner.address = new Address();
 		partner.address.properties=params.address;
 		partner.address.validate();
@@ -53,13 +52,16 @@ class PartnerController {
 				println "Partner SAVED";
 			}else{
 				println "Partner DONT SAVED";
-				partner.address.errors.each {
+				partner.errors.each {
 					println it
 				}
 				partner.delete flush:true
 			}
 		}else{
 			println "Address DONT SAVED";
+			partner.address.errors.each {
+				println it
+			}
 		}
 		
 		///////

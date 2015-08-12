@@ -18,7 +18,7 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${clientList}" />
+            <f:table collection="${clientList}" properties="['name', 'lastName', 'phone', 'address.city', 'receiveNotifications','isProspectiveClient']"/>
 
             <div class="pagination">
                 <g:paginate total="${clientCount ?: 0}" />

@@ -3,7 +3,7 @@ package crm
 //import org.apache.jasper.tagplugins.jstl.core.Otherwise;
 
 class CrmUser {
-	String login;
+	String name;
 	String password;
 	String emailAddress;
 	boolean isAdmin;
@@ -11,10 +11,10 @@ class CrmUser {
 	boolean isDefault;
 	Partner partner;
 	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription/*,UserContextRole, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
-	static mappedBy = [createdPropertyDemands: "creator", assignedPropertyDemands: "assignee"];
+	static mappedBy = [createdPropertyDemands: "owner", assignedPropertyDemands: "assignee"];
 
 	static constraints = {
-		login(blank:false, nullable:false, unique:true, size:5..20);
+		name(blank:false, nullable:false, unique:true, size:5..20);
 		password(blank:false, nullable:false, size:5..30);
 		emailAddress(blank:false, nullable:false, unique:true, email: true);
 		isAdmin(nullable:false);

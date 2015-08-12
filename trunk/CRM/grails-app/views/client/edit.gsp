@@ -26,11 +26,18 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
+            <g:hasErrors bean="${this.client?.address}">
+            <ul class="errors" role="alert">
+                <g:eachError bean="${this.client?.address}" var="error">
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                </g:eachError>
+            </ul>
+            </g:hasErrors>
             <g:form resource="${this.client}" method="PUT">
                 <g:hiddenField name="version" value="${this.client?.version}" />
-                <fieldset class="form">
-                    <f:all bean="client"/>
-                </fieldset>
+                
+                <g:render template="form"/>
+                
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>

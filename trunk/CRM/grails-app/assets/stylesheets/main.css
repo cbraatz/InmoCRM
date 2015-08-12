@@ -222,12 +222,14 @@ fieldset,
 .fieldcontain .property-label {
     color: #666666;
     text-align: right;
-    width: 25%;
+    width: 30%;/*related with property-value margin-left*/
     font-weight: bold;
     padding-top:7px;
     padding-bottom:7px;
 }
-.fieldcontain .property-value {/*added by me*/
+.fieldcontain .property-value {
+    display: block;
+    margin-left: 32%;
     padding-top:7px;
     padding-bottom:7px;
     max-width: 450px;
@@ -236,11 +238,6 @@ fieldset,
 }
 .fieldcontain .property-label {
     float: left;
-}
-
-.fieldcontain .property-value {
-    display: block;
-    margin-left: 27%;
 }
 
 label {

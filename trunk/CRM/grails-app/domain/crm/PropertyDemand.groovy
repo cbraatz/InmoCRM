@@ -36,7 +36,7 @@ class PropertyDemand {
 	Float averagePrice;
 	Currency currency;
 	Client client;
-	CrmUser creator;
+	CrmUser owner;
 	CrmUser assignee;
 	String specifyBroadcastMedia;
 	BuildingCondition buildingCondition;
@@ -81,7 +81,7 @@ class PropertyDemand {
 		averagePrice(blank: true, nullable:true);
 		currency(nullable:true);
 		client(nullable:false);
-		creator(nullable:false);
+		owner(nullable:false);
 		assignee(nullable:true);
 		specifyBroadcastMedia(blank: true, nullable:true, widget:'textArea', size:0..80);
 		buildingCondition(nullable:true);
