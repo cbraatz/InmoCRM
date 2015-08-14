@@ -10,7 +10,7 @@ class Address {
 	String code;
 	String latitude;
 	String longitude;
-	String homePhone;
+	Integer homePhone;
 	City city;
 	Neighborhood neighborhood;
 	Zone zone;
@@ -26,7 +26,7 @@ class Address {
 		code (blank:true, nullable:true, size:0..10);
 		latitude (blank:true, nullable:true, size:0..50);
 		longitude (blank:true, nullable:true, size:0..50);
-		homePhone (blank:true, nullable:true, size:0..30);
+		homePhone (blank:true, nullable:true);
 		city (nullable:false);
 		neighborhood (nullable:true);
 		zone (nullable:true);

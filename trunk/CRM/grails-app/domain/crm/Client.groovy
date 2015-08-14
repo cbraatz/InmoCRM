@@ -3,12 +3,12 @@ package crm
 class Client {
 	String name;
 	String lastName;
-	String IDNumber;
+	Integer IDNumber;
 	Date birthDate;
 	String description;
-	String phone;
-	String phone2;
-	String notificationPhone;
+	Integer phone;
+	Integer phone2;
+	Integer notificationPhone;
 	String emailAddress;
 	Country nationality;
 	Profession profession;
@@ -30,12 +30,12 @@ class Client {
     static constraints = {
 		name(blank:false, nullable:false, size:1..50);
 		lastName(blank:false, nullable:false, size:1..50);
-		IDNumber(blank:true, nullable:true, size:0..30);
+		IDNumber(blank:true, nullable:true);
 		birthDate(blank:true, nullable:true);
 		description(blank:true, nullable:true, size:0..200);
-		phone(blank:false, nullable:false, size:5..30);
-		phone2(blank:true, nullable:true, size:0..30);
-		notificationPhone(blank:true, nullable:true, size:0..30);
+		phone(blank:false, nullable:false);
+		phone2(blank:true, nullable:true);
+		notificationPhone(blank:true, nullable:true);
 		emailAddress(blank:true, nullable:true, email: true);
 		nationality(nullable:true);
 		profession(nullable:true);

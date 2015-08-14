@@ -239,6 +239,9 @@ fieldset,
 .fieldcontain .property-label {
     float: left;
 }
+#display-map-link{
+	margin-left: 30%;
+}
 
 label {
     cursor: pointer;

@@ -24,27 +24,29 @@
             <fieldset class="fieldcontain">
             	<span id="name-label" class="property-label"><g:message code="partner.name.label" default="Name"/></span>
 		        <f:display bean="partner" property="name"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.lastName.label" default="lastName"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.lastName.label" default="LastName"/></span>
 		        <f:display bean="partner" property="lastName"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.IDNumber.label" default="IDNumber"/></span>
 		        <f:display bean="partner" property="IDNumber"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.birthDate.label" default="birthDate"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.birthDate.label" default="BirthDate"/></span>
 		        <f:display bean="partner" property="birthDate"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.phone.label" default="phone"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.phone.label" default="Phone"/></span>
 		        <f:display bean="partner" property="phone"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.emailAddress.label" default="emailAddress"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.phone2.label" default="Secondary Phone"/></span>
+		        <f:display bean="partner" property="phone2"/>
+		        <span id="name-label" class="property-label"><g:message code="partner.emailAddress.label" default="EmailAddress"/></span>
 		        <f:display bean="partner" property="emailAddress"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.gender.label" default="gender"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.gender.label" default="Gender"/></span>
 		        <f:display bean="partner" property="gender"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.profession.label" default="profession"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.profession.label" default="Profession"/></span>
 		        <f:display bean="partner" property="profession"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.partnerRole.label" default="partnerRole"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.partnerRole.label" default="Partner Role"/></span>
 		        <f:display bean="partner" property="partnerRole"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.maritalStatus.label" default="maritalStatus"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.maritalStatus.label" default="Marital Status"/></span>
 		        <f:display bean="partner" property="maritalStatus"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.invitedBy.label" default="invitedBy"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.invitedBy.label" default="Invited By"/></span>
 		        <f:display bean="partner" property="invitedBy"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.isActive.label" default="isActive"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.isActive.label" default="IsActive"/></span>
 		        <f:display bean="partner" property="isActive"/>
             </fieldset>
             <h1><g:message code="address.label"/></h1>

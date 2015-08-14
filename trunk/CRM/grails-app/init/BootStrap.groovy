@@ -50,21 +50,21 @@ class BootStrap {
 		this.saveObj(new Profession(name: "Agente de Seguros"));
 		
 		//neighborhood
-		this.saveObj(new Neighborhood(name:"Centro", description:"test", city:City.findByName("Obligado")));		
-		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test", city:City.findByName("Obligado")));		
-		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test", city:City.findByName("Obligado")));
+		this.saveObj(new Neighborhood(name:"Centro", description:"test"));		
+		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test"));		
+		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test"));
 		
 		//Zone
 		this.saveObj(new Zone(name: "Colonias Unidas", description: "Obligado + Hohenau + Bella Vista"));
 		
 		//Address
-		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude: "-27,054249533179895", longitude:"-55,6293557718102", homePhone:"0988541258", city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
+		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:Float.parseFloat("0988541258"), city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
 		
 		//PartnerRole
 		this.saveObj(new PartnerRole(name: "Admin", isEmployee:"false", description:"Default Partner."));
 		
 		//Partner
-		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:"true", partnerRole:PartnerRole.findByName("Admin")));
+		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:0, IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:"true", partnerRole:PartnerRole.findByName("Admin")));
 		
 		//crmuser
 		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:"true", isActive:"true", isDefault:"true"));
@@ -74,7 +74,7 @@ class BootStrap {
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//client
-		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:"true", readsEmail:"true", readsSms:"true", receiveNotifications:"true", isProspectiveClient:"false"));
+		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/1980"), phone:Float.parseFloat("0985000000"), phone2:Float.parseFloat("0985000001"), notificationPhone:Float.parseFloat("0985000002"), emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:"true", readsEmail:"true", readsSms:"true", receiveNotifications:"true", isProspectiveClient:"false"));
 		
 		//TaxRate
 		this.saveObj(new TaxRate(name: "10 %", percentage:10));		

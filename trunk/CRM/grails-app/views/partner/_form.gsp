@@ -5,6 +5,7 @@
 	<f:field bean="partner" property="IDNumber"/>
 	<f:field bean="partner" property="birthDate"/>
 	<f:field bean="partner" property="phone"/>
+	<f:field bean="partner" property="phone2"/>
 	<f:field bean="partner" property="emailAddress"/>
 	<f:field bean="partner" property="gender" input-propId="${partner?.gender?.id}"/>
 	<f:field bean="partner" property="profession" input-propId="${partner?.profession?.id}"/>

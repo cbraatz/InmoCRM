@@ -5,9 +5,10 @@ import java.util.Date;
 class Partner {
 	String name;
 	String lastName;
-	String IDNumber;
+	Integer IDNumber;
 	Date birthDate;
-	String phone;
+	Integer phone;
+	Integer phone2;
 	String emailAddress;
 	Gender gender;
 	Profession profession;
@@ -21,9 +22,10 @@ class Partner {
 	static constraints = {
 		name (blank: false, nullable:false, size:1..50);
 		lastName(blank:false, nullable:false, size:1..50);
-		IDNumber(blank:false, nullable:false, size:1..40);
+		IDNumber(blank:false, nullable:false);
 		birthDate(blank:false, nullable:false);
-		phone(blank:false, nullable:false, size:1..40);
+		phone(blank:false, nullable:false);
+		phone2(blank:true, nullable:true);
 		emailAddress(blank:false, nullable:false, email: true);
 		gender(nullable:true);
 		profession(nullable:true);

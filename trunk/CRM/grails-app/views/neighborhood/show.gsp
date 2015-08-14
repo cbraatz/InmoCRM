@@ -23,8 +23,6 @@
 			<fieldset class="fieldcontain">
             	<span id="name-label" class="property-label"><g:message code="neighborhood.name.label" default="Name"/></span>
 		        <f:display bean="neighborhood" property="name"/>
-		        <span id="name-label" class="property-label"><g:message code="neighborhood.city.label" default="City"/></span>
-		        <f:display bean="neighborhood" property="city"/>
 		        <span id="name-label" class="property-label"><g:message code="neighborhood.description.label" default="Description"/></span>
 		        <f:display bean="neighborhood" property="description"/>
             </fieldset>
