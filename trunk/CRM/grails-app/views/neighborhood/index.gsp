@@ -19,7 +19,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             
-            <f:table collection="${neighborhoodList}" properties="['name', 'city', 'description']"/>
+            <f:table collection="${neighborhoodList}" properties="['name', 'description']"/>
             
             <div class="pagination">
                 <g:paginate total="${neighborhoodCount ?: 0}" />
