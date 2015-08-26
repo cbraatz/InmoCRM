@@ -10,7 +10,7 @@ class PaymentMethod {
 	
 	static hasMany=[moneyTransactions:MoneyTransaction, incomePayments:IncomePayment, expensePayments:ExpensePayment/*,ThirdPartyPayment,MoneyTransactionTotal*/];
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 		discountPercentage(blank:false, nullable:false);
 		isDefault(nullable:false);
 		hasNumber(nullable:false);

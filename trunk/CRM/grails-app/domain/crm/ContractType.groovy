@@ -9,7 +9,7 @@ class ContractType {
 	String billingDefaultDescription;
 	static hasMany = [contracts:Contract];
     static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 		isExclusive(nullable:false);
 		description(blank:false, nullable:false, widget:'textArea', size:10..200);
 		templateURL(blank:true, nullable:true, size:0..200);

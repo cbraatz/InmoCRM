@@ -8,7 +8,7 @@ class Vendor {
 	String emailAddress;
 	static hasMany = [expenses:Expense, incomingInvoices:IncomingInvoice];
     static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 		TIN(blank:false, nullable:false, size:1..40);
 		phone(blank:false, nullable:false, size:1..40);
 		description(blank:false, nullable:false, widget:'textArea', size:1..200);

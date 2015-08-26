@@ -5,6 +5,6 @@ class Country {
 	static hasMany = [departments: Department, clients:Client, currencies:Currency, broadcastMedias:BroadcastMedia];
 	
     static constraints = {
-		name(blank: false, nullable:false, unique: true, size:1..40);
+		name(blank: false, nullable:false, unique: true, size:1..50);
     }
 }

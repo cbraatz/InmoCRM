@@ -6,7 +6,7 @@ class ClientCategory {
 	static hasMany = [clients: Client];
 	
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 		description(blank:false, nullable:false, size:10..200);
 	}
 }

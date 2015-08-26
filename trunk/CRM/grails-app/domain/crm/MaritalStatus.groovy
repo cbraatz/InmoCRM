@@ -5,6 +5,6 @@ class MaritalStatus {
 	static hasMany = [clients:Client, partners:Partner];
 	
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 	}
 }

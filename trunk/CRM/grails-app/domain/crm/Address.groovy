@@ -7,7 +7,7 @@ class Address {
 	String addressLine;
 	String reference;
 	String description;
-	String code;
+	Integer code;
 	String latitude;
 	String longitude;
 	Integer homePhone;
@@ -23,7 +23,7 @@ class Address {
 		addressLine (blank:false, nullable:false, widget:'textArea', size:10..500);
 		reference (blank:false, nullable:false, size:10..100);
 		description (blank:true, nullable:true, widget:'textArea', size:0..300);
-		code (blank:true, nullable:true, size:0..10);
+		code (blank:true, nullable:true);
 		latitude (blank:true, nullable:true, size:0..50);
 		longitude (blank:true, nullable:true, size:0..50);
 		homePhone (blank:true, nullable:true);

@@ -5,7 +5,7 @@ class Language {
 	Boolean isDefault;
 	static hasMany = [advertisements:Advertisement];
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 		isDefault(nullable:false);
 	}
 }

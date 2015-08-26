@@ -17,6 +17,7 @@ class Client {
 	Gender gender;
 	Address address;
 	ClientCategory category;
+	String timeAvailability;
 	boolean isActive;
 	boolean readsEmail;
 	boolean readsSms;
@@ -44,6 +45,7 @@ class Client {
 		gender(nullable:true);
 		address(nullable:true);
 		category(nullable:true);
+		timeAvailability(blank:true, nullable:true, size:0..50);
 		isActive(nullable:false);
 		readsEmail(nullable:true);
 		readsSms(nullable:true);

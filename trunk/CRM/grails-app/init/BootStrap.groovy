@@ -58,7 +58,7 @@ class BootStrap {
 		this.saveObj(new Zone(name: "Colonias Unidas", description: "Obligado + Hohenau + Bella Vista"));
 		
 		//Address
-		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:Float.parseFloat("0988541258"), city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
+		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:6000, latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:Float.parseFloat("0988541258"), city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
 		
 		//PartnerRole
 		this.saveObj(new PartnerRole(name: "Admin", isEmployee:"false", description:"Default Partner."));
@@ -179,10 +179,20 @@ class BootStrap {
 		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:"true"));
 		
 		//ExpenseType
-		this.saveObj(new ExpenseType(name:"Comisiones por Intermediación", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));//mejorar busqueda o no incluir esto por defecto
+		this.saveObj(new ExpenseType(name:"Comisión por Intermediación", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));//mejorar busqueda o no incluir esto por defecto
+		
 		//CommissionType
 		this.saveObj(new CommissionType(name:"Comisión de Venta de Inmueble", description:"Comisión por cerrar una venta de un inmueble", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));
 		this.saveObj(new CommissionType(name:"Comisión de Captación de Inmueble", description:"Comisión por captación de un inmueble vendido", internalID:"2", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));
+		
+		//IncomeType
+		this.saveObj(new IncomeType(name:"Honoraios por venta de Concesión", description:"Cobro de honorarios por intermediación en la venta de una concesión inmobiliaria", isConcessionRelated:"true", billingDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
+		this.saveObj(new IncomeType(name:"Honorarios por tasación", description:"Cobro de honorarios por servicio de tasación inmobiliaria", isConcessionRelated:"false", billingDefaultDescription:"Honorarios por servicios de tasación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
+		
+		//PaymentPlan
+		this.saveObj(new PaymentPlan(name:"2 pagos anuales con 50% de entrega", initialFreeTimeInDays:0, regularPaymentsInDays:0, regularPaymentsInMonths:12, initialPaymentPercentage:50, numberOfParts:3, interestPercentage:0));
+		this.saveObj(new PaymentPlan(name:"12 pagos mensuales y 20% entrega en 15", initialFreeTimeInDays:15, regularPaymentsInDays:0, regularPaymentsInMonths:1, initialPaymentPercentage:20, numberOfParts:12, interestPercentage:0));
+		this.saveObj(new PaymentPlan(name:"5 pagos quincenales sin entrega", initialFreeTimeInDays:0, regularPaymentsInDays:15, regularPaymentsInMonths:0, initialPaymentPercentage:0, numberOfParts:5, interestPercentage:0));
 	}
 	private void saveObj(Object obj){
 		if (!obj.save(flush: true)) {

@@ -11,6 +11,7 @@
 	<f:field bean="client" property="phone2"/>
 	<f:field bean="client" property="notificationPhone"/>
 	<f:field bean="client" property="emailAddress"/>
+	<f:field bean="client" property="timeAvailability"/>
 	<f:field bean="client" property="nationality"/>
 	<f:field bean="client" property="gender" input-propId="${client?.gender?.id}"/>
 	<f:field bean="client" property="profession" input-propId="${client?.profession?.id}"/>

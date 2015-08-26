@@ -18,6 +18,7 @@ class Concession {
 	String barter;
 	String financing;
 	Client client;
+	String propertyOwner;
 	CrmUser owner;
 	boolean isActive;
 	
@@ -42,6 +43,7 @@ class Concession {
 		barter(blank:true, nullable:true, size:0..50);
 		financing(blank:true, nullable:true, size:0..50);
 		client(nullable:false);
+		propertyOwner(blank:false, nullable:false, size:1..80);
 		owner(nullable:false);
 		isActive(nullable:false);
 	}

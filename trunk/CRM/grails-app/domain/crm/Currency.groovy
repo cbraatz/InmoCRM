@@ -16,8 +16,8 @@ class Currency {
 					   incomingInvoices: "currency", incomingInvoicesDefault: "defaultCurrency",
 					   currencyExchagesSource: "sourceCurrency", currencyExchagesTarget: "targetCurrency"];
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
-		plural(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
+		plural(blank:false, nullable:false, unique:true, size:1..50);
 		symbol(blank:false, nullable:false, unique:true, size:1..10);
 		decimals(blank:false, nullable:false);
 		isDefault(nullable:false);

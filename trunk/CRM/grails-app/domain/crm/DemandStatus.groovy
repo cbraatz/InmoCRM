@@ -6,7 +6,7 @@ class DemandStatus {
 	boolean isClosed;
 	static hasMany = [propertyDemands:PropertyDemand/*InsuranceDemand*/];
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
 		isNew(nullable:false);
 		isClosed(nullable:false);
 	}

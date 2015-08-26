@@ -37,8 +37,10 @@
 		        <f:display bean="client" property="phone2"/>
 		        <span id="name-label" class="property-label"><g:message code="client.notificationPhone.label" default="Notification phone"/></span>
 		        <f:display bean="client" property="notificationPhone"/>
-		        <span id="name-label" class="property-label"><g:message code="client.emailAddress.label" default="EmailAddress"/></span>
+		        <span id="name-label" class="property-label"><g:message code="client.emailAddress.label" default="Email Address"/></span>
 		        <f:display bean="client" property="emailAddress"/>
+		        <span id="name-label" class="property-label"><g:message code="client.timeAvailability.label" default="Time Availability"/></span>
+		        <f:display bean="client" property="timeAvailability"/>
 		        <span id="name-label" class="property-label"><g:message code="client.nationality.label" default="Nationality"/></span>
 		        <f:display bean="client" property="nationality"/>
 		        <span id="name-label" class="property-label"><g:message code="client.gender.label" default="Gender"/></span>

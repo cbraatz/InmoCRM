@@ -31,6 +31,8 @@
 		        <f:display bean="expenseType" property="taxRate"/>
 		        <span id="name-label" class="property-label"><g:message code="expenseType.description.label" default="Description"/></span>
 		        <f:display bean="expenseType" property="description"/>
+		        <span id="name-label" class="property-label"><g:message code="expenseType.isCompanyExpense.label" default="Is Company Expense"/></span>
+		        <f:display bean="expenseType" property="isCompanyExpense"/>
             </fieldset>
             
             <g:form resource="${this.expenseType}" method="DELETE">

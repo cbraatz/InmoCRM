@@ -6,7 +6,7 @@ class City {
 	static hasMany = [addresses:Address, propertyDemands:PropertyDemand/*,Office*/];
 
     static constraints = {
-		name(blank: false, nullable: false, unique: 'department', size:1..40);
+		name(blank: false, nullable: false, unique: 'department', size:1..50);
 		department(nullable: false);
     }
 }

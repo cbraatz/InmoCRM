@@ -6,11 +6,11 @@ class Expense {
 	Float amount;
 	Currency currency;
 	Vendor vendor;
-	boolean isCredit;
-	boolean isPaid;
 	Commission commission;
 	ExpenseType expenseType;
 	PaymentPlan paymentPlan;
+	boolean isCredit;
+	boolean isPaid;
 	static hasMany = [expensePayments:ExpensePayment/*,GoodsPurchaseDetail*/];
     static constraints = {
 		date(blank:false, nullable:false);
@@ -18,10 +18,10 @@ class Expense {
 		amount(blank:false, nullable:false);
 		currency(nullable:false);
 		vendor(nullable:true);
-		isCredit(nullable:false);
-		isPaid(nullable:false);
 		commission(nullable:true);
 		expenseType(nullable:false);
 		paymentPlan(nullable:true);
+		isCredit(nullable:false);
+		isPaid(nullable:false);
     }
 }

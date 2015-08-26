@@ -14,12 +14,12 @@ class IncomePayment {
     static constraints = {
 		internalId(blank:false, nullable:false, unique:true, size:1..40);
 		dueDate(blank:false, nullable:false);
-		paymentDate(blank:false, nullable:false);
+		paymentDate(nullable:true);
 		amount(blank:false, nullable:false);
 		payedAmount(blank:false, nullable:false);
 		currency(nullable:false);
 		income(nullable:false);
-		paymentMethod(nullable:false);
+		paymentMethod(nullable:true);
 		isCanceled(nullable:false);
     }
 }

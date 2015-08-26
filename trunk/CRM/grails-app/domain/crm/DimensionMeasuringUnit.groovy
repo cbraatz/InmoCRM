@@ -9,10 +9,10 @@ class DimensionMeasuringUnit {
 	boolean isArea;
 	static hasMany = [buildingTypes:BuildingType, propertyTypes:PropertyType];
     static constraints = {
-		name(blank:false, nullable:false, unique:true, size:1..40);
-		nameInPlural(blank:false, nullable:false, unique:true, size:1..40);
-		abbreviation(blank:false, nullable:false, unique:true, size:1..40);
-		abbreviationInPlural(blank:false, nullable:false, unique:true, size:1..40);
+		name(blank:false, nullable:false, unique:true, size:1..50);
+		nameInPlural(blank:false, nullable:false, unique:true, size:1..50);
+		abbreviation(blank:false, nullable:false, unique:true, size:1..50);
+		abbreviationInPlural(blank:false, nullable:false, unique:true, size:1..50);
 		isDefault(nullable:false);
 		isArea(nullable:false);
     }
