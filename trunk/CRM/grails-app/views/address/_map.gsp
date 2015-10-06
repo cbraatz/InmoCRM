@@ -1,5 +1,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<asset:stylesheet href="map.css"/>		 
+<asset:stylesheet href="modal.css"/>		 
 <!-- Bootstrap core CSS -->
 <!--<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet" media="screen"/> original remplazado por el de arreiba "map.css"-->
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -30,9 +30,12 @@
 	</div><!-- /container -->
 		 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
+		<asset:javascript src="jquery-2.1.3.js"/>
+		<!-- Include all compiled plugins (below), or include individual files as needed 
+		<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+		<asset:javascript src="bootstrap_min.js"/>
+		
 		<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<script>
 			var var_map;

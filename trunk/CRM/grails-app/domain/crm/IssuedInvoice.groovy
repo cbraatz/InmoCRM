@@ -9,13 +9,14 @@ class IssuedInvoice {
 	Float amountInDefaultCurrency;
 	Float deductibleTax;
 	Float totalTax;
-	boolean isAccounting;
-	boolean isCanceled;
+	Boolean isAccounting;
+	Boolean isCanceled;
 	Currency currency;
 	Currency defaultCurrency;
-	IncomePayment incomePayment;
 	Client client;
-	//ThirdPartyPayment thirdPartyPayment; //nullable:true
+	IncomePayment incomePayment;
+	//ThirdPartyPayment thirdPartyPayment
+	
     static constraints = {
 		number(blank: false, nullable:false, unique:'client', size:1..40);
 		date(blank: false, nullable:false);
@@ -27,7 +28,8 @@ class IssuedInvoice {
 		isCanceled(nullable:false);
 		currency(nullable:false);
 		defaultCurrency(nullable:false);
-		incomePayment(nullable:true);
 		client(nullable:false);
+		incomePayment(nullable:true);
+		//thirdPartyPayment(true);
     }
 }

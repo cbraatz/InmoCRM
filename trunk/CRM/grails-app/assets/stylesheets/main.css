@@ -23,7 +23,9 @@ html {
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 }
-
+#display-change-modal-dialog{
+	display:none;/*hide link*/
+}
 html.no-cssgradients {
     background-color: #aaa;
 }
@@ -535,7 +537,8 @@ th:hover, tr:hover {
 }
 
 .buttons input,
-.buttons a {
+.buttons a,
+.buttons button {
     background-color: transparent;
     border: 0;
     color: #666666;

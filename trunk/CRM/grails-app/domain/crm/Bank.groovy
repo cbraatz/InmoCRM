@@ -3,7 +3,7 @@ package crm
 class Bank {
 	String name;
 	
-	static hasMany = [bankAccounts:BankAccount];
+	static hasMany = [bankAccounts:BankAccount, paymentDocuments:PaymentDocument];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
 	}

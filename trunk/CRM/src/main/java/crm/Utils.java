@@ -1,6 +1,7 @@
 package crm;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,4 +41,27 @@ public class Utils {
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
     }
+    public static String getDateInStr(Date date){
+    	DateFormat sdf=new SimpleDateFormat(Utils.getDefaultDateFormat());
+    	return sdf.format(date);
+    }
+    public static String getDateInStrDBFormat(Date date){
+    	DateFormat sdf=new SimpleDateFormat(Utils.getDBDateFormat());
+    	return sdf.format(date);
+    }
+    public static Date removeTimeFromDate(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+    public static String getDefaultDateFormat(){
+		return "dd/MM/yyyy";
+	}
+	public static String getDBDateFormat(){
+		return "yyyy/MM/dd";
+	}
 }

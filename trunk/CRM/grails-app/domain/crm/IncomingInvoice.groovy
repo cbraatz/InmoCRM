@@ -7,8 +7,8 @@ class IncomingInvoice {
 	Float amountInDefaultCurrency;
 	Float deductibleTax;
 	Float totalTax;
-	boolean isAccounting;
-	boolean isSelfInvoice;
+	Boolean isAccounting;
+	Boolean isSelfInvoice;
 	Currency currency;
 	Currency defaultCurrency;
 	ExpensePayment expensePayment;
@@ -24,7 +24,7 @@ class IncomingInvoice {
 		isSelfInvoice(nullable:false);
 		currency(nullable:false);
 		defaultCurrency(nullable:false);
-		expensePayment(nullable:false);
+		expensePayment(nullable:true);
 		vendor(nullable:false);
     }
 }

@@ -1,5 +1,7 @@
 package crm
 
+import org.hibernate.collection.internal.PersistentSet
+
 class Expense {
 	Date date;
 	String description;
@@ -24,4 +26,14 @@ class Expense {
 		isCredit(nullable:false);
 		isPaid(nullable:false);
     }
+	
+	public boolean areAllExpensePaymentsPaid(){
+		PersistentSet list=this.expensePayments;
+		list.each{
+			if(!it.isPaid){
+				return false
+			}
+		}
+		return true;
+	}
 }

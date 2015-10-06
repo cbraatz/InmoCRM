@@ -40,9 +40,19 @@ class IncomeController {
 
         income.save flush:true
 		
+		this.createPayments(income);//create and save payments
 		
-		
-		if(income.isCredit){	
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'income.label', default: 'Income'), income.id])
+                redirect income
+            }
+            '*' { respond income, [status: CREATED] }
+        }
+    }
+	
+	private void createPayments(Income income){
+		if(income.isCredit){
 			int n=income.paymentPlan.numberOfParts.intValue();
 			float am=income.amount.floatValue();
 			float regp=0;
@@ -75,64 +85,96 @@ class IncomeController {
 					ip.dueDate=Utils.addToDate(d, income.paymentPlan.regularPaymentsInDays.intValue(), income.paymentPlan.regularPaymentsInMonths.intValue());
 					ip.amount=regp;
 				}
-				ip.payedAmount=0;
-				ip.paymentDate=null;
-				ip.paymentMethod=null;
 				ip.currency=income.currency;
 				ip.income=income;
 				ip.isCanceled=false;
-				//ip.validate();
-				if (ip.hasErrors()) {
-					println "Income Payment has errors";
-					ip.errors.each {
-						println it
-					}
-					transactionStatus.setRollbackOnly();
-					//respond income.errors, view:'create', controller:'income'
-					//return
-				}else{
-					if(ip.save()){
-						println "Income Payment SAVED";
-					}else{
-						transactionStatus.setRollbackOnly();
-						println "Income Payment DONT SAVED";
-						ip.errors.each {
-							println it
-						}
-					}
-				}
-				payments.add(ip);
+				ip.isPaid=false;
+				this.validateAndAddPaymentToPayments(ip, income);
 				d=new Date(ip.dueDate.getTime());
 			}
-			float totalAmount=0;
-			for(int i=0;i<payments.lenght;i++){
-				fsdfg...
+			
+			//verificar que el total de pagos con redondeos y todo sea igual al monto
+			float am2=0;
+			for(int i=0;i<payments.size();i++){
+				am2=am2+payments.get(i).amount.floatValue();
+			}
+			if(am2 > 0){
+				am2=am2-income.amount.floatValue();//payments amount sum - income amount
+				if(am2 != 0){
+					IncomePayment ip=payments.get(0);
+					ip.amount=ip.amount.floatValue() - am2;
+				}
+			}else{
+				income.errors.rejectValue('',message(code:'income.zero.value.error.label').toString());
+				//this.delete(income);
+				transactionStatus.setRollbackOnly();
+				respond income.errors, view:'create';
+				return;
 			}
 		}else{
 			IncomePayment ip=new IncomePayment();
 			ip.internalId=Utils.getShortUUIDWithNumbers(income.id.toString());
 			ip.dueDate=new Date();
 			ip.amount=Utils.round(income.amount.floatValue(), income.currency.decimals.intValue());
-			ip.payedAmount=0;
-			ip.paymentDate=null;
-			ip.paymentMethod=null;
 			ip.currency=income.currency;
 			ip.income=income;
 			ip.isCanceled=false;
+			ip.isPaid=false;
+			this.validateAndAddPaymentToPayments(ip, income);
 		}
 		
+		//save payments
+		try{
+			for(int i=0;i<payments.size();i++){
+				IncomePayment ip=payments.get(i);
+				ip.save flush:true;
+				println "Saved"+ip.internalId;
+			}
+		}finally{
+			payments=new ArrayList<IncomePayment>();
+		}
+	}
+	
+	private void validateAndAddPaymentToPayments(IncomePayment incomePayment, Income income){
+		incomePayment.validate();
+		if (incomePayment.hasErrors()) {
+			println "Income Payment has errors";
+			incomePayment.errors.each {
+				println it
+			}
+			income.errors=incomePayment.errors;
+			//this.delete(income);
+			transactionStatus.setRollbackOnly();
+			respond income.errors, view:'create';
+			return;
+		}else{
+			payments.add(incomePayment);
+		}
+	}
+	
+	private boolean hasPayedPayments(Income income){
+		income.incomePayments.each{
+			if(it.payedAmount > 0 || it.paymentDate != null){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean removeAllPayments(Income income){
+		income.incomePayments.toList().each { 
+			income.removeFromIncomePayments(it);
+			it.delete(); 
+		}
 		
-		
-		
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'income.label', default: 'Income'), income.id])
-                redirect income
-            }
-            '*' { respond income, [status: CREATED] }
-        }
-    }
-
+		def inc = Income.get(income.id);
+		if(inc.incomePayments.size() > 0){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
     def edit(Income income) {
         respond income
     }
@@ -150,9 +192,26 @@ class IncomeController {
             respond income.errors, view:'edit'
             return
         }
-
-        income.save flush:true
-
+		
+		if(this.hasPayedPayments(income)){
+			income.errors.rejectValue('',message(code:'income.has.payed.payments.error.label').toString());
+			transactionStatus.setRollbackOnly();
+			respond income.errors, view:'create';
+			return;
+		}
+		
+        
+		if(this.removeAllPayments(income)){
+			income.save flush:true
+			this.createPayments(income);//create again and save payments
+		}else{
+			income.errors.rejectValue('',message(code:'income.internal.error.label').toString());
+			transactionStatus.setRollbackOnly();
+			respond income.errors, view:'create';
+			return;
+		}
+		
+		
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'income.label', default: 'Income'), income.id])
@@ -170,8 +229,22 @@ class IncomeController {
             notFound()
             return
         }
-
-        income.delete flush:true
+		
+		if(this.hasPayedPayments(income)){
+			income.errors.rejectValue('',message(code:'income.has.payed.payments.error.label').toString());
+			transactionStatus.setRollbackOnly();
+			respond income.errors, view:'create';
+			return;
+		}
+		
+		if(this.removeAllPayments(income)){
+			income.delete flush:true;
+		}else{
+			income.errors.rejectValue('',message(code:'income.internal.error.label').toString());
+			transactionStatus.setRollbackOnly();
+			respond income.errors, view:'create';
+			return;
+		}
 
         request.withFormat {
             form multipartForm {

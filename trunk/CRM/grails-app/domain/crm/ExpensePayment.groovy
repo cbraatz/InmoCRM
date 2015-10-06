@@ -1,27 +1,34 @@
 package crm
 
 import java.util.Date;
+import org.hibernate.collection.internal.PersistentSet
 
 class ExpensePayment{
 	String internalId;
 	Date dueDate;
-	Date paymentDate;
 	Float amount;
-	Float payedAmount;
 	Currency currency;
 	Expense expense;
-	PaymentMethod paymentMethod;
-	boolean isCanceled;
-	static hasMany = [moneyTransactions:MoneyTransaction, incomingInvoices:IncomingInvoice];
+	Boolean isCanceled;
+	Boolean isPaid;
+	static belongsTo = Expense;
+	static hasMany = [payments:Payment, incomingInvoices:IncomingInvoice];
 	static constraints = {
 		internalId(blank:false, nullable:false, unique:true, size:5..40);
 		dueDate(blank:false, nullable:false);
-		paymentDate(blank:false, nullable:false);
 		amount(blank:false, nullable:false);
-		payedAmount(blank:false, nullable:false);
 		currency(nullable:false);
 		expense(nullable:false);
-		paymentMethod(nullable:false);
 		isCanceled(nullable:false);
+		isPaid(nullable:false);
+	}
+	
+	public float getPayedTotalAmount(){
+		PersistentSet list=this.payments;
+		float amount=0;
+		list.each{
+			amount=amount+it.amount;
+		}
+		return amount;
 	}
 }

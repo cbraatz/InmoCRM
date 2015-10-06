@@ -1,3 +1,5 @@
+import crm.Currency;
+
 import java.util.Date;
 
 import crm.*;
@@ -19,6 +21,15 @@ class BootStrap {
 		
 	}
 	private void addBasicData(){
+		//Bank
+		this.saveObj(new Bank(name: "Banco Atlas"));
+		this.saveObj(new Bank(name: "Banco Continental"));
+		this.saveObj(new Bank(name: "Banco Familiar"));
+		this.saveObj(new Bank(name: "Banco Itapúa"));
+		this.saveObj(new Bank(name: "Banco Itaú"));
+		this.saveObj(new Bank(name: "Banco Regional"));
+		this.saveObj(new Bank(name: "Banco Visión"));
+		
 		//country
 		this.saveObj(new Country(name: "Paraguay"));
 		this.saveObj(new Country(name: "Argentina"));		
@@ -61,20 +72,20 @@ class BootStrap {
 		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:6000, latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:Float.parseFloat("0988541258"), city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
 		
 		//PartnerRole
-		this.saveObj(new PartnerRole(name: "Admin", isEmployee:"false", description:"Default Partner."));
+		this.saveObj(new PartnerRole(name: "Admin", isEmployee:false, description:"Default Partner."));
 		
 		//Partner
-		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:0, IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:"true", partnerRole:PartnerRole.findByName("Admin")));
+		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:0, IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin")));
 		
 		//crmuser
-		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:"true", isActive:"true", isDefault:"true"));
+		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true));
 		
 		//ClientCategory
 		this.saveObj(new ClientCategory(name: "Pequeño", description:"Clientes con sueldo mínimo o menos."));		
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//client
-		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/1980"), phone:Float.parseFloat("0985000000"), phone2:Float.parseFloat("0985000001"), notificationPhone:Float.parseFloat("0985000002"), emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:"true", readsEmail:"true", readsSms:"true", receiveNotifications:"true", isProspectiveClient:"false"));
+		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:Float.parseFloat("0985000000"), phone2:Float.parseFloat("0985000001"), notificationPhone:Float.parseFloat("0985000002"), emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
 		
 		//TaxRate
 		this.saveObj(new TaxRate(name: "10 %", percentage:10));		
@@ -137,20 +148,32 @@ class BootStrap {
 		this.saveObj(new InterestLevel(name: "Poco Interesado", color: "green", level:4));
 		
 		//Currency
-		this.saveObj(new Currency(name: "Guaraní", plural:"Guaraníes", symbol:"Gs", decimals:0, isDefault:"true", country: Country.findByName("Paraguay")));		
-		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", decimals:2, isDefault:"false", country: Country.findByName("Estados Unidos")));
+		this.saveObj(new Currency(name: "Guaraní", plural:"Guaraníes", symbol:"Gs", decimals:0, isDefault:true, country: Country.findByName("Paraguay")));		
+		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", decimals:2, isDefault:false, country: Country.findByName("Estados Unidos")));
+		
+		//CurrencyExchange
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("16/09/2015"), buy:5000, sell:5050, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("13/09/2015"), buy:5100, sell:5150, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("14/09/2015"), buy:5200, sell:5250, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:5300, sell:5350, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		
+		//PaymentMethod
+		this.saveObj(new PaymentMethod(name: "Efectivo", discountPercentage:0, isCash:true, hasStartDate:false, hasEndDate:false, hasBank:false));
+		this.saveObj(new PaymentMethod(name: "Cheque", discountPercentage:0, isCash:false, hasStartDate:true, hasEndDate:false, hasBank:true));
+		this.saveObj(new PaymentMethod(name: "Pagaré", discountPercentage:0, isCash:false, hasStartDate:true, hasEndDate:false, hasBank:false));
+		this.saveObj(new PaymentMethod(name: "Tarjeta de Crédito", discountPercentage:3, isCash:false, hasStartDate:false, hasEndDate:false, hasBank:true));
 		
 		//DemandStatus
-		this.saveObj(new DemandStatus(name: "Nueva", isNew:"true", isClosed:"false"));
-		this.saveObj(new DemandStatus(name: "Necesita más información", isNew:"true", isClosed:"false"));
-		this.saveObj(new DemandStatus(name: "Verificada", isNew:"false", isClosed:"false"));
-		this.saveObj(new DemandStatus(name: "Listo para cerrar", isNew:"false", isClosed:"false"));
-		this.saveObj(new DemandStatus(name: "Concretado", isNew:"false", isClosed:"true"));
-		this.saveObj(new DemandStatus(name: "Cancelada", isNew:"false", isClosed:"true"));
+		this.saveObj(new DemandStatus(name: "Nueva", isNew:true, isClosed:false));
+		this.saveObj(new DemandStatus(name: "Necesita más información", isNew:true, isClosed:false));
+		this.saveObj(new DemandStatus(name: "Verificada", isNew:false, isClosed:false));
+		this.saveObj(new DemandStatus(name: "Listo para cerrar", isNew:false, isClosed:false));
+		this.saveObj(new DemandStatus(name: "Concretado", isNew:false, isClosed:true));
+		this.saveObj(new DemandStatus(name: "Cancelada", isNew:false, isClosed:true));
 		
 		//ContractType
-		this.saveObj(new ContractType(name: "No Eclusivo", isExclusive:"false", description:"Contrato no exclusivo.", commissionPercentage:4, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato no exclusivo."));
-		this.saveObj(new ContractType(name: "Eclusivo", isExclusive:"true", description:"Contrato exclusivo.", commissionPercentage:3, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato exclusivo."));
+		this.saveObj(new ContractType(name: "No Eclusivo", isExclusive:false, description:"Contrato no exclusivo.", commissionPercentage:4, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato no exclusivo."));
+		this.saveObj(new ContractType(name: "Eclusivo", isExclusive:true, description:"Contrato exclusivo.", commissionPercentage:3, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato exclusivo."));
 		
 		//Contract
 		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByName("No Exclusivo")));
@@ -162,21 +185,21 @@ class BootStrap {
 		
 		//ManagedProperty
 		this.saveObj(new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", description:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000, 
-									clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), isSoldByCompany:"false", inWeb:"true"));
+									clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), isSoldByCompany:false, inWeb:true));
 		
 		//PropertyUsage
-		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:"true", isCurrentUsage:"false"));
-		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso comercial"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:"true", isCurrentUsage:"false"));
+		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));
+		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso comercial"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));
 		
 		//Building
 		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), description:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
 		//Concession
-		this.saveObj(new Concession(adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", isNegotiable:"false", startDate:new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2015"), endDate: new SimpleDateFormat("dd/MM/yyyy").parse("15/06/2016"), valueDegree:1, commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
-									contract:Contract.findByInternalID("1"), publishInMLS:"false", publishInPortals:"false", keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), owner:CrmUser.findByName("nobody"), isActive:"true"));
+		this.saveObj(new Concession(adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), valueDegree:1, commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), owner:CrmUser.findByName("nobody"), isActive:true));
 								
 		//InterestType
-		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:"true"));
+		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:true));
 		
 		//ExpenseType
 		this.saveObj(new ExpenseType(name:"Comisión por Intermediación", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));//mejorar busqueda o no incluir esto por defecto
@@ -186,20 +209,22 @@ class BootStrap {
 		this.saveObj(new CommissionType(name:"Comisión de Captación de Inmueble", description:"Comisión por captación de un inmueble vendido", internalID:"2", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));
 		
 		//IncomeType
-		this.saveObj(new IncomeType(name:"Honoraios por venta de Concesión", description:"Cobro de honorarios por intermediación en la venta de una concesión inmobiliaria", isConcessionRelated:"true", billingDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
-		this.saveObj(new IncomeType(name:"Honorarios por tasación", description:"Cobro de honorarios por servicio de tasación inmobiliaria", isConcessionRelated:"false", billingDefaultDescription:"Honorarios por servicios de tasación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
+		this.saveObj(new IncomeType(name:"Honoraios por venta de Concesión", description:"Cobro de honorarios por intermediación en la venta de una concesión inmobiliaria", isConcessionRelated:true, billingDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
+		this.saveObj(new IncomeType(name:"Honorarios por tasación", description:"Cobro de honorarios por servicio de tasación inmobiliaria", isConcessionRelated:false, billingDefaultDescription:"Honorarios por servicios de tasación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
 		
 		//PaymentPlan
 		this.saveObj(new PaymentPlan(name:"2 pagos anuales con 50% de entrega", initialFreeTimeInDays:0, regularPaymentsInDays:0, regularPaymentsInMonths:12, initialPaymentPercentage:50, numberOfParts:3, interestPercentage:0));
 		this.saveObj(new PaymentPlan(name:"12 pagos mensuales y 20% entrega en 15", initialFreeTimeInDays:15, regularPaymentsInDays:0, regularPaymentsInMonths:1, initialPaymentPercentage:20, numberOfParts:12, interestPercentage:0));
 		this.saveObj(new PaymentPlan(name:"5 pagos quincenales sin entrega", initialFreeTimeInDays:0, regularPaymentsInDays:15, regularPaymentsInMonths:0, initialPaymentPercentage:0, numberOfParts:5, interestPercentage:0));
+		
+		//TransactionType
+		this.saveObj(new TransactionType(name:"Cobro de Ingresos", internalID:"INCOME_PAYMENT", isDefault:true, isInternalTransaction:false));
+		this.saveObj(new TransactionType(name:"Cobro de Ingresos", internalID:"EXPENSE_PAYMENT", isDefault:true, isInternalTransaction:false));
+		this.saveObj(new TransactionType(name:"Cambio", internalID:"PAYMENT_CHANGE", isDefault:true, isInternalTransaction:false));
 	}
 	private void saveObj(Object obj){
 		if (!obj.save(flush: true)) {
-			obj.errors.each {
-				println it;
-				log.error it;
-			}
+			GUtils.printErrors(obj, null);
 		}
 		
 	}

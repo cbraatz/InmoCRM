@@ -39,11 +39,13 @@
 		        <f:display bean="income" property="isPaid"/>
 		        <span id="name-label" class="property-label"><g:message code="income.isCredit.label" default="Is credit"/></span>
 		        <f:display bean="income" property="isCredit"/>
-		        <span id="name-label" class="property-label"><g:message code="income.paymentPlan.label" default="Payment plan"/></span>
-		        <f:display bean="income" property="paymentPlan"/>
+		        <g:if test="${income.isCredit}">
+			        <span id="name-label" class="property-label"><g:message code="income.paymentPlan.label" default="Payment plan"/></span>
+			        <f:display bean="income" property="paymentPlan"/>
+		        </g:if>
             </fieldset>
             <h1><g:message code="income.incomePayments.label"/></h1>
-            <f:table collection="${income.incomePayments}" properties="['internalId','amount', 'currency', 'dueDate', 'payedAmount', 'isCanceled']" />
+            <f:table collection="${income.incomePayments}" properties="['internalId','amount', 'currency', 'dueDate', 'isPaid', 'isCanceled']" />
             
             <g:form resource="${this.income}" method="DELETE">
                 <fieldset class="buttons">
