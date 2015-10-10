@@ -7,7 +7,7 @@ class Concession {
 	Date startDate;
 	Date endDate;
 	int valueDegree;
-	Float commissionAmount;
+	Double commissionAmount;
 	Float commissionPercentage;
 	String description;
 	PropertyDemand propertyDemand;

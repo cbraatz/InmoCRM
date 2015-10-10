@@ -9,13 +9,13 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class PaymentController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-	//float paymentTotalAmount=0;
-	float payedTotalAmount=0;
+	//double paymentTotalAmount=0;
+	double payedTotalAmount=0;
 	boolean paid=false;
 	Payment myPayment=new Payment();
 	Currency parentCurrency;
-	private float getPayedAmount(Object paymentParent){
-		float payedAmount=0;
+	private double getPayedAmount(Object paymentParent){
+		double payedAmount=0;
 		paymentParent.payments.each {
 			payedAmount=payedAmount+it.amount;
 		}
@@ -77,6 +77,20 @@ class PaymentController {
 		
 		if (this.paid) {
 			payment.errors.rejectValue('',message(code:'payment.already.paid.error').toString());
+			transactionStatus.setRollbackOnly();
+			respond payment, view:'create';
+			return;
+		}
+		
+		if(!Utils.validateDecimals(payment.inAmount, payment.inCurrency.hasDecimals)){
+			payment.errors.rejectValue('inAmount',message(code:'default.decimal.value.error').toString());
+			transactionStatus.setRollbackOnly();
+			respond payment, view:'create';
+			return;
+		}
+		
+		if(payment.inAmount.doubleValue() <= 0){
+			payment.errors.rejectValue('inAmount',message(code:'default.invalid.value.error').toString());
 			transactionStatus.setRollbackOnly();
 			respond payment, view:'create';
 			return;
@@ -152,6 +166,7 @@ class PaymentController {
 				}else{
 					payment.outAmount=(payment.inAmount - payment.amount)*CurrencyExchange.getCurrencyExchangeRate(new Date(), defaultCurrency, payment.inCurrency).buy;//converting change to default currency
 				}
+				payment.outAmount=Utils.round(payment.outAmount, defaultCurrency);
 			}else{
 				payment.errors.rejectValue('',message(code:'payment.amount.not.enough').toString());
 				transactionStatus.setRollbackOnly();
@@ -159,19 +174,19 @@ class PaymentController {
 				return;
 			}
 		}else{
-			float amountValue=payment.amount;//monto a pagar en moneda por defecto = GS
+			double amountValue=payment.amount;//monto a pagar en moneda por defecto = GS
 			CurrencyExchange ce1, ce2;
 			if(this.parentCurrency.id != defaultCurrency.id){//si la cuota/pago NO es en Gs
 				ce1=CurrencyExchange.getCurrencyExchangeRate(new Date(), defaultCurrency, this.parentCurrency);
 				amountValue=ce1.buy*payment.amount;//obtiene el valor en Gs del monto de la cuota/pago y es buy xq este calculo solo se hace al cobrar y no al pagar
 			}
-			float payedAmountValue=this.payedTotalAmount;//monto pagado en moneda por defecto = GS
+			double payedAmountValue=payment.inAmount; //monto pagado en moneda por defecto = GS
 			if(payment.inCurrency.id != defaultCurrency.id){//si el monto pagado NO es en Gs
 				ce2=CurrencyExchange.getCurrencyExchangeRate(new Date(), defaultCurrency, payment.inCurrency);
 				payedAmountValue=ce2.buy*payment.inAmount;//obtiene el valor en Gs del monto pagado y es buy xq este calculo solo se hace al cobrar y no al pagar
 			}
 			if(payedAmountValue >= amountValue){
-				payment.outAmount=payedAmountValue - amountValue;
+				payment.outAmount=Utils.round(payedAmountValue - amountValue, defaultCurrency);
 			}else{
 				def msg=ce1?(Utils.getDateInStr(ce1.date)+' '+ce1.targetCurrency.name+'=('+ce1.buy+' '+ce1.sourceCurrency.symbol+' , '+ce1.sell+' '+ce1.sourceCurrency.symbol+')'):'' + ce2?(Utils.getDateInStr(ce2.date)+' '+ce2.targetCurrency.name+'=('+ce2.buy+' '+ce2.sourceCurrency.symbol+' , '+ce2.sell+' '+ce2.sourceCurrency.symbol+')'):'';
 				payment.errors.rejectValue('',message(code:'payment.amount.not.enough.other.currency', args:[msg]).toString());
@@ -202,8 +217,13 @@ class PaymentController {
     }
 	@Transactional
 	def confirmPayment() {
-		//payment.incomePayment=this.incomePayment;//payment returns with incomePayment and expensePayment = null
-		//payment.expensePayment=this.expensePayment;
+		if (this.paid) {
+			payment.errors.rejectValue('',message(code:'payment.already.paid.error').toString());
+			transactionStatus.setRollbackOnly();
+			respond payment, view:'create';
+			return;
+		}
+
 		String internalId
 		TransactionType transactionType;
 		if(this.myPayment.incomePayment){
@@ -220,8 +240,8 @@ class PaymentController {
 		if(this.myPayment.inPaymentMethod.isCash){
 			this.myPayment.inPaymentDocument=null;
 		}else{
+			this.myPayment.inPaymentDocument.paymentMethod=this.myPayment.inPaymentMethod;
 			saved=this.myPayment.inPaymentDocument.save(flush:true);
-			GUtils.printErrors(this.myPayment.inPaymentDocument, "myPayment.paymentDocument save");
 		}
 		if(saved){
 			if(!this.myPayment.save(flush:true)){
@@ -238,7 +258,7 @@ class PaymentController {
 		}
 		if(saved){
 			if(this.myPayment.outAmount > 0){
-				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Float(this.myPayment.outAmount * -1), internalId , this.myPayment, this.myPayment.outCurrency, this.myPayment.outPaymentMethod, TransactionType.findByInternalID("PAYMENT_CHANGE"), null, null);
+				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(this.myPayment.outAmount * -1), internalId , this.myPayment, this.myPayment.outCurrency, this.myPayment.outPaymentMethod, TransactionType.findByInternalID("PAYMENT_CHANGE"), null, null);
 				if(!changeMoneyTransaction.save(flush:true)){
 					saved=false;
 					GUtils.printErrors(changeMoneyTransaction, "changeMoneyTransaction save");
@@ -247,7 +267,7 @@ class PaymentController {
 		}
 		if(saved){
 			if(this.myPayment.incomePayment){
-				float payed=this.myPayment.incomePayment.getPayedTotalAmount();
+				double payed=this.myPayment.incomePayment.getPayedTotalAmount();
 				if(payed==myPayment.amount){
 					this.myPayment.incomePayment.isPaid=true;
 					if(this.myPayment.incomePayment.save(flush:true)){
@@ -268,7 +288,7 @@ class PaymentController {
 				}
 			}else{
 				 if(this.myPayment.expensePayment){
-					float payed=this.myPayment.expensePayment.getPayedTotalAmount();
+					double payed=this.myPayment.expensePayment.getPayedTotalAmount();
 					if(payed==myPayment.amount){
 						this.myPayment.expensePayment.isPaid=true;
 						if(this.myPayment.expensePayment.save(flush:true)){
@@ -277,6 +297,8 @@ class PaymentController {
 								if(!this.myPayment.expensePayment.expense.save(flush:true)){
 									saved=false;
 									GUtils.printErrors(this.myPayment.expensePayment.expense, "myPayment.expensePayment.expense save");
+								}else{
+									this.paid=true;
 								}
 							}//else do nothing
 						}else{

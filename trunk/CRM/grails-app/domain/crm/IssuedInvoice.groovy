@@ -5,10 +5,10 @@ import java.util.Date;
 class IssuedInvoice {
 	String number;
 	Date date;
-	Float amount;
-	Float amountInDefaultCurrency;
-	Float deductibleTax;
-	Float totalTax;
+	Double amount;
+	Double amountInDefaultCurrency;
+	Double deductibleTax;
+	Double totalTax;
 	Boolean isAccounting;
 	Boolean isCanceled;
 	Currency currency;

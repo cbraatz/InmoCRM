@@ -2,6 +2,8 @@ package crm;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,10 +38,13 @@ public class Utils {
 		c.add(Calendar.DATE,days);
 		return c.getTime();
     }
-    public static float round(float d, int decimalPlace) {
-        BigDecimal bd = new BigDecimal(Float.toString(d));
+    public static double round(double d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Double.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
-        return bd.floatValue();
+        return bd.doubleValue();
+    }
+    public static double round(double d, Currency currency) {
+    	return Utils.round(d, (currency.getHasDecimals() ? Utils.getDefaultDecimalPlaces() : 0));
     }
     public static String getDateInStr(Date date){
     	DateFormat sdf=new SimpleDateFormat(Utils.getDefaultDateFormat());
@@ -64,4 +69,61 @@ public class Utils {
 	public static String getDBDateFormat(){
 		return "yyyy/MM/dd";
 	}
+
+	public static boolean hasDecimalValue(Double value){
+		if(new BigDecimal(value - Math.floor(value)).doubleValue() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public static String formatDecimals(Double value){
+		System.out.println(value.doubleValue());
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		DecimalFormat df = (DecimalFormat)nf;
+		df.applyPattern("###,###.##");
+		return df.format(value);
+	}
+	public static String formatDecimalsForInput(Double value){
+		System.out.println(value.doubleValue());
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		DecimalFormat df = (DecimalFormat)nf;
+		df.applyPattern("###.##");
+		return df.format(value);
+	}
+	public static int getDefaultDecimalPlaces(){
+		return 2;
+	}
+	public static boolean validateDecimals(Double value, boolean hasDecimals){
+		int n=Utils.getNumberOfDecimalPlaces(value);
+		if(n>0){
+			return (hasDecimals==false || n > Utils.getDefaultDecimalPlaces()? false : true);
+		}else{
+			return true;
+		}
+	}
+	/*public static int getNumberOfDecimalPlaces(BigDecimal bigDecimal) {
+	    String string = bigDecimal.stripTrailingZeros().toPlainString();
+	    int index = string.indexOf(".");
+	    return index < 0 ? 0 : string.length() - index - 1;
+	}*/
+	public static int getNumberOfDecimalPlaces(Double value){
+		String strVal = BigDecimal.valueOf(value).stripTrailingZeros().toPlainString();
+		int integerPlaces = strVal.indexOf('.');
+		if(integerPlaces < 0){//if it does not have dot
+			return 0;
+		}
+		int decimalPlaces = strVal.length() - integerPlaces - 1;
+		if(decimalPlaces == 1){
+			if(strVal.substring(integerPlaces+1).equals("0")){//if value is x.0
+				return 0;
+			}
+		}
+		return decimalPlaces;
+		
+	}
+	public static void main(String args[]){
+		System.out.println(Utils.validateDecimals(new Double("45878521"), false));
+	}
+	
 }

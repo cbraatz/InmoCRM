@@ -7,9 +7,9 @@ class ManagedProperty {
 	String publicAddress;
 	String publicCashPrice;
 	String publicCreditPrice;
-	Float price;
-	Float value;
-	Float clientInitialPrice;
+	Double price;
+	Double value;
+	Double clientInitialPrice;
 	Currency currency;
 	Date addedDate;
 	int placedBillboards;

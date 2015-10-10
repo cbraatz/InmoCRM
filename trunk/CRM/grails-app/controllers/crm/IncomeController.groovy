@@ -21,7 +21,7 @@ class IncomeController {
     }
 
     def create() {
-        respond new Income(params)
+        respond new Income(params);
     }
 
     @Transactional
@@ -31,13 +31,28 @@ class IncomeController {
             notFound()
             return
         }
-
+		income.isPaid=false;
+		income.validate();
         if (income.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond income.errors, view:'create'
             return
         }
-
+		
+		if(!Utils.validateDecimals(income.amount, income.currency.hasDecimals)){
+			income.errors.rejectValue('amount',message(code:'default.decimal.value.error').toString());
+			transactionStatus.setRollbackOnly();
+			respond income, view:'create';
+			return;
+		}
+		
+		if(income.amount.doubleValue() <= 0){
+			income.errors.rejectValue('amount',message(code:'default.invalid.value.error').toString());
+			transactionStatus.setRollbackOnly();
+			respond income, view:'create';
+			return;
+		}
+		
         income.save flush:true
 		
 		this.createPayments(income);//create and save payments
@@ -54,9 +69,9 @@ class IncomeController {
 	private void createPayments(Income income){
 		if(income.isCredit){
 			int n=income.paymentPlan.numberOfParts.intValue();
-			float am=income.amount.floatValue();
-			float regp=0;
-			float aux;
+			double am=income.amount.doubleValue();
+			double regp=0;
+			double aux;
 			Date d=new Date();
 			for(int i=0;i<n;i++){
 				IncomePayment ip=new IncomePayment();
@@ -68,16 +83,16 @@ class IncomeController {
 						ip.dueDate=new Date();
 					}
 					if(income.paymentPlan.initialPaymentPercentage.intValue() > 0){
-						aux=am*income.paymentPlan.initialPaymentPercentage.floatValue()/100;
-						ip.amount=Utils.round(aux, income.currency.decimals.intValue());
-						am=am-ip.amount.value;
+						aux=am*income.paymentPlan.initialPaymentPercentage.doubleValue()/100;
+						ip.amount=Utils.round(aux, income.currency);
+						am=am-ip.amount.doubleValue();
 						if(n>1){
 							aux=am/(n-1);
-							regp=Utils.round(aux, income.currency.decimals.intValue());
+							regp=Utils.round(aux, income.currency);
 						}
 					}else{
 						aux=am/n;
-						regp=Utils.round(aux, income.currency.decimals.intValue());
+						regp=Utils.round(aux, income.currency);
 						ip.amount=regp;
 					}
 					
@@ -94,15 +109,15 @@ class IncomeController {
 			}
 			
 			//verificar que el total de pagos con redondeos y todo sea igual al monto
-			float am2=0;
+			double am2=0;
 			for(int i=0;i<payments.size();i++){
-				am2=am2+payments.get(i).amount.floatValue();
+				am2=am2+payments.get(i).amount.doubleValue();
 			}
 			if(am2 > 0){
-				am2=am2-income.amount.floatValue();//payments amount sum - income amount
+				am2=am2-income.amount.doubleValue();//payments amount sum - income amount
 				if(am2 != 0){
 					IncomePayment ip=payments.get(0);
-					ip.amount=ip.amount.floatValue() - am2;
+					ip.amount=ip.amount.doubleValue() - am2;
 				}
 			}else{
 				income.errors.rejectValue('',message(code:'income.zero.value.error.label').toString());
@@ -115,7 +130,7 @@ class IncomeController {
 			IncomePayment ip=new IncomePayment();
 			ip.internalId=Utils.getShortUUIDWithNumbers(income.id.toString());
 			ip.dueDate=new Date();
-			ip.amount=Utils.round(income.amount.floatValue(), income.currency.decimals.intValue());
+			ip.amount=Utils.round(income.amount.doubleValue(), income.currency);
 			ip.currency=income.currency;
 			ip.income=income;
 			ip.isCanceled=false;
@@ -154,7 +169,7 @@ class IncomeController {
 	
 	private boolean hasPayedPayments(Income income){
 		income.incomePayments.each{
-			if(it.payedAmount > 0 || it.paymentDate != null){
+			if(it.getPayedTotalAmount().doubleValue() > 0 || it.isPaid){
 				return true;
 			}
 		}
@@ -186,14 +201,15 @@ class IncomeController {
             notFound()
             return
         }
-
+		income.isPaid=false;
+		income.validate();
         if (income.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond income.errors, view:'edit'
             return
         }
 		
-		if(this.hasPayedPayments(income)){
+		if(this.hasPayedPayments(income) || income.isPaid){
 			income.errors.rejectValue('',message(code:'income.has.payed.payments.error.label').toString());
 			transactionStatus.setRollbackOnly();
 			respond income.errors, view:'create';

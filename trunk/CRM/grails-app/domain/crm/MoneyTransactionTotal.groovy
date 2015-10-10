@@ -2,7 +2,7 @@ package crm
 
 class MoneyTransactionTotal {
 	Date date;
-	Float amount;
+	Double amount;
 	Currency currency;
 	PaymentMethod paymentMethod;
 	static hasMany = [moneyTransactions:MoneyTransaction/*,usersByCheckout*/];

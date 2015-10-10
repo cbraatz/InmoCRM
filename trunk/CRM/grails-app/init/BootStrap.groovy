@@ -69,7 +69,7 @@ class BootStrap {
 		this.saveObj(new Zone(name: "Colonias Unidas", description: "Obligado + Hohenau + Bella Vista"));
 		
 		//Address
-		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:6000, latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:Float.parseFloat("0988541258"), city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
+		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:Integer.parseInt("0988541258"), city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
 		
 		//PartnerRole
 		this.saveObj(new PartnerRole(name: "Admin", isEmployee:false, description:"Default Partner."));
@@ -85,7 +85,7 @@ class BootStrap {
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//client
-		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:Float.parseFloat("0985000000"), phone2:Float.parseFloat("0985000001"), notificationPhone:Float.parseFloat("0985000002"), emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
+		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:Integer.parseInt("0985000000"), phone2:Integer.parseInt("0985000001"), notificationPhone:Integer.parseInt("0985000002"), emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
 		
 		//TaxRate
 		this.saveObj(new TaxRate(name: "10 %", percentage:10));		
@@ -148,14 +148,14 @@ class BootStrap {
 		this.saveObj(new InterestLevel(name: "Poco Interesado", color: "green", level:4));
 		
 		//Currency
-		this.saveObj(new Currency(name: "Guaraní", plural:"Guaraníes", symbol:"Gs", decimals:0, isDefault:true, country: Country.findByName("Paraguay")));		
-		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", decimals:2, isDefault:false, country: Country.findByName("Estados Unidos")));
+		this.saveObj(new Currency(name: "Guaraní", plural:"Guaraníes", symbol:"Gs", hasDecimals:false, isDefault:true, country: Country.findByName("Paraguay")));		
+		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", hasDecimals:true, isDefault:false, country: Country.findByName("Estados Unidos")));
 		
 		//CurrencyExchange
-		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("16/09/2015"), buy:5000, sell:5050, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
-		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("13/09/2015"), buy:5100, sell:5150, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
-		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("14/09/2015"), buy:5200, sell:5250, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
-		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:5300, sell:5350, sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("16/09/2015"), buy:new Double("5000"), sell:new Double("5050"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("13/09/2015"), buy:new Double("5100"), sell:new Double("5150"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("14/09/2015"), buy:new Double("5200"), sell:new Double("5250"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:new Double("5300"), sell:new Double("5350"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		
 		//PaymentMethod
 		this.saveObj(new PaymentMethod(name: "Efectivo", discountPercentage:0, isCash:true, hasStartDate:false, hasEndDate:false, hasBank:false));

@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat
 
 class CurrencyExchange {
 	Date date;
-	Float buy;
-	Float sell;
+	Double buy;
+	Double sell;
 	Currency sourceCurrency;
 	Currency targetCurrency;
     static constraints = {

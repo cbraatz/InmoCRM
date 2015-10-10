@@ -4,7 +4,7 @@ class PropertyImage {
 	String name;
 	String url;
 	String description;
-	Float sizeInKB;
+	Long sizeInKB;
 	ManagedProperty managedProperty;
     static constraints = {
 		name(blank:true, nullable:true, size:0..30);

@@ -2,9 +2,9 @@ package crm
 
 class Payment {
 	Date date;
-	Float amount;//amount currency = incomePayment or ExpensePayment Currency
-	Float inAmount;
-	Float outAmount;
+	Double amount;//amount currency = incomePayment or ExpensePayment Currency
+	Double inAmount;
+	Double outAmount;
 	PaymentMethod inPaymentMethod;
 	PaymentMethod outPaymentMethod;
 	PaymentDocument inPaymentDocument;
@@ -32,11 +32,11 @@ class Payment {
     }
 	public Payment(){
 		this.inPaymentDocument=new PaymentDocument();//needs to be initialized for Payment form
-		this.outAmount=new Float(0);
+		this.outAmount=new Double(0);
 		this.outCurrency=new Currency();
 		this.outPaymentMethod=new PaymentMethod();
 	}
-	public Payment(Date date, Float amount, Float inAmount, Float outAmount, Currency inCurrency, Currency outCurrency, PaymentMethod inPaymentMethod, PaymentMethod outPaymentMethod, PaymentDocument inPaymentDocument, PaymentDocument outPaymentDocument, IncomePayment incomePayment, ExpensePayment expensePayment){
+	public Payment(Date date, Double amount, Double inAmount, Double outAmount, Currency inCurrency, Currency outCurrency, PaymentMethod inPaymentMethod, PaymentMethod outPaymentMethod, PaymentDocument inPaymentDocument, PaymentDocument outPaymentDocument, IncomePayment incomePayment, ExpensePayment expensePayment){
 		this.date=date;
 		this.amount=amount;
 		this.inAmount=inAmount;

@@ -7,7 +7,7 @@ class Address {
 	String addressLine;
 	String reference;
 	String description;
-	Integer code;
+	String code;
 	String latitude;
 	String longitude;
 	Integer homePhone;

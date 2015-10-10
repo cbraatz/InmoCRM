@@ -1,1 +1,1 @@
-<span class="property-value" aria-labelledby="${property}-label"><g:fieldValue bean="${bean}" field="${property}"/></span>
+<span class="property-value" aria-labelledby="${property}-label">${crm.Utils.getDateInStr(bean.getProperty(property))}</span>

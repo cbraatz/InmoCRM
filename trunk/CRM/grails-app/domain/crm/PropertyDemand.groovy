@@ -32,8 +32,8 @@ class PropertyDemand {
 	boolean isBuildingTypeRequired;
 	String timeAvailability;
 	boolean offersOnly;
-	Float price;
-	Float averagePrice;
+	Double price;
+	Double averagePrice;
 	Currency currency;
 	Client client;
 	CrmUser owner;

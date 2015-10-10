@@ -6,7 +6,7 @@ import org.hibernate.collection.internal.PersistentSet
 class ExpensePayment{
 	String internalId;
 	Date dueDate;
-	Float amount;
+	Double amount;
 	Currency currency;
 	Expense expense;
 	Boolean isCanceled;
@@ -23,9 +23,9 @@ class ExpensePayment{
 		isPaid(nullable:false);
 	}
 	
-	public float getPayedTotalAmount(){
+	public Double getPayedTotalAmount(){
 		PersistentSet list=this.payments;
-		float amount=0;
+		double amount=0;
 		list.each{
 			amount=amount+it.amount;
 		}

@@ -59,7 +59,7 @@ class IncomePaymentController {
 		}
 	}
 
-    @Transactional
+    /*@Transactional
     def cancel(IncomePayment incomePayment) {
 
         if (incomePayment == null) {
@@ -78,7 +78,7 @@ class IncomePaymentController {
             }
             '*'{ render status: NO_CONTENT }
         }
-    }
+    }*/
 
     protected void notFound() {
         request.withFormat {

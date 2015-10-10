@@ -3,10 +3,10 @@ package crm
 class IncomingInvoice {
 	String number;
 	Date date;
-	Float amount;
-	Float amountInDefaultCurrency;
-	Float deductibleTax;
-	Float totalTax;
+	Double amount;
+	Double amountInDefaultCurrency;
+	Double deductibleTax;
+	Double totalTax;
 	Boolean isAccounting;
 	Boolean isSelfInvoice;
 	Currency currency;

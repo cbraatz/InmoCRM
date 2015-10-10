@@ -5,7 +5,7 @@ import org.hibernate.collection.internal.PersistentSet
 class Expense {
 	Date date;
 	String description;
-	Float amount;
+	Double amount;
 	Currency currency;
 	Vendor vendor;
 	Commission commission;

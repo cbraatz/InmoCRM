@@ -4,7 +4,7 @@ import java.util.Date;
 
 class MoneyTransaction {
 	Date date;
-	Float amount;
+	Double amount;
 	String internalID;
 	Payment payment;
 	Currency currency;
@@ -30,7 +30,7 @@ class MoneyTransaction {
 		
 	}
 	
-	public MoneyTransaction(Date date, Float amount, String internalID, Payment payment, Currency currency, PaymentMethod paymentMethod, TransactionType transactionType, BankAccount bankAccount, MoneyTransactionTotal moneyTransactionTotal){
+	public MoneyTransaction(Date date, Double amount, String internalID, Payment payment, Currency currency, PaymentMethod paymentMethod, TransactionType transactionType, BankAccount bankAccount, MoneyTransactionTotal moneyTransactionTotal){
 		this.date=date;
 		this.amount=amount;
 		this.internalID=internalID;

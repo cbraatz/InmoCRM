@@ -18,11 +18,11 @@ class Client {
 	Address address;
 	ClientCategory category;
 	String timeAvailability;
-	boolean isActive;
-	boolean readsEmail;
-	boolean readsSms;
-	boolean receiveNotifications;
-	boolean isProspectiveClient;
+	Boolean isActive;
+	Boolean readsEmail;
+	Boolean readsSms;
+	Boolean receiveNotifications;
+	Boolean isProspectiveClient;
 	
 	
 	static hasMany=[propertyDemands:PropertyDemand, concessions:Concession, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, issuedInvoices:IssuedInvoice,

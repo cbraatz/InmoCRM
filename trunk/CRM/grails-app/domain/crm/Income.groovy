@@ -6,7 +6,7 @@ import org.hibernate.collection.internal.PersistentSet
 class Income {
 	Date date;
 	String description;
-	Float amount;
+	Double amount;
 	Boolean isPaid;
 	Boolean isCredit;
 	PaymentPlan paymentPlan;
