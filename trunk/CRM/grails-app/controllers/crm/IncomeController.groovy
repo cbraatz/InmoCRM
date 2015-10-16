@@ -10,7 +10,8 @@ import grails.transaction.Transactional
 class IncomeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-	List<IncomePayment> payments=new ArrayList<IncomePayment>();
+	private List<IncomePayment> payments=new ArrayList<IncomePayment>();
+	
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Income.list(params), model:[incomeCount: Income.count()]
@@ -53,6 +54,30 @@ class IncomeController {
 			return;
 		}
 		
+		if(income.incomeType.isConcessionRelated){
+			if(income.concession){
+				//income.concession = Concession.get(income.concession.id);
+				if(!income.concession){
+					income.errors.rejectValue('concession',message(code:'income.concession.not.found.error.label').toString());
+					transactionStatus.setRollbackOnly();
+					respond income.errors, view:'create';
+					return;
+				}
+			}else{
+				income.errors.rejectValue('concession',message(code:'income.concession.required.error.label').toString());
+				transactionStatus.setRollbackOnly();
+				respond income.errors, view:'create';
+				return;
+			}
+		}else{
+			if(income.concession.id){
+				income.errors.rejectValue('concession',message(code:'income.concession.not.required.error.label').toString());
+				transactionStatus.setRollbackOnly();
+				respond income.errors, view:'create';
+				return;
+			}
+		}
+		
         income.save flush:true
 		
 		this.createPayments(income);//create and save payments
@@ -84,15 +109,15 @@ class IncomeController {
 					}
 					if(income.paymentPlan.initialPaymentPercentage.intValue() > 0){
 						aux=am*income.paymentPlan.initialPaymentPercentage.doubleValue()/100;
-						ip.amount=Utils.round(aux, income.currency);
+						ip.amount=Utils.round(aux, income.currency.hasDecimals);
 						am=am-ip.amount.doubleValue();
 						if(n>1){
 							aux=am/(n-1);
-							regp=Utils.round(aux, income.currency);
+							regp=Utils.round(aux, income.currency.hasDecimals);
 						}
 					}else{
 						aux=am/n;
-						regp=Utils.round(aux, income.currency);
+						regp=Utils.round(aux, income.currency.hasDecimals);
 						ip.amount=regp;
 					}
 					
@@ -130,7 +155,7 @@ class IncomeController {
 			IncomePayment ip=new IncomePayment();
 			ip.internalId=Utils.getShortUUIDWithNumbers(income.id.toString());
 			ip.dueDate=new Date();
-			ip.amount=Utils.round(income.amount.doubleValue(), income.currency);
+			ip.amount=Utils.round(income.amount.doubleValue(), income.currency.hasDecimals);
 			ip.currency=income.currency;
 			ip.income=income;
 			ip.isCanceled=false;
@@ -167,28 +192,6 @@ class IncomeController {
 		}
 	}
 	
-	private boolean hasPayedPayments(Income income){
-		income.incomePayments.each{
-			if(it.getPayedTotalAmount().doubleValue() > 0 || it.isPaid){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private boolean removeAllPayments(Income income){
-		income.incomePayments.toList().each { 
-			income.removeFromIncomePayments(it);
-			it.delete(); 
-		}
-		
-		def inc = Income.get(income.id);
-		if(inc.incomePayments.size() > 0){
-			return false;
-		}else{
-			return true;
-		}
-	}
 	
     def edit(Income income) {
         respond income
@@ -209,21 +212,44 @@ class IncomeController {
             return
         }
 		
-		if(this.hasPayedPayments(income) || income.isPaid){
+		if(income.hasPayedPayments() || income.isPaid){
 			income.errors.rejectValue('',message(code:'income.has.payed.payments.error.label').toString());
 			transactionStatus.setRollbackOnly();
-			respond income.errors, view:'create';
+			respond income.errors, view:'edit';
 			return;
 		}
 		
-        
-		if(this.removeAllPayments(income)){
+		if(income.incomeType.isConcessionRelated){
+			if(income.concession){
+				//income.concession = Concession.get(income.concession.id);
+				if(!income.concession){
+					income.errors.rejectValue('concession',message(code:'income.concession.not.found.error.label').toString());
+					transactionStatus.setRollbackOnly();
+					respond income.errors, view:'edit';
+					return;
+				}
+			}else{
+				income.errors.rejectValue('concession',message(code:'income.concession.required.error.label').toString());
+				transactionStatus.setRollbackOnly();
+				respond income.errors, view:'edit';
+				return;
+			}
+		}else{
+			if(income.concession.id){
+				income.errors.rejectValue('concession',message(code:'income.concession.not.required.error.label').toString());
+				transactionStatus.setRollbackOnly();
+				respond income.errors, view:'edit';
+				return;
+			}
+		}
+		
+		if(income.removeAllPayments()){
 			income.save flush:true
 			this.createPayments(income);//create again and save payments
 		}else{
 			income.errors.rejectValue('',message(code:'income.internal.error.label').toString());
 			transactionStatus.setRollbackOnly();
-			respond income.errors, view:'create';
+			respond income.errors, view:'edit';
 			return;
 		}
 		
@@ -246,14 +272,14 @@ class IncomeController {
             return
         }
 		
-		if(this.hasPayedPayments(income)){
+		if(income.hasPayedPayments()){
 			income.errors.rejectValue('',message(code:'income.has.payed.payments.error.label').toString());
 			transactionStatus.setRollbackOnly();
 			respond income.errors, view:'create';
 			return;
 		}
 		
-		if(this.removeAllPayments(income)){
+		if(income.removeAllPayments()){
 			income.delete flush:true;
 		}else{
 			income.errors.rejectValue('',message(code:'income.internal.error.label').toString());

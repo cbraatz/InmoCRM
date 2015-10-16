@@ -33,7 +33,13 @@ class Income {
 	static mapping = {
 		incomePayments sort: "dueDate"
 	}
-	public Income(){}
+	public Income(){
+		this.concession=new Concession();
+	}
+	public Income(def params){
+		this.properties = params;
+		this.concession=new Concession();
+	}
 	public boolean areAllIncomePaymentsPaid(){
 		PersistentSet list=this.incomePayments;
 		list.each{
@@ -42,5 +48,28 @@ class Income {
 			}
 		}
 		return true;
+	}
+	
+	public boolean hasPayedPayments(){
+		this.incomePayments.each{
+			if(it.getPayedTotalAmount().doubleValue() > 0 || it.isPaid){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean removeAllPayments(){
+		for (IncomePayment item : this.incomePayments) {
+			this.removeFromIncomePayments(item);
+			item.delete();
+		}
+		/*System.err.println("Iconme payments size = "+ this.incomePayments.size());
+		def inc = Income.get(this.id);*/
+		if(this.incomePayments.size() > 0){
+			return false;
+		}else{
+			return true;
+		}
 	}
 }

@@ -26,7 +26,7 @@
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.amount.label" default="Amount"/></span>
 		        <f:display bean="incomePayment" property="amount"/>
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.payedAmount.label" default="Payed Amount"/></span>
-		        <span class="property-value">${incomePayment.getPayedTotalAmount()}</span>
+		        <span class="property-value">${crm.Utils.formatDecimals(incomePayment.getPayedTotalAmount())}</span>
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.currency.label" default="Currency"/></span>
 		        <f:display bean="incomePayment" property="currency"/>
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.income.label" default="Income ID"/></span>
@@ -38,9 +38,13 @@
 		    </fieldset>
             <g:form resource="${this.incomePayment}" method="CANCEL" method="GET">
                 <fieldset class="buttons">
-                    <g:link class="pay" action="create" controller="payment" params="[obj:'income', pid:incomePayment.id]"><g:message code="default.button.pay.label" default="Pay" /></g:link>
+                	<g:if test="${incomePayment.isPaid}">
+                		<g:link class="invoice" action="create" controller="issuedInvoice" params="[pid:incomePayment.id]"><g:message code="default.button.invoice.label" default="Invoice" /></g:link>
+                    </g:if>
+					<g:else>
+					      <g:link class="pay" action="create" controller="payment" params="[obj:'income', pid:incomePayment.id]"><g:message code="default.button.pay.label" default="Pay" /></g:link>
                     <!--<g:link class="cancel" action="cancel" resource="${this.incomePayment}"><g:message code="default.button.cancel.label" default="Cancel" onclick="return confirm('${message(code: 'default.button.cancel.confirm.message', default: 'Are you sure?')}');" /></g:link>  -->
-                    
+					</g:else>
                 </fieldset>
             </g:form>
         </div>

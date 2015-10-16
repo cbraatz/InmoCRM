@@ -4,18 +4,6 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'payment.label', default: 'Payment')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
-        <script type="text/javascript">
-			$(document).ready(function() {
-				$("#amount").attr("readonly", "readonly");//disable amount field
-				
-				//display change modal if change > 0
-				var changeAmount=${payment.outAmount};
-				if(changeAmount > 0){
-					$('#display-change-modal-dialog')[0].click();
-				}
-			});
-			
-		</script>
     </head>
     <body>
         <a href="#create-payment" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -43,6 +31,8 @@
 				<a href="#modalFrm" data-toggle="modal" role="button" id="display-change-modal-dialog">mostrar modal</a>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.pay.label', default: 'Pay')}" />
+                    <g:checkBox name="submitInvoice" value="${true}"/>
+                    <span id="name-label" class="property-label"><g:message code="issuedInvoice.submit.invoice.label" default="Payed Amount"/></span>
                 </fieldset>
             </g:form>
             <g:render template="modalForm"/>

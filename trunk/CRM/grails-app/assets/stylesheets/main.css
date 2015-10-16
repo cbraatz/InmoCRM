@@ -186,7 +186,6 @@ img {
 .nav a.create {
     background-image: url(../images/skin/database_add.png);
 }
-
 a.add {/*added by me*/
 	background-image: url(../images/skin/database_add_new.png);
 	color: transparent;/*to display the icon*/
@@ -195,6 +194,18 @@ a.add {/*added by me*/
 }
 a.edit {/*added by me*/
 	background-image: url(../images/skin/database_edit.png);
+	color: transparent;/*to display the icon*/
+	font-size: 14px;
+	margin-left: 10px;
+}
+a.pay {/*added by me*/
+	background-image: url(../images/skin/pay.png);
+	color: transparent;/*to display the icon*/
+	font-size: 14px;
+	margin-left: 10px;
+}
+a.invoice {/*added by me*/
+	background-image: url(../images/skin/invoice.png);
 	color: transparent;/*to display the icon*/
 	font-size: 14px;
 	margin-left: 10px;
@@ -572,7 +583,7 @@ th:hover, tr:hover {
     text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .invoice, .buttons .pay{
     background-position: 0.7em center;
     background-repeat: no-repeat;
     text-indent: 25px;

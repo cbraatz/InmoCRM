@@ -15,10 +15,16 @@
             </g:elseif>
             <g:else>
                 <ul class="errors">
-                    <li>An error has occurred</li>
-                    <li>Exception: ${exception}</li>
-                    <li>Message: ${message}</li>
-                    <li>Path: ${path}</li>
+                	<li><g:message code="error.has.occurred.label"/></li>
+                	<g:if test="${exception}">
+		               <li><g:message code="default.exception.label"/>: ${exception}</li>
+		            </g:if>
+                    <g:if test="${message}">
+		               <li><g:message code="default.message.label"/>: ${message}</li>
+		            </g:if>
+                    <g:if test="${path}">
+		               <li><g:message code="default.path.label"/>: ${path}</li>
+		            </g:if>
                 </ul>
             </g:else>
         </g:if>

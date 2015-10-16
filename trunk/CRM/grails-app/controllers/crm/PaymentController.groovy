@@ -12,6 +12,7 @@ class PaymentController {
 	//double paymentTotalAmount=0;
 	double payedTotalAmount=0;
 	boolean paid=false;
+	boolean registerInvoice=true;
 	Payment myPayment=new Payment();
 	Currency parentCurrency;
 	private double getPayedAmount(Object paymentParent){
@@ -53,15 +54,14 @@ class PaymentController {
 				this.paid=payment.expensePayment.isPaid;
 			}
 		}
-		
-		//def object = (params.obj=='income'? IncomePayment.get(params.pid) : (params.obj=='expense'? ExpensePayment.get(params.pid): 'other object'));
 		respond payment;
     }
 
     @Transactional
-    def save(Payment payment) {
+    def save(Payment payment, boolean submitInvoice) {
 		//payment.incomePayment=this.incomePayment;//payment returns with incomePayment and expensePayment = null
 		//payment.expensePayment=this.expensePayment;
+		this.registerInvoice=submitInvoice;
 		payment.validate();
 		if (payment == null) {
             transactionStatus.setRollbackOnly()
@@ -110,6 +110,14 @@ class PaymentController {
 			return;
 		}
 		
+		/*double payed=this.myPayment.incomePayment.getPayedTotalAmount(); no se como reproducir, pero a veces no guarda y tira Payed Amount = XX and should be X
+		if(payed==myPayment.amount){
+			payment.errors.rejectValue('',message(code:'payment.amount.not.match.error', args: [this.myPayment.incomePayment.amount.toString() ,payed.toString(), myPayment.amount.toString()]));
+			transactionStatus.setRollbackOnly();
+			respond payment, view:'create';
+			return;
+		}*/
+			
 		//paymentDocument validation
 		if (payment.inPaymentMethod.isCash == false) {
 			boolean hasErrors=false;
@@ -166,7 +174,7 @@ class PaymentController {
 				}else{
 					payment.outAmount=(payment.inAmount - payment.amount)*CurrencyExchange.getCurrencyExchangeRate(new Date(), defaultCurrency, payment.inCurrency).buy;//converting change to default currency
 				}
-				payment.outAmount=Utils.round(payment.outAmount, defaultCurrency);
+				payment.outAmount=Utils.round(payment.outAmount, defaultCurrency.hasDecimals);
 			}else{
 				payment.errors.rejectValue('',message(code:'payment.amount.not.enough').toString());
 				transactionStatus.setRollbackOnly();
@@ -186,7 +194,7 @@ class PaymentController {
 				payedAmountValue=ce2.buy*payment.inAmount;//obtiene el valor en Gs del monto pagado y es buy xq este calculo solo se hace al cobrar y no al pagar
 			}
 			if(payedAmountValue >= amountValue){
-				payment.outAmount=Utils.round(payedAmountValue - amountValue, defaultCurrency);
+				payment.outAmount=Utils.round(payedAmountValue - amountValue, defaultCurrency.hasDecimals);
 			}else{
 				def msg=ce1?(Utils.getDateInStr(ce1.date)+' '+ce1.targetCurrency.name+'=('+ce1.buy+' '+ce1.sourceCurrency.symbol+' , '+ce1.sell+' '+ce1.sourceCurrency.symbol+')'):'' + ce2?(Utils.getDateInStr(ce2.date)+' '+ce2.targetCurrency.name+'=('+ce2.buy+' '+ce2.sourceCurrency.symbol+' , '+ce2.sell+' '+ce2.sourceCurrency.symbol+')'):'';
 				payment.errors.rejectValue('',message(code:'payment.amount.not.enough.other.currency', args:[msg]).toString());
@@ -314,12 +322,16 @@ class PaymentController {
 		}
 		if(saved){
 			if(this.myPayment.incomePayment){
-				request.withFormat {
-					form multipartForm {
-						flash.message = message(code: 'default.payed.message', args: [message(code: 'incomePayment.label', default: 'IncomePayment'), this.myPayment.incomePayment.id])
-						redirect this.myPayment.incomePayment
+				if(this.registerInvoice){
+					redirect(action: "create", controller:"issuedInvoice", params: [pid: this.myPayment.incomePayment.id]);
+				}else{
+					request.withFormat {
+						form multipartForm {
+							flash.message = message(code: 'default.payed.message', args: [message(code: 'incomePayment.label', default: 'IncomePayment'), this.myPayment.incomePayment.id])
+							redirect this.myPayment.incomePayment
+						}
+						'*' { respond this.myPayment.incomePayment, [status: CREATED] }
 					}
-					'*' { respond this.myPayment.incomePayment, [status: CREATED] }
 				}
 			}
 			if(this.myPayment.expensePayment){

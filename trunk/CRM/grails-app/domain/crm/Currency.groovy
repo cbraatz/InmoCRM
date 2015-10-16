@@ -6,15 +6,13 @@ class Currency {
 	String symbol;
 	Boolean hasDecimals;
 	Boolean isDefault;
+	Boolean isInvoicingCurrency;
 	Country country;
 	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction,
-					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, issuedInvoicesDefault:IssuedInvoice, 
-					 incomingInvoices:IncomingInvoice, incomingInvoicesDefault:IncomingInvoice, incomePayments:IncomePayment, 
+					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, incomingInvoices:IncomingInvoice, incomePayments:IncomePayment, 
 					 expensePayments:ExpensePayment, currencyExchagesSource:CurrencyExchange, currencyExchagesTarget:CurrencyExchange,
-					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
-	static mappedBy = [issuedInvoices: "currency", issuedInvoicesDefault: "defaultCurrency",
-					   incomingInvoices: "currency", incomingInvoicesDefault: "defaultCurrency",
-					   currencyExchagesSource: "sourceCurrency", currencyExchagesTarget: "targetCurrency",
+					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultsDateRanges:DefaultsDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
+	static mappedBy = [currencyExchagesSource: "sourceCurrency", currencyExchagesTarget: "targetCurrency",
 					   paymentsIn:"inCurrency", paymentsOut:"outCurrency"];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
@@ -22,6 +20,7 @@ class Currency {
 		symbol(blank:false, nullable:false, unique:true, size:1..10);
 		hasDecimals(nullable:false);
 		isDefault(nullable:false);
+		isInvoicingCurrency(nullable:false);
 		country(nullable:true);
     }
 	public static Currency getDefaultCurrency(){

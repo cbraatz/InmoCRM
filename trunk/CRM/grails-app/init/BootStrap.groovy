@@ -17,7 +17,7 @@ class BootStrap {
     }
 	private void addNullData(){
 		this.saveObj(new Neighborhood(name: "ninguno", description: "None neighborhood."));
-		this.saveObj(new Profession(name: "ninguno", description: ""));
+		this.saveObj(new Profession(name: "ninguno"));
 		
 	}
 	private void addBasicData(){
@@ -148,15 +148,16 @@ class BootStrap {
 		this.saveObj(new InterestLevel(name: "Poco Interesado", color: "green", level:4));
 		
 		//Currency
-		this.saveObj(new Currency(name: "Guaraní", plural:"Guaraníes", symbol:"Gs", hasDecimals:false, isDefault:true, country: Country.findByName("Paraguay")));		
-		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", hasDecimals:true, isDefault:false, country: Country.findByName("Estados Unidos")));
+		this.saveObj(new Currency(name: "Guaraní", plural:"Guaraníes", symbol:"Gs", hasDecimals:false, isDefault:true, isInvoicingCurrency:true, country: Country.findByName("Paraguay")));		
+		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", hasDecimals:true, isDefault:false, isInvoicingCurrency:true, country: Country.findByName("Estados Unidos")));
+		this.saveObj(new Currency(name: "Euro", plural:"Euros", symbol:"€", hasDecimals:true, isDefault:false, isInvoicingCurrency:false));
 		
 		//CurrencyExchange
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("16/09/2015"), buy:new Double("5000"), sell:new Double("5050"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("13/09/2015"), buy:new Double("5100"), sell:new Double("5150"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("14/09/2015"), buy:new Double("5200"), sell:new Double("5250"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:new Double("5300"), sell:new Double("5350"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
-		
+		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:new Double("6000"), sell:new Double("6050"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findByName("Euro")));
 		//PaymentMethod
 		this.saveObj(new PaymentMethod(name: "Efectivo", discountPercentage:0, isCash:true, hasStartDate:false, hasEndDate:false, hasBank:false));
 		this.saveObj(new PaymentMethod(name: "Cheque", discountPercentage:0, isCash:false, hasStartDate:true, hasEndDate:false, hasBank:true));
@@ -176,7 +177,7 @@ class BootStrap {
 		this.saveObj(new ContractType(name: "Eclusivo", isExclusive:true, description:"Contrato exclusivo.", commissionPercentage:3, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato exclusivo."));
 		
 		//Contract
-		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByName("No Exclusivo")));
+		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByName("Exclusivo")));
 		
 		//PropertyType
 		this.saveObj(new PropertyType(name:"Sitio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
@@ -196,13 +197,13 @@ class BootStrap {
 		
 		//Concession
 		this.saveObj(new Concession(adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), valueDegree:1, commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), owner:CrmUser.findByName("nobody"), isActive:true));
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), owner:CrmUser.findByName("nobody"), propertyOwner:"Cliente 1", isActive:true));
 								
 		//InterestType
 		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:true));
 		
 		//ExpenseType
-		this.saveObj(new ExpenseType(name:"Comisión por Intermediación", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));//mejorar busqueda o no incluir esto por defecto
+		this.saveObj(new ExpenseType(name:"Comisión por Intermediación", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %"), isCompanyExpense:true));//mejorar busqueda o no incluir esto por defecto
 		
 		//CommissionType
 		this.saveObj(new CommissionType(name:"Comisión de Venta de Inmueble", description:"Comisión por cerrar una venta de un inmueble", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));

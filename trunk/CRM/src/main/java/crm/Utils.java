@@ -43,8 +43,8 @@ public class Utils {
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.doubleValue();
     }
-    public static double round(double d, Currency currency) {
-    	return Utils.round(d, (currency.getHasDecimals() ? Utils.getDefaultDecimalPlaces() : 0));
+    public static double round(double d, boolean withDecimals) {
+    	return Utils.round(d, (withDecimals ? Utils.getDefaultDecimalPlaces() : 0));
     }
     public static String getDateInStr(Date date){
     	DateFormat sdf=new SimpleDateFormat(Utils.getDefaultDateFormat());
@@ -84,6 +84,7 @@ public class Utils {
 		df.applyPattern("###,###.##");
 		return df.format(value);
 	}
+
 	public static String formatDecimalsForInput(Double value){
 		System.out.println(value.doubleValue());
 		NumberFormat nf = NumberFormat.getNumberInstance();
@@ -91,6 +92,7 @@ public class Utils {
 		df.applyPattern("###.##");
 		return df.format(value);
 	}
+
 	public static int getDefaultDecimalPlaces(){
 		return 2;
 	}
@@ -123,7 +125,7 @@ public class Utils {
 		
 	}
 	public static void main(String args[]){
-		System.out.println(Utils.validateDecimals(new Double("45878521"), false));
+		System.out.println(Utils.formatDecimals(new Double("45877567578521.2")));
 	}
 	
 }

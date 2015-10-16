@@ -1,6 +1,5 @@
 
 <fieldset class="form">
-	
 	<div class="fieldcontain">
 		<span id="name-label" class="property-label"><g:message code="xPayment.internalId.label" default="Income/Expense Payment Internal Id"/></span>
 		<span class="property-value" aria-labelledby="payment-label">${payment.incomePayment? payment.incomePayment.internalId :(payment.expensePayment? payment.expensePayment.internalId : 'unknown payment')}</span>
@@ -21,3 +20,14 @@
 	<g:hiddenField name="incomePayment" value="${payment?.incomePayment?.id}"/>
 	<g:hiddenField name="expensePayment" value="${payment?.expensePayment?.id}"/>
 </fieldset>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#amount").attr("readonly", "readonly");//disable amount field
+				
+		//display change modal if change > 0
+		var changeAmount=${payment.outAmount};
+		if(changeAmount > 0){
+			$('#display-change-modal-dialog')[0].click();
+		}
+	});	
+</script>
