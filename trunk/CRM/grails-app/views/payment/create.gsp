@@ -30,9 +30,14 @@
 				<g:render template="paymentForm"/>
 				<a href="#modalFrm" data-toggle="modal" role="button" id="display-change-modal-dialog">mostrar modal</a>
                 <fieldset class="buttons">
-                    <g:submitButton name="create" class="save" value="${message(code: 'default.button.pay.label', default: 'Pay')}" />
-                    <g:checkBox name="submitInvoice" value="${true}"/>
-                    <span id="name-label" class="property-label"><g:message code="issuedInvoice.submit.invoice.label" default="Payed Amount"/></span>
+                	<g:if test="${!payment?.incomePayment?.isPaid}">
+                		<g:submitButton name="create" class="save" value="${message(code: 'default.button.pay.label', default: 'Pay')}" />
+	                    <g:checkBox name="submitInvoice" value="${true}"/>
+	                    <span><g:message code="issuedInvoice.submit.invoice.label" default="Submit invoice"/></span>
+                    </g:if> 
+                    <g:else>
+                    	<span><g:message code="payment.already.paid.message" default="Income Payment is already payed"/></span>
+                    </g:else>
                 </fieldset>
             </g:form>
             <g:render template="modalForm"/>

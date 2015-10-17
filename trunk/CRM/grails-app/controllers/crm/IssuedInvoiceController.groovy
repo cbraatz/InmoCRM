@@ -32,17 +32,17 @@ class IssuedInvoiceController {
 			issuedInvoice.date=Utils.removeTimeFromDate(new Date());
 			issuedInvoice.amountInDefaultCurrency=null;//is completed automatically once accounting resume is done
 			issuedInvoice.number="001-001-";
-			issuedInvoice.deductibleAmount=issuedInvoice.amount.doubleValue();
 			float tr=issuedInvoice.incomePayment.income.incomeType.taxRate.percentage.floatValue();
 			issuedInvoice.totalTax=issuedInvoice.amount.doubleValue()*tr/(100+tr);
 			issuedInvoice.isAccounting=true;
+			issuedInvoice.isAccounted=false;
 			issuedInvoice.isCanceled=false;
 			respond issuedInvoice;
 		}else{
 			render(view: "/error", model:[message:message(code: 'issuedInvoice.income.id.not.found.label', default: 'Income ID not found or not correct')]);
 		}  
     }
-	def refresh(IssuedInvoice issuedInvoice){
+	def refresh(IssuedInvoice issuedInvoice, boolean returnToSave){		
 		if(issuedInvoice.incomePayment.income.currency.id == issuedInvoice.currency.id){
 			issuedInvoice.amount=issuedInvoice.amountInIncomeCurrency.doubleValue();
 			if(issuedInvoice.currency.isDefault){
@@ -53,7 +53,6 @@ class IssuedInvoiceController {
 				Currency defaultCurrency=Currency.getDefaultCurrency();
 				CurrencyExchange ce=CurrencyExchange.getCurrencyExchangeRate(issuedInvoice.date, defaultCurrency, issuedInvoice.incomePayment.income.currency);
 				CurrencyExchange ce2=CurrencyExchange.getCurrencyExchangeRate(issuedInvoice.date, defaultCurrency, issuedInvoice.currency);
-				//MathContext mc = new MathContext(Utils.getDefaultDecimalPlaces(), RoundingMode.HALF_UP);
 				BigDecimal bd=new BigDecimal(issuedInvoice.amountInIncomeCurrency.toString()).multiply(new BigDecimal(ce.buy.toString()));
 				issuedInvoice.amount=Utils.round(bd.divide(new BigDecimal(ce2.sell.toString()), RoundingMode.HALF_UP).doubleValue(), issuedInvoice.currency.hasDecimals);
 			}else{
@@ -67,21 +66,36 @@ class IssuedInvoiceController {
 			}
 		}
 		float tr=issuedInvoice.incomePayment.income.incomeType.taxRate.percentage.floatValue();
-		issuedInvoice.deductibleAmount=issuedInvoice.amount.doubleValue();
 		issuedInvoice.totalTax=Utils.round(issuedInvoice.amount.doubleValue()*tr/(100+tr), issuedInvoice.currency.hasDecimals);
-		respond issuedInvoice, view:'create';
+		if(returnToSave){
+			return issuedInvoice;
+		}else{
+			respond issuedInvoice, view:'create';
+		}
 	}
     @Transactional
     def save(IssuedInvoice issuedInvoice) {
+		this.refresh(issuedInvoice, true);
         if (issuedInvoice == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
-        }
-		
-		issuedInvoice.isAccounting=true;
-		issuedInvoice.isCanceled=false;
+        }	
 		issuedInvoice.validate();
+		if (!issuedInvoice.currency.isInvoicingCurrency) {
+			issuedInvoice.errors.rejectValue('currency',message(code:'currency.not.invoicing.currency.error', args:[issuedInvoice.currency.name]).toString());
+			transactionStatus.setRollbackOnly();
+			respond issuedInvoice, view:'create';
+			return;
+		}
+		double invoicedAmount=issuedInvoice.incomePayment.getInvoicedTotalAmount();
+		double payedAmount=issuedInvoice.incomePayment.getPayedTotalAmount()
+		if(issuedInvoice.amountInIncomeCurrency + invoicedAmount > payedAmount){
+			issuedInvoice.errors.rejectValue('amountInIncomeCurrency', message(code:'issuedInvoice.too.big.amount.error', args:[issuedInvoice.incomePayment.income.currency.plural, Utils.formatDecimals(payedAmount), Utils.formatDecimals(invoicedAmount), Utils.formatDecimals(issuedInvoice.amountInIncomeCurrency)]).toString());
+			transactionStatus.setRollbackOnly();
+			respond issuedInvoice.errors, view:'create';
+			return;
+		}
         if (issuedInvoice.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond issuedInvoice.errors, view:'create'

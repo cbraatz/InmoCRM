@@ -9,25 +9,25 @@ class IssuedInvoice {
 	Double amount;
 	Double amountInDefaultCurrency;
 	Double amountInIncomeCurrency;
-	Double deductibleAmount;
 	Double totalTax;
 	Boolean isAccounting;
 	Boolean isCanceled;
+	Boolean isAccounted;
 	Currency currency;
 	Client client;
 	IncomePayment incomePayment;
 	//ThirdPartyPayment thirdPartyPayment
 	
     static constraints = {
-		number(blank: false, nullable:false, unique:'client', size:1..40);
+		number(blank: false, nullable:false, size:1..40);
 		date(blank: false, nullable:false);
 		amount(blank: false, nullable:false);
 		amountInDefaultCurrency(blank:true, nullable:true);
-		amountInIncomeCurrency(blank:false, nullable:false);
-		deductibleAmount(blank:true, nullable:true);
+		amountInIncomeCurrency(blank:true, nullable:true);
 		totalTax(blank:false, nullable:false);
 		isAccounting(nullable:false);
 		isCanceled(nullable:false);
+		isAccounted(nullable:false);
 		currency(nullable:false);
 		client(nullable:false);
 		incomePayment(nullable:false);

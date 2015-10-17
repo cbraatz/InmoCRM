@@ -7,10 +7,12 @@
 	<f:field bean="payment" property="amount" label="xPayment.amount.label"/>
 	<f:field bean="payment" property="date"/>
 	
-	<h4 class="paymentTitle"><g:message code="payment.title.label"/></h2>
+	<h1 class="paymentTitle"><g:message code="payment.title.label"/></h1>
 	<f:field bean="payment" property="inAmount"/>
 	<f:field bean="payment" property="inCurrency" input-propId="${payment?.inCurrency?.id}"/>
 	<f:field bean="payment" property="inPaymentMethod" input-propId="${payment?.inPaymentMethod?.id}"/>
+	
+	<h1 class="paymentTitle"><g:message code="payment.document.title.label"/></h1>
 	<f:field bean="payment" property="inPaymentDocument.internalId"/>
 	<f:field bean="payment" property="inPaymentDocument.startDate"/>
 	<f:field bean="payment" property="inPaymentDocument.endDate"/>

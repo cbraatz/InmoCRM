@@ -56,7 +56,7 @@ class IncomeController {
 		
 		if(income.incomeType.isConcessionRelated){
 			if(income.concession){
-				//income.concession = Concession.get(income.concession.id);
+				income.concession = Concession.get(income.concession.id);//find concession by id
 				if(!income.concession){
 					income.errors.rejectValue('concession',message(code:'income.concession.not.found.error.label').toString());
 					transactionStatus.setRollbackOnly();

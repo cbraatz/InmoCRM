@@ -29,4 +29,14 @@ class IncomePayment {
 		}
 		return amount;
 	}
+	public Double getInvoicedTotalAmount(){
+		PersistentSet list=this.issuedInvoices;
+		double amount=0;
+		list.each{
+			if(!it.isCanceled){
+				amount=amount+it.amountInIncomeCurrency;
+			}
+		}
+		return amount;
+	}
 }
