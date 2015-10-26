@@ -60,12 +60,12 @@ class Income {
 	}
 	
 	public boolean removeAllPayments(){
-		for (IncomePayment item : this.incomePayments) {
-			this.removeFromIncomePayments(item);
-			item.delete();
+		this.incomePayments.each{
+			it.delete();
 		}
-		/*System.err.println("Iconme payments size = "+ this.incomePayments.size());
-		def inc = Income.get(this.id);*/
+		this.incomePayments.clear();
+		System.err.println("Iconme payments size = "+ this.incomePayments.size());
+		
 		if(this.incomePayments.size() > 0){
 			return false;
 		}else{

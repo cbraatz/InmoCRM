@@ -13,9 +13,7 @@
 		<!-- Modal -->
 		<div class="modal fade" id="modalFrm">
 		    <div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<g:form action="confirmPayment">
-			        	
+				<div class="modal-content">			        	
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 								<h4 class="modal-title"><g:message code="payment.change.label" default="Select location"/></h4>
@@ -28,27 +26,14 @@
 									<f:display bean="payment" property="outCurrency"/>
 									<span id="name-label" class="property-label"><g:message code="change.paymentMethod.label" default="Change Payment Method"/></span>
 									<f:display bean="payment" property="outPaymentMethod"/>
-									
-									<g:hiddenField name="payment.amount" value="${payment.amount}"></g:hiddenField>
-									<g:hiddenField name="payment.inAmount" value="${payment.inAmount}"></g:hiddenField>
-									<g:hiddenField name="payment.incomePayment" value="${payment.incomePayment}"></g:hiddenField>
-									<g:hiddenField name="payment.expensePayment" value="${payment.expensePayment}"></g:hiddenField>
-									<g:hiddenField name="payment.inCurrency" value="${payment.inCurrency}"></g:hiddenField>
-									<g:hiddenField name="payment.inPaymentMethod" value="${payment.inPaymentMethod}"></g:hiddenField>
-									<g:hiddenField name="payment.inPaymentDocument.internalId" value="${payment.inPaymentDocument.internalId}"></g:hiddenField>
-									<g:hiddenField name="payment.inPaymentDocument.startDate" value="${payment.inPaymentDocument.startDate}"></g:hiddenField>
-									<g:hiddenField name="payment.inPaymentDocument.endDate" value="${payment.inPaymentDocument.endDate}"></g:hiddenField>
-									<g:hiddenField name="payment.inPaymentDocument.bank" value="${payment.inPaymentDocument.bank}"></g:hiddenField>
 								</fieldset>
 							</div>
 							<div class="modal-footer">
 								<fieldset class="buttons">
 				                	<button type="button" class="close" data-dismiss="modal"><g:message code="payment.close.label" default="Close"/></button>
-				                    <g:submitButton name="pay" class="save" value="${message(code: 'default.button.confirm.payment.label', default: 'Create')}" />
+				                    <g:actionSubmit action="confirmPayment" class="save" value="${message(code: 'default.button.confirm.payment.label', default: 'Create')}" />
 			                    </fieldset>
 							</div>
-						
-			        </g:form>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->

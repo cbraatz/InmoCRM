@@ -124,8 +124,32 @@ public class Utils {
 		return decimalPlaces;
 		
 	}
+	private static boolean validateIncomeInvoiceNumber(String number){
+		int idx=number.indexOf('_');
+		String[] array=number.split("_");
+		if(array.length!=2){
+			return false;
+		}
+		try{
+			Integer.parseInt(array[0]);
+		}catch(NumberFormatException ex){
+			return false;
+		}
+		String[] array2=array[1].split("-");
+		if(array2.length!=3){
+			return false;
+		}
+		for(int i=0;i<3;i++){
+			try{
+				Integer.parseInt(array2[i]);
+			}catch(NumberFormatException ex){
+				return false;
+			}
+		}
+		return true;
+	}
 	public static void main(String args[]){
-		System.out.println(Utils.formatDecimals(new Double("45877567578521.2")));
+		System.out.println(Utils.validateIncomeInvoiceNumber("546456_121-kkj32-456"));
 	}
 	
 }

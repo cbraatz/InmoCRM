@@ -27,9 +27,9 @@
 		        <f:display bean="income" property="description"/>
 		        <span id="name-label" class="property-label"><g:message code="income.amount.label" default="Amount"/></span>
 		        <f:display bean="income" property="amount"/>
-		        <span id="name-label" class="property-label"><g:message code="income.client.label" default="Client"/></span>
+		        <span id="name-label" class="property-label"><g:message code="income.currency.label" default="Currency"/></span>
 		        <f:display bean="income" property="currency"/>
-		        <span id="name-label" class="property-label"><g:message code="income.description.label" default="Description"/></span>
+		        <span id="name-label" class="property-label"><g:message code="income.client.label" default="Client"/></span>
 		        <f:display bean="income" property="client"/>
 		        <span id="name-label" class="property-label"><g:message code="income.concession.label" default="Concession"/></span>
 		        <f:display bean="income" property="concession.id"/>

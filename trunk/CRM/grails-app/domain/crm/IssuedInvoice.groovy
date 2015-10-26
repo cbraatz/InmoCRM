@@ -19,7 +19,7 @@ class IssuedInvoice {
 	//ThirdPartyPayment thirdPartyPayment
 	
     static constraints = {
-		number(blank: false, nullable:false, size:1..40);
+		number(blank: false, nullable:false, unique:true, size:1..30);
 		date(blank: false, nullable:false);
 		amount(blank: false, nullable:false);
 		amountInDefaultCurrency(blank:true, nullable:true);

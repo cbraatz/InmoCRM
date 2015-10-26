@@ -31,6 +31,8 @@
                 
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <!--<g:checkBox name="autoPay" value="${false}"/>  -->
+	                <!--<span class="bottom_text"><g:message code="payment.autopay.label" default="Auto Pay"/></span>  -->
                 </fieldset>
             </g:form>
         </div>

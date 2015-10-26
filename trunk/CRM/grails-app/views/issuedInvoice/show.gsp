@@ -19,7 +19,29 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="issuedInvoice" />
+            
+			<fieldset class="fieldcontain">
+            	<span id="name-label" class="property-label"><g:message code="issuedInvoice.number.label" default="Number"/></span>
+		        <f:display bean="issuedInvoice" property="number"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.client.label" default="Client"/></span>
+		        <f:display bean="issuedInvoice" property="client"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.date.label" default="Date"/></span>
+		        <f:display bean="issuedInvoice" property="date"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.amount.label" default="Amount"/></span>
+		        <f:display bean="issuedInvoice" property="amount"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.amountInIncomeCurrency.label" default="Amount In Income Currency"/></span>
+		        <f:display bean="issuedInvoice" property="amountInIncomeCurrency"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.totalTax.label" default="Total Tax"/></span>
+		        <f:display bean="issuedInvoice" property="totalTax"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.isAccounting.label" default="Is Accounting"/></span>
+		        <f:display bean="issuedInvoice" property="isAccounting"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.isAccounted.label" default="Is Accounted"/></span>
+		        <f:display bean="issuedInvoice" property="isAccounted"/>
+		        <span id="name-label" class="property-label"><g:message code="issuedInvoice.currency.label" default="Currency"/></span>
+		        <f:display bean="issuedInvoice" property="currency"/>
+            </fieldset>
+
+
             <g:form resource="${this.issuedInvoice}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.issuedInvoice}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

@@ -25,22 +25,22 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form action="save">
-            
+            <g:form>
 				<g:render template="paymentForm"/>
 				<a href="#modalFrm" data-toggle="modal" role="button" id="display-change-modal-dialog">mostrar modal</a>
+				<g:render template="modalForm"/>
                 <fieldset class="buttons">
                 	<g:if test="${!payment?.incomePayment?.isPaid}">
-                		<g:submitButton name="create" class="save" value="${message(code: 'default.button.pay.label', default: 'Pay')}" />
+                		<g:actionSubmit action="save" class="save" value="${message(code: 'default.button.pay.label', default: 'Pay')}" />
 	                    <g:checkBox name="submitInvoice" value="${true}"/>
-	                    <span><g:message code="issuedInvoice.submit.invoice.label" default="Submit invoice"/></span>
+	                    <span class="bottom_text"><g:message code="payment.invoice.label" default="Invoice"/></span>
                     </g:if> 
                     <g:else>
                     	<span><g:message code="payment.already.paid.message" default="Income Payment is already payed"/></span>
                     </g:else>
                 </fieldset>
             </g:form>
-            <g:render template="modalForm"/>
+            
         </div>
     </body>
 </html>

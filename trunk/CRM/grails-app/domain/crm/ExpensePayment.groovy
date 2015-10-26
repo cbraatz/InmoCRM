@@ -1,6 +1,7 @@
 package crm
 
 import java.util.Date;
+
 import org.hibernate.collection.internal.PersistentSet
 
 class ExpensePayment{
@@ -28,6 +29,14 @@ class ExpensePayment{
 		double amount=0;
 		list.each{
 			amount=amount+it.amount;
+		}
+		return amount;
+	}
+	public Double getRegisteredInvoicesTotalAmount(){
+		PersistentSet list=this.incomingInvoices;
+		double amount=0;
+		list.each{
+			amount=amount+it.amountInExpenseCurrency;
 		}
 		return amount;
 	}

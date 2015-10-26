@@ -1,8 +1,6 @@
 package crm
-
 import static org.springframework.http.HttpStatus.*
 
-import java.math.BigDecimal;
 import java.math.RoundingMode
 import java.util.Date;
 
@@ -21,26 +19,32 @@ class IssuedInvoiceController {
     def show(IssuedInvoice issuedInvoice) {
         respond issuedInvoice
     }
+
     def create(IssuedInvoice updatedIssuedInvoice) {
-		IssuedInvoice issuedInvoice=new IssuedInvoice(params);
-		issuedInvoice.incomePayment=IncomePayment.get(params.pid);
-		if(issuedInvoice.incomePayment){
-			issuedInvoice.client=(issuedInvoice?.incomePayment?.income?.client);
-			issuedInvoice.amountInIncomeCurrency=issuedInvoice.incomePayment.getPayedTotalAmount().doubleValue()-issuedInvoice.getIssuedInvoiceAmountInIncomeCurrency().doubleValue();
-			issuedInvoice.amount=issuedInvoice.amountInIncomeCurrency.doubleValue();
-			issuedInvoice.currency=issuedInvoice.incomePayment.income.currency;
-			issuedInvoice.date=Utils.removeTimeFromDate(new Date());
-			issuedInvoice.amountInDefaultCurrency=null;//is completed automatically once accounting resume is done
-			issuedInvoice.number="001-001-";
-			float tr=issuedInvoice.incomePayment.income.incomeType.taxRate.percentage.floatValue();
-			issuedInvoice.totalTax=issuedInvoice.amount.doubleValue()*tr/(100+tr);
-			issuedInvoice.isAccounting=true;
-			issuedInvoice.isAccounted=false;
-			issuedInvoice.isCanceled=false;
-			respond issuedInvoice;
+		if(updatedIssuedInvoice){
+			respond updatedIssuedInvoice;
 		}else{
-			render(view: "/error", model:[message:message(code: 'issuedInvoice.income.id.not.found.label', default: 'Income ID not found or not correct')]);
-		}  
+			IssuedInvoice issuedInvoice=new IssuedInvoice();//era con (params)
+			issuedInvoice.incomePayment=IncomePayment.get(params.pid);
+			if(issuedInvoice.incomePayment){
+				issuedInvoice.client=(issuedInvoice?.incomePayment?.income?.client);
+				issuedInvoice.amountInIncomeCurrency=issuedInvoice.incomePayment.getPayedTotalAmount().doubleValue()-issuedInvoice.getIssuedInvoiceAmountInIncomeCurrency().doubleValue();
+				issuedInvoice.amount=issuedInvoice.amountInIncomeCurrency.doubleValue();
+				issuedInvoice.currency=issuedInvoice.incomePayment.income.currency;
+				issuedInvoice.date=Utils.removeTimeFromDate(new Date());
+				issuedInvoice.amountInDefaultCurrency=null;//is completed automatically once accounting resume is done
+				InvoicesPrinting ip=InvoicesPrinting.getLatestInvoicesPrinting();
+				issuedInvoice.number=new String(ip.printingNumber+"_"+ip.firstNumber+"-"+ip.secondNumber+"-");
+				float tr=issuedInvoice.incomePayment.income.incomeType.taxRate.percentage.floatValue();
+				issuedInvoice.totalTax=issuedInvoice.amount.doubleValue()*tr/(100+tr);
+				issuedInvoice.isAccounting=true;
+				issuedInvoice.isAccounted=false;
+				issuedInvoice.isCanceled=false;
+				respond issuedInvoice;
+			}else{
+				render(view: "/error", model:[message:message(code: 'issuedInvoice.income.id.not.found.label', default: 'Income ID not found or not correct')]);
+			}  
+		}
     }
 	def refresh(IssuedInvoice issuedInvoice, boolean returnToSave){		
 		if(issuedInvoice.incomePayment.income.currency.id == issuedInvoice.currency.id){
@@ -73,29 +77,51 @@ class IssuedInvoiceController {
 			respond issuedInvoice, view:'create';
 		}
 	}
+	private boolean validateIncomeInvoiceNumber(String number){
+		int idx=number.indexOf('_');
+		String[] array=number.split("_");
+		if(array.length!=2){
+			return false;
+		}
+		try{
+			Integer.parseInt(array[0]);
+		}catch(NumberFormatException ex){
+			return false;
+		}
+		String[] array2=array[1].split("-");
+		if(array2.length!=3){
+			return false;
+		}
+		for(int i=0;i<3;i++){
+			try{
+				Integer.parseInt(array2[i]);
+			}catch(NumberFormatException ex){
+				return false;
+			}
+		}
+		return true;
+	}
     @Transactional
     def save(IssuedInvoice issuedInvoice) {
-		this.refresh(issuedInvoice, true);
         if (issuedInvoice == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }	
+		this.refresh(issuedInvoice, true);
 		issuedInvoice.validate();
 		if (!issuedInvoice.currency.isInvoicingCurrency) {
 			issuedInvoice.errors.rejectValue('currency',message(code:'currency.not.invoicing.currency.error', args:[issuedInvoice.currency.name]).toString());
-			transactionStatus.setRollbackOnly();
-			respond issuedInvoice, view:'create';
-			return;
 		}
 		double invoicedAmount=issuedInvoice.incomePayment.getInvoicedTotalAmount();
 		double payedAmount=issuedInvoice.incomePayment.getPayedTotalAmount()
 		if(issuedInvoice.amountInIncomeCurrency + invoicedAmount > payedAmount){
 			issuedInvoice.errors.rejectValue('amountInIncomeCurrency', message(code:'issuedInvoice.too.big.amount.error', args:[issuedInvoice.incomePayment.income.currency.plural, Utils.formatDecimals(payedAmount), Utils.formatDecimals(invoicedAmount), Utils.formatDecimals(issuedInvoice.amountInIncomeCurrency)]).toString());
-			transactionStatus.setRollbackOnly();
-			respond issuedInvoice.errors, view:'create';
-			return;
 		}
+		if (!this.validateIncomeInvoiceNumber(issuedInvoice.number)) {
+			issuedInvoice.errors.rejectValue('number',message(code:'issuedInvoice.number.not.valid.error').toString());
+		}
+		
         if (issuedInvoice.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond issuedInvoice.errors, view:'create'
@@ -112,26 +138,35 @@ class IssuedInvoiceController {
             '*' { respond issuedInvoice, [status: CREATED] }
         }
     }
-
+	
     def edit(IssuedInvoice issuedInvoice) {
         respond issuedInvoice
     }
 
     @Transactional
     def update(IssuedInvoice issuedInvoice) {
+		
         if (issuedInvoice == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
-
+		this.refresh(issuedInvoice, true);
+		issuedInvoice.validate();
+		if (!issuedInvoice.currency.isInvoicingCurrency) {
+			issuedInvoice.errors.rejectValue('currency',message(code:'currency.not.invoicing.currency.error', args:[issuedInvoice.currency.name]).toString());
+		}
+		
+		if(issuedInvoice.isAccounted){
+			issuedInvoice.errors.rejectValue('', message(code:'issuedInvoice.already.accounted.error'));
+		}
+		
         if (issuedInvoice.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond issuedInvoice.errors, view:'edit'
             return
         }
-
-        issuedInvoice.save flush:true
+		issuedInvoice.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -150,7 +185,11 @@ class IssuedInvoiceController {
             notFound()
             return
         }
-
+		if(issuedInvoice.isAccounted){
+			issuedInvoice.errors.rejectValue('', message(code:'issuedInvoice.already.accounted.error'));
+			respond issuedInvoice.errors
+			return
+		}
         issuedInvoice.delete flush:true
 
         request.withFormat {
@@ -161,7 +200,7 @@ class IssuedInvoiceController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+	
     protected void notFound() {
         request.withFormat {
             form multipartForm {

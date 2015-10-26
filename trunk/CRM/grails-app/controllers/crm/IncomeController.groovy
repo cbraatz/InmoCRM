@@ -70,7 +70,7 @@ class IncomeController {
 				return;
 			}
 		}else{
-			if(income.concession.id){
+			if(income.concession?.id){
 				income.errors.rejectValue('concession',message(code:'income.concession.not.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'create';
@@ -78,20 +78,22 @@ class IncomeController {
 			}
 		}
 		
-        income.save flush:true
+        income.save flush:true;
 		
 		this.createPayments(income);//create and save payments
 		
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'income.label', default: 'Income'), income.id])
-                redirect income
-            }
-            '*' { respond income, [status: CREATED] }
-        }
+		
+	    request.withFormat {
+	         form multipartForm {
+	             flash.message = message(code: 'default.created.message', args: [message(code: 'income.label', default: 'Income'), income.id])
+	             redirect income
+	         }
+	         '*' { respond income, [status: CREATED] }
+	    }
+		
     }
 	
-	private void createPayments(Income income){
+	def createPayments(Income income){
 		if(income.isCredit){
 			int n=income.paymentPlan.numberOfParts.intValue();
 			double am=income.amount.doubleValue();
@@ -221,7 +223,7 @@ class IncomeController {
 		
 		if(income.incomeType.isConcessionRelated){
 			if(income.concession){
-				//income.concession = Concession.get(income.concession.id);
+				income.concession = Concession.get(income.concession.id);
 				if(!income.concession){
 					income.errors.rejectValue('concession',message(code:'income.concession.not.found.error.label').toString());
 					transactionStatus.setRollbackOnly();
@@ -235,7 +237,7 @@ class IncomeController {
 				return;
 			}
 		}else{
-			if(income.concession.id){
+			if(income.concession?.id){
 				income.errors.rejectValue('concession',message(code:'income.concession.not.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'edit';

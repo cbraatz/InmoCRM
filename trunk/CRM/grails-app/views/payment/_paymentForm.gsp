@@ -21,6 +21,11 @@
 	
 	<g:hiddenField name="incomePayment" value="${payment?.incomePayment?.id}"/>
 	<g:hiddenField name="expensePayment" value="${payment?.expensePayment?.id}"/>
+	
+	<g:hiddenField name="outPaymentMethod" value="${payment?.outPaymentMethod?.id}"/>
+	<g:hiddenField name="outCurrency" value="${payment?.outCurrency?.id}"/>
+	<g:hiddenField name="outAmount" value="${crm.Utils.formatDecimalsForInput(payment?.outAmount)}"/>
+	
 </fieldset>
 <script type="text/javascript">
 	$(document).ready(function() {

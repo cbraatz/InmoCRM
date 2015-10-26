@@ -13,7 +13,6 @@ class PaymentController {
 	double payedTotalAmount=0;
 	boolean paid=false;
 	boolean registerInvoice=true;
-	Payment myPayment=new Payment();
 	Currency parentCurrency;
 	private double getPayedAmount(Object paymentParent){
 		double payedAmount=0;
@@ -35,28 +34,27 @@ class PaymentController {
 
     def create() {
 		Payment payment=new Payment();
+		payment.outCurrency=Currency.getDefaultCurrency();
+		payment.outPaymentMethod=PaymentMethod.getDefaultCashPaymentMethod();
 		if(params.obj=='income'){
 			payment.incomePayment=IncomePayment.get(params.pid);
 			payment.amount=payment.incomePayment.amount;
-			this.myPayment.amount=payment.incomePayment.amount;
+			payment.amount=payment.incomePayment.amount;
 			this.payedTotalAmount=this.getPayedAmount(payment.incomePayment);
 			this.parentCurrency=payment.incomePayment.currency;
-			this.myPayment.incomePayment=payment.incomePayment;
 			this.paid=payment.incomePayment.isPaid;
 		}else{
 			if(params.obj=='expense'){
 				payment.expensePayment=ExpensePayment.get(params.pid);
 				payment.amount=payment.expensePayment.amount;
-				this.myPayment.amount=payment.expensePayment.amount;
 				this.payedTotalAmount=this.getPayedAmount(payment.expensePayment);
 				this.parentCurrency=payment.expensePayment.currency;
-				this.myPayment.expensePayment=payment.expensePayment;
 				this.paid=payment.expensePayment.isPaid;
 			}
 		}
 		respond payment;
     }
-
+	
     @Transactional
     def save(Payment payment, boolean submitInvoice) {
 		//payment.incomePayment=this.incomePayment;//payment returns with incomePayment and expensePayment = null
@@ -109,14 +107,6 @@ class PaymentController {
 			respond payment, view:'create';
 			return;
 		}
-		
-		/*double payed=this.myPayment.incomePayment.getPayedTotalAmount(); no se como reproducir, pero a veces no guarda y tira Payed Amount = XX and should be X
-		if(payed==myPayment.amount){
-			payment.errors.rejectValue('',message(code:'payment.amount.not.match.error', args: [this.myPayment.incomePayment.amount.toString() ,payed.toString(), myPayment.amount.toString()]));
-			transactionStatus.setRollbackOnly();
-			respond payment, view:'create';
-			return;
-		}*/
 			
 		//paymentDocument validation
 		if (payment.inPaymentMethod.isCash == false) {
@@ -155,9 +145,7 @@ class PaymentController {
 				return;
 			}
 		}
-		
-		
-		
+				
 		Currency defaultCurrency=Currency.getDefaultCurrency();
 		if(!defaultCurrency){
 			payment.errors.rejectValue('',message(code:'payment.currency.error').toString());
@@ -165,8 +153,7 @@ class PaymentController {
 			respond payment, view:'create';
 			return;
 		}
-		payment.outCurrency=defaultCurrency;
-		payment.outPaymentMethod=PaymentMethod.getDefaultCashPaymentMethod();
+
 		if(payment.inCurrency.id == this.parentCurrency.id){
 			if(payment.inAmount >= payment.amount){
 				if(payment.inCurrency.id == defaultCurrency.id){
@@ -203,18 +190,7 @@ class PaymentController {
 				return;
 			}
 		}
-		this.myPayment=payment;//salvando payment xq si tiene cambio, un nuevo formulario ejecuta confirmPayment y se pierde su valor
-		this.myPayment.date=payment.date;
-		this.myPayment.amount=payment.amount;
-		this.myPayment.inAmount=payment.inAmount;
-		this.myPayment.outAmount=payment.outAmount;
-		this.myPayment.inCurrency=payment.inCurrency;
-		this.myPayment.outCurrency=payment.outCurrency;
-		this.myPayment.inPaymentMethod=payment.inPaymentMethod;
-		this.myPayment.outPaymentMethod=payment.outPaymentMethod;
-		this.myPayment.inPaymentDocument=payment.inPaymentDocument;
-		this.myPayment.outPaymentMethod=payment.outPaymentMethod;
-		//this.myPayment.outPaymentDocument=payment.outPaymentDocument;
+
 		if(payment.outAmount>0){
 			respond payment, view:'create';
 			return;
@@ -224,7 +200,7 @@ class PaymentController {
         
     }
 	@Transactional
-	def confirmPayment() {
+	def confirmPayment(Payment payment) {
 		if (this.paid) {
 			payment.errors.rejectValue('',message(code:'payment.already.paid.message').toString());
 			transactionStatus.setRollbackOnly();
@@ -234,39 +210,38 @@ class PaymentController {
 
 		String internalId
 		TransactionType transactionType;
-		if(this.myPayment.incomePayment){
-			internalId="IP-"+this.myPayment.incomePayment.id;
+		if(payment.incomePayment){
+			internalId="IP-"+payment.incomePayment.id;
 			transactionType=TransactionType.findByInternalID("INCOME_PAYMENT");
 		}
-		if(this.myPayment.expensePayment){
-			internalId="EP-"+this.myPayment.expensePayment.id;
+		if(payment.expensePayment){
+			internalId="EP-"+payment.expensePayment.id;
 			transactionType=TransactionType.findByInternalID("EXPENSE_PAYMENT");
 		}		
 		
-		//myPayment.paymentDocument.bank=...
 		boolean saved=true;
-		if(this.myPayment.inPaymentMethod.isCash){
-			this.myPayment.inPaymentDocument=null;
+		if(payment.inPaymentMethod.isCash){
+			payment.inPaymentDocument=null;
 		}else{
-			this.myPayment.inPaymentDocument.paymentMethod=this.myPayment.inPaymentMethod;
-			saved=this.myPayment.inPaymentDocument.save(flush:true);
+			payment.inPaymentDocument.paymentMethod=payment.inPaymentMethod;
+			saved=payment.inPaymentDocument.save(flush:true);
 		}
 		if(saved){
-			if(!this.myPayment.save(flush:true)){
+			if(!payment.save(flush:true)){
 				saved=false;
-				GUtils.printErrors(this.myPayment, "myPayment save");
+				GUtils.printErrors(payment, "Payment save");
 			}
 		}
 		if(saved){
-			MoneyTransaction paymentMoneyTransaction=new MoneyTransaction(new Date(), this.myPayment.inAmount, internalId , this.myPayment, this.myPayment.inCurrency, this.myPayment.inPaymentMethod, transactionType, null, null);
+			MoneyTransaction paymentMoneyTransaction=new MoneyTransaction(new Date(), payment.inAmount, internalId , payment, payment.inCurrency, payment.inPaymentMethod, transactionType, null, null);
 			if(!paymentMoneyTransaction.save(flush:true)){
 				saved=false;
 				GUtils.printErrors(paymentMoneyTransaction, "paymentMoneyTransaction save");
 			}
 		}
 		if(saved){
-			if(this.myPayment.outAmount > 0){
-				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(this.myPayment.outAmount * -1), internalId , this.myPayment, this.myPayment.outCurrency, this.myPayment.outPaymentMethod, TransactionType.findByInternalID("PAYMENT_CHANGE"), null, null);
+			if(payment.outAmount > 0){
+				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(payment.outAmount * -1), internalId , payment, payment.outCurrency, payment.outPaymentMethod, TransactionType.findByInternalID("PAYMENT_CHANGE"), null, null);
 				if(!changeMoneyTransaction.save(flush:true)){
 					saved=false;
 					GUtils.printErrors(changeMoneyTransaction, "changeMoneyTransaction save");
@@ -274,82 +249,84 @@ class PaymentController {
 			}
 		}
 		if(saved){
-			if(this.myPayment.incomePayment){
-				double payed=this.myPayment.incomePayment.getPayedTotalAmount();
-				if(payed==myPayment.amount){
-					this.myPayment.incomePayment.isPaid=true;
-					if(this.myPayment.incomePayment.save(flush:true)){
-						if(this.myPayment.incomePayment.income.areAllIncomePaymentsPaid()){
-							this.myPayment.incomePayment.income.isPaid=true;
-							if(!this.myPayment.incomePayment.income.save(flush:true)){
+			if(payment.incomePayment){
+				double payed=payment.incomePayment.getPayedTotalAmount();
+				if(payed==payment.amount){
+					payment.incomePayment.isPaid=true;
+					if(payment.incomePayment.save(flush:true)){
+						if(payment.incomePayment.income.areAllIncomePaymentsPaid()){
+							payment.incomePayment.income.isPaid=true;
+							if(!payment.incomePayment.income.save(flush:true)){
 								saved=false;
-								GUtils.printErrors(this.myPayment.incomePayment.income, "myPayment.incomePayment.income save");
+								GUtils.printErrors(payment.incomePayment.income, "payment.incomePayment.income save");
 							}
 						}//else do nothing
 					}else{
 						saved=false;
-						GUtils.printErrors(this.myPayment.incomePayment, "myPayment.incomePayment save");
+						GUtils.printErrors(payment.incomePayment, "payment.incomePayment save");
 					}
 				}else{
 					saved=false;
-					GUtils.printErrors(null,"Payed Amount = "+payed+" and should be "+myPayment.amount);
+					GUtils.printErrors(null,"Payed Amount = "+payed+" and should be "+payment.amount);
 				}
 			}else{
-				 if(this.myPayment.expensePayment){
-					double payed=this.myPayment.expensePayment.getPayedTotalAmount();
-					if(payed==myPayment.amount){
-						this.myPayment.expensePayment.isPaid=true;
-						if(this.myPayment.expensePayment.save(flush:true)){
-							if(this.myPayment.expensePayment.expense.areAllExpensePaymentsPaid()){
-								this.myPayment.expensePayment.expense.isPaid=true;
-								if(!this.myPayment.expensePayment.expense.save(flush:true)){
+				 if(payment.expensePayment){
+					double payed=payment.expensePayment.getPayedTotalAmount();
+					if(payed==payment.amount){
+						payment.expensePayment.isPaid=true;
+						if(payment.expensePayment.save(flush:true)){
+							if(payment.expensePayment.expense.areAllExpensePaymentsPaid()){
+								payment.expensePayment.expense.isPaid=true;
+								if(!payment.expensePayment.expense.save(flush:true)){
 									saved=false;
-									GUtils.printErrors(this.myPayment.expensePayment.expense, "myPayment.expensePayment.expense save");
+									GUtils.printErrors(payment.expensePayment.expense, "payment.expensePayment.expense save");
 								}else{
 									this.paid=true;
 								}
 							}//else do nothing
 						}else{
 							saved=false;
-							GUtils.printErrors(this.myPayment.expensePayment, "myPayment.expensePayment save");
+							GUtils.printErrors(payment.expensePayment, "payment.expensePayment save");
 						}
 					}else{
 						saved=false;
-						GUtils.printErrors(null,"Payed Amount = "+payed+" and should be "+myPayment.amount);
+						GUtils.printErrors(null,"Payed Amount = "+payed+" and should be "+payment.amount);
 					}
 				}//else ThirdPartyPayment
 			}
 		}
 		if(saved){
-			if(this.myPayment.incomePayment){
+			if(payment.incomePayment){
 				if(this.registerInvoice){
-					redirect(action: "create", controller:"issuedInvoice", params: [pid: this.myPayment.incomePayment.id]);
+					redirect(action: "create", controller:"issuedInvoice", params: [pid: payment.incomePayment.id]);
 				}else{
 					request.withFormat {
 						form multipartForm {
-							flash.message = message(code: 'default.payed.message', args: [message(code: 'incomePayment.label', default: 'IncomePayment'), this.myPayment.incomePayment.id])
-							redirect this.myPayment.incomePayment
+							flash.message = message(code: 'default.payed.message', args: [message(code: 'incomePayment.label', default: 'IncomePayment'), payment.incomePayment.id])
+							redirect payment.incomePayment
 						}
-						'*' { respond this.myPayment.incomePayment, [status: CREATED] }
+						'*' { respond payment.incomePayment, [status: CREATED] }
 					}
 				}
 			}
-			if(this.myPayment.expensePayment){
-				request.withFormat {
-					form multipartForm {
-						flash.message = message(code: 'default.payed.message', args: [message(code: 'expensePayment.label', default: 'ExpensePayment'), this.myPayment.expensePayment.id])
-						redirect this.myPayment.expensePayment
+			if(payment.expensePayment){
+				if(this.registerInvoice){
+					redirect(action: "create", controller:"incomingInvoice", params: [pid: payment.expensePayment.id]);
+				}else{
+					request.withFormat {
+						form multipartForm {
+							flash.message = message(code: 'default.payed.message', args: [message(code: 'expensePayment.label', default: 'ExpensePayment'), payment.expensePayment.id])
+							redirect payment.expensePayment
+						}
+						'*' { respond payment.expensePayment, [status: CREATED] }
 					}
-					'*' { respond this.myPayment.expensePayment, [status: CREATED] }
 				}
 			}
 		/*add ThirdPartyPayment here...*/
 		}else{
-			this.myPayment.errors.rejectValue('',message(code:'payment.save.error').toString());
+			payment.errors.rejectValue('',message(code:'payment.save.error').toString());
 			transactionStatus.setRollbackOnly();
-			this.myPayment.outAmount=0;
-			//repond payment en vez de myPayment
-			Payment payment=this.myPayment;
+			payment.outAmount=0;
 			if(!payment.inPaymentDocument){
 				payment.inPaymentDocument=new PaymentDocument();
 			}
