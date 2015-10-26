@@ -54,8 +54,7 @@ class Expense {
 			it.delete();
 		}
 		this.expensePayments.clear();
-		/*System.err.println("Iconme payments size = "+ this.expensePayments.size());
-		def inc = Expense.get(this.id);*/
+
 		if(this.expensePayments.size() > 0){
 			return false;
 		}else{

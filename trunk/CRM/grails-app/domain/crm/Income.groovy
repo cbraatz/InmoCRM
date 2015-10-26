@@ -64,7 +64,6 @@ class Income {
 			it.delete();
 		}
 		this.incomePayments.clear();
-		System.err.println("Iconme payments size = "+ this.incomePayments.size());
 		
 		if(this.incomePayments.size() > 0){
 			return false;
