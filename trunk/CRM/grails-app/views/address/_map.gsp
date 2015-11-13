@@ -101,8 +101,8 @@
 		                  //maxHeight: 200
 		          });
 		          google.maps.event.addListener(var_marker, 'dragend', function() {
-		        	  	$('#latitude').val(var_marker.getPosition().lat());
-		        	  	$('#longitude').val(var_marker.getPosition().lng());
+		        	  $("[id$=latitude]").val(var_marker.getPosition().lat());
+		        	  $("[id$=longitude]").val(var_marker.getPosition().lng());
 		          });
 		      }
 		 

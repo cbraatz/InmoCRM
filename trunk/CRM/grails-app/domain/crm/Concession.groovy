@@ -3,25 +3,23 @@ package crm
 class Concession {
 	String adSummary;
 	String adText;
-	boolean isNegotiable;
+	Boolean isNegotiable;
 	Date startDate;
 	Date endDate;
-	int valueDegree;
 	Double commissionAmount;
 	Float commissionPercentage;
 	String description;
 	PropertyDemand propertyDemand;
 	Contract contract;
-	boolean publishInMLS;
-	boolean publishInPortals;
+	Boolean publishInMLS;
+	Boolean publishInPortals;
 	String keys;
 	String barter;
 	String financing;
 	Client client;
-	String propertyOwner;
-	CrmUser owner;
-	boolean isActive;
-	
+	CrmUser addedBy;
+	Boolean isActive;
+	Boolean isSoldByCompany;
 	static belongsTo = ManagedProperty;
 	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
@@ -31,10 +29,9 @@ class Concession {
 		isNegotiable(nullable:false);
 		startDate(blank:false, nullable:false);
 		endDate(blank:false, nullable:false);
-		valueDegree(blank:false, nullable:false);
-		commissionAmount(blank:true, nullable:true);
-		commissionPercentage(blank:true, nullable:true);
-		description(blank:true, nullable:true, widget:'textArea');
+		commissionAmount(blank:true, nullable:true, min:0D);
+		commissionPercentage(blank:true, nullable:true, min:0F, max:100F, scale:2);
+		description(blank:true, nullable:true, widget:'textArea', size:0..200);
 		propertyDemand(nullable:true);
 		contract(nullable:true);
 		publishInMLS(nullable:false);
@@ -43,8 +40,15 @@ class Concession {
 		barter(blank:true, nullable:true, size:0..50);
 		financing(blank:true, nullable:true, size:0..50);
 		client(nullable:false);
-		propertyOwner(blank:false, nullable:false, size:1..80);
-		owner(nullable:false);
+		addedBy(nullable:true);//probar con nullable true
 		isActive(nullable:false);
+		isSoldByCompany(nullable:false);
 	}
+	
+	public Concession(){}
+	
+	public Concession(def params){
+		this.properties = params;
+	}
+	
 }

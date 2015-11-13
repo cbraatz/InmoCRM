@@ -2,11 +2,11 @@ package crm
 
 class Building {
 	Float builtSize;
-	int builtYear;
+	Integer builtYear;
 	ManagedProperty managedProperty;
 	BuildingType buildingType;
 	BuildingCondition buildingCondition;
-	String description;
+	String buildingDescription;
 	static hasMany = [featuresByBuilding:FeatureByBuilding/*InsuredGood*/];
     static constraints = {
 		builtSize(blank:true, nullable:true);
@@ -14,6 +14,6 @@ class Building {
 		managedProperty(nullable:false);
 		buildingType(nullable:false);
 		buildingCondition(nullable:false);
-		description(blank:false, nullable:false, widget:'textArea', size:1..200);
+		buildingDescription(blank:false, nullable:false, widget:'textArea', size:1..200);
     }
 }

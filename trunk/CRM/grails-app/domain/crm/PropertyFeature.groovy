@@ -1,5 +1,9 @@
 package crm
 
+import java.util.List;
+
+import org.apache.commons.collections.ListUtils
+
 class PropertyFeature {
 	String name;
 	String description;
@@ -10,5 +14,13 @@ class PropertyFeature {
 		name(blank:false, nullable:false, unique:true, size:1..50);
 		description(blank:true, nullable:true, widget:'textArea', size:0..100);
 		hasValue(nullable:false);
+	}
+	
+	public static List<FeatureByProperty> getEmptyFeatureByPropertyListForEachPropertyFeature(){
+		List<FeatureByProperty> list = new ArrayList<FeatureByProperty>();
+		PropertyFeature.getAll().each{
+			list.add(new FeatureByProperty(propertyFeature: it, value: new Float(0)));
+		}
+		return list;
 	}
 }

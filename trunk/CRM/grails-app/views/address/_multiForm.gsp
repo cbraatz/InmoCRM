@@ -5,10 +5,10 @@
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.number' : 'number'}"/>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.reference' : 'reference'}"/>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.addressLine' : 'addressLine'}">
-		<g:textArea name="${property}" maxlength="500" value="${it.value}" rows="4" cols="70"/>
+		<g:textArea name="${property}" maxlength="500" value="${it.value}" rows="3" cols="60"/>
 	</f:field>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.description' : 'description'}">
-		<g:textArea name="${property}" maxlength="300" value="${it.value}" rows="4" cols="70"/>
+		<g:textArea name="${property}" maxlength="300" value="${it.value}" rows="3" cols="60"/>
 	</f:field>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.code' : 'code'}"/>
 	<f:field bean="${parentBean? parentBean : 'address'}" property="${parentBean? 'address.latitude' : 'latitude'}"/>

@@ -10,7 +10,7 @@ class Currency {
 	Country country;
 	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction,
 					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, incomingInvoices:IncomingInvoice, incomePayments:IncomePayment, 
-					 expensePayments:ExpensePayment, currencyExchagesSource:CurrencyExchange, currencyExchagesTarget:CurrencyExchange,
+					 expensePayments:ExpensePayment, currencyExchagesSource:CurrencyExchange, currencyExchagesTarget:CurrencyExchange, managedProperties:ManagedProperty,
 					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultsDateRanges:DefaultsDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
 	static mappedBy = [currencyExchagesSource: "sourceCurrency", currencyExchagesTarget: "targetCurrency",
 					   paymentsIn:"inCurrency", paymentsOut:"outCurrency"];

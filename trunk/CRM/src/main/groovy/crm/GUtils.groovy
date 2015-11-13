@@ -13,4 +13,15 @@ class GUtils {
 			}
 		}
 	}
+	public static void main(String[] args){
+		def fileResourceInstanceList = []
+		//def f = new File(grailsApplication.config.images.location.toString())
+		def f = new File("external\\uploads\\images\\property\\105")
+		if( f.exists() ){
+			f.eachFile(){ file->
+			if( !file.isDirectory() )
+				System.err.println(file.name);
+			}
+		}
+	}
 }

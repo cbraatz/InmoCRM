@@ -51,6 +51,10 @@ grails:
             maxsize: 1000
     controllers:
         defaultScope: singleton
+        upload:
+            internalMaxFileSize: 150000
+            maxFileSize: 99999999
+            maxRequestSize: 99999999
     converters:
         encoding: UTF-8
     views:
@@ -108,3 +112,6 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+crm:
+    upload:
+        imagePath: external\\uploads\\images

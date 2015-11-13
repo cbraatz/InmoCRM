@@ -12,7 +12,7 @@ class PaymentMethod {
 	static mappedBy = [paymentsIn:"inPaymentMethod", paymentsOut:"outPaymentMethod"];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
-		discountPercentage(blank:false, nullable:false);
+		discountPercentage(blank:false, nullable:false, min:0F, max:100F, scale:2);
 		isCash(nullable:false);
 		hasStartDate(nullable:false);
 		hasEndDate(nullable:false);

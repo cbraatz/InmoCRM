@@ -13,7 +13,7 @@ class ContractType {
 		isExclusive(nullable:false);
 		description(blank:false, nullable:false, widget:'textArea', size:10..200);
 		templateURL(blank:true, nullable:true, size:0..200);
-		commissionPercentage(blank:false, nullable:false);
+		commissionPercentage(blank:false, nullable:false, min:0F, max:100F, scale:2);
 		billingDefaultDescription(blank:false, nullable:false, size:1..100);
     }
 }

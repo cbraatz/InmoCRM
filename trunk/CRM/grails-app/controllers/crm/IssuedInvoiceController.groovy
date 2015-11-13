@@ -78,7 +78,6 @@ class IssuedInvoiceController {
 		}
 	}
 	private boolean validateIncomeInvoiceNumber(String number){
-		int idx=number.indexOf('_');
 		String[] array=number.split("_");
 		if(array.length!=2){
 			return false;

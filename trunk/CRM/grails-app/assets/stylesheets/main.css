@@ -583,7 +583,7 @@ th:hover, tr:hover {
     text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save, .buttons .invoice, .buttons .pay, .buttons .refresh{
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .invoice, .buttons .pay, .buttons .refresh, .buttons .upload{
     background-position: 0.7em center;
     background-repeat: no-repeat;
     text-indent: 25px;
@@ -605,10 +605,42 @@ th:hover, tr:hover {
     background-image: url(../images/skin/refresh.png);
 }
 
+.buttons .upload {
+    background-image: url(../images/skin/upload.png);
+}
+
 a.skip {
     position: absolute;
     left: -9999px;
 }
 .right{
 	margin-left:600px;
+}
+
+.feature-line .feature-value-field{
+	width: 30px;
+}
+.feature-line .feature-description-field{
+	width: 400px;
+}
+.feature-label{
+	margin-left:20px;
+	color: #666666;
+    font-weight: bold;
+    padding-top:7px;
+    padding-bottom:7px;
+}
+.feature-title-label{
+	padding-top:10px;
+	padding-bottom:5px;
+}
+.feature-list{
+	padding-left:90px;
+}
+
+.comment_note{
+	margin-top:15px;
+	font-size: 10px;
+	font-style: italic;
+	float: right;
 }

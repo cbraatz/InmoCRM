@@ -2,11 +2,11 @@ package crm
 
 class PaymentPlan {
 	String name
-	int initialFreeTimeInDays;
-	int regularPaymentsInDays;
-	int regularPaymentsInMonths;
-	int initialPaymentPercentage;
-	int numberOfParts;
+	Integer initialFreeTimeInDays;
+	Integer regularPaymentsInDays;
+	Integer regularPaymentsInMonths;
+	Integer initialPaymentPercentage;
+	Integer numberOfParts;
 	Float interestPercentage;
 	InterestType interestType;
 	static hasMany = [income:Income, expenses:Expense/*,ThirdPartyIncome,ThirdPartyExpense*/];
@@ -15,9 +15,9 @@ class PaymentPlan {
 		initialFreeTimeInDays(blank:false, nullable:false);
 		regularPaymentsInDays(blank:false, nullable:false);
 		regularPaymentsInMonths(blank:false, nullable:false);
-		initialPaymentPercentage(blank:false, nullable:false);
+		initialPaymentPercentage(blank:false, nullable:false, min:0, max:100, scale:2);
 		numberOfParts(blank:false, nullable:false);
-		interestPercentage(blank:false, nullable:false);
+		interestPercentage(blank:false, nullable:false, min:0F, max:100F, scale:2);
 		interestType(nullable:true);
     }
 }
