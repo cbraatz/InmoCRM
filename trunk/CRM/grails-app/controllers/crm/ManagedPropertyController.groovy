@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ManagedPropertyController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -20,7 +20,9 @@ class ManagedPropertyController {
     def create() {
         respond new ManagedProperty(params)
     }
-
+	def addEditImages(ManagedProperty managedProperty){
+		redirect(controller:'upload', action:'images', params: [obj:'property', oid: managedProperty.id])
+	}
     @Transactional
     def save(ManagedProperty managedProperty) {
         if (managedProperty == null) {
@@ -75,8 +77,8 @@ class ManagedPropertyController {
         }
     }
 
-    @Transactional
-    def delete(ManagedProperty managedProperty) {
+    /*@Transactional
+    def delete(ManagedProperty managedProperty) { //must add cascade delete for building and so on..
 
         if (managedProperty == null) {
             transactionStatus.setRollbackOnly()
@@ -93,7 +95,7 @@ class ManagedPropertyController {
             }
             '*'{ render status: NO_CONTENT }
         }
-    }
+    }*/
 
     protected void notFound() {
         request.withFormat {

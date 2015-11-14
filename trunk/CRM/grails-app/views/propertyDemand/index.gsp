@@ -2,26 +2,26 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'propertyFeature.label', default: 'PropertyFeature')}" />
+        <g:set var="entityName" value="${message(code: 'propertyDemand.label', default: 'PropertyDemand')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#list-propertyFeature" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <a href="#list-propertyDemand" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="list-propertyFeature" class="content scaffold-list" role="main">
+        <div id="list-propertyDemand" class="content scaffold-list" role="main">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${propertyFeatureList}" properties="['name', 'description']"/>
+            <f:table collection="${propertyDemandList}" />
 
             <div class="pagination">
-                <g:paginate total="${propertyFeatureCount ?: 0}" />
+                <g:paginate total="${propertyDemandCount ?: 0}" />
             </div>
         </div>
     </body>

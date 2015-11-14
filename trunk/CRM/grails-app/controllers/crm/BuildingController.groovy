@@ -75,7 +75,7 @@ class BuildingController {
         }
     }
 
-    @Transactional
+    /*@Transactional needed to implement cascade delete
     def delete(Building building) {
 
         if (building == null) {
@@ -93,7 +93,7 @@ class BuildingController {
             }
             '*'{ render status: NO_CONTENT }
         }
-    }
+    }*/
 
     protected void notFound() {
         request.withFormat {

@@ -19,11 +19,27 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="building" />
+            
+			<fieldset class="fieldcontain">
+            	<span id="buildingType-label" class="property-label"><g:message code="building.buildingType.label" default="Building Type"/></span>
+				<f:display bean="building" property="buildingType"/>
+				<span id="builtSize-label" class="property-label"><g:message code="building.builtSize.label" default="Built Size"/></span>
+				<f:display bean="building" property="builtSize"/>
+				<span id="builtYear-label" class="property-label"><g:message code="building.builtYear.label" default="Built Year"/></span>
+				<f:display bean="building" property="builtYear"/>
+				<span id="buildingCondition-label" class="property-label"><g:message code="building.buildingCondition.label" default="Building Condition"/></span>
+				<f:display bean="building" property="buildingCondition"/>
+				<span id="buildingDescription-label" class="property-label"><g:message code="building.buildingDescription.label" default="Building Description"/></span>
+				<f:display bean="building" property="buildingDescription"/>
+			</fieldset>
+			<g:if test="${building.featuresByBuilding.size() > 0}">     
+	            <h1><g:message code="building.featuresByBuilding.label"/></h1>
+	            <f:table collection="${building.featuresByBuilding}" properties="['buildingFeature','value', 'description']" />
+            </g:if>
             <g:form resource="${this.building}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.building}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                    <!-- <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /> -->
                 </fieldset>
             </g:form>
         </div>

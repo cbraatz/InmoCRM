@@ -56,11 +56,20 @@
 				<span id="name-label" class="property-label"><g:message code="managedProperty.inWeb.label" default="inWeb"/></span>
 				<f:display bean="managedProperty" property="inWeb"/>
 			</fieldset>
-
-            <g:form resource="${this.managedProperty}" method="DELETE">
+			<g:if test="${managedProperty.buildings.size() > 0}">
+				<h1><g:message code="managedProperty.buildings.label"/></h1>
+	            <f:table collection="${managedProperty.buildings}" properties="['buildingType','builtSize', 'builtYear', 'buildingCondition', 'buildingDescription']" />
+	       </g:if>
+	       <g:if test="${managedProperty.featuresByProperty.size() > 0}">     
+	            <h1><g:message code="managedProperty.featuresByProperty.label"/></h1>
+	            <f:table collection="${managedProperty.featuresByProperty}" properties="['propertyFeature','value', 'description']" />
+            </g:if>
+            
+            <g:form resource="${this.managedProperty}">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.managedProperty}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                    <g:actionSubmit action="addEditImages" class="addEditImages" value="${message(code: 'default.button.add.edit.images.label', default: 'Add or Edit Images')}"/>
+                    <!--<g:actionSubmit action="delete" class="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />  -->
                 </fieldset>
             </g:form>
         </div>

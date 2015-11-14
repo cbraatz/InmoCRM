@@ -45,7 +45,7 @@ class ConcessionController {
 		managedProperty.address.validate();
 		building.validate();
 		concession.contract.validate();
-		
+
 		if (concession.commissionAmount > 0 && concession.commissionPercentage > 0) {
 			concession.errors.rejectValue('',message(code:'concession.duplicate.commission.error').toString());
 		}
@@ -148,7 +148,7 @@ class ConcessionController {
 				if(addImages && saved){
 					redirect(controller:'upload', action:'images', params: [obj:'property', oid: managedProperty.id])
 				}else{
-					redirect concession, view:'create', model:[managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];
+					redirect concession//, view:'create', model:[managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];
 				}
             }
             '*' { respond concession, [status: CREATED] }
@@ -156,8 +156,9 @@ class ConcessionController {
     }
 
     def edit(Concession concession) {
-        respond concession
-    }
+        //respond concession, model:[managedProperty: manProp, building: bui, featureByBuildingCommand: new FeatureByBuildingCommand(bui?.featuresByBuilding), featureByPropertyCommand: new FeatureByPropertyCommand(manProp?.featuresByProperty), displayBuilding: (bui ? true : false), addImages:true];
+		respond concession
+	}
 
     @Transactional
     def update(Concession concession) {
@@ -166,14 +167,14 @@ class ConcessionController {
             notFound()
             return
         }
-
-        if (concession.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond concession.errors, view:'edit'
-            return
+		concession.contract.validate();
+        if (concession.hasErrors() || concession.contract.hasErrors()) {
+            transactionStatus.setRollbackOnly();
+            respond concession.errors, view:'edit';
+            return;
         }
-
-        concession.save flush:true
+		concession.contract.save flush:true;
+        concession.save flush:true;
 
         request.withFormat {
             form multipartForm {

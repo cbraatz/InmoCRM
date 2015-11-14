@@ -28,9 +28,9 @@
             </g:hasErrors>
             <g:form resource="${this.building}" method="PUT">
                 <g:hiddenField name="version" value="${this.building?.version}" />
-                <fieldset class="form">
-                    <f:all bean="building"/>
-                </fieldset>
+                
+				<g:render template="form"/>
+				
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>

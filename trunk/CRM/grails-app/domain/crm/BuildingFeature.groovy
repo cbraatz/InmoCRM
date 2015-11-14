@@ -2,8 +2,6 @@ package crm
 
 import java.util.List;
 
-import org.apache.commons.collections.ListUtils
-
 class BuildingFeature {
 	String name;
 	String description;

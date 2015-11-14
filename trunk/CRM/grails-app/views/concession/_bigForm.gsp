@@ -7,7 +7,7 @@
 	<g:render template="/address/multiForm" model="['parentBean':'managedProperty']"/>
 	
 	<h1><g:message code="concession.property.features.title"/></h1>
-	<g:render template="/managedProperty/propertyFeaturesForm"/>
+	<g:render template="/propertyFeature/form"/>
 
 	<h1><g:message code="concession.building.title"/></h1>
 	<fieldset class="form">
@@ -19,7 +19,7 @@
 	<div id="building-section">
 		<g:render template="/building/form"/>
 		<h1><g:message code="concession.building.features.title"/></h1>
-		<g:render template="/building/buildingFeaturesForm"/>
+		<g:render template="/buildingFeature/form"/>
 	</div>
 
 <script>

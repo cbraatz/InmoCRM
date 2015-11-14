@@ -28,9 +28,9 @@
             </g:hasErrors>
             <g:form resource="${this.managedProperty}" method="PUT">
                 <g:hiddenField name="version" value="${this.managedProperty?.version}" />
-                <fieldset class="form">
-                    <f:all bean="managedProperty"/>
-                </fieldset>
+                
+				<g:render template="form"/>
+				
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>
