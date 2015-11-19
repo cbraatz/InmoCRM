@@ -19,9 +19,9 @@ class Concession {
 	Client client;
 	CrmUser addedBy;
 	Boolean isActive;
-	Boolean isSoldByCompany;
+	Boolean soldByCompany;
 	static belongsTo = ManagedProperty;
-	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription/*,TagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, advertisements:Advertisement/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		adSummary(blank:true, nullable:true, size:0..80);
@@ -42,7 +42,7 @@ class Concession {
 		client(nullable:false);
 		addedBy(nullable:true);//probar con nullable true
 		isActive(nullable:false);
-		isSoldByCompany(nullable:false);
+		soldByCompany(nullable:false);
 	}
 	
 	public Concession(){}

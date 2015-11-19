@@ -23,7 +23,7 @@
 		
 		<g:hiddenField name="propertyDemand" value="${concession?.propertyDemand?.id}"/>
 		<g:hiddenField name="isActive" value="${concession?.isActive}"/>
-		<g:hiddenField name="isSoldByCompany" value="${concession?.isSoldByCompany}"/>
+		<g:hiddenField name="soldByCompany" value="${concession?.soldByCompany}"/>
 		
 		<h1><g:message code="concession.contract.title"/></h1>
 		<f:field bean="concession" property="contract.documentURL"/>

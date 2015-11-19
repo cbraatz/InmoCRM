@@ -33,7 +33,7 @@
 				<f:display bean="building" property="buildingDescription"/>
 			</fieldset>
 			<g:if test="${building.featuresByBuilding.size() > 0}">     
-	            <h1><g:message code="building.featuresByBuilding.label"/></h1>
+	            <h1><g:message code="building.featuresByBuilding.title"/></h1>
 	            <f:table collection="${building.featuresByBuilding}" properties="['buildingFeature','value', 'description']" />
             </g:if>
             <g:form resource="${this.building}" method="DELETE">

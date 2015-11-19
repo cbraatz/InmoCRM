@@ -18,7 +18,7 @@ class PropertyDemandController {
     }
 
     def create() {
-        respond new PropertyDemand(params)
+        respond new PropertyDemand(isUsageRequired:false);
     }
 
     @Transactional
@@ -28,7 +28,67 @@ class PropertyDemandController {
             notFound()
             return
         }
-
+		propertyDemand.demandStatus=DemandStatus.findByIsNew(true);
+		propertyDemand.validate();
+		if(!propertyDemand.isSellDemand){//if it is a buy demand
+			if(propertyDemand.isDepartmentRequired){
+				if(!propertyDemand.department){
+					propertyDemand.errors.rejectValue('department',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.department.label')]).toString());
+				}
+			}
+			if(propertyDemand.isCityRequired){
+				if(!propertyDemand.city){
+					propertyDemand.errors.rejectValue('city',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.city.label')]).toString());
+				}
+			}
+			if(propertyDemand.isNeighborhoodRequired){
+				if(!propertyDemand.neighborhood){
+					propertyDemand.errors.rejectValue('neighborhood',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.neighborhood.label')]).toString());
+				}
+			}
+			if(propertyDemand.isAreaRequired){
+				if(!propertyDemand.propertyMinArea){
+					propertyDemand.errors.rejectValue('propertyMinArea',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.propertyMinArea.label')]).toString());
+				}
+				if(!propertyDemand.propertyMaxArea){
+					propertyDemand.errors.rejectValue('propertyMaxArea',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.propertyMaxArea.label')]).toString());
+				}
+			}
+			if(propertyDemand.isZoneRequired){
+				if(!propertyDemand.zone){
+					propertyDemand.errors.rejectValue('zone',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.zone.label')]).toString());
+				}
+			}
+			if(propertyDemand.isPropertyTypeRequired){
+				if(!propertyDemand.propertyType){
+					propertyDemand.errors.rejectValue('propertyType',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.propertyType.label')]).toString());
+				}
+			}
+			if(propertyDemand.isBuildingTypeRequired){
+				if(!propertyDemand.buildingType){
+					propertyDemand.errors.rejectValue('buildingType',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.buildingType.label')]).toString());
+				}
+			}
+			if(propertyDemand.isPriceRequired){
+				if(!propertyDemand.minPrice){
+					propertyDemand.errors.rejectValue('minPrice',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.minPrice.label')]).toString());
+				}
+				if(!propertyDemand.maxPrice){
+					propertyDemand.errors.rejectValue('maxPrice',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.maxPrice.label')]).toString());
+				}
+			}
+			if(propertyDemand.isBuildingConditionRequired){
+				if(!propertyDemand.buildingCondition){
+					propertyDemand.errors.rejectValue('buildingCondition',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.buildingCondition.label')]).toString());
+				}
+			}
+			if(propertyDemand.minPrice > propertyDemand.maxPrice){
+				propertyDemand.errors.rejectValue('minPrice',message(code:'default.invalid.compared.value.message', args: [message(code:'propertyDemand.minPrice.label'), propertyDemand.minPrice, message(code:'propertyDemand.maxPrice.label'), propertyDemand.maxPrice]).toString());
+			}
+			if(propertyDemand.propertyMinArea > propertyDemand.propertyMaxArea){
+				propertyDemand.errors.rejectValue('propertyMinArea',message(code:'default.invalid.compared.value.message', args: [message(code:'propertyDemand.propertyMinArea.label'), propertyDemand.propertyMinArea, message(code:'propertyDemand.propertyMaxArea.label'), propertyDemand.propertyMaxArea]).toString());
+			}
+		}
         if (propertyDemand.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond propertyDemand.errors, view:'create'

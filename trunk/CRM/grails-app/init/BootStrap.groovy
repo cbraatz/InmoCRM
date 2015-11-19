@@ -9,17 +9,11 @@ class BootStrap {
 
     def init = { servletContext ->
 		println("Starting init.......................");
-		addNullData();
 		addBasicData();
 		println("Finishing init......................");
     }
     def destroy = {
     }
-	private void addNullData(){
-		this.saveObj(new Neighborhood(name: "ninguno", description: "None neighborhood."));
-		this.saveObj(new Profession(name: "ninguno"));
-		
-	}
 	private void addBasicData(){
 		//Bank
 		this.saveObj(new Bank(name: "Banco Atlas"));
@@ -216,11 +210,10 @@ class BootStrap {
 		
 		//DemandStatus
 		this.saveObj(new DemandStatus(name: "Nueva", isNew:true, isClosed:false));
-		this.saveObj(new DemandStatus(name: "Necesita más información", isNew:true, isClosed:false));
+		this.saveObj(new DemandStatus(name: "Necesita más información", isNew:false, isClosed:false));
 		this.saveObj(new DemandStatus(name: "Verificada", isNew:false, isClosed:false));
 		this.saveObj(new DemandStatus(name: "Listo para cerrar", isNew:false, isClosed:false));
-		this.saveObj(new DemandStatus(name: "Concretado", isNew:false, isClosed:true));
-		this.saveObj(new DemandStatus(name: "Cancelada", isNew:false, isClosed:true));
+		this.saveObj(new DemandStatus(name: "Cerrado", isNew:false, isClosed:true));
 		
 		//ContractType
 		this.saveObj(new ContractType(name: "No Eclusivo", isExclusive:false, description:"Contrato no exclusivo.", commissionPercentage:4, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato no exclusivo."));
@@ -248,7 +241,7 @@ class BootStrap {
 		
 		//Concession
 		Concession concession1=new Concession(adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), addedBy:CrmUser.findByName("nobody"), isActive:true, isSoldByCompany:false);
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), addedBy:CrmUser.findByName("nobody"), isActive:true, soldByCompany:false);
 		concession1.addToManagedProperties(managedProperty1);
 		this.saveObj(concession1);
 		managedProperty1.addToConcessions(concession1);

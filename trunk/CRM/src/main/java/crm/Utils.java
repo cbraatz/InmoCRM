@@ -47,8 +47,12 @@ public class Utils {
     	return Utils.round(d, (withDecimals ? Utils.getDefaultDecimalPlaces() : 0));
     }
     public static String getDateInStr(Date date){
-    	DateFormat sdf=new SimpleDateFormat(Utils.getDefaultDateFormat());
-    	return sdf.format(date);
+    	if(null==date){
+    		return null;
+    	}else{
+	    	DateFormat sdf=new SimpleDateFormat(Utils.getDefaultDateFormat());
+	    	return sdf.format(date);
+    	}
     }
     public static String getDateInStrDBFormat(Date date){
     	DateFormat sdf=new SimpleDateFormat(Utils.getDBDateFormat());

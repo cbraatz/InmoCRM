@@ -20,7 +20,7 @@ class ManagedProperty {
 	Address address;
 	PropertyType propertyType;
 	Boolean inWeb;
-	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, advertisements:Advertisement, concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, uploadedImages:UploadedImage, propertyUnits:PropertyUnit/*,realEstateAction,propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
+	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, uploadedImages:UploadedImage, propertyUnits:PropertyUnit/*,realEstateAction,propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
     static constraints = {
 		title(blank:false, nullable:false, size:1..100, unique:true);
 		propertyDescription(blank:false, nullable:false, widget:'textArea', size:20..500);

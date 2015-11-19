@@ -61,7 +61,7 @@
 	            <f:table collection="${managedProperty.buildings}" properties="['buildingType','builtSize', 'builtYear', 'buildingCondition', 'buildingDescription']" />
 	       </g:if>
 	       <g:if test="${managedProperty.featuresByProperty.size() > 0}">     
-	            <h1><g:message code="managedProperty.featuresByProperty.label"/></h1>
+	            <h1><g:message code="managedProperty.featuresByProperty.title"/></h1>
 	            <f:table collection="${managedProperty.featuresByProperty}" properties="['propertyFeature','value', 'description']" />
             </g:if>
             
