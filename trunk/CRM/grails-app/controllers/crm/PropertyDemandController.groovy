@@ -29,6 +29,8 @@ class PropertyDemandController {
             return
         }
 		propertyDemand.demandStatus=DemandStatus.findByIsNew(true);
+		propertyDemand.offersOnly=false;
+		propertyDemand.isPriceRequired=false;
 		propertyDemand.validate();
 		if(!propertyDemand.isSellDemand){//if it is a buy demand
 			if(propertyDemand.isDepartmentRequired){

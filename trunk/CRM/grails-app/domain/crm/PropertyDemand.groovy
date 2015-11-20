@@ -146,11 +146,11 @@ class PropertyDemand {
 						addPD=false;
 					}
 				}
-				if(it.isPriceRequired && this.price != null){
+				/*if(it.isPriceRequired && this.price != null){
 					if(this.price >= it.propertyMinPrice && this.price <= it.propertyMaxPrice){
 						addPD=false;
 					}
-				}
+				}*/
 				if(it.isBuildingConditionRequired && this.buildingCondition != null){
 					if(this.buildingCondition.id!=it.id){
 						addPD=false;
@@ -200,11 +200,11 @@ class PropertyDemand {
 				query.append(" and a.zone = ?");
 				paramethers.add(this.zone);
 			}
-			if(this.isPriceRequired && this.minPrice !=null && this.maxPrice !=null){
+			/*if(this.isPriceRequired && this.minPrice !=null && this.maxPrice !=null){
 				query.append(" and mp.price BETWEEN ? and ?");
 				paramethers.add(this.minPrice);
 				paramethers.add(this.maxPrice);
-			}
+			}*/
 			if(this.isBuildingConditionRequired && this.buildingCondition != null){
 				query.append(" and b.buildingCondition = ?");
 				paramethers.add(this.buildingCondition);
