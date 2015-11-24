@@ -27,7 +27,8 @@
 				 </div>
 			 </g:form>
 		</div>
-		<g:layoutBody/>
+		<div id="icon-menu"><g:render template="/menu/iconMenu"/></div>
+		<div id="body-layout"><g:layoutBody/></div>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 	</body>
