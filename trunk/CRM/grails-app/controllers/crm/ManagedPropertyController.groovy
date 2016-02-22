@@ -14,11 +14,32 @@ class ManagedPropertyController {
     }
 
     def show(ManagedProperty managedProperty) {
+		Concession conc=managedProperty.getActiveConcession();
+		if (!conc.adTitle) {
+			managedProperty.errors.rejectValue('',message(code:'concession.adTitle.required.error').toString());
+		}
+		if (!conc.adText) {
+			managedProperty.errors.rejectValue('',message(code:'concession.adText.required.error').toString());
+		}
+		if (!conc.adSummary) {
+			managedProperty.errors.rejectValue('',message(code:'concession.adSummary.required.error').toString());
+		}
+		if (!conc.keys) {
+			managedProperty.errors.rejectValue('',message(code:'concession.keys.required.error').toString());
+		}
+		if (!conc.agent.partner.isAgent) {
+			managedProperty.errors.rejectValue('',message(code:'concession.partner.agent.required.error').toString());
+		}
+		if (!managedProperty.hasImagesForWeb()) {
+			managedProperty.errors.rejectValue('',message(code:'managedProperty.images.required.error').toString());
+		}
         respond managedProperty
     }
 
     def create() {
-        respond new ManagedProperty(params)
+		ManagedProperty mp=new ManagedProperty(params);
+		mp.inWeb=false;
+        respond mp
     }
 	def addEditImages(ManagedProperty managedProperty){
 		redirect(controller:'upload', action:'images', params: [obj:'property', oid: managedProperty.id])
@@ -47,7 +68,9 @@ class ManagedPropertyController {
             '*' { respond managedProperty, [status: CREATED] }
         }
     }
-
+	
+	
+	
     def edit(ManagedProperty managedProperty) {
         respond managedProperty
     }
@@ -77,6 +100,24 @@ class ManagedPropertyController {
         }
     }
 
+	 def generateWebPage(ManagedProperty managedProperty) {
+ 
+		 if (managedProperty == null) {
+			 notFound()
+			 return
+		 }
+ 
+		 managedProperty.createOrUpdateWebPage();
+ 
+		 request.withFormat {
+			 form multipartForm {
+				 flash.message = message(code: 'managedProperty.web.page.generated.message', args: [message(code: 'managedProperty.label', default: 'ManagedProperty'), managedProperty.id])
+				 redirect managedProperty
+			 }
+			 '*' { respond managedProperty, [status: OK] }
+		  }
+	 }
+	
     /*@Transactional
     def delete(ManagedProperty managedProperty) { //must add cascade delete for building and so on..
 

@@ -14,6 +14,6 @@ class Building {
 		managedProperty(nullable:false);
 		buildingType(nullable:false);
 		buildingCondition(nullable:false);
-		buildingDescription(blank:false, nullable:false, widget:'textArea', size:1..200);
+		buildingDescription(blank:true, nullable:true, widget:'textArea', size:0..1000);
     }
 }

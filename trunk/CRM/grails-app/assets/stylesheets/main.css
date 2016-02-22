@@ -170,7 +170,7 @@ img {
     text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create {
+.nav a.home, .nav a.list, .nav a.create, .nav a.return {
     background-position: 0.7em center;
     background-repeat: no-repeat;
     text-indent: 25px;
@@ -183,7 +183,9 @@ img {
 .nav a.list {
     background-image: url(../images/skin/database_table.png);
 }
-
+.nav a.return {
+    background-image: url(../images/skin/return.png);
+}
 .nav a.create {
     background-image: url(../images/skin/database_add.png);
 }
@@ -346,7 +348,7 @@ fieldset.embedded legend {
 .message {
     font-size: 0.8em;
     line-height: 2;
-    margin: 1em 2em;
+    margin: 1em 2em 0 5em;
     padding: 0.25em;
 }
 
@@ -377,6 +379,7 @@ fieldset.embedded legend {
     list-style: none;
     background: transparent url(../images/skin/exclamation.png) 0.5em 50% no-repeat;
     text-indent: 2.2em;
+
 }
 
 .message {

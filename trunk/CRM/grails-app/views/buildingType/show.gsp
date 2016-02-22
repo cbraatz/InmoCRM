@@ -27,6 +27,8 @@
 		        <f:display bean="buildingType" property="dimensionMeasuringUnit"/>
 		        <span id="name-label" class="property-label"><g:message code="buildingType.description.label" default="Description"/></span>
 		        <f:display bean="buildingType" property="description"/>
+		        <span id="name-label" class="property-label"><g:message code="buildingType.keywords.label" default="Keywords"/></span>
+		        <f:display bean="buildingType" property="keywords"/>
             </fieldset>
 
             <g:form resource="${this.buildingType}" method="DELETE">

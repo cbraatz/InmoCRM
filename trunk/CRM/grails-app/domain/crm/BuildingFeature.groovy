@@ -5,11 +5,13 @@ import java.util.List;
 class BuildingFeature {
 	String name;
 	String description;
+	String defaultWebIcon;
 	static belongsTo = BuildingType;
 	static hasMany = [featuresByBuilding:FeatureByBuilding, buildingTypes:BuildingType, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
 		description (blank:true, nullable:true, widget:'textArea', size:0..100);
+		defaultWebIcon(blank:true, nullable:true, widget:'textArea', size:0..255);
     }
 	
 	public static List<FeatureByBuilding> getEmptyFeatureByBuildingListForEachBuildingFeature(){

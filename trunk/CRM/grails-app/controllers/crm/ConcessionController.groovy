@@ -27,7 +27,7 @@ class ConcessionController {
     def create() {
 		Concession concession=new Concession(soldByCompany:false, isActive:true, contract:new Contract());
 		
-		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
+		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, inWeb:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
 	
     @Transactional
@@ -51,6 +51,26 @@ class ConcessionController {
 		}
 		if (concession.commissionAmount == 0 && concession.commissionPercentage == 0) {
 			concession.errors.rejectValue('',message(code:'concession.commission.required.error').toString());
+		}
+		if (concession.adText) {
+			if (concession.adText.charAt(concession.adText.length()-1)!='.') {
+				concession.errors.rejectValue('adText',message(code:'concession.adText.point.finish.required.error').toString());
+			}
+		}
+		if (concession.adTitle) {
+			if (concession.adTitle.charAt(concession.adTitle.length()-1)!='.') {
+				concession.errors.rejectValue('adTitle',message(code:'concession.adTitle.point.finish.required.error').toString());
+			}
+		}
+		if (concession.adSummary) {
+			if (concession.adSummary.charAt(concession.adSummary.length()-1)!='.') {
+				concession.errors.rejectValue('adSummary',message(code:'concession.adSummary.point.finish.required.error').toString());
+			}
+		}
+		if (concession.keys) {
+			if (!Utils.validatePageKeys(concession.keys)) {
+				concession.errors.rejectValue('keys',message(code:'concession.keys.validation.error').toString());
+			}
 		}
 		if (managedProperty.area <= 0) {
 			managedProperty.errors.rejectValue('area',message(code:'managedProperty.area.required.error').toString());

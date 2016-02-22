@@ -6,18 +6,20 @@ class CrmUser {
 	String name;
 	String password;
 	String emailAddress;
+	String agentsGreeting;
 	boolean isAdmin;
 	boolean isActive;
 	boolean isDefault;
 	Partner partner;
 	//Office office
-	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription/*,UserContextRole, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole/*, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [createdPropertyDemands: "owner", assignedPropertyDemands: "assignee"];
 
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:5..20);
 		password(blank:false, nullable:false, size:5..30);
 		emailAddress(blank:false, nullable:false, unique:true, email: true);
+		agentsGreeting(blank:true, nullable:true, size:0..255);
 		isAdmin(nullable:false);
 		isActive(nullable:false);
 		isDefault(nullable:false);

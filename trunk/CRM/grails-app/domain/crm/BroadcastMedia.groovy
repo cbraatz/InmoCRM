@@ -9,7 +9,7 @@ class BroadcastMedia {
 	static hasMany = [advertisements:Advertisement, propertyDemands:PropertyDemand];
 	static constraints = {
 		name(blank: false, nullable:false, unique: true, size:1..50);
-		urlToSite(blank: true, nullable:true, size:0..200);
+		urlToSite(blank: true, nullable:true, size:0..255);
 		adSummaryMaxLength(blank: true, nullable:true);
 		adTextMaxLength(blank: true, nullable:true);
 		country(nullable:true);

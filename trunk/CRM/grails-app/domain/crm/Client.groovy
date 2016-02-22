@@ -6,9 +6,9 @@ class Client {
 	Integer IDNumber;
 	Date birthDate;
 	String description;
-	Integer phone;
-	Integer phone2;
-	Integer notificationPhone;
+	String phone;
+	String phone2;
+	String notificationPhone;
 	String emailAddress;
 	Country nationality;
 	Profession profession;
@@ -34,9 +34,9 @@ class Client {
 		IDNumber(blank:true, nullable:true);
 		birthDate(blank:true, nullable:true);
 		description(blank:true, nullable:true, size:0..200);
-		phone(blank:false, nullable:false);
-		phone2(blank:true, nullable:true);
-		notificationPhone(blank:true, nullable:true);
+		phone(blank:true, nullable:true, size:0..40);
+		phone2(blank:true, nullable:true, size:0..40);
+		notificationPhone(blank:true, nullable:true, size:0..40);
 		emailAddress(blank:true, nullable:true, email: true);
 		nationality(nullable:true);
 		profession(nullable:true);

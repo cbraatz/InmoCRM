@@ -21,7 +21,7 @@ class Advertisement {
 		byOwner(nullable:false);
 		byCompany(nullable:false);
 		postDate(blank: true, nullable:true);
-		urlToPost(blank: true, nullable:true, size:0..200);
+		urlToPost(blank: true, nullable:true, size:0..255);
 		relatedInternalID(blank: true, nullable: true, size:0..40);//to define related transactions, transactions without related transactions will be null
 		language(nullable:false);
 		propertyDemand(nullable:true);

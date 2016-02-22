@@ -1,8 +1,9 @@
 package crm
 
 class Concession {
-	String adSummary;
-	String adText;
+	String adTitle;//page meta title and ad title
+	String adSummary;//page meta description and ad first description
+	String adText;//ad secondary description
 	Boolean isNegotiable;
 	Date startDate;
 	Date endDate;
@@ -17,21 +18,24 @@ class Concession {
 	String barter;
 	String financing;
 	Client client;
-	CrmUser addedBy;
+	CrmUser agent;
 	Boolean isActive;
+	Boolean isForRent;
 	Boolean soldByCompany;
+	
 	static belongsTo = ManagedProperty;
 	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, advertisements:Advertisement/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
-		adSummary(blank:true, nullable:true, size:0..80);
-		adText(blank:true, nullable:true, widget:'textArea', size:0..500);
+		adTitle(blank:true, nullable:true, size:0..60);
+		adSummary(blank:true, nullable:true, size:0..150);
+		adText(blank:true, nullable:true, widget:'textArea', size:0..1000);
 		isNegotiable(nullable:false);
 		startDate(blank:false, nullable:false);
 		endDate(blank:false, nullable:false);
 		commissionAmount(blank:true, nullable:true, min:0D);
 		commissionPercentage(blank:true, nullable:true, min:0F, max:100F, scale:2);
-		description(blank:true, nullable:true, widget:'textArea', size:0..200);
+		description(blank:true, nullable:true, widget:'textArea', size:0..1500);
 		propertyDemand(nullable:true);
 		contract(nullable:true);
 		publishInMLS(nullable:false);
@@ -40,8 +44,9 @@ class Concession {
 		barter(blank:true, nullable:true, size:0..50);
 		financing(blank:true, nullable:true, size:0..50);
 		client(nullable:false);
-		addedBy(nullable:true);//probar con nullable true
+		agent(nullable:true);//probar con nullable true
 		isActive(nullable:false);
+		isForRent(nullable:false);
 		soldByCompany(nullable:false);
 	}
 	

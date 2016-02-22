@@ -32,7 +32,7 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form action="save">
+            <g:form method="post"  enctype="multipart/form-data" action="save">
             
                 <g:render template="form"/>
   				

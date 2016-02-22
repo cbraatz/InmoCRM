@@ -19,6 +19,5 @@
 		<f:field bean="managedProperty" property="clientInitialPrice"/>
 		<f:field bean="managedProperty" property="valueDegree"/>
 		<f:field bean="managedProperty" property="placedBillboards"/>
-		<f:field bean="managedProperty" property="inWeb"/>
-		
+		<g:hiddenField name="inWeb" value="${managedProperty?.inWeb}"/>	
 </fieldset>

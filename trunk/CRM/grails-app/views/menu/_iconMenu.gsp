@@ -38,7 +38,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	//$(document).ready(function() {
 		//basic
 		$("#basic-icon").click(function() {
 			hideAllMenues();
@@ -78,22 +77,10 @@
 			hideAllMenues();
 		});
 
-		
-		/*$( window ).scroll(function() {
-			var menu=$('#icon-menu');
-			menu.css({
-				'top': 50%;
-		    	'left': 50%;
-		    });
-		});*/
 		/*$("*").click(function() {
 			   alert($(this).attr("class")+'...'+$(this).attr("id"));
 			});
-			alert($("#basic-menu").is(':visible'));
-		 if(mc!="imenu-item"){
-			 hideAllMenues();
 		 }*/
-	//});
 	
 	function setNavigationMenuOffset(icon, menu) {
 		menu.offset({top: icon.position().top+17});

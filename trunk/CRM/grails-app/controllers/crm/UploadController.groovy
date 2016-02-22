@@ -13,9 +13,7 @@ class UploadController {
 	String myPath=null;
 	String parentObject=null;
 	String objectId=null;
-	def imageUpload(){
-		
-	}
+
 	/*def upload(String path) {
 		def f = request.getFile('myFile')
 		if (f.empty) {
@@ -40,7 +38,7 @@ class UploadController {
 		ManagedProperty mp;
 		if(params.obj.equals("property") && params.oid != null){
 			mp=ManagedProperty.get(params.oid);
-			this.myPath=grailsApplication.config.getProperty('crm.upload.imagePath')+File.separatorChar+params.obj+File.separatorChar+params.oid;
+			this.myPath=grailsApplication.config.getProperty('web.realPath')+File.separatorChar+grailsApplication.config.getProperty('web.image.property')+File.separatorChar+params.oid;
 			def dire = new File(this.myPath);
 			dire.mkdirs();
 			UploadedImage uploadedImage;
@@ -50,7 +48,7 @@ class UploadController {
 					//si no existe en la base de datos hacer new uploadedImage y save
 					uploadedImage=UploadedImage.findByFileName(file.name);
 					if(!uploadedImage){
-						uploadedImage=new UploadedImage(description:"", fileName:file.name , path:file.getAbsolutePath(), sizeInKB:file.length() ,managedProperty:mp);
+						uploadedImage=new UploadedImage(description:"", fileName:file.name , path:file.getAbsolutePath(), sizeInKB:file.length(), managedProperty:mp, isMainImage:false, addToWeb:false);
 						if(uploadedImage.save(flush:true)){
 							fileResourceInstanceList.add(uploadedImage);
 						}else{
@@ -91,7 +89,7 @@ class UploadController {
 	}
 	
 	@Transactional
-	def uploadImage(String description){
+	def uploadImage(String description, boolean mainImage, boolean addToWebPage){
 		def f = request.getFile('fileUpload')
 		if(!f.empty) {
 		File dire=new File(this.myPath);
@@ -111,7 +109,7 @@ class UploadController {
 			  if(!exists){
 				  f.transferTo(file);
 				  if(!UploadedImage.findByFileNameAndManagedProperty(file.name, ManagedProperty.get(this.objectId))){
-					  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name , path:file.getAbsolutePath(), sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
+					  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, path:file.getAbsolutePath(), sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
 					  if(!upIm.save(flush:true)){
 						  GUtils.printErrors(upIm, "Saving new image '"+file.name+"'");
 						  flash.message=message(code: 'upload.image.save.error', args: [file.name]);

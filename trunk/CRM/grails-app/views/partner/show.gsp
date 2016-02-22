@@ -32,10 +32,12 @@
 		        <f:display bean="partner" property="birthDate"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.phone.label" default="Phone"/></span>
 		        <f:display bean="partner" property="phone"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.phone2.label" default="Secondary Phone"/></span>
-		        <f:display bean="partner" property="phone2"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.emailAddress.label" default="EmailAddress"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.corporatePhone.label" default="Corporate Phone"/></span>
+		        <f:display bean="partner" property="corporatePhone"/>
+		        <span id="name-label" class="property-label"><g:message code="partner.emailAddress.label" default="Email Address"/></span>
 		        <f:display bean="partner" property="emailAddress"/>
+		        <span id="name-label" class="property-label"><g:message code="partner.corporateEmail.label" default="Corporate Email"/></span>
+		        <f:display bean="partner" property="corporateEmail"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.gender.label" default="Gender"/></span>
 		        <f:display bean="partner" property="gender"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.profession.label" default="Profession"/></span>
@@ -46,7 +48,9 @@
 		        <f:display bean="partner" property="maritalStatus"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.invitedBy.label" default="Invited By"/></span>
 		        <f:display bean="partner" property="invitedBy"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.isActive.label" default="IsActive"/></span>
+		        <span id="name-label" class="property-label"><g:message code="partner.isAgent.label" default="Is Agent"/></span>
+		        <f:display bean="partner" property="isAgent"/>
+		        <span id="name-label" class="property-label"><g:message code="partner.isActive.label" default="Is Active"/></span>
 		        <f:display bean="partner" property="isActive"/>
             </fieldset>
             <h1><g:message code="address.label"/></h1>

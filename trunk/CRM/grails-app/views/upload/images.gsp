@@ -17,8 +17,16 @@
 			 	<fieldset class="fieldcontain">
 			 		<span id="fileupload-label" class="property-label"><g:message code="upload.image.selector.label" default="Upload"/></span>
 			 		<input type="file" id="fileUpload" name="fileUpload" class="property-value"/>
-			 		<span id="fileName-label" class="property-label"><g:message code="upload.image.name.label" default="File Name"/></span>
+			 		<span id="fileDescription-label" class="property-label"><g:message code="upload.image.name.label" default="File Name"/></span>
 			 		<g:textField id="description" name="description" class="property-value"/>
+			 	</fieldset>
+			 	<fieldset class="fieldcontain">
+			 		<span id="fileMain-label" class="property-label"><g:message code="upload.image.main.label" default="Main Image"/></span>
+			 		<g:checkBox id="mainImage" name="mainImage" class="property-value"/>
+			 	</fieldset>
+			 	<fieldset class="fieldcontain">
+			 		<span id="fileWeb-label" class="property-label"><g:message code="upload.image.web.label" default="Web Image"/></span>
+			 		<g:checkBox id="addToWebPage" name="addToWebPage" class="property-value"/>
 	            </fieldset>
 	            <div class="buttons">
 	                <span class="button"><g:actionSubmit class="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" action="uploadImage" /></span>
@@ -32,14 +40,18 @@
 	                <table>
 	                    <thead>
 	                        <tr>
-	                            <g:sortableColumn property="files" title="${message(code: 'upload.list.image.name.label', default: 'Upload')}"/>
-	                            <g:sortableColumn property="description" title="${message(code: 'upload.list.image.description.label', default: 'Upload')}" colspan="3"/>
+	                            <g:sortableColumn property="files" title="${message(code: 'upload.list.image.name.label', default: 'Name')}"/>
+	                            <g:sortableColumn property="main" title="${message(code: 'upload.list.image.main.label', default: 'Is Main Image')}"/>
+	                            <g:sortableColumn property="web" title="${message(code: 'upload.list.image.web.label', default: 'Add to web')}"/>
+	                            <g:sortableColumn property="description" title="${message(code: 'upload.list.image.description.label', default: 'Description')}" colspan="3"/>
 	                       </tr>
 	                    </thead>
 	                    <tbody>
 	                    <g:each in="${fileResourceInstanceList}" status="i" var="fileResourceInstance">
 	                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 	                            <td>${fileResourceInstance.fileName}</td>
+	                            <td>${fileResourceInstance.isMainImage}</td>
+	                            <td>${fileResourceInstance.addToWeb}</td>
 	                            <td>${fileResourceInstance.description}</td>
 	                            <td><g:link action="deleteImage" id="${fileResourceInstance.id}" onclick="return confirm('Are you sure?');"><g:message code="upload.delete.image.label"/></g:link></td>
 	                        </tr>

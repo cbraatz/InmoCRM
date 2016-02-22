@@ -7,7 +7,7 @@
 		<f:field bean="building" property="buildingType" input-propId="${building?.buildingType?.id}"/>
 		<f:field bean="building" property="buildingCondition" input-propId="${building?.buildingCondition?.id}"/>
 		<f:field bean="building" property="buildingDescription">
-			<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="4" cols="50"/>
+			<g:textArea name="${property}" maxlength="1000" value="${it.value}" rows="5" cols="60"/>
 		</f:field>
 	</div>
 </fieldset>

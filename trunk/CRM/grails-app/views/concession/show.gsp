@@ -45,12 +45,16 @@
 				<f:display bean="concession" property="publishInPortals"/>
 				<span id="name-label" class="property-label"><g:message code="concession.keys.label" default="Keys"/></span>
 				<f:display bean="concession" property="keys"/>
-				<span id="name-label" class="property-label"><g:message code="concession.addedBy.label" default="Added by"/></span>
-				<f:display bean="concession" property="addedBy"/>
+				<span id="name-label" class="property-label"><g:message code="concession.agent.label" default="Agent"/></span>
+				<f:display bean="concession" property="agent"/>
+				<span id="name-label" class="property-label"><g:message code="concession.adTitle.label" default="Page title"/></span>
+				<f:display bean="concession" property="adTitle"/>
 				<span id="name-label" class="property-label"><g:message code="concession.adSummary.label" default="Advertisement summary"/></span>
 				<f:display bean="concession" property="adSummary"/>
 				<span id="name-label" class="property-label"><g:message code="concession.adText.label" default="Advertisement text"/></span>
 				<f:display bean="concession" property="adText"/>
+				<span id="name-label" class="property-label"><g:message code="concession.isForRent.label" default="Is For Rent"/></span>
+				<f:display bean="concession" property="isForRent"/>
             </fieldset>
             <h1><g:message code="concession.managedProperties.label"/></h1>
             <f:table collection="${concession.managedProperties}" properties="['title', 'area', 'price', 'currency', 'owner']"/>

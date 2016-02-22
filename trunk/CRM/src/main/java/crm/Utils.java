@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
     public static String getActionFromUri(String uri){
@@ -140,8 +142,16 @@ public class Utils {
 		return decimalPlaces;
 		
 	}
-	public static void main(String args[]){
-		System.out.println(Utils.getIntegerPartIfNoDecimals(new Double("5444544.898")));
-	}
 	
+	public static void main(String args[]){
+		System.out.println("");
+	}
+	public static boolean validatePageKeys(String str){
+		return Utils.regExMatches(str, "[a-zA-Z0-9 ]+[a-zA-Z0-9, ]*");
+	}
+	public static boolean regExMatches(String str, String regEx){
+		Pattern pat = Pattern.compile(regEx);
+	    Matcher mat = pat.matcher(str);
+	    return mat.matches();
+	}
 }

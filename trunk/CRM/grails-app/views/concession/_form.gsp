@@ -7,7 +7,7 @@
 		<f:field bean="concession" property="commissionPercentage"/>
 		<f:field bean="concession" property="client"  input-propId="${concession?.client?.id}"/>
 		<f:field bean="concession" property="description">
-			<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="4" cols="50"/>
+			<g:textArea name="${property}" maxlength="1500" value="${it.value}" rows="4" cols="50"/>
 		</f:field>
 		<f:field bean="concession" property="barter"/>
 		<f:field bean="concession" property="financing"/>
@@ -15,11 +15,13 @@
 		<f:field bean="concession" property="publishInMLS"/>
 		<f:field bean="concession" property="publishInPortals"/>
 		<f:field bean="concession" property="keys"/>
-		<f:field bean="concession" property="addedBy" input-propId="${concession?.addedBy?.id}"/>
+		<f:field bean="concession" property="agent" input-propId="${concession?.agent?.id}"/>
+		<f:field bean="concession" property="adTitle"/>
 		<f:field bean="concession" property="adSummary"/>
 		<f:field bean="concession" property="adText">
-			<g:textArea name="${property}" maxlength="500" value="${it.value}" rows="4" cols="70"/>
+			<g:textArea name="${property}" maxlength="1000" value="${it.value}" rows="4" cols="70"/>
 		</f:field>
+		<f:field bean="concession" property="isForRent"/>
 		
 		<g:hiddenField name="propertyDemand" value="${concession?.propertyDemand?.id}"/>
 		<g:hiddenField name="isActive" value="${concession?.isActive}"/>
