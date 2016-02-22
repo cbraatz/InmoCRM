@@ -1,0 +1,55 @@
+@import "../mixins.scss";
+
+.b-app-with-img {
+  [class*='col-']{
+    margin:20px 0;
+  }
+}
+
+.b-app-with-img__item {
+  border-radius: 3px;
+  box-shadow: 0 -2px 2px -2px $c-25;
+  overflow: hidden;
+}
+
+.b-app-with-img__item_img {
+  display: block;
+  border-bottom: 2px solid $c-default;
+  position: relative;
+  overflow: hidden;
+  img {
+    border-radius: 3px 3px 0 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.b-app-with-img__item_text {
+  background: $c-26;
+  padding: 18px 5px 20px 5px;
+  &.b-app-with-img__border{
+    border-bottom: 2px solid $c-s-39;
+  }
+}
+.b-app-with-img__item_name {
+  margin: 6px 0;
+}
+
+.f-app-with-img__item_name {
+  @include font(14, 22);
+  text-transform: uppercase;
+}
+
+.f-app-with-img__item_info {
+  @include font(12);
+  color: $c-default;
+  a {
+    @include font(12);
+    color: $c-default;
+    text-decoration: none;
+  }
+}
+.b-item-hover-action__inner-bottom-desc a {
+  color: $c-white;
+  text-decoration: none;
+}

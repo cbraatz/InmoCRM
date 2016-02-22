@@ -1,0 +1,47 @@
+@import "../mixins.scss";
+
+.b-categories-filter{
+  ul{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  li{
+    border-bottom: 1px solid $c-s-47;
+    color: $c-senary;
+    padding: 8px 0 7px;
+  }
+  i{
+    margin-right: 10px;
+    @include font(12);
+  }
+  a{
+    &:hover{
+      ~ .f-categories-filter_count{
+        color: $c-white;
+      }
+      ~ .b-categories-filter_count{
+        background-color: $c-default;
+      }
+    }
+  }
+}
+
+.b-categories-filter_count{
+  float: right;
+  background-color: $c-s-46;
+  padding: 2px 4px;
+  border-radius: 2px;
+  min-width: 27px;
+  margin-top: -2px;
+}
+
+.f-categories-filter_count{
+  @include font(11);
+  text-align: center;
+}
+
+.f-categories-filter_name{
+  @include font(13);
+}
+

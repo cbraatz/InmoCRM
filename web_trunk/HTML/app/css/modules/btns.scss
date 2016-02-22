@@ -1,0 +1,432 @@
+@import "../mixins.scss";
+
+.b-btn {
+  @include transition(background 0.5s ease);
+  background: $c-secondary;
+  cursor: pointer;
+  display: inline-block;
+  padding: 8px 16px 6px 16px;
+  &:hover {
+    background: $c-octonary;
+  }
+  &.b-btn--load {
+    padding: 7px 14px 7px 10px;
+    .fa {
+      margin: 0 6px 0 0;
+    }
+  }
+  a.b-btn--load {
+    &:focus {
+      color: $c-white;
+    }
+  }
+}
+
+.f-btn {
+  @include font(13, 13);
+  color: $c-white;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 -1px 1px $c-d-7;
+  &:hover {
+    color: $c-white;
+  }
+  &.f-left {
+    text-align: left;
+  }
+  &.f-btn-load {
+    @include font(14, 16);
+
+    .fa {
+      font-size: 16px;
+    }
+  }
+}
+
+.b-btn-sm {
+  border-radius: 2px;
+  padding: 7px 10px 5px;
+  border-width: 0 0 1px 0;
+  min-width: 78px;
+}
+
+.f-btn-sm {
+  text-transform: none;
+}
+
+.b-btn-md {
+  border-radius: 2px;
+  padding: 12px 15px 8px;
+  @media screen and (max-width: $break-medium - 1) {
+    padding: 10px 15px 6px;
+  }
+}
+
+.f-btn-md {
+  @include font(16, 16);
+  text-transform: uppercase;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(13, 13);
+  }
+}
+
+.b-btn-default {
+  @include border-radius(2px);
+  border-bottom: 3px solid $c-octonary;
+}
+
+.b-btn-primary {
+  background: $c-13;
+  border-bottom: 1px solid $c-14;
+  &:hover {
+    background: $c-octonary;
+    border-bottom: 1px solid $c-octonary;
+  }
+}
+
+.b-btn-light {
+  @include border-radius(2px);
+  background: $c-white;
+  &:hover {
+    background: $c-default;
+  }
+}
+
+.f-btn-light {
+  color: $c-secondary;
+  text-shadow: none;
+  &:hover {
+    color: $c-white;
+  }
+}
+
+.b-btn.b-btn__w100 {
+  display: block;
+  width: 100%;
+}
+
+.b-btn-icon-sm {
+  margin-right: 8px;
+}
+
+.b-btn-biggest {
+  display: block;
+  padding: 15px 15px 12px;
+  border-radius: 3px;
+  border-bottom: 2px solid $c-octonary;
+}
+
+.f-btn-biggest {
+  color: $c-white;
+  @include font(13);
+
+}
+
+.b-btn-transparent {
+  @include transition(background 0.2s ease);
+  background: transparent;
+  border: 1px solid $c-white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 15px 23px 15px 23px;
+  &:hover {
+    background: $c-opacity-1;
+  }
+}
+
+.f-btn-transparent {
+  @include font(14, 14);
+  color: $c-white;
+  text-transform: uppercase;
+}
+
+.b-btn-sm-md {
+  border-radius: 2px;
+  padding: 9px 10px 7px 10px;
+  i {
+    margin-right: 2px;
+  }
+}
+
+.f-btn-sm-md {
+  @include font(14);
+  text-transform: none;
+}
+
+.b-btn-strong {
+  @include transition(background 0.2s ease);
+  background: $c-primary;
+  border-bottom: 2px solid $c-quinary;
+  border-radius: 2px;
+  display: inline-block;
+  padding: 8px 6px 6px;
+  &:hover {
+    background: $c-default;
+    border-color: $c-octonary;
+  }
+}
+
+.f-btn-strong {
+  @include font(12);
+  color: $c-white;
+  &:hover {
+    color: $c-white;
+  }
+}
+
+[class*='button-'] {
+  @include transition(all .5s ease);
+  background: $c-default;
+  border-bottom: 2px solid $c-59;
+  color: $c-white;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.2);
+  &:hover {
+    color: $c-white;
+    background-color: $c-59;
+  }
+}
+
+[class*='button-xs'] {
+  @include font(13, 13);
+  border-radius: 2px;
+  padding: 10px 22px 8px;
+}
+
+[class*='button-sm'] {
+  @include font(14, 14);
+  background: $c-default;
+  border-bottom: 2px solid $c-59;
+  border-radius: 2px;
+  padding: 15px 24px 9px;
+}
+
+[class*='button-lg'] {
+  @include font(16, 16);
+  background: $c-default;
+  border-bottom: 2px solid $c-59;
+  border-radius: 2px;
+  padding: 16px 23px 14px;
+  text-transform: uppercase;
+}
+
+.b-btn-container {
+  [class*='btn-'], [class*='button'] {
+    margin-right: 10px;
+  }
+}
+
+body .b-btn-type-square {
+  [class*='btn-'], [class*='button'] {
+    border-radius: 100px;
+  }
+}
+
+// + btn-special
+.b-btn-special {
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.21);
+  border-radius: 5px;
+  box-shadow: 0 0 3px $c-13 inset, 0 1px 0 rgba(255, 255, 255, 0.21);
+  display: inline-block;
+  padding: 5px 8px 4px;
+  i {
+    padding: 4px 5px;
+  }
+  span {
+
+  }
+  strong {
+
+  }
+  p {
+    display: table-cell;
+    padding: 0 5px;
+  }
+}
+
+.f-btn-special {
+  text-align: left;
+  i {
+    @include font(40, 40);
+  }
+  span {
+    @include font(12, 18);
+  }
+  strong {
+    @include font(18, 24);
+  }
+  .b-icon-fix {
+    @include font(50, 50);
+    margin-top: -5px;
+    margin-bottom: -5px;
+  }
+}
+
+// - btn-special
+
+.b-btn--icon-only {
+  i {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+// + btn-close-o
+.btn-close-o {
+  @include font(11, 11);
+  padding: 2px;
+  border-radius: 50px;
+  background-color: $c-senary;
+  color: $c-white;
+  text-align: center;
+  display: inline-block;
+  &:hover {
+    background-color: $c-default;
+    color: $c-white;
+  }
+  i {
+    &:before {
+      width: 11px;
+      display: block;
+    }
+  }
+}
+
+// - btn-close-o
+
+@include button('red', #d10c0c, #c10b0b);
+@include button('green-bright', #41a60a, #3c9909);
+@include button('turquoise', #0f999e, #0e8d92);
+@include button('gray', #4d4d4d, #474747);
+@include button('yellow', #d8a801, #c79b01);
+@include button('orange', #ff391f, #eb351d);
+@include button('blue', #2158d3, #1e51c2);
+@include button('purple', #a70dd3, #9a0cc2);
+@include button('cherry', #c211a7, #b3109a);
+@include button('raspberries', #d91463, #c8125b);
+@include button('green', #667717, #5e6e15);
+@include button('gray-light', #999, #868686);
+
+.button-gray-light {
+  &:hover {
+    background-color: $c-default;
+    border-color: $c-59;
+  }
+}
+.button-gray {
+  &:hover {
+    background-color: $c-default;
+    border-color: $c-59;
+  }
+}
+
+.b-btn-transparent {
+  @include transition(all 0.3s ease);
+  background: transparent;
+  border: 2px solid $c-white;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 14px;
+
+  &:hover {
+    background: $c-black;
+  }
+}
+
+.f-btn-transparent {
+  @include font(14, 14);
+  color: $c-white;
+  &:hover {
+    color: $c-white;
+  }
+}
+
+.btn-demo {
+  @include transition(all 0.3s ease);
+  padding: 16px 33px;
+  background-color: $c-default;
+  border: 2px solid $c-default;
+  color: $c-white;
+  display: inline-block;
+  @include font(16);
+  margin-right: 4px;
+  &:hover {
+    color: $c-white;
+    background: $c-black;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    margin-left: 4px;
+    margin-bottom: 5px;
+  }
+}
+
+.btn-demo-stroke {
+  @include transition(all 0.3s ease);
+  padding: 16px 33px;
+  color: $c-white;
+  border: 2px solid $c-white;
+  display: inline-block;
+  cursor: pointer;
+  @include font(16);
+  margin-left: 4px;
+  &:hover {
+    color: $c-white;
+    background: $c-black;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+}
+.btn-video-sl{
+  @include transition(all 0.3s ease);
+  padding: 16px 33px;
+  background-color: $c-default;
+  border: 2px solid $c-white;
+  color: $c-white;
+  display: inline-block;
+  cursor: pointer;
+  @include font(16);
+  margin-right: 4px;
+  &:hover {
+    color: $c-white;
+    background: $c-black;
+    border: 2px solid $c-black;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    margin-left: 4px;
+    margin-bottom: 5px;
+  }
+}
+.btn-video-sl-stroke{
+  @include transition(all 0.3s ease);
+  padding: 16px 33px;
+  color: $c-white;
+  border: 2px solid $c-white;
+  display: inline-block;
+  cursor: pointer;
+  @include font(16);
+  margin-left: 4px;
+  &:hover {
+    color: $c-white;
+    background: $c-default;
+    border: 2px solid $c-default;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+}
+
+.b-btn-title-real-estate {
+  &.button-xs {
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 5px 5px 2px;
+  }
+}

@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="b-form-row b-input-search">
+            <input class="form-control" type="text" placeholder="Enter your keywords"/>
+            <span class="b-btn b-btn-search f-btn-search fa fa-search"></span>
+        </div>
+    </div>
+</div>
+<div class="row b-col-default-indent">
+    <div class="col-md-12">
+        <div class="b-categories-filter">
+            <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">blog categories</h4>
+            @@include('../web-categories.html')
+        </div>
+    </div>
+    <div class="col-md-12">
+        <h4 class="f-primary-b b-h4-special  f-h4-special--gray f-h4-special">popular postes</h4>
+
+        <div class="b-blog-short-post b-blog-short-post--img-hover-bordered b-blog-short-post--w-img f-blog-short-post--w-img row">
+            @@include('../popular_product-v2.html')
+        </div>
+    </div>
+    <div class="col-md-12">
+        <h4 class="f-primary-b b-h4-special f-h4-special--gray f-h4-special">tags cloud</h4>
+        @@include('../tags.html')
+    </div>
+</div>

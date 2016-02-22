@@ -1,0 +1,31 @@
+@import "../mixins.scss";
+
+.b-desc-section-container {
+  padding: 35px 0 5px;
+  @media screen and (max-width: $break-medium - 1) {
+    padding-top: 20px;
+  }
+}
+
+.b-desc-section {
+  margin: 15px 0;
+  @media screen and (max-width: $break-medium - 1) {
+    margin-top: 0px;
+  }
+}
+
+.f-desc-section {
+  @include font(16);
+  color: $c-desc;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(15, 30);
+  }
+
+  &.f-small {
+    @include font(14);
+  }
+}
+
+.f-desc-section--light {
+  color: $c-white;
+}

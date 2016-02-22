@@ -1,0 +1,23 @@
+@import "../mixins.scss";
+
+.b-product-launch{
+  margin-bottom: -138px;
+  @media screen and (max-width: $break-tablet-p) {
+    margin-bottom: -90px;
+  }
+}
+
+.b-product-launch__text{
+  padding-right: 15px;
+  border-right: 1px solid $c-white;
+  overflow: hidden;
+  p{
+    margin-bottom: 0;
+  }
+  h2{
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+    top: -4px;
+  }
+}

@@ -1,0 +1,68 @@
+@import "../mixins.scss";
+
+.b-stars-group {
+  @include font(14);
+  color: $c-27;
+  & > .is-active-stars {
+    color: $c-default;
+  }
+}
+
+.b-social-icons {
+  margin-left: -3px;
+  margin-right: -4px;
+  .b-social-icon {
+    margin: 0 3px 8px 4px;
+  }
+}
+
+.b-social-icon {
+  height: 36px;
+  width: 36px;
+  padding: 8px;
+  background: $c-s-47;
+  &:hover {
+    background: $c-default;
+  }
+}
+
+.f-social-icon {
+  @include font(16);
+  color: $c-primary;
+  text-align: center;
+  &:hover {
+    color: $c-white;
+  }
+}
+
+.b-big-square-icon {
+  background: $c-secondary;
+  border-radius: 100px;
+  width: 70px;
+  height: 70px;
+  box-shadow: 0 -3px 0 $c-octonary inset;
+}
+
+.f-big-square-icon {
+  @include font(40, 70);
+  text-align: center;
+}
+
+/*icon real_estate*/
+
+.b-icon {
+  display: inline-block;
+  vertical-align: bottom;
+  width:21px;
+  height:19px;
+  background: url("../img/real_state/icon.png") no-repeat 0 0;
+  &.b-icon--bed {
+    background-position: 0 0;
+  }
+  &.b-icon--bathrooms {
+    background-position: 0 -29px;
+  }
+  &.b-icon--garage {
+    background-position: 0 -58px;
+  }
+}

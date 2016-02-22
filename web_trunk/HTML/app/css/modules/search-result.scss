@@ -1,0 +1,53 @@
+@import "../mixins.scss";
+
+.b-search-result-box {
+  margin: 30px 0 0;
+}
+
+.b-search-item {
+  border: 1px solid $c-21;
+  padding: 3px 25px 7px 21px;
+  margin: 0 0 26px;
+  &:hover {
+    border-color: $c-default;
+  }
+}
+ .b-search-item {
+  .is-global-title {
+    color:$c-default;
+    margin-bottom: 5px;
+  }
+ }
+ .b-search-item {
+   .b-infoblock-with-icon__icon {
+     width:22px;
+     padding:2px 1px;
+   }
+   .b-blog-one-column__info_container {
+     padding: 4px 10px 0 29px;
+   }
+
+ }
+.b-search-item {
+   .f-infoblock-with-icon__icon {
+     .fa {
+       @include font(12,12);
+     }
+   }
+ }
+.b-search-item {
+  .f-blog-one-column__info {
+    @include font(12, 12);
+  }
+}
+.b-search-item {
+  .f-btn {
+    @include font(12, 12);
+    text-transform: none;
+  }
+}
+.b-form--mini {
+  &.b-form-row {
+    margin-bottom: 5px;
+  }
+}

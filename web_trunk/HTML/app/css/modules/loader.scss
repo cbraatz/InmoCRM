@@ -1,0 +1,85 @@
+@import "../mixins.scss";
+
+@keyframes loader {
+  from {
+    @include transform (rotate(0deg));
+  }
+  to {
+    @include transform (rotate(360deg));
+  }
+}
+
+@-webkit-keyframes loader {
+  from {
+    @include transform (rotate(0deg));
+  }
+  to {
+    @include transform (rotate(360deg));
+  }
+}
+
+.loader-lock {
+  position: relative;
+  overflow: visible;
+
+  body {
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .l-wrapper {
+    visibility: visible;
+    overflow-y: scroll;
+  }
+}
+
+.l-wrapper {
+  @include transition(all 1s ease);
+  background: $c-white;
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  white-space: nowrap;
+  overflow: auto;
+  text-align: center;
+  z-index: 200;
+  opacity: 1;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    font-size: 0;
+  }
+
+  &.is-hide {
+    visibility: hidden;
+    z-index: 0;
+  }
+}
+
+.b-loading-wrap {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.b-loading-img {
+  height: 295px;
+  transform-origin: center center;
+  animation: loader 1s infinite linear;
+  -webkit-animation: loader 1s infinite linear;
+  width: 295px;
+}
+
+.b-loading-logo {
+  width: 100%;
+  margin-top: -53px;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+}

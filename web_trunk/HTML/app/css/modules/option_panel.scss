@@ -1,0 +1,227 @@
+@import "../mixins.scss";
+
+.b-option-panel {
+  height: 66px;
+  background: $c-default;
+  padding: 0 15px;
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  @media screen and (max-width: $break-smart-p - 1) {
+    padding: 0 9px;
+  }
+}
+
+.b-panel--logo {
+  display: inline-block;
+  vertical-align: middle;
+  height: 66px;
+  line-height: 65px;
+  &:hover {
+    opacity: 0.7;
+  }
+  img {
+    @media screen and (max-width: $break-smart-p - 1) {
+      width: 40px;
+    }
+  }
+}
+
+.b-panel--list-project {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  margin-left: 12px;
+}
+
+.f-panel--list-project {
+  @include font(14, 14);
+  color: $c-white;
+
+  a {
+    color: $c-white;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    margin-left: 12px;
+  }
+  @media screen and (min-width: $break-tablet-l + 1) {
+    &:hover {
+      .b-list-project--items {
+        display: block;
+      }
+      .b-list-project--title {
+        color: $c-default-txt-hover;
+      }
+    }
+  }
+  &.is-active {
+    .b-list-project--items {
+      display: block;
+    }
+    .b-list-project--title {
+      color: $c-default-txt-hover;
+    }
+  }
+}
+
+.b-list-project--title {
+  width: 194px;
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 16px 15px 14px 17px;
+  background: $c-orange-light;
+  .fa {
+    position: absolute;
+    top: 15px;
+    right: 17px;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    width: 136px;
+  }
+}
+
+.b-list-project--items {
+  display: none;
+  position: absolute;
+  top: 44px;
+  left: 0px;
+  padding: 0;
+  li {
+    list-style-type: none;
+    position: relative;
+    width: 194px;
+    a {
+      cursor: pointer;
+      text-transform: uppercase;
+      display: block;
+      background: $c-orange-light;
+      padding: 13px 15px 12px 17px;
+      &:hover {
+        background: $c-default-const-hover;
+        .b-list-progect--example {
+          display: block;
+        }
+      }
+      .fa-html {
+        @include font(10, 10);
+        display: block;
+        float: right;
+        font-style: normal;
+        color: $c-default-const;
+        background: $c-white;
+        padding: 2px 6px 3px 4px;
+      }
+    }
+    &:hover {
+      .b-list-progect--example {
+        display: block;
+        @media screen and (max-width: $break-tablet-p - 1) {
+          display: none;
+        }
+      }
+    }
+    .b-list-progect--example {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 204px;
+      border: 3px solid $c-default-const;
+      box-shadow: 1px 2px 5px $c-opacity-1;
+      @media screen and (max-width: $break-medium - 1) {
+        width: 300px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    @media screen and (max-width: $break-smart-p - 1) {
+      width: 166px;
+    }
+  }
+}
+
+.b-option--resize {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 47px;
+  .fa {
+    @include font(22, 22);
+    color: $c-white;
+    cursor: pointer;
+    margin-right: 9px;
+    &.fa-horizontal {
+      -moz-transform: rotate(270deg); /* Для Firefox */
+      -ms-transform: rotate(270deg); /* Для IE */
+      -webkit-transform: rotate(270deg); /* Для Safari, Chrome, iOS */
+      -o-transform: rotate(270deg); /* Для Opera */
+      transform: rotate(270deg);
+    }
+    &.fa-current,
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  @media screen and (max-width: $break-tablet-l - 1) {
+    display: none;
+  }
+}
+
+.b-option-item {
+  float: right;
+  border-left: 1px solid $c-34;
+  height: 66px;
+  padding: 0 23px 0 26px;
+  cursor: pointer;
+  &:first-child {
+    padding-right: 0;
+  }
+  &:hover {
+    opacity: 0.7;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    padding: 0 11px 0;
+  }
+}
+
+.f-option-item {
+  color: $c-white;
+  line-height: 65px;
+}
+
+.f-option-item {
+  &.b-option-close {
+    vertical-align: middle;
+    font-size: 28px;
+    &:hover {
+      color: $c-white;
+    }
+    @media screen and (max-width: $break-smart-p - 1) {
+      font-size: 18px;
+    }
+  }
+}
+
+.f-option-item {
+  &.b-option-cart {
+    vertical-align: middle;
+    font-size: 18px;
+    &:hover {
+      color: $c-white;
+    }
+    .fa {
+      font-size: 28px;
+      vertical-align: middle;
+
+      @media screen and (max-width: $break-smart-p - 1) {
+        font-size: 18px;
+      }
+    }
+    span {
+      margin: 0 0 0 10px;
+      @media screen and (max-width: $break-smart-l - 1) {
+        display: none;
+      }
+    }
+  }
+}

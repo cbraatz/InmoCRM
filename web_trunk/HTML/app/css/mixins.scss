@@ -1,0 +1,188 @@
+@import "mixins-color.scss";
+
+@mixin clear-fix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+@mixin box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin center {
+  margin: 0 auto;
+}
+
+$default-fz: 13;
+$default-lh: 1.2;
+
+@mixin font($size: $default-fz, $line: $size * $default-lh) {
+  font-size: ($size/$default-fz) + em;
+  line-height: ($line/$size);
+}
+
+@mixin img-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@mixin border-radius($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transition($transition) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -ms-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin transform($value) {
+  transform: $value;
+  -ms-transform: $value;
+  -webkit-transform: $value;
+}
+
+@mixin column($widthAll, $gutter, $col) {
+  @include clear-fix;
+  $colwidth: ($widthAll - ($gutter)*($col - 1)) / $col;
+  & > .b-column {
+    float: left;
+    margin-left: $gutter;
+    width: $colwidth;
+  }
+  & > .b-column:first-child,
+  & > .b-column:nth-child(#{$col}n+1) {
+    margin-left: 0;
+  }
+}
+
+@mixin alert($modulepostfix, $background, $border, $color) {
+  .b-alert-#{$modulepostfix} {
+    background: $background;
+    border: 1px solid $border;
+  }
+  .f-alert-#{$modulepostfix} {
+    color: $color;
+  }
+}
+
+$between-default: 0;
+$gradientStart: top;
+$gradientEnd: bottom;
+@mixin gradient($from, $to, $between: $between-default, $start: $gradientStart, $end: $gradientEnd) {
+  background: $from;
+  @if $between !=0{
+    background: -webkit-linear-gradient($start, $from, $between, $to);
+    background: -moz-linear-gradient($start, $from, $between, $to);
+    background: -o-linear-gradient($start, $from, $between, $to);
+    background: -ms-linear-gradient($start, $from, $between, $to);
+    background: linear-gradient(to $end, $from, $between, $to);
+  } @else {
+    background: -webkit-linear-gradient($start, $from, $to);
+    background: -moz-linear-gradient($start, $from, $to);
+    background: -o-linear-gradient($start, $from, $to);
+    background: -ms-linear-gradient($start, $from, $to);
+    background: linear-gradient(to $end, $from, $to);
+  }
+}
+
+@mixin button($name, $backgroundColor, $borderColor) {
+  .button-#{$name} {
+    background-color: $backgroundColor;
+    border-color: $borderColor;
+    &:hover {
+      background-color: $borderColor;
+    }
+  }
+}
+
+// Short retina mixin for setting background-image and -size
+
+@mixin img-retina($file-1x, $file-2x, $width-1x, $height-1x) {
+  background-image: url("#{$file-1x}");
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    background-image: url("#{$file-2x}");
+    background-size: $width-1x $height-1x;
+  }
+}
+
+@mixin fontcolor($class-name, $font-color) {
+  .#{$class-name} {
+    color: $font-color;
+  }
+}
+
+@mixin animation-duration($value) {
+  animation-duration: $value;
+  -webkit-animation-duration: $value;
+  -moz-animation-duration: $value;
+}
+
+@mixin user-select($user-select-value) {
+  -webkit-user-select: $user-select-value;
+  -moz-user-select: $user-select-value;
+  -ms-user-select: $user-select-value;
+}
+
+$f-icons: 'FontAwesome';
+
+@mixin icon {
+  font-family: $f-icons;
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin user-select($value) {
+  -webkit-user-select: $value;
+  -khtml-user-select: $value;
+  -moz-user-select: $value;
+  -o-user-select: $value;
+  user-select: $value;
+}
+
+$f-default: 'Open Sans', sans-serif;
+$f-merriweather: 'Merriweather', serif;
+
+$box-width: 1360px;
+$containerWidth: 1170px;
+
+$break-tablet-l: 1024px;
+$break-lg: 1220px;
+$break-tablet-p: 768px;
+$break-medium: 980px;
+$break-smart-l: 640px;
+$break-smart-p: 480px;
+$break-sm-l: 568px;
+$break-sm: 320px;
+$break-menu: 1074px;

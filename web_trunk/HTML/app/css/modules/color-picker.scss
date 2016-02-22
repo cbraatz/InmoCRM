@@ -1,0 +1,104 @@
+@import "../mixins.scss";
+
+[class*='b-color-picker_color']{
+  display: inline-block;
+  height: 28px;
+  width: 29px;
+  border-radius: 3px;
+  margin: 2px 4px;
+  cursor: pointer;
+  &.is-active,
+  &:hover{
+    box-shadow: 2px 2px 0 $c-s-42, -2px 2px 0px $c-s-42, 0 2px 0 $c-s-42, 2px -2px 0 $c-s-42, -2px -2px 0px $c-s-42;
+  }
+}
+
+.b-color-picker__box{
+  margin: 0 -5px 0 -5px;
+}
+
+.b-color-picker_color_1{
+  background-color: $c-cp-1;
+}
+
+.b-color-picker_color_2{
+  background-color: $c-cp-2;
+}
+
+.b-color-picker_color_3{
+  background-color: $c-cp-3;
+}
+
+.b-color-picker_color_4{
+  background-color: $c-cp-4;
+}
+
+.b-color-picker_color_5{
+  background-color: $c-cp-5;
+}
+
+.b-color-picker_color_6{
+  background-color: $c-cp-6;
+}
+
+.b-color-picker_color_7{
+  background-color: $c-cp-7;
+}
+
+.b-color-picker_color_8{
+  background-color: $c-cp-8;
+}
+
+.b-color-picker_color_9{
+  background-color: $c-cp-9;
+}
+
+.b-color-picker_color_10{
+  background-color: $c-cp-10;
+}
+
+.b-color-picker_color_11{
+  background-color: $c-cp-11;
+}
+
+.b-color-picker_color_12{
+  background-color: $c-cp-12;
+}
+
+.b-color-picker_color_13{
+  background-color: $c-cp-13;
+}
+
+.b-color-picker_color_14{
+  background-color: $c-cp-14;
+}
+
+.b-color-picker_color_15{
+  background-color: $c-cp-15;
+}
+
+.b-color-picker_color_16{
+  background-color: $c-cp-16;
+}
+
+/* + color picker --alt*/
+.b-color-picker--alt{
+  [class*='b-color-picker_color']{
+    position: relative;
+    &:after{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: $c-cp-0;
+      opacity: 0.06;
+    }
+    &.is-active,
+    &:hover{
+      box-shadow: 2px 2px 0 $c-s-43, -2px 2px 0px $c-s-43, 0 2px 0 $c-s-43, 2px -2px 0 $c-s-43, -2px -2px 0px $c-s-43;
+    }
+  }
+}
+/* - color picker --alt*/

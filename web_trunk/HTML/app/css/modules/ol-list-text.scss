@@ -1,0 +1,65 @@
+@import "../mixins.scss";
+
+.b-ol-list-text-container {
+  display: inline-block;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    display: block;
+  }
+}
+
+.b-ol-list-text__item {
+  border-bottom: 1px solid #e5e5e5;
+  padding-top: 15px;
+  padding-right: 6%;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    padding-right: 0;
+  }
+  &:last-child {
+    margin-bottom: 10px;
+  }
+}
+
+.b-ol-list-text__item_number {
+  background: #fff;
+  border: 2px solid #f4f4f4;
+  border-radius: 4px;
+  float: left;
+  padding: 10px 12px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    padding: 8px 12px;
+  }
+}
+
+.f-ol-list-text__item_number {
+  @include font(15, 15);
+  color: $c-secondary;
+  white-space: nowrap;
+}
+
+.b-ol-list-text__item_info {
+  overflow: hidden;
+  padding-left: 15px;
+}
+
+.f-ol-list-text__item_info-title {
+  @include font(16, 20);
+  text-decoration: none;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(13, 17);
+  }
+}
+
+.b-ol-list-text__item_info-desc {
+  margin: 5px 0 18px;
+}
+
+.f-ol-list-text__item_info-desc {
+  @include font(12);
+  color: $c-15;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(10);
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(13, 17);
+  }
+}

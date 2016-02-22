@@ -1,0 +1,10 @@
+@import "mixins";
+
+.is-hidden {
+  display: none;
+}
+
+.is-visible {
+  display: block;
+  visibility: visible;
+}

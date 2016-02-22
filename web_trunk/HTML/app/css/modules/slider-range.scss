@@ -1,0 +1,81 @@
+@import "../mixins.scss";
+
+.b-slider-range{
+  background-color: $c-s-63;
+  height: 4px;
+  border-radius: 3px;
+  margin-top: 57px;
+  margin-bottom: 25px;
+  box-shadow:  0 -2px 0 $c-s-64 inset;
+  &:before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -10px;
+  }
+  .ui-slider-handle{
+    background-color: $c-s-46;
+    border-radius: 10px;
+    outline: 0 none;
+    width: 9px;
+    height: 9px;
+    top: -2px;
+    cursor: pointer;
+    box-shadow: 0 0 1px $c-s-64;
+    &:before{
+      content: '';
+      width: 5px;
+      height: 5px;
+      background-color: $c-34;
+      float: left;
+      border-radius: 10px;
+      margin: 2px;
+      box-shadow: 0 -1px 1px $c-octonary inset;
+    }
+    span{
+      color: $c-white;
+      background-color: $c-34;
+      padding: 4px 7px 3px;
+      border-radius: 5px;
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 7px;
+      left: -18px;
+      min-width: 42px;
+      text-align: center;
+      &:before{
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 4px;
+        border-color: $c-34 transparent transparent transparent;
+        left: 50%;
+        top: 100%;
+        margin-left: -4px;
+      }
+    }
+  }
+  .ui-slider-range{
+    background-color: $c-secondary;
+    box-shadow:  0 -2px 0 $c-octonary inset;
+  }
+}
+
+.b-slider-range_min,
+.b-slider-range_max{
+  position: absolute;
+  top: -24px;
+}
+
+.b-slider-range_min{
+  left: 0;
+}
+
+.b-slider-range_max{
+  right: 0;
+}
+
+.f-slider-range{
+  color: $c-s-62;
+  @include font(11);
+}

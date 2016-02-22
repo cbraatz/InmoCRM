@@ -1,0 +1,79 @@
+@import "../mixins.scss";
+
+.b-hr {
+  margin: 25px 0;
+  border-top: 1px solid $c-12;
+  width: 100%;
+}
+
+.b-hr-stars {
+  color: $c-secondary;
+  margin: 30px auto;
+  width: 46%;
+  position: relative;
+  @media screen and (max-width: $break-medium - 1) {
+    width: 71%;
+    margin: 25px auto;
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    width: 100%;
+  }
+  &:before {
+    content: '';
+    width: 100%;
+    top: 6px;
+    left: 0;
+    border-top: 1px solid $c-12;
+    position: absolute;
+  }
+  &.b-hr-stars__double-bord {
+    &:before {
+      border-top-style: double;
+      border-width: 4px;
+    }
+  }
+  &.b-hr-stars__no-bord {
+    &:before {
+      border-top: 0;
+    }
+  }
+}
+
+.f-hr-stars {
+  text-align: center;
+}
+
+.b-hr-stars__group {
+  background: #fff;
+  position: relative;
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.b-hr-light {
+  background: #ececec;
+  border: 0;
+  height: 1px;
+}
+
+.b-hr-with-btn{
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  margin-bottom: 10px;
+  &:before, &:after{
+    content: '';
+    width: 530px;
+    height: 1px;
+    background-color: $c-s-39;
+    position: absolute;
+    top: 14px;
+    margin: 0 10px;
+  }
+  &:before{
+    left: 100%;
+  }
+  &:after{
+    right: 100%;
+  }
+}

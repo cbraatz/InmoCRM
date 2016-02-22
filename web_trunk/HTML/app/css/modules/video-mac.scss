@@ -1,0 +1,42 @@
+@import "../mixins.scss";
+
+.b-video-mac__btn {
+  margin-bottom: 20px;
+}
+
+.b-video-mac-wrap {
+  margin: 0 auto -12px;
+  max-width: 674px;
+}
+
+.b-video-mac {
+  background: url("../img/homepage/mac-video.png") no-repeat center top;
+  background-size: 100% auto;
+  box-sizing: content-box;
+  display: block;
+  height: 0;
+  margin: 0 10px -25px;
+  padding-bottom: 57.6%;
+  position: relative;
+  z-index: 2;
+}
+
+.b-video-mac__player {
+  bottom: 40px;
+  left: 11.77%;
+  position: absolute;
+  right: 11.32%;
+  top: 18px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    top: 10px;
+  }
+  @media screen and (max-width: $break-smart-p - 1) {
+    bottom: 30px;
+    top: 10px;
+  }
+
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
+}

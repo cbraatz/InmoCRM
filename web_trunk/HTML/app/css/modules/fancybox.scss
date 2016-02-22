@@ -1,0 +1,154 @@
+@import "../mixins.scss";
+
+.fancybox-wrap-popup {
+  background: none;
+  border-radius: 0;
+  &.fancybox-skin {
+    box-shadow: none;
+  }
+
+  .fancybox-title {
+    @include clear-fix;
+    @include font(16);
+    color: $c-white;
+    font-weight: 600;
+    text-align: left;
+    text-transform: uppercase;
+
+    .fancybox-counter {
+      float: right;
+      text-transform: none;
+      font-size: 16px;
+    }
+
+    .fancybox-title-text {
+      display: block;
+      overflow: hidden;
+      padding-right: 15px;
+    }
+  }
+
+  .fancybox-title-inside-wrap {
+    left: 10px;
+    padding: 15px 0 0;
+    position: absolute;
+    right: 10px;
+    top: 100%;
+  }
+
+  .fancybox-prev,
+  .fancybox-next,
+  .fancybox-close {
+    display: none;
+  }
+}
+
+.fancybox-wrap-popup-next,
+.fancybox-wrap-popup-prev,
+.fancybox-wrap-popup-close {
+  cursor: pointer;
+  &:hover {
+    polygon {
+      fill: $c-default;
+      stroke: $c-default;
+      @media screen and (max-width: $break-tablet-l) {
+        fill: $c-white;
+        stroke: $c-white;
+      }
+    }
+  }
+  polygon {
+    fill: $c-white;
+    stroke-width: 1;
+    &:hover {
+      fill: $c-default;
+      stroke: $c-default;
+      @media screen and (max-width: $break-tablet-l) {
+        fill: $c-white;
+        stroke: $c-white;
+      }
+    }
+  }
+}
+
+.fancybox-wrap-popup-next,
+.fancybox-wrap-popup-prev {
+  top: 50%;
+  position: absolute;
+  z-index: 8070;
+  margin-top: -36px;
+  @media screen and (max-width: $break-tablet-l) {
+    margin-top: -28px;
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    margin-top: -20px;
+  }
+  @media screen and (max-width: $break-sm-l - 1) {
+    margin-top: -16px;
+  }
+
+  svg {
+    height: 72px;
+    width: 37px;
+    @media screen and (max-width: $break-tablet-l) {
+      height: 57px;
+      width: 29px;
+    }
+    @media screen and (max-width: $break-tablet-p - 1) {
+      height: 39px;
+      width: 19px;
+    }
+    @media screen and (max-width: $break-sm-l - 1) {
+      height: 33px;
+      width: 17px;
+    }
+  }
+}
+
+.fancybox-wrap-popup-next {
+  right: 53px;
+  @media screen and (max-width: $break-lg - 1) {
+    right: 22px;
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    right: 26px;
+  }
+  @media screen and (max-width: $break-sm-l - 1) {
+    right: 13px;
+  }
+}
+
+.fancybox-wrap-popup-prev {
+  left: 53px;
+  @media screen and (max-width: $break-lg - 1) {
+    left: 22px;
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    left: 26px;
+  }
+  @media screen and (max-width: $break-sm-l - 1) {
+    left: 13px;
+  }
+}
+
+.fancybox-wrap-popup-close {
+  top: 44px;
+  right: 53px;
+  position: absolute;
+  z-index: 9999;
+
+  svg {
+    height: 23px;
+    width: 23px;
+  }
+
+  @media screen and (max-width: $break-lg - 1) {
+    right: 22px;
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    right: 26px;
+  }
+  @media screen and (max-width: $break-sm-l - 1) {
+    right: 13px;
+  }
+}

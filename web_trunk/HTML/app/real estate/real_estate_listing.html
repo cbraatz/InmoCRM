@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Real Estate: Home Listing Grid | Frexy Responsive HTML Template</title>
+    @@include('../templates/header-links.html')
+
+</head>
+<body>
+@@include('../templates/header.html')
+@@include('../templates/inner-header-description.html', {"title": "Real Estate Home", "description": "Listing Grid"})
+<div class="l-main-container">
+    <div class="b-breadcrumbs f-breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                <li><i class="fa fa-angle-right"></i><a href="#">Real Estate</a></li>
+                <li><i class="fa fa-angle-right"></i><span>Home Listing Grid</span></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="l-inner-page-container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-1.jpg",
+                    "title": "Villa Ernesto Subdivision",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-2.jpg",
+                    "title": "Precy Villa Condos",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-3.jpg",
+                    "title": "Redgedale Palace",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-4.jpg",
+                    "title": "Villa Ernesto Subdivision",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-5.jpg",
+                    "title": "Precy Villa Condos",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-6.jpg",
+                    "title": "Redgedale Palace",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-7.jpg",
+                    "title": "Villa Ernesto Subdivision",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-8.jpg",
+                    "title": "Precy Villa Condos",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12 b-item-apartment-block">
+                    @@include('../shared/apartment_block_grid.html', {
+                    "image": "img/real_state/real_estate_home-9.jpg",
+                    "title": "Redgedale Palace",
+                    "href": "real_estate_home_detail_left_sidebar.html"})
+                </div>
+            </div>
+            <div class="f-center">
+                @@include('../shared/paging.html')
+            </div>
+        </div>
+    </div>
+</div>
+@@include('../templates/footer.html')
+</body>
+</html>

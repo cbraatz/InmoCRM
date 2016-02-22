@@ -1,0 +1,47 @@
+@import "../mixins.scss";
+
+.b-blog-preview {
+  border: 1px solid $c-21;
+  border-radius: 2px;
+
+  .b-video-player {
+    margin-bottom: 0;
+  }
+}
+
+.b-blog-preview__img {
+  border-bottom: 2px solid $c-default;
+  img {
+    width: 100%;
+  }
+}
+
+.b-blog-preview__content-text {
+  max-height: 94px;
+  overflow: hidden;
+}
+
+.b-blog-preview__content-padding_box {
+  padding: 18px;
+}
+
+.b-product-preview__img {
+  img {
+    width: 100%;
+  }
+}
+
+.f-blog-preview__content-title {
+  @include font(14, 20);
+  color: $c-11;
+}
+
+.f-blog-preview__content-date {
+  @include font(11, 11);
+  color: $c-s-38;
+}
+
+.f-blog-preview__content-text {
+  @include font(11, 24);
+  color: $c-primary;
+}

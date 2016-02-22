@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Contact us: v1 | Frexy Responsive HTML Template</title>
+    @@include('../templates/header-links.html')
+</head>
+<body>
+@@include('../templates/header.html')
+@@include('../templates/inner-header.html', {"title": "Contact us"})
+
+<div class="l-main-container">
+    <div class="b-breadcrumbs f-breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                <li><i class="fa fa-angle-right"></i><span> Contact us </span></li>
+            </ul>
+        </div>
+    </div>
+    <section class="b-google-map map-theme b-bord-box" data-location-set="contact-us">
+        @@include('../shared/google_map.html', {
+        "marker": "img/google-map-marker-default.png",
+        "label-marker": "",
+        "selected-marker": 0,
+        "info-window-width": 250,
+        "info-window-inner": "",
+        "info-window": "info_window_office"
+        })
+    </section>
+    <div class="b-desc-section-container">
+        <section class="container b-welcome-box">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <h1 class="is-global-title f-center">We’d love to hear from you!</h1>
+                    <p class="f-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a scelerisque turpis, ut porta turpis. Integer imperdiet aliquet velit, vel tincidunt lectus dictum sed. Curabitur dignissim ut massa vel tincidunt. Nullam imperdiet pharetra ipsum in lobortis. Etiam convallis, felis quis dapibus dictum, libero mauris luctus nunc, non fringilla purus ligula non justo. Nullam </p>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="row">
+                <div class="col-sm-6 b-contact-form-box">
+                    <h3 class="f-primary-b b-title-description f-title-description">
+                        Formulario de contacto
+                        <div class="b-title-description__comment f-title-description__comment f-primary-l">Algo sobre el contacto aqui </div>
+                    </h3>
+                    <div class="row">
+                        <form action="" method="post">
+                            <div class="col-md-6">
+                                <div class="b-form-row">
+                                    <label class="b-form-vertical__label" for="name">Tu nombre</label>
+                                    <div class="b-form-vertical__input">
+                                        <input type="text" id="name" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="b-form-row">
+                                    <label class="b-form-vertical__label" for="email">Tu correo electrÃ³nico</label>
+                                    <div class="b-form-vertical__input">
+                                        <input type="text" id="email" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="b-form-row">
+                                    <a href="#" class="b-btn f-btn b-btn-md b-btn-default f-primary-b b-btn__w100">enviarme una copia</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="b-form-row b-form--contact-size">
+                                    <label class="b-form-vertical__label">Tu mensaje</label>
+                                    <textarea class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-6 b-contact-form-box">
+                    <h3 class="f-primary-b b-title-description f-title-description">
+                        InformaciÃ³n de contacto
+                        <div class="b-title-description__comment f-title-description__comment f-primary-l">Quisque at tortor a libero posuere laoreet vitae sed arcu nunc at augue tincidunt </div>
+                    </h3>
+                    <div class="row b-google-map__info-window-address">
+                        @@include('../shared/contact_info-more.html')
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="b-diagonal-line-bg-light b-bord-box">
+        <section class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="f-primary-b b-title-description f-title-description">danos me gusta en facebook</h3>
+                    <div class="b-wiget-fb">
+                        <div class="b-wiget-fb-content" id="fb-root">
+                            <div class="fb-like-box" data-width="285" data-href="https://www.facebook.com/FacebookDevelopers"
+                                 data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false"
+                                 data-show-border="false"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3 class="f-primary-b b-title-description f-title-description">twitter feeds</h3>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="b-twitter-feeds__item">
+                                <div class="b-twitter-feeds__item_name f-twitter-feeds__item_name f-primary-b"><i
+                                        class="fa fa-twitter"></i> NombreEmpresa
+                                </div>
+                                <div class="b-twitter-feeds__item_twit f-twitter-feeds__item_twit">
+                                    Lorem ipsum dolor sit amet, consectetur adip iscing elit. Curabitur ut blandit sapien. <a
+                                        href="http://t.co/hd3sk" target="_blank">http://t.co/hd3sk</a>
+                                </div>
+                                <div class="b-twitter-feeds__item_date f-twitter-feeds__item_date f-primary-it c-senary">2 days
+                                    ago
+                                </div>
+                            </div>
+                            <div class="b-twitter-feeds__item b-default-top-indent">
+                                <div class="b-twitter-feeds__item_name f-twitter-feeds__item_name f-primary-b"><i
+                                        class="fa fa-twitter"></i> John Doe
+                                </div>
+                                <div class="b-twitter-feeds__item_twit f-twitter-feeds__item_twit">
+                                    Lorem ipsum dolor sit amet, consectetur adip iscing elit. Curabitur ut blandit sapien. <a
+                                        href="http://t.co/hd3sk" target="_blank">http://t.co/hd3sk</a>
+                                </div>
+                                <div class="b-twitter-feeds__item_date f-twitter-feeds__item_date f-primary-it c-senary">2 days
+                                    ago
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+@@include('../templates/footer.html')
+
+</body>
+</html>
+

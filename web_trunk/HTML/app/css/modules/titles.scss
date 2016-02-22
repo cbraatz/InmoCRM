@@ -1,0 +1,66 @@
+@import "../mixins.scss";
+
+.b-title-b-hr {
+  border-bottom: 1px solid $c-22;
+  padding: 40px 0 10px;
+}
+
+.f-title-b-hr {
+  @include font(18);
+  color: $c-default;
+  text-transform: uppercase;
+}
+
+.f-title-small {
+  @include font(14, 20);
+}
+
+.f-title-medium {
+  @include font(16, 20);
+}
+
+body .f-title-middle {
+  @include font(20, 26);
+}
+
+.f-title-big {
+  @include font(24, 38);
+  &.f-uppercase {
+    padding-top: 0.2em;
+  }
+  a {
+    color: $c-primary;
+    &:hover {
+      color: $c-default;
+    }
+    &[class*='b-btn-'] {
+      color: $c-white;
+
+    }
+  }
+}
+
+.f-title-bigger {
+  @include font(36, 42);
+}
+
+.f-title-biggest {
+  @include font(48, 56);
+}
+
+.f-title-smallest {
+  @include font(12);
+}
+
+body .f-title-extra-small {
+  @include font(11);
+}
+
+.b-primary-title {
+  padding: 22px 0 10px;
+}
+
+.f-primary-title {
+  @include font(30);
+  color: $c-default;
+}

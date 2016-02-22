@@ -1,0 +1,593 @@
+@import "../mixins.scss";
+
+.b-radial-progress {
+  display: inline-block;
+  position: relative;
+  .component {
+    fill: $c-white;
+  }
+
+  .arc {
+    fill: $c-default;
+    stroke-width: 100;
+  }
+}
+
+.bg-first-layer {
+  fill: $c-24;
+  stroke-width: 100;
+  stroke-linecap: round;
+}
+
+.b-radial-progress__label {
+  @include transition(opacity 0.8s);
+  left: 0;
+  margin-top: -20px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.is-completed {
+  .b-radial-progress__label {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.f-radial-progress__label {
+  @include font(40, 40);
+  color: $c-default;
+}
+
+.b-radial-progress-number-bg {
+  .component {
+    fill: $c-default;
+  }
+
+  .label {
+    text-anchor: middle;
+  }
+}
+
+.b-progressbar-lg-group {
+  .b-progressbar {
+    margin-bottom: 38px;
+  }
+}
+
+.b-progressbar-sm-group {
+  .b-progressbar {
+    margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+.b-progressbar {
+  &.progress {
+    background: $c-24;
+    box-shadow: none;
+    height: 23px;
+    overflow: visible;
+    z-index: 1;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .progress-bar {
+    background-color: $c-default;
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  .progressbar-back-text {
+    padding-right: 8px;
+    z-index: 4;
+  }
+
+  .progressbar-front-text {
+    display: none;
+  }
+}
+
+.f-progressbar {
+  .progressbar-back-text {
+    color: $c-default;
+    font-weight: 700;
+    text-align: right;
+    line-height: 23px;
+  }
+}
+
+.b-progressbar:not(.progress-striped) {
+  .progress-bar {
+    background-image: none;
+  }
+
+  .b-progressbar-label {
+    position: absolute;
+    left: 13px;
+    height: 100%;
+    z-index: 3;
+  }
+}
+
+.f-progressbar:not(.progress-striped) {
+  .f-progressbar-label {
+    color: $c-white;
+    line-height: 23px;
+  }
+}
+
+/* Animate progressbar */
+.b-progressbar.progress-striped {
+  height: 7px;
+  .progress-bar {
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-size: 8px 8px;
+  }
+
+  .progressbar-back-text {
+    @include transition(visibility 0.2s ease);
+    background: $c-white;
+    border-radius: 2px;
+    border: 1px solid $c-s-60;
+    height: auto;
+    margin-left: -17px;
+    padding: 0 6px;
+    position: absolute;
+    top: -25px;
+    right: auto;
+    width: auto;
+    visibility: hidden;
+    &.is-visible {
+      visibility: visible;
+    }
+    &:after {
+      border-width: 5px;
+      border-style: solid;
+      border-color: $c-s-60 transparent transparent transparent;
+      bottom: -10px;
+      content: "";
+      left: 50%;
+      margin-left: -5px;
+      position: absolute;
+      z-index: 1;
+    }
+    &:before {
+      border-width: 4px;
+      border-style: solid;
+      border-color: $c-white transparent transparent transparent;
+      bottom: -8px;
+      content: "";
+      left: 50%;
+      margin-left: -4px;
+      position: absolute;
+      z-index: 2;
+    }
+  }
+}
+
+.f-progressbar.progress-striped {
+  .progressbar-back-text {
+    @include font(10, 16);
+  }
+}
+
+.f-progressbar-label {
+  @include font(12, 27);
+}
+
+/* End Animate progressbar */
+
+/* Steps progressbar */
+.b-steps-progressbar {
+  margin: 40px 0;
+  position: relative;
+  .progress {
+    border-radius: 2px;
+    border-top: 2px solid $c-denary;
+    border-bottom: 2px solid $c-septenary;
+    height: 4px;
+    overflow: visible;
+  }
+  .progress-bar {
+    border-bottom: 2px solid $c-octonary;
+    border-top: 2px solid $c-default;
+    border-radius: 2px;
+    height: 4px;
+    top: -2px;
+  }
+}
+
+.progress-steps {
+  padding: 0;
+}
+
+.progress-step {
+  @include font(14, 25);
+  color: $c-primary;
+  background: $c-white;
+  border: 1px solid $c-s-60;
+  border-radius: 3px;
+  list-style: none;
+  position: absolute;
+  padding: 0 8px;
+  text-transform: uppercase;
+  text-align: center;
+  top: -39px;
+  &:after {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $c-s-60 transparent transparent transparent;
+    bottom: -10px;
+    content: "";
+    left: 50%;
+    margin-left: -5px;
+    position: absolute;
+    z-index: 1;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      bottom: -9px;
+    }
+  }
+  &:before {
+    border-width: 4px;
+    border-style: solid;
+    border-color: $c-white transparent transparent transparent;
+    bottom: -7px;
+    content: "";
+    left: 50%;
+    margin-left: -4px;
+    position: absolute;
+    z-index: 2;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      bottom: -7px;
+    }
+  }
+
+  .progress-step__text {
+    position: relative;
+    z-index: 3;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      @include text-overflow;
+      max-width: 35px;
+    }
+  }
+
+  @media screen and (max-width: $break-tablet-l - 1) {
+    padding: 0 4px;
+  }
+
+  @media screen and (max-width: $break-smart-l - 1) {
+    @include font(10, 16);
+    top: -30px;
+  }
+
+  .progress-step__dot {
+    background: $c-white;
+    border: 1px solid $c-21;
+    bottom: -21px;
+    display: block;
+    border-radius: 50%;
+    height: 15px;
+    left: 50%;
+    margin-left: -8px;
+    position: absolute;
+    width: 15px;
+    &:after {
+      background: $c-58;
+      border-radius: 50%;
+      border-bottom: 2px solid $c-s-37;
+      content: '';
+      height: 9px;
+      position: absolute;
+      width: 9px;
+      left: 2px;
+      top: 2px;
+    }
+  }
+
+  &.active {
+    color: $c-default;
+    .progress-step__dot {
+      &:after {
+        background: $c-default;
+        border-color: $c-octonary;
+      }
+    }
+  }
+}
+
+/* End Steps progressbar */
+
+/*Steps progressbar empty*/
+.b-steps-progressbar--empty {
+  &.progress-step {
+    top: -14px;
+    border: 0;
+    &:after,
+    &:before {
+      display: none;
+    }
+  }
+}
+/*Steps progressbar with numbers*/
+.b-steps-progressbar--number {
+  .progress-step {
+    border-color: $c-25;
+    border-radius: 50%;
+    height: 36px;
+    padding: 6px;
+    top: -20px;
+    width: 36px;
+    @media screen and (max-width: $break-smart-l - 1) {
+      height: 32px;
+      top: -16px;
+      width: 32px;
+    }
+
+    &:before,
+    &:after {
+      border: 0;
+      border-radius: 50%;
+      bottom: auto;
+      left: 6px;
+      margin: 0;
+      top: 5px;
+      height: 22px;
+      width: 22px;
+      @media screen and (max-width: $break-smart-l - 1) {
+        height: 20px;
+        left: 5px;
+
+        width: 20px;
+      }
+    }
+
+    &:before {
+      background: $c-58;
+      @media screen and (max-width: $break-smart-l - 1) {
+        top: 6px;
+      }
+    }
+
+    &:after {
+      background: $c-s-41;
+      top: 6px;
+      @media screen and (max-width: $break-smart-l - 1) {
+        top: 5px;
+      }
+    }
+
+    &.active {
+      &:before {
+        background: $c-default;
+      }
+
+      &:after {
+        background: $c-octonary;
+      }
+    }
+  }
+  .progress-step__text {
+    line-height: 20px;
+  }
+  .b-steps-progressbar--empty {
+    &.progress-step {
+      border: 1px solid $c-25;
+      border-radius: 50%;
+    }
+  }
+}
+
+.f-steps-progressbar--number {
+  .progress-step {
+    line-height: 22px;
+    text-align: center;
+    @media screen and (max-width: $break-smart-l - 1) {
+      line-height: 20px;
+    }
+  }
+
+  .progress-step__text {
+    color: $c-white;
+  }
+}
+
+/*End steps progressbar with numbers*/
+
+/*Steps progressbar with icons*/
+.b-steps-progressbar--icon {
+  .progress-step {
+    border: 0;
+    background: none;
+    top: -32px;
+    @media screen and (max-width: $break-smart-l - 1) {
+      top: -26px;
+    }
+    &:before,
+    &:after {
+      border-radius: 50%;
+      bottom: auto;
+      position: absolute;
+    }
+
+    &:before {
+      border-width: 1px;
+      border-color: $c-s-39;
+      background: $c-white;
+      height: 15px;
+      left: 50%;
+      margin-left: -7.5px;
+      width: 15px;
+      z-index: 1;
+      top: 24px;
+      @media screen and (max-width: $break-smart-l - 1) {
+        top: 18px;
+      }
+    }
+
+    &:after {
+      background: $c-s-38;
+      border-radius: 50%;
+      border-width: 0 0 2px 0;
+      border-color: $c-s-37;
+      height: 9px;
+      left: 50%;
+      margin-left: -4.5px;
+      top: 27px;
+      width: 9px;
+      z-index: 2;
+      @media screen and (max-width: $break-smart-l - 1) {
+        top: 21px;
+      }
+    }
+
+    span {
+      display: block;
+      position: relative;
+      bottom: -5px;
+      @media screen and (max-width: $break-smart-l - 1) {
+        @include text-overflow;
+        max-width: 40px;
+        width: 100%;
+      }
+    }
+
+    .progress-step__icon {
+      @include center;
+      display: block;
+      background: $c-white;
+      border: 1px solid $c-s-60;
+      border-radius: 50%;
+      height: 36px;
+      width: 36px;
+      padding: 6px;
+      top: -20px;
+      position: relative;
+      @media screen and (max-width: $break-smart-l - 1) {
+        top: -26px;
+      }
+      &:after {
+        border-width: 12px;
+        border-style: solid;
+        border-color: $c-s-60 transparent transparent transparent;
+        bottom: -20px;
+        content: "";
+        left: 50%;
+        margin-left: -12px;
+        position: absolute;
+        z-index: 1;
+      }
+
+      &:before {
+        border-width: 13px;
+        border-style: solid;
+        border-color: $c-white transparent transparent transparent;
+        bottom: -20px;
+        content: "";
+        left: 50%;
+        margin-left: -13px;
+        position: absolute;
+        z-index: 2;
+      }
+    }
+
+    &.active {
+      .progress-step__icon {
+        @include gradient($c-77, $c-78);
+        border-color: transparent;
+
+        &:before,
+        &:after {
+          border-color: $c-78 transparent transparent transparent;
+        }
+      }
+
+      &:before {
+        border-color: $c-default;
+      }
+
+      &:after {
+        background: $c-default;
+        border-color: $c-octonary;
+      }
+    }
+  }
+}
+
+.f-steps-progressbar--icon {
+  .progress-step {
+    .fa {
+      font-size: 14px;
+      line-height: 24px;
+    }
+    span {
+      white-space: nowrap;
+      @media screen and (max-width: $break-smart-l - 1) {
+        @include text-overflow;
+        max-width: 40px;
+        width: 100%;
+      }
+    }
+    &.active {
+      .fa {
+        color: $c-white;
+      }
+    }
+  }
+}
+
+/*End Steps progressbar with icons*/
+
+// + progress tab
+.b-progress-tab {
+  .progress-step__dot {
+    cursor: pointer;
+    &:hover {
+      &:after {
+        background: $c-default;
+        border-color: $c-octonary;
+      }
+    }
+  }
+}
+
+.b-progress-tab-arr {
+  position: relative;
+  z-index: 11;
+  margin-bottom: -1px;
+  width: 10px;
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px;
+    margin-left: -10px;
+  }
+  &:before {
+    border-color: transparent transparent $c-27 transparent;
+    top: -21px;
+  }
+  &:after {
+    border-color: transparent transparent $c-white transparent;
+    top: -20px;
+  }
+}
+
+.b-tab-progress {
+  &:not(:first-child) {
+    display: none;
+  }
+}
+
+// - progress tab

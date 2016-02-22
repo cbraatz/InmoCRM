@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Contacto NombreEmpresa</title>
+    @@include('../templates/header-links.html')
+</head>
+<body>
+@@include('../templates/header.html')
+@@include('../templates/inner-header.html', {"title": "Contáctenos"})
+
+<div class="l-main-container">
+    <section class="container b-welcome-box">
+            <div class="row">
+                <div class="col-md-14">
+                    <h1 class="is-global-title f-center">Estaríamos encantados de escuchar de tí!</h1>
+					<p class="f-center">¿Estás buscando una casa, terreno o sitio urbano donde edificar? ¿Un terreno agrícola o ganadero?, ¿Tal vez un local comercial o simplemente quieres invertir en el único negocio en el que siempre se gana, y necesitás ayuda para localizar el inmueble que mejor se adapte a tus necesidades, expectativas y capacidades?. Es más, quizás tengas algún inmueble y ¿Necesitás ayuda para colocarlo en el mercado de manera rápida, segura y confiable?.</p>
+					<p class="f-center">Escríbeme tus planes sobre el proyecto que tienes en mente y te ofreceré la ayuda en el área inmobiliaria que necesitas. Trataré de responderte en breve, de ser posible, dentro del próximo día hábil.</p>
+                </div>
+            </div>
+        </section>
+    <section class="b-google-map map-theme">
+        @@include('../shared/google_map.html', {
+        "marker": "img/google-map-marker-default.png",
+        "label-marker": "",
+        "selected-marker": 0,
+        "info-window-width": 526,
+        "info-window-inner": "",
+        "info-window": "info_window_address"
+        })
+        @@include('../shared/contact_form.html')
+    </section>
+@@include('../templates/footer-simple.html')
+
+</body>
+</html>
+

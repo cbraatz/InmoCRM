@@ -1,0 +1,42 @@
+@import "../mixins.scss";
+
+.b-twitter-feeds {
+  [class*='col-'] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+.b-twitter-feeds__item_name {
+  margin-bottom: 10px;
+}
+
+.f-twitter-feeds__item_name {
+  @include font(13, 20);
+  color: $c-default;
+  text-transform: uppercase;
+  i{
+    margin-right: 2px;
+  }
+}
+
+.b-twitter-feeds__item_twit {
+  margin-bottom: 5px;
+}
+
+.f-twitter-feeds__item_twit {
+  @include font(12, 20);
+  a {
+    color: $c-secondary;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.f-twitter-feeds__item_date {
+  @include font(11, 20);
+}

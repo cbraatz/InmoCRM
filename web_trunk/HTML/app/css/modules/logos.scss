@@ -1,0 +1,47 @@
+@import "../mixins.scss";
+
+.b-logo-group {
+  margin: 15px 2px;
+}
+
+.b-logo-item {
+  display: inline-block;
+  vertical-align: middle;
+  a{
+    padding: 14px 17px;
+    min-height: 75px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 47px;
+    width: 202px;
+    text-align: center;
+    margin-bottom: 25px;
+    &:hover{
+      background: $c-white;
+      box-shadow: 0 0 2px $c-denary;
+      .is-hover{
+        display: inline-block;
+      }
+      .is-normal{
+        display: none;
+      }
+    }
+  }
+  img{
+    display: inline-block;
+    max-width: 100%;
+    &.is-hover{
+      display: none;
+    }
+  }
+}
+
+.b-logo-partner-box {
+  .b-logo-item {
+    a {
+      background: $c-white;
+      box-shadow: 0 0 2px $c-denary;
+      margin:0 5px 20px;
+    }
+  }
+}

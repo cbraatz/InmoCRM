@@ -1,0 +1,120 @@
+@import "../mixins.scss";
+
+.b-list-markers {
+  padding-left: 0;
+  li {
+    list-style: none;
+    margin-bottom: 12px;
+  }
+}
+
+.f-list-markers {
+  li {
+    @include font(12);
+    a {
+      color: inherit;
+      &:hover {
+        color: $c-default;
+      }
+    }
+  }
+  .fa {
+    @include font(15);
+  }
+}
+
+.b-list-markers-2col {
+  @include clear-fix;
+  margin: 0;
+  padding: 15px 0 10px 0;
+
+  li {
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: top;
+    width: 50%;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      float: none;
+      width: 100%;
+    }
+  }
+}
+
+.f-list-markers-2col {
+  font-size: 0;
+  li {
+    font-size: 12px;
+  }
+}
+
+.b-list-markers__ico {
+  margin-right: 5px;
+}
+
+.f-list-markers__ico {
+  color: $c-default;
+}
+
+.b-list-markers__number,
+.b-list-markers__alpha {
+  padding: 2px 4px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.b-list-markers__alpha {
+  background: $c-default;
+}
+
+.b-list-markers__number {
+  background: $c-primary;
+}
+
+.f-list-markers__number,
+.f-list-markers__alpha {
+  @include font(12, 12);
+  color: $c-white;
+  text-align: center;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* + list-markers color theme*/
+.f-list-markers-default-color {
+  color: $c-primary;
+  .f-list-markers__ico {
+    color: $c-primary;
+  }
+}
+
+/* - list-markers color theme*/
+
+/* + list-markers--without-leftindent*/
+.b-list-markers--without-leftindent {
+  padding-left: 0;
+}
+
+/* - list-markers--without-margin*/
+
+/* + list-markers--medium*/
+.f-list-markers--medium {
+  li {
+    font-size: $default-fz + px;
+    .f-list-markers__ico {
+      vertical-align: middle;
+      @include font(16);
+    }
+  }
+}
+
+/* - list-markers--medium*/
+
+/* + list length size*/
+.b-list-markers--short {
+  li {
+    display: inline-block;
+  }
+}
+
+/* - list length size*/

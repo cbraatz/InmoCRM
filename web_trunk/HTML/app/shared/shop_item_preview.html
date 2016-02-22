@@ -1,0 +1,15 @@
+<div class="b-product-preview">
+    @@include('../shared/hover_image/hover_image_shop.html', {
+    "src": "@@src", "class": "b-product-preview__img",
+    "link": "shop_detail.html"
+    })
+    <div class="b-product-preview__content">
+        <div class="b-product-preview__content_col">
+            <span class="b-product-preview__content_price f-product-preview__content_price f-primary-b">@@price</span>
+        </div>
+        <div class="b-product-preview__content_col">
+            <a href="shop_detail.html" class="f-product-preview__content_title">@@title</a>
+            <div class="f-product-preview__content_category f-primary-b">@@description</div>
+        </div>
+    </div>
+</div>

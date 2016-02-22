@@ -1,0 +1,120 @@
+@import "../mixins.scss";
+
+// + product-cart
+.b-product-cart {
+  width: 100%;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    border: 1px solid $c-s-46;
+    background: $c-23;
+    padding: 1em;
+    @media screen and (max-width: $break-smart-l - 1) {
+      padding: 0.5em;
+    }
+    &:nth-child(4) {
+      @media screen and (max-width: $break-tablet-p - 1) {
+        display: none;
+      }
+    }
+    span {
+      color: $c-senary;
+    }
+  }
+  td {
+    border: 1px solid $c-s-46;
+    background: $c-white;
+    padding: 1em;
+    vertical-align: top;
+    @media screen and (max-width: $break-smart-l - 1) {
+      padding: 0.5em;
+    }
+    &:nth-child(4) {
+      @media screen and (max-width: $break-tablet-p - 1) {
+        display: none;
+      }
+    }
+  }
+  span {
+    display: block;
+    line-height: 20px;
+    span {
+      display: inline;
+    }
+  }
+  p {
+    font-size: 1em;
+  }
+  .b-product-card__info_count {
+    margin-right: 0;
+  }
+  .b-align-middle {
+    vertical-align: middle;
+  }
+}
+
+// - product-cart
+
+.b-product-cart-small {
+  border: 1px solid $c-21;
+  & + .b-product-cart-small {
+    border-top: 0 none;
+  }
+}
+
+.b-product-cart-small__header {
+  padding: 0.9em 0.9em 0.7em;
+  border-bottom: 1px solid $c-21;
+  box-shadow: 0 -1px 1px $c-24 inset;
+}
+
+.b-product-cart-small__content {
+  padding: 1em;
+}
+
+.b-product-cart-small__content_row {
+
+}
+
+.b-product-cart-small__content_row-half {
+  float: left;
+  width: 50%;
+  &:first-child {
+    padding-right: 0.4em;
+  }
+  &:last-child {
+    padding-left: 0.4em;
+  }
+}
+
+.b-product-cart-small__content_info_row {
+  border-bottom: 1px solid $c-21;
+  padding: 8px 0 5px;
+  overflow: hidden;
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.b-product-cart-small__content_info_value {
+  float: right;
+}
+
+.b-product-cart-small__content_info_title {
+  float: left;
+  line-height: 16px;
+}
+
+.b-product-cart-small__content_info {
+  margin-bottom: 1em;
+}
+
+.f-product-cart-small__content_info {
+  @include font(12, 24);
+}
+
+.f-product-cart-small__content_row {
+  @include font(12, 24);
+}

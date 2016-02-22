@@ -1,0 +1,247 @@
+@import "../mixins.scss";
+
+.b-daily-row {
+  & > [class*='col-'] {
+    margin-top: 0px;
+    margin-bottom: 22px;
+  }
+}
+
+.b-daily-wrap {
+  @include clear-fix;
+}
+
+.f-daily_day {
+  @include font(14, 24);
+  color: $c-default;
+  text-transform: uppercase;
+}
+
+.b-daily_day {
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.f-daily_description {
+  @include font(12, 24);
+}
+
+.b-daily_description {
+  overflow: hidden;
+}
+
+.b-review-wrap {
+  border: 1px solid $c-21;
+  margin: 22px 0 23px;
+}
+
+.b-review_title {
+  @include clear-fix;
+  background: $c-23;
+  border-bottom: 1px solid $c-56;
+  padding: 15px 10px 10px 123px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    padding-left: 20px;
+  }
+}
+
+.b-review_title-text {
+  overflow: hidden;
+}
+
+.f-review_title-text {
+  @include font(14);
+  color: $c-default;
+}
+
+.b-review_info {
+  @include clear-fix;
+  padding: 12px 5px 16px 20px;
+}
+
+.b-review_user {
+  float: left;
+  margin-right: 20px;
+  margin-top: -30px;
+}
+
+.b-review_msg {
+  overflow: hidden;
+}
+
+.b-review_user_img {
+  border: 1px solid $c-white;
+  margin-bottom: 7px;
+  img {
+    display: block;
+    width: 84px;
+  }
+}
+
+.f-review_user_name {
+  @include font(15, 17);
+  color: $c-default;
+  text-transform: uppercase;
+}
+
+.f-review_msg-info {
+  @include font(12);
+  color: $c-19;
+}
+
+.b-review_msg-info {
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline-block;
+
+    &:after {
+      content: "/";
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+
+    &:last-child:after {
+      content: "";
+      margin: 0;
+    }
+  }
+}
+
+.b-tab-search-result {
+  display: table;
+  border-color: $c-56;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.b-tab-search-result_row {
+  display: table-row;
+}
+
+.b-tab-search-result_col {
+  display: table-cell;
+  border-color: $c-s-47;
+  border-width: 0 1px 1px;
+  border-style: solid;
+  padding: 17px 15px;
+  vertical-align: top;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    display: block;
+  }
+
+  &:first-child {
+    border-left-width: 0;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      border-width: 0px;
+    }
+  }
+
+  &:last-child {
+    max-width: 190px;
+    width: 190px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      border-width: 0 0 1px 0;
+      max-width: 100%;
+      padding-top: 0;
+      width: 100%;
+    }
+  }
+}
+
+.b-tab-search-result_img {
+  float: left;
+  width: 45%;
+  @media screen and (max-width: $break-smart-l - 1) {
+    float: none;
+    margin: 0 auto 10px;
+    width: 100%;
+  }
+  img {
+    border-bottom-width: 0;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 2px;
+    display: block;
+  }
+}
+
+.b-tab-search-result_info {
+  overflow: hidden;
+  padding-left: 18px;
+  @media screen and (max-width: $break-smart-l - 1) {
+    padding-left: 0;
+  }
+
+  .h4 {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+  a {
+    &.h4 {
+      &:hover {
+        color: $c-default-link;
+      }
+    }
+  }
+}
+
+.b-tab-search-result_list {
+  @include clear-fix;
+  padding-top: 35px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    padding-top: 0;
+  }
+
+  .users .fa {
+    margin-right: 3px;
+  }
+  .b-btn {
+    @media screen and (max-width: $break-tablet-p - 1) {
+      float: right;
+    }
+    @media screen and (max-width: $break-smart-p - 1) {
+      float: none;
+      margin: 18px auto 0;
+      width: 100%;
+    }
+  }
+}
+
+.b-tab-search-result_list-wrap {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include gradient($c-white, $c-23);
+  }
+}
+
+.b-tab-search-result_list-row {
+  margin-bottom: 17px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    border-left: 1px solid $c-s-47;
+    padding-left: 10px;
+  }
+
+  &:first-child {
+    @media screen and (max-width: $break-tablet-p - 1) {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+
+  [class*="col-"] {
+    @media screen and (max-width: $break-tablet-p - 1) {
+      display: inline-block;
+      padding: 0;
+    }
+  }
+}
+
+.f-tab-search-result_list {
+  color: $c-primary;
+}

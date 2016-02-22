@@ -1,0 +1,69 @@
+@import "../mixins.scss";
+
+.b-gallery-main {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    padding-bottom: 0;
+  }
+}
+
+.b-gallery-main-container {
+  [class*='col-'] {
+    padding: 0;
+  }
+  .b-gallery-main-item{
+    border-left: 1px solid #fff;
+    &:first-child{
+      border-color: transparent;
+    }
+  }
+}
+
+.b-gallery-main-item {
+  position: relative;
+  img {
+    display: block;
+    width: 100%;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      border-left: 0;
+    }
+  }
+  .b-gallery-main-item__info {
+    left: 1px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      left: 0;
+    }
+  }
+}
+
+.f-gallery-main-item__info_name {
+  @include font(18, 20);
+  color: $c-white;
+  text-transform: uppercase;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(10, 23);
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(13, 23);
+  }
+}
+
+.f-gallery-main-item__info_desc {
+  @include font(12, 40);
+  color: $c-white;
+  text-transform: uppercase;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(7, 23);
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(10, 23);
+  }
+}
+
+// + gallery--secondary
+.b-gallery--secondary{
+  .b-gallery-main-item{
+    border-radius: 3px;
+    overflow: hidden;
+  }
+}
+// - gallery--secondary

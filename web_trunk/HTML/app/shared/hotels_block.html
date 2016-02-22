@@ -1,0 +1,18 @@
+<div class="b-some-examples__item f-some-examples__item">
+    @@include('../shared/hover_image/hover_image.html', {"src": "@@image", "class": "b-some-examples__item_img", "href": "@@href"})
+    <div class="b-some-examples__item_info">
+        <div class="b-some-examples__item_info_level b-some-examples__item_name f-some-examples__item_name f-primary-b"><a href="@@href">@@title</a></div>
+        <div class="b-some-examples__item_info_level b-some-examples__item_double_info f-some-examples__item_double_info clearfix">
+            @@include('./apartments/@@middle_block.html')
+        </div>
+        <div class="b-some-examples__item_info_level b-some-examples__item_description f-some-examples__item_description">
+            Suspendisse blandit ligula turpis, ac convallis risus fermentum non. Duis vestibulum quis quam vel accumsan. Nunc a vulputate lectus.
+        </div>
+    </div>
+    <div class="b-some-examples__item_action">
+        <div class="b-right">
+            <a href="@@href" class="b-btn f-btn b-btn-sm b-btn-default f-primary-b">@@button</a>
+        </div>
+        <div class="b-remaining b-some-examples__item_total f-some-examples__item_total f-primary-b f-uppercase">From $1299</div>
+    </div>
+</div>

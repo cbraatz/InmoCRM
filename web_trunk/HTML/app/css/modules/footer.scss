@@ -1,0 +1,129 @@
+@import "../mixins.scss";
+
+footer {
+  background: #f8f8f8;
+  border-top: 3px solid $c-secondary;
+  position: relative;
+  z-index: 2;
+}
+
+.b-footer-primary {
+  box-shadow: 0 0 3px 0 #f3eeeb;
+  background: #f4f4f4;
+  border-bottom: 1px solid #e9e9e9;
+  padding: 14px 0 8px 0;
+}
+
+.b-footer-secondary {
+  padding: 26px 0 26px 0;
+  @media screen and (max-width: $break-smart-l - 1) {
+    padding-top: 20px;
+  }
+  & > [class*='col-'] {
+    @media screen and (max-width: $break-medium - 1) {
+      border-top: 1px solid $c-denary;
+      margin-left: 0;
+      padding-bottom: 10px;
+      padding-top: 5px;
+    }
+    @media screen and (max-width: $break-smart-l - 1) {
+      border-top: 0;
+      padding-top: 0;
+      padding-bottom: 20px;
+    }
+
+    &:first-child {
+      @media screen and (max-width: $break-medium - 1) {
+        border-top: 0;
+      }
+    }
+
+    &:last-child {
+      @media screen and (max-width: $break-medium - 1) {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+.f-copyright {
+  @include font(12, 30);
+  color: $c-septenary;
+}
+
+.b-footer-logo-containter {
+  @include clear-fix;
+}
+
+.b-footer-logo {
+  margin-bottom: 17px;
+  @media screen and (max-width: $break-medium - 1) {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+  @media screen and (max-width: $break-smart-l - 1) {
+    @include img-responsive;
+    margin-right: 20px;
+    width: 22%;
+  }
+}
+
+.b-footer-logo-text {
+  @media screen and (max-width: $break-medium - 1) {
+    overflow: hidden;
+    margin-top: 10px;
+  }
+}
+
+.f-footer-logo-text {
+  @media screen and (max-width: $break-medium - 1) {
+    text-align: left;
+  }
+}
+
+.f-footer-logo-text {
+  @include font(12, 20);
+  color: $c-senary;
+}
+
+.f-btn-group-hor__item {
+  text-align: center;
+  .fa {
+    font-size: 16px;
+    line-height: 1.2;
+    color: $c-white;;
+  }
+  &:hover {
+    color: $c-white;
+  }
+}
+
+.b-btn-group-hor__item {
+  @include transition(all 0.5s linear);
+  background: $c-nonary;
+  border-radius: 50%;
+  display: inline-block;
+  height: 32px;
+  padding: 7px 0px;
+  margin: 0 3px;
+  width: 32px;
+  &:hover {
+    background: $c-secondary;
+  }
+}
+
+.b-btn.b-footer__btn_up {
+  padding-right: 10px;
+  padding-left: 10px;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    display: none;
+  }
+}
+
+.f-footer__btn_up {
+  @include font(15, 15);
+}

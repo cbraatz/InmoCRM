@@ -1,0 +1,230 @@
+@import "../mixins.scss";
+
+.b-accordion {
+  &.ui-accordion {
+    .ui-accordion-header {
+      background: $c-white;
+      border: 1px solid $c-28;
+      margin-top: 18px;
+      padding: 13px 20px 11px;
+      position: relative;
+      &:after {
+        color: $c-default;
+      }
+      &.ui-accordion-header-active {
+        background: $c-default;
+        border-bottom: 0;
+        outline: none;
+        margin-bottom: 0;
+
+        &:after {
+          color: $c-white;
+        }
+      }
+      &:first-child {
+        margin-top: 2px;
+      }
+    }
+
+    .ui-accordion-content {
+      border-color: $c-28;
+      border-style: solid;
+      border-width: 0px 1px 1px 1px;
+      background-color: $c-white;
+    }
+  }
+}
+
+.b-accordion--with-standard-icon {
+  .ui-accordion-header {
+    &:after {
+      content: '\f067';
+      font-family: $f-icons;
+      right: 16px;
+      position: absolute;
+      top: 13px;
+    }
+    &.ui-accordion-header-active {
+      &:after {
+        content: '\f068';
+      }
+    }
+  }
+}
+
+.f-accordion {
+  &.ui-accordion {
+    .ui-accordion-header {
+      @include font(15);
+      text-transform: none;
+      &.ui-accordion-header-active {
+        color: $c-white;
+      }
+      &:not(.ui-accordion-header-active):hover {
+        color: $c-default;
+        &:after {
+          color: $c-default;
+        }
+        .ui-accordion-header-icon {
+          background-color: $c-default;
+        }
+      }
+    }
+    .ui-accordion-content {
+      h4 {
+        @include font(14);
+        text-transform: none;
+      }
+    }
+  }
+}
+
+.b-accordion__content--w-img {
+  @include clear-fix;
+  .b-accordion__content-img-l {
+    margin-right: 22px;
+    float: left;
+  }
+}
+
+.b-accordion__img {
+  margin-bottom: 0.7em;
+  img {
+    max-width: 100%;
+  }
+}
+
+// + accordion--smallindent
+.b-accordion--smallindent {
+  .b-accordion__content {
+    padding: 1em 1.1em;
+  }
+}
+
+// - accordion--smallindent
+
+/* Accordion info */
+.b-accordion--info {
+  &.ui-accordion {
+    .ui-accordion-header {
+      border-width: 0 0 1px 0;
+      padding: 22px 20px 21px 50px;
+      margin-bottom: 0;
+      margin-top: 0;
+
+      &:after {
+        display: none;
+      }
+
+      &.ui-accordion-header-active {
+        background: $c-white;
+        border-bottom: 1px solid $c-28;
+        .ui-accordion-header-icon {
+          background: $c-default;
+        }
+      }
+
+      .ui-accordion-header-icon {
+        background: $c-s-43;
+        width: 32px;
+        margin-right: 17px;
+        margin-top: 0;
+        padding: 6px 7px;
+        left: 0;
+        top: 13px;
+        vertical-align: middle;
+        &:before {
+          content: '\f00c';
+        }
+      }
+    }
+
+    .ui-accordion-content {
+      border-width: 0 0 1px 0;
+      margin-bottom: 0;
+      padding-left: 50px;
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.f-accordion--info {
+  &.ui-accordion {
+    .ui-accordion-header {
+      @include font(14);
+      &.ui-accordion-header-active {
+        color: $c-default;
+      }
+      .ui-accordion-header-icon {
+        text-indent: 0;
+
+        &:before {
+          @include font(16, 16);
+          color: $c-white;
+          font-family: $f-icons;
+        }
+      }
+    }
+  }
+}
+
+/* End Accordion info */
+
+/* Accordion Secondary version */
+.b-accordion--secondary {
+  &.ui-accordion {
+    .ui-accordion-header {
+      border-width: 1px 0 0 0;
+      padding-left: 0;
+      margin-bottom: 0;
+      margin-top: 0;
+      &:last-of-type {
+        border-width: 1px 0 1px 0;
+      }
+      &.ui-accordion-header-active {
+        background: $c-white;
+        border-bottom: 1px solid $c-28;
+        .ui-accordion-header-icon {
+          background: $c-default;
+        }
+      }
+      .fa {
+        margin-right: 5px;
+      }
+    }
+
+    .ui-accordion-content {
+      border-width: 0;
+      margin-bottom: 0;
+      padding-bottom: 5px;
+      padding-left: 23px;
+    }
+  }
+}
+
+.f-accordion--secondary {
+  &.ui-accordion {
+    .ui-accordion-header {
+      @include font(14);
+      &:after {
+        color: $c-primary;
+      }
+      &.ui-accordion-header-active {
+        color: $c-default;
+        &:after {
+          color: $c-default;
+        }
+      }
+
+      .ui-accordion-header-icon {
+        text-indent: 0;
+
+        &:before {
+          @include font(16, 16);
+          color: $c-white;
+          font-family: $f-icons;
+        }
+      }
+    }
+  }
+}

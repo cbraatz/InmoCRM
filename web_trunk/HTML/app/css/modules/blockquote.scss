@@ -1,0 +1,71 @@
+@import "../mixins.scss";
+
+[class*='b-blockquote-'] {
+  border-left: 5px solid $c-default;
+  padding: 0 10px;
+}
+
+[class*='f-blockquote-'] {
+  @include font(12, 24);
+  color: $c-58;
+}
+
+.b-blockquote--primary {
+  border-width: 1px 1px 1px 5px;
+  border-style: solid;
+  border-color: $c-21 $c-21 $c-21 $c-default;
+  padding: 18px 10px 18px 22px;
+}
+
+.f-blockquote__icon {
+  @include font(30, 30);
+  color: $c-default;
+}
+
+.b-blockquote__icon {
+  float: left;
+  padding-right: 15px;
+}
+
+.b-blockquote--secondary {
+  border-width: 0px 0px 0px 5px;
+  border-style: solid;
+  border-color: $c-default;
+  padding: 0px 10px 0px 22px;
+}
+
+.f-blockquote--secondary {
+  @include font(16, 32);
+}
+
+.b-blockquote--reverse {
+  border-width: 0px 5px 0px 0px;
+  border-style: solid;
+  border-color: $c-21;
+}
+
+.f-blockquote--reverse {
+  text-align: right;
+}
+
+.b-blockquote--in-text {
+  max-width: 320px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    max-width: 100%;
+    float: none;
+  }
+}
+
+.b-left .f-blockquote--in-text {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    text-align: left;
+  }
+}
+
+.b-right .f-blockquote--in-text {
+  text-align: right;
+}
+
+.f-blockquote--in-text {
+  text-align: justify;
+}

@@ -1,0 +1,82 @@
+@import "../mixins.scss";
+
+.b-page-error {
+  background: url(../img/bg_error.jpg) no-repeat 50% 100%;
+  background-size: cover;
+  padding: 106px 0 84px;
+}
+
+.b-title-error {
+  span,
+  strong {
+    display: block;
+    text-align: center;
+  }
+}
+
+.f-title-error {
+  strong {
+    @include font(38, 36);
+    color: $c-a-46;
+    font-weight: normal;
+  }
+  span {
+    @include font(170, 130);
+    color: $c-s-38;
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    span {
+      @include font(150, 110);
+    }
+    strong {
+      @include font(36, 34);
+    }
+  }
+}
+
+.b-error-description {
+  margin: 46px 0 0;
+  span,
+  strong {
+    display: block;
+    text-align: center;
+  }
+  span {
+    margin: 11px 0 0;
+  }
+}
+
+.f-error-description {
+  span,
+  strong {
+    color: $c-default;
+  }
+  strong {
+    @include font(24);
+
+  }
+  span {
+    @include font(14);
+  }
+}
+
+.b-error-search {
+  max-width: 374px;
+  margin: 48px auto 0;
+  .form-control {
+    height: 42px;
+  }
+  .b-btn-search {
+    width: 43px;
+    height: 41px;
+  }
+  .b-input-search {
+    padding-right: 53px;
+  }
+}
+
+.b-error-search {
+  .f-btn-search {
+    @include font(18, 42);
+  }
+}

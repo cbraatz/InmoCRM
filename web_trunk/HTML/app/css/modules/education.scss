@@ -1,0 +1,14 @@
+@import "../mixins.scss";
+
+.b-education-box {
+  .b-some-examples__item {
+    margin: 10px 0 20px;
+  }
+}
+
+.b-education-detail-box {
+  .b-information-box__name {
+    width: 112px;
+  }
+}
+

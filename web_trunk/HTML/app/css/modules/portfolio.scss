@@ -1,0 +1,26 @@
+@import "../mixins.scss";
+
+.b-portfolio {
+  padding: 30px 0 40px;
+}
+
+.b-portfolio__content-item-img{
+  img{
+    width: 100%;
+  }
+}
+
+.b-portfolio__content-item-inner {
+  border-radius: 3px;
+}
+
+.f-portfolio__content-item-inner-title {
+  text-transform: uppercase;
+  @include font(13, 18);
+  color: $c-white;
+}
+
+.f-portfolio__content-item-inner-desc {
+  @include font(12, 16);
+  color: $c-white;
+}

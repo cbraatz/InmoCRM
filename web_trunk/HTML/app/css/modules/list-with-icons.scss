@@ -1,0 +1,54 @@
+@import "../mixins.scss";
+
+.b-list-with-icons__item {
+  @include clear-fix;
+  border-top: 1px solid rgba(204, 204, 204, 0.2);
+  padding: 22px 0;
+  &:first-child {
+    border-top: 0;
+  }
+}
+
+.b-list-with-icons__item_icon {
+  background: $c-white;
+  border: 2px solid $c-30;
+  border-radius: 4px;
+  padding: 15px 0;
+  min-width: 65px;
+  float: left;
+}
+
+.f-list-with-icons__item_icon {
+  @include font(25, 25);
+  text-align: center;
+}
+
+.f-list-with-icons__item_icon_1 {
+  color: $c-default-const;
+}
+
+.f-list-with-icons__item_icon_2 {
+  color: $c-31;
+}
+
+.f-list-with-icons__item_icon_3 {
+  color: $c-32;
+}
+
+.b-list-with-icons__item_text {
+  overflow: hidden;
+  padding-left: 14px;
+}
+
+.b-list-with-icons__item_desc {
+  padding: 5px 0;
+}
+
+.f-list-with-icons__item_title {
+  @include font(14, 14);
+  text-transform: uppercase;
+}
+
+.f-list-with-icons__item_desc {
+  @include font(12, 24);
+}

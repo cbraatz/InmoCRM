@@ -1,0 +1,56 @@
+@import "../mixins.scss";
+
+.b-welcome-box {
+  margin: {
+    bottom: 25px;
+  }
+  .is-global-title {
+    color: $c-default;
+  }
+}
+
+.b-title-description {
+  border-bottom: 1px solid $c-39;
+  padding: 0 0 10px;
+  margin: 0 0 22px;
+  .b-title-description__comment {
+    margin: 6px 0 0;
+  }
+}
+
+.f-title-description {
+  @include font(18, 20);
+  color: $c-default;
+  .f-title-description__comment {
+    @include font(9, 14);
+    color: $c-senary;
+    text-transform: none;
+  }
+}
+
+.b-form--contact-size {
+  textarea {
+    &.form-control {
+      height: 179px;
+    }
+  }
+}
+
+.b-bord-box {
+  border-top: 1px solid $c-s-43;
+  padding: 35px 0 54px;
+  &.b-google-map {
+    border-bottom: 1px solid $c-s-43;
+    padding:0;
+  }
+}
+
+.b-contact-form-box {
+  margin-bottom: 38px;
+}
+
+.f-infoblock-with-icon--color {
+  .f-infoblock-with-icon__info_title {
+    color:$c-default;
+  }
+}

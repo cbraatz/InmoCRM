@@ -1,0 +1,145 @@
+@import "../mixins.scss";
+
+.b-item-hover-action-link {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.b-item-hover-action-parent {
+  &:hover {
+    .b-item-hover-action {
+      background: rgba(50, 50, 50, 0.68);
+    }
+    .b-item-hover-action--alt {
+      background-color: $c-opacity-2;
+    }
+  }
+}
+
+.b-item-hover-action,
+.b-item-hover-action--alt {
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  white-space: nowrap;
+  border-radius: inherit;
+  &:before {
+    content: '';
+    display: inline-block;
+    font-size: 0;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.b-item-hover-action__inner {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.b-item-hover-action__inner-btn_group {
+  display: block;
+  margin-bottom: 17px;
+
+  .b-btn {
+    margin-left: 5px;
+    padding: 14px 14px 12px;
+    text-shadow: none;
+    border-radius: 2px;
+    position: relative;
+    z-index: 5;
+    @media screen and (max-width: $break-smart-p) {
+      padding: 6px 8px 6px;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .fa {
+    @include font(16, 16);
+    @media screen and (max-width: $break-smart-p) {
+      @include font(10, 10);
+    }
+  }
+}
+
+.b-item-hover-action__inner-btn_group--medium{
+  .b-btn{
+    padding: 0;
+    height: 45px;
+    width: 45px;
+    margin-left: 10px;
+    @media screen and (max-width: $break-smart-p) {
+      margin-left: 3px;
+      height: 30px;
+      width: 30px;
+    }
+  }
+  .fa {
+    @include font(20, 45);
+    @media screen and (max-width: $break-smart-p) {
+      @include font(15, 30);
+    }
+  }
+}
+.b-item-hover-action__inner-bottom {
+  &:before {
+    bottom: 100%;
+    left: 50%;
+    border: 10px solid transparent;
+    border-bottom-color: $c-secondary;
+    margin-left: -10px;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 54px;
+  color: white;
+  background-color: $c-secondary;
+}
+
+.b-item-hover-action__inner-bottom-title {
+  padding: 10px 0 5px 0;
+}
+
+/*+ item-hover-action--alt*/
+.b-item-hover-action--alt {
+  &:hover {
+    background-color: $c-opacity-2;
+  }
+  .b-btn-light {
+    &:hover {
+      background-color: $c-default;
+    }
+  }
+  .f-btn-light {
+    &:hover {
+      color: $c-white;
+    }
+  }
+}
+
+/*- item-hover-action--alt*/
+
+// + --text-bottom
+.b-item-hover-action--text-bottom{
+  &:before{
+    vertical-align: bottom;
+  }
+}
+// - --text-bottom

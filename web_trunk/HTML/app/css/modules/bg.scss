@@ -1,0 +1,285 @@
+@import "../mixins.scss";
+
+.b-diagonal-line-bg-light {
+  background-image: url('../img/diagonal-line-bg-light.png');
+  background-repeat: repeat;
+  background-position: 0 0;
+}
+
+.b-bg-block-education {
+  background-image: url('../img/slider/section-bg-education.jpg');
+}
+
+.b-bg-block-meadow {
+  background-image: url("../img/slider/section-bg-meadow.jpg");
+}
+.b-bg-block-girl {
+  background-image: url("../img/slider/slider-girl.jpg");
+}
+
+.b-bg-block-mobile {
+  background: url("../img/slider/section-bg-mobile.jpg") no-repeat center bottom;
+  background-size: cover;
+}
+
+.b-bg-full-primary {
+  background-color: $c-23;
+  border-bottom: 1px solid $c-24;
+}
+
+.b-bg-gradient {
+  background: url('../img/slider/section-bg-gradient.jpg') no-repeat center center;
+}
+
+.b-bg-street {
+  background: url('../img/slider/section-bg-street.jpg') no-repeat center center;
+}
+
+.b-bg-header-inner-page {
+  background: url("../img/inner-head-bg.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.b-bg-header-inner-page_2 {
+  background: url("../img/inner-head-bg_2.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.b-bg-breadcrumbs {
+  @include gradient($c-white, $c-s-70);
+}
+
+.b-bg-girl {
+  background: url('../img/slider/section-bg-girl.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.b-bg-girl-2 {
+  background: linear-gradient(to right, $c-opacity-1, $c-opacity-1), url('../img/slider/slider-bg-image-1.png') no-repeat center center;
+  background-size: cover;
+}
+
+.b-bg-video_v2 {
+  background: url('../img/slider/section-bg-video.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.b-bg-default {
+  background: url('../img/bg_default.png') no-repeat center center;
+  background-size: cover;
+}
+
+.b-bg-light-lg {
+  background: url('../img/bg_light-lg.jpg') no-repeat center bottom;
+  background-size: cover;
+}
+
+.b-bg-dark-lg {
+  background: url('../img/bg_dark-lg.jpg') no-repeat center top;
+  background-size: cover;
+}
+
+/*BG-Video*/
+.b-bg-video {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  border-bottom: 1px solid #e8e8e8;
+  video {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      width: 120%;
+    }
+    @media screen and (max-width: $break-smart-l - 1) {
+      width: auto;
+      height: 600px;
+    }
+  }
+  .fa-pause {
+    @include font(26);
+
+    vertical-align: middle;
+    &:before {
+      position: relative;
+      top: 16px;
+      left: 1px;
+    }
+  }
+  .b-bg-video-controls {
+    min-height: 92px;
+  }
+  * {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+.b-bg-video-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: url("../img/slider/slider-bg-video.jpg") no-repeat;
+  background-size: cover;
+}
+
+.b-bg-video_cont {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  padding-top: 95px;
+  padding-bottom: 75px;
+  @media screen and (max-width: $break-medium - 1) {
+    padding-top: 48px;
+  }
+  @media screen and (max-width: $break-medium - 1) {
+    padding-top: 42px;
+    padding-bottom: 45px;
+  }
+  &.video-color-overlay{
+    background-color: $c-default-o;
+  }
+}
+
+.f-bg-video {
+  color: $c-white;
+  text-align: center;
+}
+
+.f-bg-video__play_btn {
+  @include font(68, 68);
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(60, 60);
+  }
+}
+
+.b-bg-video__play_btn {
+  cursor: pointer;
+}
+
+.b-bg-video__play_title {
+  margin-bottom: 14px;
+}
+
+.f-bg-video__play_title {
+  @include font(48, 48);
+  text-transform: uppercase;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(40, 40);
+  }
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(36, 48);
+  }
+}
+
+.b-bg-video__play_text-wrap {
+  overflow: hidden;
+}
+
+.b-bg-video__play_text {
+  margin-bottom: 105px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    margin-bottom: 0;
+  }
+  span {
+    padding: 0 10px;
+    vertical-align: middle;
+  }
+}
+
+.b-bg-dotted {
+  background: url('../img/dotted.png') repeat-x left center;
+  content: '';
+  display: inline-block;
+  height: 3px;
+  vertical-align: middle;
+  width: 14%;
+}
+
+.f-bg-video__play_text {
+  white-space: nowrap;
+  text-align: center;
+  span {
+    @include font(20, 20);
+    text-transform: uppercase;
+    white-space: normal;
+    @media screen and (max-width: $break-medium - 1) {
+      @include font(17, 17);
+    }
+  }
+}
+
+.b-bg-video__numbers {
+  @include clear-fix;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    display: none;
+  }
+
+  [class*=' col- '] {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0;
+    &:first-child {
+      border-left: 0;
+    }
+  }
+}
+
+.f-bg-video__numbers_item {
+  text-align: center;
+}
+
+.f-bg-video__numbers_item_n {
+  @include font(60, 60);
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(50, 50);
+  }
+}
+
+.f-bg-video__numbers_item_hint {
+  @include font(24, 40);
+  text-transform: uppercase;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(20, 34);
+  }
+}
+
+.b-bg-slider-lg-info-l__item-title {
+  background: $c-opacity-1;
+}
+
+.b-alternative-bg {
+  background: $c-37;
+}
+
+.b-bg-video-controls .fa-pause {
+  display: none;
+}
+
+.b-bg-video.device-ios {
+  .b-bg-video-controls {
+    display: none;
+  }
+  .b-bg-video-controls i {
+    display: none;
+  }
+  .b-bg-video-box video {
+    display: none;
+  }
+}
+
+.parallax-section-bg {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  @media screen and (max-width: $break-tablet-l) {
+    background-attachment: scroll;
+  }
+}

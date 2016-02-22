@@ -1,0 +1,124 @@
+@import "../mixins.scss";
+
+.b-news-item {
+  @include clear-fix;
+  background: $c-white;
+  border: 1px solid $c-17;
+  position: relative;
+}
+
+.b-news-item__img {
+  border-right: 1px solid $c-17;
+  position: relative;
+  float: left;
+  width: 46%;
+  max-width: 286px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    width: 100%;
+  }
+  img {
+    display: block;
+    width: 100%
+  }
+}
+
+.b-news-item__info {
+  padding: 15px 30px 13px 30px;
+  position: relative;
+  overflow: hidden;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    width: 100%;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 12px;
+    border-color: transparent $c-white transparent transparent;
+    left: -24px;
+    top: 23px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      border: 0 none;
+    }
+  }
+}
+
+.f-news-item__info_title {
+  @include font(14, 24);
+  @include text-overflow;
+  color: $c-primary;
+  text-transform: uppercase;
+}
+
+.b-news-item__info_title-big{
+  margin-bottom: 8px;
+}
+
+.f-news-item__info_title-big{
+  @include font(18, 24);
+  @include text-overflow;
+  color: $c-default;
+  text-transform: uppercase;
+  white-space: normal;
+}
+
+.b-news-item__info_additional {
+  @include clear-fix;
+  margin-bottom: 10px;
+}
+
+.b-news-item__info_additional_item {
+  margin-right: 10px;
+}
+
+.b-news-item__article{
+  padding: 14px 0 0;
+  border-top: 1px solid $c-s-40;
+  @include clear-fix;
+}
+
+.f-news___color-picker{
+  @include font(12);
+  color: $c-s-41;
+  padding: 6px 0 3px;
+}
+.f-news___color-picker_title{
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.f-news-item__info_additional_item {
+  @include font(12, 24);
+  color: $c-18;
+  a {
+    color: $c-18;
+    &:hover {
+      color: $c-default;
+    }
+  }
+}
+
+.b-news-item__info_text {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.f-news-item__info_text {
+  @include font(12, 24);
+  color: $c-primary;
+}
+
+.f-news-item__info_more {
+  color: $c-default;
+}
+
+.f-news-item__info_category{
+  color: $c-primary;
+  @include font(14, 24);
+}
+
+.f-news-item__price{
+  color: $c-default;
+  @include font(24, 32);
+}

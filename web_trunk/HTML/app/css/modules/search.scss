@@ -1,0 +1,308 @@
+@import "../mixins.scss";
+
+.b-search-map-tabs.ui-tabs {
+
+  .b-search-map_header {
+    margin-bottom: 15px;
+
+    .b-search-map__tabs-anchor {
+      display: inline-block;
+      vertical-align: middle;
+      @media screen and (max-width: $break-tablet-p - 1) {
+        display: block;
+      }
+
+      li {
+        display: inline-block;
+        margin: 0 15px;
+        vertical-align: middle;
+        position: relative;
+        outline: 0;
+        @media screen and (max-width: $break-tablet-p - 1) {
+          margin: 0;
+          width: 25%;
+        }
+
+        &.ui-state-active:after {
+          border-width: 12px;
+          border-color: transparent transparent $c-default transparent;
+          border-style: solid;
+          content: '';
+          position: absolute;
+          bottom: -16px;
+          left: 50%;
+          margin-left: -12px;
+        }
+
+      }
+    }
+  }
+}
+
+.f-search-map__tabs-anchor {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    font-size: 0;
+    text-align: justify;
+  }
+
+  li {
+    @media screen and (max-width: $break-tablet-p - 1) {
+      font-size: $default-fz + px;
+      text-align: center;
+    }
+    &.ui-state-active a {
+      color: $c-default;
+    }
+  }
+}
+
+.b-search-map__title {
+  margin-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    border-bottom: 1px solid $c-24;
+    display: block;
+    margin-bottom: 15px;
+    margin-right: 0px;
+    padding-bottom: 5px;
+  }
+}
+
+.f-search-map__title {
+  color: $c-default;
+  text-transform: uppercase;
+}
+
+.b-search-map__wrap {
+  background: $c-default;
+  border-radius: 2px;
+  padding: 15px 25px 15px 25px;
+}
+
+.b-search-map__name {
+  position: relative;
+  display: inline-block;
+  margin: 10px 0;
+  padding-right: 12px;
+  vertical-align: middle;
+  @media screen and (max-width: $containerWidth - 1) {
+    display: block;
+    padding-bottom: 5px;
+    br {
+      display: none;
+    }
+  }
+  &:after {
+    border-left: 1px solid $c-35;
+    border-right: 1px solid $c-36;
+    content: '';
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    @media screen and (max-width: $containerWidth - 1) {
+      border-width: 1px 0 1px 0;
+      border-style: solid;
+      border-color: $c-35 transparent $c-36;
+      bottom: 0;
+      height: 2px;
+      left: 0;
+      right: auto;
+      top: auto;
+      width: 100%;
+    }
+  }
+}
+
+.f-search-map__name {
+  color: $c-white;
+  @include font(18, 18);
+  text-align: right;
+  text-transform: uppercase;
+  @media screen and (max-width: $containerWidth - 1) {
+    text-align: left;
+  }
+}
+
+.b-search-map__name_hight {
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.f-search-map__name_hight {
+  font-size: (30/18) + em;
+  line-height: 1;
+}
+
+.b-search-map__fields {
+  display: inline-block;
+  vertical-align: middle;
+  .b-form-group {
+    margin: 10px 12px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+  }
+
+  input {
+    display: block;
+    min-width: 204px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      width: 100%;
+    }
+  }
+}
+
+.f-search-map__fields {
+  label {
+    @include font(14, 24);
+    color: $c-white;
+    text-transform: uppercase;
+  }
+}
+
+.b-search-map__submit {
+  border: 2px solid transparent;
+  &:hover {
+    border-color: $c-white;
+  }
+}
+
+.b-full-search {
+  margin-top: -86px;
+  @media screen and (max-width: $break-tablet-l) {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.b-full-search-form {
+  background: $c-default;
+  border-radius: 3px;
+  margin-bottom: 32px;
+  padding-left: 18px;
+  padding-right: 18px;
+  box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.28);
+  position: relative;
+  z-index: 2;
+  .b-search-map__submit {
+    box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.28);
+    padding: 7px 10px 6px 10px;
+    width: 100%;
+    @media screen and (max-width: $break-medium - 1) {
+      margin-top: 38px;
+    }
+
+    @media screen and (max-width: $break-tablet-p - 1) {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .form-control--secondary {
+    background: $c-white;
+  }
+
+  input[type="text"] {
+    box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.28);
+  }
+}
+
+.f-full-search-form_title {
+  @include font(18, 40);
+  color: $c-white;
+  text-transform: uppercase;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include font(16, 22);
+  }
+}
+
+.b-full-search-form_label {
+  margin-bottom: 10px;
+}
+
+.f-full-search-form_label {
+  @include font(14);
+  color: $c-white;
+}
+
+.b-full-search-form_check {
+  margin-bottom: 10px;
+}
+
+.b-full-search-form_col {
+  padding-top: 12px;
+  padding-bottom: 10px;
+  min-height: 153px;
+  border-color: transparent $c-n-2 transparent $c-n-11;
+  border-style: solid;
+  border-width: 0 1px 0 1px;
+  @media screen and (max-width: $break-lg - 1) {
+    min-height: 0;
+    border-width: 1px 0 1px 0;
+    border-color: $c-n-11 transparent $c-n-2 transparent;
+  }
+
+  &:first-child {
+    border-left-width: 0;
+    @media screen and (max-width: $break-lg - 1) {
+      border-top-width: 0;
+    }
+  }
+
+  &:last-child {
+    border-right-width: 0;
+    @media screen and (max-width: $break-lg - 1) {
+      border-bottom-width: 0;
+    }
+  }
+}
+
+.b-full-search-form_title {
+  margin-bottom: 10px;
+}
+
+.b-search-title {
+  margin-bottom: 10px;
+}
+
+.f-search-title {
+  @include font(18, 30);
+  color: $c-primary;
+}
+
+.b-tab-top-search {
+  background: $c-23;
+  border: 1px solid $c-56;
+  padding: 27px 10px 20px;
+}
+
+.b-tab-top-search_item {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    display: block;
+  }
+
+  label {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 8px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      display: block;
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.b-tab-top-search_item-control {
+  display: inline-block;
+  width: 114px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    width: 100%;
+  }
+}

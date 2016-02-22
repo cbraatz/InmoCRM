@@ -1,0 +1,131 @@
+@import "../mixins.scss";
+
+.b-employee {
+  padding: 38px 0 50px;
+  .b-hr-stars {
+    margin-bottom: 15px;
+  }
+}
+
+.f-employee__desc {
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(12, 26);
+  }
+}
+
+.b-employee-container {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    padding: 0 35px;
+    [class*='col-'] {
+      margin-top: 30px;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+  &.j-masonry {
+    .j-masonry-item {
+      margin-top: 30px;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    @media screen and (max-width: $break-tablet-p - 1) {
+      padding: 0;
+      margin: 0 35px;
+    }
+  }
+}
+
+.b-employee-item__img {
+  display: block;
+  margin-bottom: 20px;
+  @media screen and (max-width: $break-medium - 1) {
+    margin-bottom: 5px;
+  }
+}
+
+.b-employee-item__social_btn {
+  @include transition(background 0.5s ease);
+  color: $c-white;
+  background: $c-16;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 7px 0;
+  margin: 0px 0 5px 10px;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(9, 9);
+    padding: 5px;
+  }
+
+  &:hover {
+    color: $c-white;
+    background: $c-default;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.b-employee-item {
+  background: #fafafa;
+  border: 1px solid #e3e3e3;
+  border-radius: 3px;
+  overflow: hidden;
+  padding-bottom: 7px;
+  .b-employee-item__social {
+    margin-top: 10px;
+  }
+  &.b-employee-item--color {
+    .view-eighth {
+      .mask {
+        background-color: $c-default-o;
+      }
+    }
+    .view-sixth {
+      .mask {
+        background-color: $c-default-o;
+      }
+    }
+  }
+
+  img {
+    border: 1px solid #d5d5d5;
+    width: 100%;
+  }
+
+  p {
+    padding: 0 3px;
+    @media screen and (max-width: $break-medium - 1) {
+      margin-top: 3px;
+    }
+  }
+}
+
+.f-employee-item {
+  text-align: center;
+  h4 {
+    margin-bottom: 5px;
+    @media screen and (max-width: $break-medium - 1) {
+      @include font(14);
+    }
+  }
+  p {
+    color: $c-primary;
+    @media screen and (max-width: $break-medium - 1) {
+      @include font(9, 18);
+    }
+  }
+}
+
+.f-employee-item__position {
+  color: $c-secondary;
+  text-transform: uppercase;
+  @media screen and (max-width: $break-medium - 1) {
+    @include font(10);
+  }
+}

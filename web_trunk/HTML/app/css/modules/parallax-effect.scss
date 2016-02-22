@@ -1,0 +1,12 @@
+@import "../mixins.scss";
+
+[data-fixed_top] {
+  position: relative;
+  z-index: 2;
+  &.is-fixed-element {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+  }
+}

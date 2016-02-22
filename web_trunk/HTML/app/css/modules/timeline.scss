@@ -1,0 +1,331 @@
+@import "../mixins.scss";
+
+.b-timeline {
+  position: relative;
+  min-height: 1000px;
+
+  &:before {
+    /* this is the vertical line */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 28px;
+    height: 100%;
+    width: 4px;
+    background: $c-s-40;
+  }
+
+  @media only screen and (min-width: $break-tablet-l) {
+    &:not(.b-timeline-full-width):before {
+      left: 50%;
+      margin-left: -2px;
+    }
+    &:not(.b-timeline-full-width) .b-timeline__block:nth-child(even){
+      right: 0;
+    }
+  }
+  
+  img {
+    width: 100%;
+  }
+}
+
+.b-timeline__block {
+  position: absolute;
+  width: 100%;
+  display: none;
+
+  &:first-child {
+    display:block;
+  }
+
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+  .b-timeline:not(.b-timeline-full-width) & {
+    width: 50%;
+    @media only screen and (max-width: $break-tablet-l - 1) {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: $break-tablet-l - 1) {
+    width: 100%;
+  }
+
+}
+
+.b-timeline__marker {
+  position: absolute;
+  top: 0;
+  height: 150px;
+
+  @media only screen and (min-width: $break-tablet-l) {
+    .b-timeline:not(.b-timeline-full-width) .b-timeline__block:nth-child(even) & {
+      left: 0;
+    }
+    .b-timeline:not(.b-timeline-full-width) .b-timeline__block:nth-child(odd) & {
+      right: 0;
+    }
+  }
+
+}
+.b-timeline:not(.b-timeline-full-width){
+  @media only screen and (min-width: $break-tablet-l){
+    .b-timeline__block:nth-child(odd) {
+      .b-timeline__marker-img{
+        position: absolute;
+        top: 0;
+        right: -25px;
+      }
+      .b-timeline__date{
+        left: 50%;
+        margin-left: 4px;
+        top: 65px;
+      }
+    }
+  }
+}
+
+.b-timeline__marker-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: $c-secondary;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow:    0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow:         0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+  margin-left: 4px;
+
+  @media only screen and (min-width: $break-tablet-l) {
+    .b-timeline:not(.b-timeline-full-width) & {
+      margin-left: -25px;
+    }
+  }
+
+  .fa {
+    @include font(22);
+    color: $c-white;
+    padding-top: 11px;
+    text-align: center;
+    width: 100%;
+
+    &.fa-music {
+      margin-left: -2px;
+    }
+
+    &.fa-angle-double-right {
+      margin-left: 1px;
+    }
+  }
+}
+
+.b-timeline__content {
+  position: relative;
+  margin-left: 75px;
+//  margin-right: 10px;
+//  width: 92%;
+  background: white;
+
+  &:before, &:after {
+    border: solid transparent;
+    content: " ";
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:before {
+    top: 16px;
+    border-width: 7px;
+    left: auto;
+    right: 100%;
+    border-color: transparent;
+    border-right-color: $c-s-40;
+  }
+
+  &:after {
+    top: 17px;
+    border-width: 6px;
+    left: auto;
+    right: 100%;
+    border-color: transparent;
+    border-right-color: $c-white;
+  }
+
+  @media only screen and (min-width: $break-tablet-l) {
+    width: 92%;
+    .b-timeline:not(.b-timeline-full-width) & {
+      margin-left: 0;
+
+      .col-xs-9 & {
+        width: 45%;
+      }
+
+      &:before {
+        left: 100%;
+        right: auto;
+        border-color: transparent;
+        border-left-color: $c-s-40;
+      }
+
+      &:after {
+        left: 100%;
+        right: auto;
+        border-color: transparent;
+        border-left-color: $c-white;
+      }
+    }
+
+    .b-timeline:not(.b-timeline-full-width) .b-timeline__block:nth-child(even) & {
+      float: right;
+      margin-right: 0;
+
+      &:before {
+        left: auto;
+        right: 100%;
+        border-color: transparent;
+        border-right-color: $c-s-40;
+      }
+
+      &:after {
+        left: auto;
+        right: 100%;
+        border-color: transparent;
+        border-right-color: $c-white;
+      }
+    }
+  }
+
+  .b-video-player {
+    margin-bottom: 0;
+  }
+}
+
+.b-timeline__block-finish:before {
+  /* this is the vertical line */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 28px;
+  height: 350px;
+  width: 4px;
+  background: $c-white;
+
+  @media only screen and (min-width: $break-tablet-l) {
+    .b-timeline:not(.b-timeline-full-width) & {
+      left: 0;
+      margin-left: -2px;
+    }
+  }
+}
+
+.b-timeline__content-finish {
+  border: none;
+
+  &:before {
+    border-right-color: $c-secondary;
+    @media only screen and (min-width: $break-tablet-l) {
+      .b-timeline:not(.b-timeline-full-width) & {
+        border-color: transparent;
+        border-left-color: $c-secondary;
+      }
+      .b-timeline:not(.b-timeline-full-width) .b-timeline__block:nth-child(even) & {
+        border-color: transparent;
+        border-right-color: $c-secondary;
+      }
+    }
+  }
+
+  &:after {
+     border-width: 0;
+  }
+}
+
+.b-timeline__marker-finish {
+  height: 52px;
+}
+
+.b-timeline__infoblock-finish {
+  background-color: $c-secondary;
+  margin-top: 8px;
+  height: 31px;
+  border-radius: 2px;
+  padding: 8px 15px 0 15px;
+  display: inline-block;
+
+  @media only screen and (min-width: $break-tablet-l) {
+    .b-timeline:not(.b-timeline-full-width) .b-timeline__block:nth-child(odd) & {
+      float: right;
+    }
+  }
+}
+
+.f-timeline__infoblock-finish {
+  @include font(14);
+  color: $c-white;
+}
+
+.b-blog-timeline__infoblock {
+  padding: 15px 28px 10px 20px;
+}
+
+.b-blog-timeline__infoblock-title {
+  border-bottom: 2px solid $c-secondary;
+}
+
+.b-timeline__date {
+  position: relative;
+  background: $c-white;
+  border: 1px solid $c-d-17;
+  border-radius: 2px;
+  padding: 5px 8px;
+  top: 15px;
+  white-space: nowrap;
+  width: 64px;
+  text-align: center;
+  margin-left: 0;
+  box-shadow: inset 0 -4px 4px 0 rgba(0, 0, 0, 0.1);
+
+  @media only screen and (min-width: $break-tablet-l) {
+    .b-timeline:not(.b-timeline-full-width) & {
+      left: -50%;
+      margin-left: 3px;
+    }
+  }
+  
+  &:before, &:after {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:after {
+    border-bottom-color: $c-white;
+    border-width: 6px;
+    margin-left: -8px;
+  }
+
+  &:before {
+    border-bottom-color: $c-d-17;
+    border-width: 7px;
+    margin-left: -9px;
+  }
+}
+
+.f-timeline__date {
+  @include font(13);
+  color: $c-secondary;
+  text-transform: uppercase;
+}

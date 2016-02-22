@@ -1,0 +1,100 @@
+@import "../mixins.scss";
+
+.b-about-container {
+  @include clear-fix;
+  background-size: cover;
+  overflow: hidden;
+  .container {
+    padding-top: 40px;
+    padding-bottom: 63px;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+  }
+}
+
+.b-about-container__with-img-l {
+  .container {
+    position: relative;
+  }
+
+  .b-about-container__inner {
+    position: relative;
+    float: right;
+    width: 70%;
+    z-index: 2;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      float: none;
+      width: 100%;
+    }
+  }
+}
+
+.b-about-container__img {
+  bottom: 0;
+  left: -127px;
+  position: absolute;
+  z-index: 1;
+  img {
+    display: block;
+  }
+  @media screen and (max-width: $break-tablet-l - 1) {
+    display: none;
+  }
+}
+
+.f-about-container {
+  color: $c-white;
+  a {
+    color: $c-white;
+    &:hover {
+      color: $c-secondary;
+    }
+  }
+}
+
+.b-about-container__title {
+  margin-bottom: 15px;
+}
+
+.f-about-container__title {
+  @include font(36, 36);
+  text-transform: uppercase;
+  @media screen and (max-width: $break-tablet-l - 1) {
+    @include font(30, 30);
+  }
+}
+
+.b-about-container__title_second {
+  border-top: 1px dotted $c-white;
+  border-bottom: 1px dotted $c-white;
+  padding: 10px 0 10px;
+  margin-bottom: 18px;
+}
+
+.f-about-container__title_second {
+  @include font(23, 24);
+  @media screen and (max-width: $break-tablet-l - 1) {
+    @include font(20, 20);
+  }
+}
+
+.b-about-container__text {
+  margin-bottom: 10px;
+}
+
+.f-about-container__text {
+  @include font(12, 24);
+}
+
+.b-about-container__with-img-l.b-about-container--high {
+  .container {
+    padding-top: 95px;
+    padding-bottom: 60px;
+    @media screen and (max-width: $break-tablet-l - 1) {
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+  }
+}

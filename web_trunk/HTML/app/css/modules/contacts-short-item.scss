@@ -1,0 +1,70 @@
+@import "../mixins.scss";
+
+.b-contacts-short-item-group {
+  margin: 0;
+  & > [class*='col-'] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.b-contacts-short-item {
+  border-top: 1px solid $c-denary;
+  padding-bottom: 8px;
+  padding-top: 15px;
+  @media screen and (max-width: $break-medium - 1) and (min-width: $break-smart-l) {
+    border: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  @media screen and (max-width: $break-smart-l - 1) {
+    border: 0;
+  }
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+}
+
+.b-contacts-short-item__icon {
+  width: 30px;
+}
+
+.f-contacts-short-item__icon {
+  color: $c-secondary;
+}
+
+.f-contacts-short-item__icon_lg {
+  @include font(25, 25);
+}
+
+.f-contacts-short-item__icon_md {
+  @include font(22, 22);
+}
+
+.f-contacts-short-item__icon_xs {
+  @include font(14, 14);
+}
+
+.f-contacts-short-item__text {
+  @include font(12, 24);
+  color: $c-senary;
+  a {
+    text-decoration: none;
+    color: $c-quinary;
+
+    &:hover {
+      color: $c-default;
+    }
+  }
+}
+
+.f-contacts-short-item__text_email,
+.f-contacts-short-item__text_phone {
+  color: $c-senary;
+}
+
+.f-contacts-short-item__text_email {
+  line-height: 1.3;
+}

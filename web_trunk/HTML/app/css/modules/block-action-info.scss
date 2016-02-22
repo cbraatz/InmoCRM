@@ -1,0 +1,59 @@
+@import "../mixins.scss";
+
+.b-action-info {
+  background: url("../img/shop/action-info.png") no-repeat center center transparent;
+  width: 75px;
+  height: 69px;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    left: -2px;
+    background-image: url("../img/shop/action-info-2.png");
+  }
+}
+
+.b-action-info_text {
+  @include transform(rotate(45deg));
+  position: relative;
+  top: 20px;
+  left: 6px;
+  padding: 0 5px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    @include transform(rotate(315deg));
+    top: 20px;
+    left: -6px;
+  }
+}
+
+.f-action-info_text {
+  @include text-overflow();
+  color: $c-white;
+  @include font(14);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+// + action-info--default
+.b-action-info--default,
+.b-action-info--default--secondary {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $c-s-67;
+  padding: 2px 5px 1px;
+  border-radius: 1px;
+  border: 1px solid $c-21;
+}
+
+.b-action-info--default--secondary {
+  background-color: $c-s-69;
+}
+
+.f-action-info--default {
+  @include font(14);
+  color: $c-white;
+  text-transform: uppercase;
+}
+
+// - action-info--default

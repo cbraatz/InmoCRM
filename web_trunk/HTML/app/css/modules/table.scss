@@ -1,0 +1,71 @@
+@import "../mixins.scss";
+
+[class*='b-table-']:not(.b-table-reset) {
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    padding: 18px 3px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  tr:nth-child(even) td {
+    background: $c-56;
+  }
+
+  tr:last-child td {
+    border-bottom: 1px solid $c-s-46;
+  }
+
+  td {
+    padding: 14px 3px;
+    border-left: 1px solid $c-s-46;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    &:last-child {
+      border-right: 1px solid $c-s-46;
+    }
+  }
+}
+
+[class*='f-table-'] {
+  th {
+    @include font(16);
+    text-align: center;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      @include font(13);
+    }
+  }
+}
+
+.b-table-primary {
+  th {
+    background: $c-default;
+    border: 1px solid $c-default;
+  }
+}
+
+.f-table-primary {
+  th {
+    color: $c-white;
+  }
+}
+
+.b-table-secondary {
+  th {
+    background: $c-57;
+    border: 1px solid $c-57;
+  }
+}
+
+.f-table-secondary {
+  th {
+    color: $c-white;
+  }
+}
+

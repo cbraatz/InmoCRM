@@ -1,0 +1,19 @@
+@import "../mixins.scss";
+
+.b-footer-mini{
+  padding: 11px;
+  border-top: 1px solid $c-21;
+}
+
+.f-footer-mini__link{
+  @include font(12);
+}
+
+.f-footer-mini-text{
+  @include font(12);
+  color: $c-default;
+}
+
+.f-footer-mini-right{
+  float: right;
+}

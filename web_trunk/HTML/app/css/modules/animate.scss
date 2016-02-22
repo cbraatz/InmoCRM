@@ -1,0 +1,34 @@
+@import "../mixins.scss";
+
+.fade-in-animate {
+  @include transition(opacity 0.8s);
+  visibility: hidden;
+  opacity: 0;
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// Images appearance
+.wrap-img-appearance {
+  position: relative;
+  img {
+    position: absolute;
+    visibility: hidden;
+    &.animated {
+      visibility: visible;
+    }
+  }
+}
+
+.j-data-element {
+  @include transition(opacity 1s);
+  visibility: hidden;
+  opacity: 0;
+  &.animated {
+    @include animation-duration(1s);
+    visibility: visible;
+    opacity: 1;
+  }
+}

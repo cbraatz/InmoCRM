@@ -1,0 +1,64 @@
+@import "../mixins.scss";
+
+.b-select{
+  display: inline-block;
+  margin-right: 7px;
+  margin-bottom: 4px;
+  span.ui-icon{
+    right: 12px;
+    margin-top: -2px;
+    position: absolute;
+    border-style: solid;
+    border-width: 5px;
+    border-color: $c-s-62 transparent transparent transparent;
+  }
+  span.ui-selectmenu-button{
+    @include font(12, 22);
+    outline: 0 none;
+    border: 1px solid $c-s-39;
+    border-radius: 2px;
+    color: $c-s-62;
+    &:before{
+      content: '';
+      height: 100%;
+      width: 1px;
+      border-left: 1px solid $c-s-65;
+      position: absolute;
+      right: 35px;
+      top: 0;
+    }
+  }
+
+  .ui-selectmenu-text{
+    line-height: 22px!important;
+    padding: 0.4em 2.3em 0.4em 1em!important;
+  }
+
+  select{
+    width: 150px;
+  }
+}
+
+// + select--secondary
+.b-select--secondary{
+  .ui-selectmenu-text{
+    background-color: $c-37;
+    color: $c-13;
+  }
+  span.ui-icon{
+    border-color: $c-tertiary transparent transparent transparent;
+  }
+}
+// - select--secondary
+
+// + select--secondary
+.b-select--alt{
+  .ui-selectmenu-text{
+    background-color: $c-white;
+    color: $c-tertiary;
+  }
+  span.ui-icon{
+    border-color: $c-tertiary transparent transparent transparent;
+  }
+}
+// - select--secondary

@@ -1,0 +1,27 @@
+@import "../mixins.scss";
+
+.b-view-switcher{
+  
+}
+
+.f-view-switcher{
+  @include font(10);
+  color: $c-19;
+}
+
+
+[class*='b-view-switcher_']{
+  cursor: pointer;
+  border: 2px solid $c-19;
+  border-radius: 2px;
+  padding: 2px;
+  margin-left: 3px;
+  &:before{
+    position: relative;
+    top: 0.5px;
+  }
+  &.is-view-switcher__item-active{
+    color: $c-34;
+    border-color: $c-34;
+  }
+}

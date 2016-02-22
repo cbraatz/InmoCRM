@@ -1,0 +1,55 @@
+.l-main-container {
+  background: $c-white;
+  position: relative;
+  z-index: 1;
+}
+
+.l-body-boxed {
+  @include center;
+  max-width: 1360px;
+  header,
+  .j-fixed-slider,
+  [data-fixed_top],
+  #home.home {
+    @include center;
+    max-width: 1360px;
+  }
+  .j-fixed-slider,
+  [data-fixed_top],
+  .l-main-container {
+    overflow: hidden;
+  }
+}
+
+.l-container {
+  @include center;
+  @include clear-fix;
+  max-width: $containerWidth;
+  @media screen and (max-width: $containerWidth) {
+    padding: 0 10px;
+  }
+}
+
+.l-inner-page-container {
+  padding: 30px 0;
+}
+
+.b-page-over {
+  background: $c-white;
+  position: relative;
+  z-index: 3;
+}
+
+.iframe-container {
+  background: url('../img/bg/pattern-lg/pattern_2.png') repeat left top;
+  > body {
+    overflow: hidden;
+    background: transparent;
+  }
+}
+
+#iframe {
+  display: block;
+  margin: 0 auto;
+  padding-top: 66px;
+}

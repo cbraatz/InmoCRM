@@ -1,0 +1,121 @@
+@import "../mixins";
+
+.flexslider {
+  img {
+   @include user-select(none);
+  }
+}
+
+.flexslider-thumbnail {
+  &:hover {
+    .flex-prev {
+      left: 20px;
+    }
+    .flex-next {
+      right: 20px;
+    }
+  }
+  .slides {
+    li {
+      cursor: pointer;
+      border-radius: 3px;
+      margin: 2px 18px 2px 0;
+      &:first-child {
+        margin-left: 2px;
+      }
+      &:last-child {
+        margin-right: 18px;
+      }
+      img {
+        border-radius: 3px;
+        border: 2px solid $c-white;
+        box-shadow: 0 0 2px $c-tertiary;
+        width: auto;
+        margin: 0 auto;
+      }
+      &:hover,
+      &.flex-active-slide {
+        img {
+          box-shadow: 1px 0 0 $c-secondary, 0px 1px 0 $c-secondary, -1px 0 0 $c-secondary, -0px -1px 0 $c-secondary;
+          border-color: $c-default;
+        }
+      }
+    }
+  }
+
+  &.carousel-sm {
+    .slides {
+      li {
+        height: 60px;
+        img {
+          max-height: 60px;
+        }
+      }
+    }
+  }
+
+  &.carousel-md {
+    .slides {
+      li {
+        height: 68px;
+        img {
+          max-height: 68px;
+          border-width: 3px;
+        }
+      }
+    }
+  }
+}
+
+.flexslider.flexslider-zoom {
+  .slides {
+    font-size: 0;
+    li {
+      font-size: $default-fz + px;
+      display: inline-block  !important;
+      float: none !important;
+      vertical-align: middle;
+    }
+  }
+}
+
+.flex-direction-nav {
+  a {
+    background: $c-white;
+    border-radius: 20px;
+    color: $c-s-45;
+    height: 32px;
+    width: 32px;
+    margin: -16px 0 0;
+    &.flex-next,
+    &.flex-prev {
+      text-align: center;
+    }
+    &:before {
+      @include icon;
+      display: block;
+      margin-bottom: 20px;
+      font-size: 20px;
+      vertical-align: middle;
+      position: relative;
+      left: 0px;
+      top: 6px;
+    }
+    &.flex-next:before {
+      content: "\f054";
+      left: 2px;
+    }
+    &.flex-prev:before {
+      content: "\f053";
+    }
+    &:hover {
+      color: $c-default;
+    }
+    &.flex-disabled {
+      display: none;
+    }
+  }
+  @media screen and (max-width: $break-tablet-l) {
+    display: none;
+  }
+}

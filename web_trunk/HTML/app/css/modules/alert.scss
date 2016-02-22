@@ -1,0 +1,41 @@
+@import "../mixins.scss";
+
+[class*='b-alert'] {
+  display: block;
+  padding: 12px 12px 10px 18px;
+  .fa{
+    @include font(15);
+  }
+  & > div{
+    &:last-child{
+      .fa{
+        margin-right: 0.4em;
+      }
+    }
+    &:first-child{
+      .fa{
+        @include font(18);
+        margin-left: 0.4em;
+        &:before{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+[class*='f-alert'] {
+  @include font(13);
+}
+
+@include alert(normal, $c-37, $c-s-35, $c-40);
+
+@include alert(warning, $c-42, $c-43, $c-41);
+
+@include alert(info, $c-45, $c-46, $c-n-1);
+
+@include alert(success, $c-47, $c-48, $c-49);
+
+@include alert(useful, $c-50, $c-51, $c-52);
+
+@include alert(question, $c-53, $c-54, $c-55);

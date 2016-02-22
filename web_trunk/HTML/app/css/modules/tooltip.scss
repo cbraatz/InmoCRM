@@ -1,0 +1,24 @@
+@import "../mixins.scss";
+
+.f-tooltip {
+  color: $c-default;
+  white-space: nowrap;
+}
+
+.fade.in {
+  opacity: 1;
+}
+
+.tooltip-inner {
+  background: $c-default;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: none;
+  color: $c-white;
+  padding: 5px 15px;
+  display: inline-block;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: $c-default;
+}

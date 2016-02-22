@@ -1,0 +1,118 @@
+@import "../mixins.scss";
+
+.b-blog-short-post {
+  margin: 0;
+  & > [class*='col-'] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.b-blog-short-post__item {
+  border-top: 1px solid $c-denary;
+  padding-top: 15px;
+  padding-bottom: 8px;
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media screen and (max-width: $break-medium - 1) and (min-width: $break-smart-l) {
+    border: 0;
+    padding-top: 0;
+  }
+  @media screen and (max-width: $break-smart-l - 1) {
+    border: 0;
+  }
+}
+
+.f-blog-short-post__item_text {
+  @include font(12, 24);
+  color: $c-tertiary;
+  & a.is-hover {
+    color: $c-default;
+  }
+}
+
+.b-blog-short-post__item_date {
+
+}
+
+.f-blog-short-post__item_date {
+  @include font(11, 18);
+  color: $c-quaternary;
+}
+
+.f-blog-short-post__item_price {
+  @include font(16, 24);
+  color: $c-default;
+}
+
+/* Secondary version with image */
+.b-blog-short-post--w-img {
+  margin: 0;
+  .b-blog-short-post__item {
+    @include clear-fix;
+    padding: 10px 0;
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+.f-blog-short-post--w-img {
+  a {
+    color: $c-primary;
+    &:hover {
+      color: $c-default;
+    }
+  }
+}
+
+.b-blog-short-post__item_img {
+  float: left;
+  padding-right: 15px;
+  padding-top: 5px;
+}
+
+.b-blog-short-post__item_text {
+  a {
+    display: inline-block;
+  }
+}
+
+/* + version for products modifications --popular*/
+.f-blog-short-post--popular {
+  a {
+    color: $c-senary;
+    @include font(16);
+  }
+}
+
+.b-blog-short-post--popular {
+  border-bottom: 1px solid $c-s-47;
+  margin-top: 7px;
+  padding-bottom: 12px;
+}
+
+/* - version for products modifications --popular*/
+
+/* + version for products modifications --img-hover-bordered*/
+.b-blog-short-post--img-hover-bordered {
+  img {
+    border: 2px solid transparent;
+  }
+  a {
+    &.is-hover img {
+      border-color: $c-default;
+    }
+  }
+  img {
+    &:hover {
+      border-color: $c-default;
+    }
+  }
+}
+
+/* - version for products modifications --img-hover-bordered*/

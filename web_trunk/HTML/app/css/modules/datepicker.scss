@@ -1,0 +1,130 @@
+@import "../mixins.scss";
+
+.ui-datepicker {
+  padding: 0;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2);
+  width: 270px;
+  .ui-datepicker-header {
+    color: $c-white;
+    background: $c-default;
+    padding: 10px 10px;
+  }
+
+  .ui-datepicker-title {
+    line-height: 1;
+    font-size: $default-fz + px;
+  }
+
+  .ui-datepicker-month,
+  .ui-datepicker-year {
+    @include font(14, 14);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .ui-datepicker-calendar {
+    background: $c-37;
+    margin-bottom: 0;
+
+    th {
+      color: $c-default;
+      padding: 20px 0 10px;
+    }
+
+    td {
+      width: 14.3%;
+
+      a {
+        @include font(12, 12);
+        color: $c-primary;
+        text-align: center;
+        padding: 12px 0 8px;
+        height: 35px;
+        width: 35px;
+
+        &.ui-state-active,
+        &:hover {
+          background: $c-default;
+          color: $c-white;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    tr:last-child td {
+      padding-bottom: 10px;
+    }
+  }
+
+  .ui-datepicker-prev,
+  .ui-datepicker-next {
+    top: 8px;
+    height: auto;
+    width: auto;
+
+    &:after {
+      @include font(8, 8);
+      color: $c-white;
+      border: 1px solid $c-white;
+      border-radius: 50%;
+      background: $c-default;
+      font-family: $f-icons;
+      font-weight: normal;
+      padding: 3px;
+      width: 16px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    span.ui-icon {
+      display: none;
+    }
+  }
+
+  .ui-datepicker-prev {
+    left: 10px;
+
+    &:after {
+      content: "\f053";
+    }
+  }
+
+  .ui-datepicker-next {
+    right: 10px;
+    &:after {
+      content: "\f054";
+    }
+    span.ui-icon {
+      display: none;
+    }
+  }
+}
+
+.b-datapicker-reset{
+  .ui-datepicker{
+    width: auto;
+    box-shadow: 0 0 0 transparent;
+    .ui-datepicker-calendar {
+      td{
+        text-align: center;
+        a{
+          width: 35px;
+          height: 35px;
+          line-height: 1.6;
+          display: inline-block;
+        }
+      }
+      tr{
+        &:last-child{
+          td{
+            padding-bottom: 0.6em;
+          }
+        }
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,155 @@
+@import "../mixins.scss";
+
+.f-home-detail-option {
+  @include font(12, 14);
+  color: $c-primary;
+}
+
+.b-home-detail-option_row {
+  margin-top: 15px;
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    clear: both;
+    position: relative;
+  }
+
+  &:first-child {
+    margin: 0;
+  }
+}
+
+.b-home-detail-option_item_title {
+  float: left;
+  min-width: 156px;
+}
+
+.b-home-detail-option_item_value {
+  overflow: hidden;
+}
+
+.f-detail-home-content_title {
+  @include font(30, 38);
+}
+
+.b-detail-home-content {
+  padding: 30px 0 0;
+  .b-icon {
+    vertical-align: sub;
+  }
+  .b-btn-title-real-estate {
+    vertical-align: middle;
+  }
+}
+
+.b-info {
+  margin: 0 0 0 5px;
+  span {
+    margin: 0 13px 0 0px;
+  }
+}
+
+.f-info {
+  @include font(14, 16);
+  span {
+    text-transform: uppercase;
+  }
+}
+
+.b-blog-one-column__info_container {
+  .b-btn-title-real-estate {
+    &.button-xs {
+      font-size: 14px;
+      vertical-align: top;
+      padding: 6px 8px 3px;
+    }
+  }
+}
+
+.b-employee-item--left {
+  h4, p {
+    padding: 0 15px;
+  }
+}
+
+.b-contact-form-box--bord {
+  border: 1px solid $c-28;
+  border-radius: 3px;
+  padding: 15px;
+  .b-form--contact-size textarea {
+    &.form-control {
+      height: 150px;
+    }
+  }
+}
+
+.b-contact-form-box--bord {
+  .f-title-description {
+    color: $c-primary;
+  }
+}
+
+.b-icons {
+  display: inline-block;
+  vertical-align: middle;
+  width: 21px;
+  height: 20px;
+  background: url(../img/icon-2.png) no-repeat 0 0;
+  &.b-icon--shower {
+    background-position: 0 0;
+  }
+  &.b-icon--bed2 {
+    background-position: 0 -30px;
+  }
+}
+
+.b-info-container--home {
+  .b-blog-one-column__info_container {
+    border-bottom: 1px solid $c-s-45;
+    border-top: 1px solid $c-s-45;
+    padding: 5px 0;
+  }
+  &.b-some-examples__item_info_level {
+    border-color: transparent;
+    padding: 0px 0 10px;
+  }
+}
+
+.b-item-apartment-block {
+  margin-bottom: 30px;
+}
+
+.b-box-important {
+  border: 1px solid $c-21;
+  border-radius: 3px;
+  padding: 8px 15px 8px 8px;
+}
+
+.f-title-big--name {
+  color: $c-default;
+  &.f-title-big {
+    a {
+      color: $c-default;
+      &:hover {
+        color: $c-primary;
+      }
+    }
+  }
+}
+
+.b-form-properties {
+  padding: 26px 28px 0 31px;
+  margin-bottom: 30px;
+  .b-full-search-form_check {
+    margin-bottom: 31px;
+  }
+  .b-form-row {
+    margin-bottom: 33px;
+  }
+  input[type="text"],
+  span[class="ui-selectmenu-text"] {
+    text-transform: uppercase;
+    color: $c-s-56;
+  }
+}

@@ -1,0 +1,18 @@
+@import "../mixins.scss";
+
+.b-wiget-fb {
+  overflow: hidden;
+  .b-wiget-fb-content {
+    margin-bottom: -30px;
+  }
+}
+
+.fb_iframe_widget span {
+  margin-left: -10px;
+}
+
+.b-about-us-connection {
+  img {
+    width: 100%
+  }
+}

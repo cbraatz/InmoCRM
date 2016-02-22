@@ -1,0 +1,45 @@
+@import "../mixins.scss";
+
+.container-load {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  white-space: nowrap;
+  overflow: auto;
+  text-align: center;
+  z-index: 200;
+  opacity: 1;
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    font-size: 0;
+  }
+}
+
+.b-load-page {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 442px;
+  @media screen and (max-width: $break-smart-p) {
+    width: 260px;
+  }
+}
+
+.b-logo-big {
+  margin-bottom: 50px;
+}
+
+.b-load-name {
+  margin-top: 30px;
+}
+
+.f-load-name {
+  @include font(12, 14);
+  color: $c-senary;
+}

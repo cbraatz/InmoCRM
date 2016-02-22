@@ -1,0 +1,215 @@
+@import "../mixins.scss";
+
+// Mention 2 column
+.b-mention-item {
+  @include clear-fix;
+  margin-bottom: 10px;
+}
+
+.b-mention-item__user {
+  float: left;
+  width: 110px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    float: none;
+    margin-bottom: 15px;
+    width: auto;
+  }
+}
+
+.b-mention-item__user_img {
+  display: inline-block;
+  margin-bottom: 5px;
+  text-align: center;
+
+  img {
+    @include img-responsive;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: inline-block;
+  }
+}
+
+.b-mention-item__user_info {
+  padding-left: 0.5em;
+}
+
+.f-mention-item__user_info {
+  @include font(12, 18);
+}
+
+.f-mention-item__user_name {
+  color: $c-default;
+}
+
+.b-mention-item__comment {
+  margin-left: 28px;
+  @media screen and (max-width: $break-tablet-p - 1) {
+    margin-left: 0;
+  }
+
+  &:after {
+    content: '';
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent $c-white transparent transparent;
+    position: absolute;
+    left: -20px;
+    top: 26px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      display: none;
+    }
+  }
+
+  &:before {
+    content: '';
+    border-width: 11px;
+    border-style: solid;
+    border-color: transparent $c-s-45 transparent transparent;
+    position: absolute;
+    left: -23px;
+    top: 25px;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      display: none;
+    }
+  }
+}
+
+.f-mention-item__comment_text {
+  @include font(12, 28);
+  a {
+    color: $c-default;
+  }
+}
+
+// Short mention
+.b-mention-short-item {
+  @include clear-fix;
+}
+
+.b-mention-short-item__comment,
+.b-mention-item__comment {
+  background: $c-white;
+  border: 1px solid $c-s-45;
+  border-radius: 3px;
+  padding: 10px 18px 8px;
+  position: relative;
+}
+
+.b-mention-short-item__comment {
+  margin-bottom: 12px;
+  &:after {
+    @include transform(rotate(45deg));
+    content: '';
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent $c-white transparent transparent;
+    position: absolute;
+    bottom: -10px;
+    left: auto;
+    right: 30px;
+  }
+
+  &:before {
+    @include transform(rotate(45deg));
+    content: '';
+    border-width: 11px;
+    border-style: solid;
+    border-color: transparent $c-s-45 transparent transparent;
+    position: absolute;
+    bottom: -12px;
+    left: auto;
+    right: 30px;
+  }
+}
+
+.f-mention-short-item__comment_name {
+  @include font(12, 24);
+  color: $c-default;
+}
+
+.b-mention-short-item__comment_text {
+  margin-bottom: 15px;
+}
+
+.f-mention-short-item__comment_text {
+  @include font(12, 24);
+  color: $c-29;
+}
+
+.b-mention-short-item__user {
+  padding-right: 45px;
+}
+
+.b-mention-short-item__user_img,
+.b-mention-item__user_img {
+  background: $c-white;
+  border: 2px solid $c-white;
+  box-shadow: 0 0 1px $c-quinary;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.b-mention-item__user_img {
+  width: 91px;
+  height: 91px;
+}
+.b-mention-short-item__user_img {
+  width: 49px;
+  height: 49px;
+  img {
+    @include img-responsive;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: inline-block;
+  }
+}
+
+.b-mention-short-item__user_info {
+  padding-right: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.f-mention-short-item__user_name {
+  @include font(14, 18);
+  color: $c-default;
+}
+
+.f-mention-short-item__user_position {
+  margin-top: 3px;
+  @include font(12, 14);
+}
+
+/* vertically version */
+.b-mention-item--vertically {
+  .b-mention-item__user_img {
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .b-mention-item__comment {
+    box-shadow: 0 0 3px 0 rgba(241, 241, 241, 0.7);
+    margin: -40px 0 0px;
+    padding: 15px 18px;
+    padding-top: 55px;
+    position: relative;
+    z-index: 1;
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+  .b-mention-item__user_info{
+    margin-top: 1em;
+  }
+}
+
+.f-center--xs {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    text-align: center;
+  }
+}
+
+/* end vertically version */

@@ -1,0 +1,27 @@
+@import "../mixins.scss";
+
+.b-shortcode-example {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  [class*='button-'] {
+    margin: 10px 16px 10px 10px;
+  }
+  &.b-shortcode-example--big-indent {
+    margin-top: 22px;
+  }
+  .b-tagline_btn--right,
+  .b-tagline_btn--left {
+    @media screen and (max-width: $break-smart-l - 1) {
+      .button-lg {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.b-shortcode-example--btn {
+  &.b-shortcode-example {
+    margin: 0 -15px 0 -10px;
+  }
+}
+

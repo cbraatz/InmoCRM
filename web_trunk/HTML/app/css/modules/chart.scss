@@ -1,0 +1,39 @@
+@import "../mixins.scss";
+
+.b-chart{
+  width: 100%;
+  height: 265px;
+  border-radius:0 0 5px 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 0 $c-s-66;
+  svg > rect{
+    fill: $c-d-21;
+  }
+  g > g > rect{
+    fill: $c-d-9;
+  }
+}
+
+.b-chart_head{
+  background-color: $c-d-22;
+  padding: 1.5em 1.5em 1.3em;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+
+.b-chart_title{
+  float: left;
+}
+
+.f-chart_title{
+  @include font(16);
+  text-transform: uppercase;
+}
+
+.b-chart_info{
+  float: right;
+}
+
+.f-chart_info{
+  @include font(12);
+}

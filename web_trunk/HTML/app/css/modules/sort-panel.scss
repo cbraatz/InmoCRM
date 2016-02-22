@@ -1,0 +1,37 @@
+@import "../mixins.scss";
+
+.b-sort-panel {
+  margin-top: -3px;
+  @include clear-fix();
+  margin-bottom: 15px;
+  float: none;
+}
+
+.b-sort-panel__inner {
+  padding-bottom: 5px;
+  border-bottom: 1px solid $c-s-45;
+  overflow: hidden;
+}
+
+.b-sort-panel__inner__view {
+  &.b-sort-panel__inner {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.b-sort-panel__inner_icon-sort {
+
+  width: 16px;
+  height: 19px;
+  float: left;
+  margin-top: 6px;
+}
+
+.f-sort-panel__inner_icon-sort {
+  @include font(18, 22);
+  color: $c-s-65;
+  &:hover {
+    color: $c-default;
+  }
+}

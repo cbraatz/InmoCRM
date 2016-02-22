@@ -1,0 +1,78 @@
+@import "../mixins.scss";
+
+/* Primary font */
+.f-primary {
+  font-family: $f-default;
+  font-weight: normal;
+}
+
+.f-primary-it {
+  font-style: italic;
+  font-weight: normal;
+}
+
+.f-primary-b-it {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.f-primary-sb-it {
+  font-weight: 600;
+  font-style: italic;
+}
+
+.f-primary-l-it {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.f-primary-b {
+  font-weight: 700;
+}
+
+.f-primary-sb {
+  font-weight: 600;
+}
+
+.f-primary-l {
+  font-weight: 300;
+}
+
+.f-primary-eb {
+  font-weight: 800;
+}
+
+
+/* Secondary font */
+.f-secondary {
+  font-family: $f-merriweather;
+  font-weight: normal;
+}
+
+.f-secondary-it {
+  font-family: $f-merriweather;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.f-secondary-l-it {
+  font-family: $f-merriweather;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.f-secondary-b-it {
+  font-family: $f-merriweather;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.f-secondary-b {
+  font-family: $f-merriweather;
+  font-weight: 700;
+}
+
+.f-secondary-l {
+  font-family: $f-merriweather;
+  font-weight: 300;
+}

@@ -1,0 +1,107 @@
+@import "../mixins.scss";
+
+/*Global Titles*/
+
+h1, h2, h3, h4, h5, h6 {
+  &.is-global-title {
+    color: $c-primary;
+    font-weight: 300;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-transform: none;
+  }
+}
+
+h1.is-global-title {
+  @include font(24);
+}
+
+h2.is-global-title {
+  @include font(20);
+}
+
+h3.is-global-title {
+  @include font(18);
+}
+
+h4.is-global-title {
+  @include font(16, 28);
+}
+
+h5.is-global-title {
+  @include font(14, 24);
+}
+h6.is-global-title {
+  @include font(14, 20);
+}
+
+/* End Global Titles */
+
+/* Global Link */
+a.is-global-link,
+.is-global-link {
+  color: $c-default;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/* End Global Link */
+
+.is-underline-text {
+  text-decoration: underline;
+}
+
+[class*='is-select-text-'] {
+  display: inline-block;
+  color: $c-white;
+  line-height: $default-lh;
+}
+
+.is-select-text-default {
+  background: $c-default;
+}
+
+.is-select-text-dark {
+  background: $c-senary;
+}
+
+/* First Letter */
+.f-first-letter:first-letter {
+  color: $c-default;
+  font-size: 400%;
+  line-height: 1;
+}
+
+.b-first-letter {
+  overflow: hidden;
+}
+
+.b-first-letter:first-letter {
+  display: block;
+  float: left;
+  margin-right: 8px;
+}
+
+.f-first-letter--secondary:first-letter {
+  color: $c-senary;
+}
+
+.b-first-letter--circle:first-letter,
+.b-first-letter--square:first-letter, {
+  background: $c-default;
+  padding: 10px;
+  line-height: 80%;
+}
+
+.b-first-letter--circle:first-letter {
+  border-radius: 50%;
+}
+
+.f-first-letter--circle:first-letter,
+.f-first-letter--square:first-letter {
+  color: $c-white;
+  font-size: 180%;
+}
+/* End First Letter */

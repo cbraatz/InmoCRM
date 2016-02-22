@@ -1,0 +1,55 @@
+@import "../mixins.scss";
+
+.b-breadcrumbs {
+  border-bottom: 1px solid $c-s-35;
+  @include gradient($c-white, $c-s-70);
+  ul {
+    margin: 10px 0 9px;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin-right: 4px;
+    &:not(:first-child) i {
+      margin-right: 7px;
+    }
+    &:first-child i:before {
+      top: 1px;
+    }
+  }
+  i {
+    margin-right: 10px;
+  }
+  i:before {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.f-breadcrumbs {
+  color: $c-senary;
+  li {
+    &:first-child i:before {
+      @include font(16);
+      color: $c-default;
+    }
+  }
+  i:before {
+    @include font(18);
+    color: $c-nonary;
+  }
+  a, span {
+    @include font(12, 24);
+  }
+  a {
+    color: $c-default;
+    &:hover {
+      color: $c-primary;
+      i {
+        &:before {
+          color: $c-primary;
+        }
+      }
+    }
+  }
+}

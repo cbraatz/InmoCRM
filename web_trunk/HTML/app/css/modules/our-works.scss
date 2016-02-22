@@ -1,0 +1,32 @@
+@import "../mixins.scss";
+
+.b-our-works {
+
+  .b-category-filter {
+    border-bottom: 0;
+  }
+}
+
+.b-our-works__item {
+  min-height: 154px;
+  margin-bottom: 30px;
+
+  @media (max-width: $break-smart-p) {
+    min-height: 133px;
+    margin-bottom: 15px;
+  }
+
+  .b-item-hover-action {
+    padding-bottom: 27px;
+  }
+}
+
+.b-our-works__item_image {
+  border-radius: 2px;
+  overflow: hidden;
+
+  img {
+    @include img-responsive();
+    width: 100%;
+  }
+}

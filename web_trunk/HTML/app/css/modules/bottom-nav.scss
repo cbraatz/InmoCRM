@@ -1,0 +1,53 @@
+@import "../mixins.scss";
+
+.b-bottom-nav {
+  @media screen and (max-width: $break-tablet-p - 1) {
+    float: none;
+    padding-bottom: 15px;
+    padding-top: 18px;
+  }
+
+  ul {
+    @include clear-fix;
+    margin: 0;
+    padding: 0;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      display: table;
+      margin-right: 0;
+      width: 100%;
+    }
+  }
+
+  li {
+    list-style: none;
+    margin-right: 12px;
+    float: left;
+    @media screen and (max-width: $break-tablet-p - 1) {
+      display: table-cell;
+      float: none;
+      margin-right: 0;
+      padding-right: 10px;
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+.f-bottom-nav {
+  @include font(11, 30);
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      color: $c-secondary;
+    }
+  }
+
+  li.is-active-bottom-nav {
+    a {
+      color: $c-secondary;
+    }
+  }
+}

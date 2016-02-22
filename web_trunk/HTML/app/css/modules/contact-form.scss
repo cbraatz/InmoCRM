@@ -1,0 +1,58 @@
+@import "../mixins.scss";
+
+.b-contact-form {
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  @media screen and (max-width: $break-tablet-l) {
+    position: relative;
+  }
+}
+
+.b-contact-form__window {
+  @include border-radius(2px);
+  position: absolute;
+  z-index: 2;
+  left: 20%;
+  top: 90px;
+  border: 1px solid $c-18;
+  background-color: $c-white;
+  color: #000000;
+  width: 570px;
+
+  @media screen and (max-width: $break-tablet-l) {
+    border: 0;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.b-contact-form__window-title {
+  margin-top: 20px;
+
+  hr {
+    border-top-width: 2px;
+  }
+}
+
+.f-contact-form__window-title {
+  @include font(20);
+}
+
+.b-contact-form__window-form-row {
+  margin-bottom: 15px;
+}
+
+.b-contact-form__window-form-row-label {
+  margin-bottom: 9px;
+}
+
+.b-contact-form__window-form-textarea {
+  resize: none;
+}
+
+.b-contact-form__window-form-row-button {
+  width: 100%;
+}
