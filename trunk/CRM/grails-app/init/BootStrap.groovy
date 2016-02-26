@@ -1,20 +1,22 @@
 import crm.Currency;
 
 import java.util.Date;
-
+import grails.util.Environment;
 import crm.*;
 
 import java.text.SimpleDateFormat
 class BootStrap {
 
     def init = { servletContext ->
-		println("Starting init.......................");
-		addBasicData();
+		println("Starting init......................."+Environment.current);
+		if(Environment.current.equals(Environment.DEVELOPMENT)){
+			addDevelopmentData();
+		}
 		println("Finishing init......................");
     }
     def destroy = {
     }
-	private void addBasicData(){
+	private void addDevelopmentData(){
 		
 		//ContextPermission
 		this.saveObj(new ContextRole(name: "Basic", isActive:true));
@@ -110,8 +112,8 @@ class BootStrap {
 		this.saveObj(new BuildingFeature(name: "Amoblamiento completo", description: "Cuenta con amoblamiento completo de todo el inmueble"));
 		
 		//PropertyFeature
-		this.saveObj(new PropertyFeature(name: "Agua potable", description: "Cuenta servicio de agua potable"));
-		this.saveObj(new PropertyFeature(name: "Ande", description: "Cuenta con servicio de Ande"));
+		this.saveObj(new PropertyFeature(name: "Agua potable", description: "Cuenta servicio de agua potable", hasValue:false));
+		this.saveObj(new PropertyFeature(name: "Ande", description: "Cuenta con servicio de Ande", hasValue:false));
 		
 		//DimensionMeasuringUnit
 		this.saveObj(new DimensionMeasuringUnit(name: "Metro", nameInPlural:"Metros", abbreviation:"m", abbreviationInPlural:"m", isDefault:true, isArea:false));		
@@ -235,7 +237,7 @@ class BootStrap {
 		this.saveObj(new ContractType(name: "Eclusivo", isExclusive:true, description:"Contrato exclusivo.", commissionPercentage:3, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato exclusivo."));
 		
 		//Contract
-		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findDescription("Contrato exclusivo.")));
+		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByDescription("Contrato exclusivo.")));
 		
 		//PropertyType
 		this.saveObj(new PropertyType(name:"Sitio", keywords:"sitio,sitio en ..,sitio en venta,vendo sitio,lote,lote en ..,lote en venta,vendo lote", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
@@ -246,7 +248,7 @@ class BootStrap {
 		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
 			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), inWeb:false, valueDegree:1);
 		this.saveObj(managedProperty1);
-		
+		System.out.println(managedProperty1.id);
 		
 		//PropertyUsage
 		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));

@@ -61,7 +61,7 @@ grails:
         default:
             codec: html
         gsp:
-            encoding: UTF-8
+            encoding: ISO-8859-1
             htmlcodec: xml
             codecs:
                 expression: html
