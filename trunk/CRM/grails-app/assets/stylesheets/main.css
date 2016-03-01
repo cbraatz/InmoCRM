@@ -751,3 +751,42 @@ ul#nav, ul.nav-item-list{
 	font-size:16px;
 	font-weight:bold;
 }
+/*starting added by me*/
+#header-bar{
+	text-align: right;
+}
+#login-body{
+	height: 300px;
+	color: #999999;
+}
+#login-box{
+	border: 1px solid #CCCCCC;
+	margin-left:330px;
+	margin-top:100px;
+	width: 300px;
+	padding: 3px;
+	font-size: 14px;
+	-moz-border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+            border-radius: 0.3em;
+}
+#login-name-txt, #login-pass-txt{
+	width:130px;
+	height: 13px;
+}
+#login-name-label, #login-pass-label{
+	font-weight: bold; 
+}
+#confirm-login-button{
+	margin-left: 120px;
+}
+#login-title{
+	text-align: center;
+	font-weight: bold; 
+	padding-top: 10px;	
+	padding-bottom: 10px;
+	font-size: 18px;
+}
+.scaffold-list{
+	padding-left: 50px;
+}

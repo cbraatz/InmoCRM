@@ -14,11 +14,13 @@ class LoginController {
 		 if (user){
 			//user.setPermissions(); cargar aca una lista en CrmUser para no hacer consultas cada vez que se pregunte por un permiso
 			 if(crmUri){
-				 esto a continuacion no es necesario, ya que el id esta en crmUri, ver como hacer el redirect con el id...
-				 crmUri.action=(crmUri.action.equals("show")?"index":crmUri.action);
-				 redirect(controller:crmUri.controller, action:crmUri.action);//if it is redirected to a page different tha index
+				 if(null != crmUri.id){
+					redirect(controller:crmUri.controller, action:crmUri.action, id:crmUri.id);
+				 }else{
+				 	redirect(controller:crmUri.controller, action:crmUri.action);
+				 }
 			 }else{
-				 redirect(controller:'client', action:'create');//should be redirected to index
+				 redirect(uri:'/');
 			 }
 		 }else
 			 redirect(controller:'login', action:'loginForm');

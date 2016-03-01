@@ -15,21 +15,25 @@
   		<asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
 		<g:layoutHead/>
+		
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
-		<div class="logout">
-			 <g:form controller="crmUser" action="doLogout" method="post">
-				<div class="buttons">
-					 <span class="formButton">
-					 	<input type="submit" value="Logout"></input>
-					 </span>
-				 </div>
-			 </g:form>
-		</div>
-		<div id="icon-menu"><g:render template="/menu/iconMenu"/></div>
+			<div id="header-bar">
+				<g:link class="logout-link" action="doLogout" controller="login" style="display: none;"><g:message code="logout.label" default="Log out" /></g:link>
+			</div>
+			<div id="icon-menu" style="display: none;"><g:render template="/menu/iconMenu"/></div>
 		<div id="body-layout"><g:layoutBody/></div>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 	</body>
+	
 </html>
+<script type="text/javascript">
+	$(document).ready(function() {
+		if(!($('#login-body').is(':visible') || $('#body-layout .error-details').is(':visible'))){
+			$('.logout-link').show();
+			$('#icon-menu').show();
+		}
+	});
+</script>
