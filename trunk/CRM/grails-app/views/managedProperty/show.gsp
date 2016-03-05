@@ -21,15 +21,14 @@
         <div id="show-managedProperty" class="content scaffold-show" role="main">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
+            	<div class="message" role="status">${flash.message}</div>
             </g:if>
             <g:hasErrors bean="${this.managedProperty}">
-            
-            <ul class="errors" role="alert">
-                <g:eachError bean="${this.managedProperty}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                </g:eachError>
-            </ul>
+	            <ul class="errors" role="alert">
+	                <g:eachError bean="${this.managedProperty}" var="error">
+	                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+	                </g:eachError>
+	            </ul>
             </g:hasErrors>
             
             <fieldset class="fieldcontain">
@@ -65,8 +64,6 @@
 				<f:display bean="managedProperty" property="valueDegree"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.placedBillboards.label" default="placedBillboards"/></span>
 				<f:display bean="managedProperty" property="placedBillboards"/>
-				<span id="name-label" class="property-label"><g:message code="managedProperty.inWeb.label" default="inWeb"/></span>
-				<f:display bean="managedProperty" property="inWeb"/>
 			</fieldset>
 			<g:if test="${managedProperty.buildings.size() > 0}">
 				<h1><g:message code="managedProperty.buildings.label"/></h1>
@@ -81,8 +78,8 @@
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.managedProperty}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
                     <g:actionSubmit action="addEditImages" class="addEditImages" value="${message(code: 'default.button.add.edit.images.label', default: 'Add or Edit Images')}"/>
-                    <g:if test="${!managedProperty.hasErrors()}">
-                    <g:actionSubmit action="generateWebPage" class="generateWebPage" value="${message(code: 'managedProperty.button.generate.web.page.label', default: 'Generate Web')}"/>
+                	<g:if test="${managedProperty.hasImagesForWeb()}">
+                		<g:link class="web" action="create" controller="webPage" params="[pid:managedProperty.id]"><g:message code="managedProperty.button.web.label" default="Web Page" /></g:link>
                     </g:if>
                     <!--<g:actionSubmit action="delete" class="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />  -->
                 </fieldset>

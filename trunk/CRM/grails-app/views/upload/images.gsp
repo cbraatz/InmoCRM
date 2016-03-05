@@ -1,14 +1,21 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
-        <title>FileResource List</title>
+        <g:set var="entityName" value="${message(code: 'managedProperty.label', default: 'ManagedProperty')}" />
+        <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
-        <div class="nav">
-   			  <span class="menuButton"><a class="home" href="/">Home</a></span>
-     </div>
-        <div class="body content">
+        <a href="#show-managedProperty" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <div class="nav" role="navigation">
+            <ul>
+                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                <g:if test="${managedProperty}">
+                	<li><g:link class="return" action="show" controller="managedProperty" id="${managedProperty.id}"><g:message code="managedProperty.label" default="Concession" /></g:link></li>
+                </g:if>
+            </ul>
+        </div>
+        <div id="images-upload" class="content scaffold-show" role="main">
 			<g:if test="${flash.message}">
             	<div class="message">${flash.message}</div>
             </g:if>

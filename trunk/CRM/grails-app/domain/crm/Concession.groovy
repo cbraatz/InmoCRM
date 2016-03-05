@@ -24,7 +24,7 @@ class Concession {
 	Boolean soldByCompany;
 	
 	static belongsTo = ManagedProperty;
-	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, advertisements:Advertisement/*,TagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		adTitle(blank:true, nullable:true, size:0..60);
@@ -44,7 +44,7 @@ class Concession {
 		barter(blank:true, nullable:true, size:0..50);
 		financing(blank:true, nullable:true, size:0..50);
 		client(nullable:false);
-		agent(nullable:true);//probar con nullable true
+		agent(nullable:true);
 		isActive(nullable:false);
 		isForRent(nullable:false);
 		soldByCompany(nullable:false);

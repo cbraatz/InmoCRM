@@ -14,7 +14,8 @@ class MainInterceptor {
 			if(controllerName.equals("favicon")){
 				return false;
 			}else{
-				this.checkUser();
+				//this.checkUser(); borrar el return true...
+				return true;
 			}
 		}
 	}

@@ -25,8 +25,6 @@
 		        <f:display bean="crmUser" property="name"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.emailAddress.label" default="Email"/></span>
 		        <f:display bean="crmUser" property="emailAddress"/>
-		        <span id="name-label" class="property-label"><g:message code="crmUser.agentsGreeting.label" default="Agents Greeting"/></span>
-		        <f:display bean="crmUser" property="agentsGreeting"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.partner.label" default="Partner"/></span>
 		        <f:display bean="crmUser" property="partner"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.isAdmin.label" default="Admin"/></span>

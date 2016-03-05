@@ -27,8 +27,6 @@
 		        <f:display bean="propertyType" property="dimensionMeasuringUnit"/>
 		        <span id="name-label" class="property-label"><g:message code="propertyType.description.label" default="Description"/></span>
 		        <f:display bean="propertyType" property="description"/>
-		        <span id="name-label" class="property-label"><g:message code="propertyType.keywords.label" default="Keywords"/></span>
-		        <f:display bean="propertyType" property="keywords"/>
             </fieldset>
             
             <g:form resource="${this.propertyType}" method="DELETE">

@@ -59,7 +59,7 @@ class PartnerController {
 			if(partner.save(flush: true)){
 				println "Partner SAVED";
 				if(f){
-					String imageContainer=grailsApplication.config.getProperty('web.realPath')+File.separatorChar+grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+partner.id;
+					String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+File.separatorChar+partner.id;
 					String filePath=imageContainer + File.separatorChar + "profile.jpg";
 					File dire=new File(imageContainer);
 					dire.mkdirs()
@@ -107,7 +107,7 @@ class PartnerController {
             return
         }		
 		
-		String imageContainer=grailsApplication.config.getProperty('web.realPath')+File.separatorChar+grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+partner.id;
+		String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+File.separatorChar+partner.id;
 		String filePath=imageContainer + File.separatorChar + "profile.jpg";
 		def f = request.getFile('photo')
 		if(!f.empty) {

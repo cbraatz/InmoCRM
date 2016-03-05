@@ -38,7 +38,6 @@ class ManagedPropertyController {
 
     def create() {
 		ManagedProperty mp=new ManagedProperty(params);
-		mp.inWeb=false;
         respond mp
     }
 	def addEditImages(ManagedProperty managedProperty){
@@ -99,24 +98,6 @@ class ManagedPropertyController {
             '*'{ respond managedProperty, [status: OK] }
         }
     }
-
-	 def generateWebPage(ManagedProperty managedProperty) {
- 
-		 if (managedProperty == null) {
-			 notFound()
-			 return
-		 }
- 
-		 managedProperty.createOrUpdateWebPage();
- 
-		 request.withFormat {
-			 form multipartForm {
-				 flash.message = message(code: 'managedProperty.web.page.generated.message', args: [message(code: 'managedProperty.label', default: 'ManagedProperty'), managedProperty.id])
-				 redirect managedProperty
-			 }
-			 '*' { respond managedProperty, [status: OK] }
-		  }
-	 }
 	
     /*@Transactional
     def delete(ManagedProperty managedProperty) { //must add cascade delete for building and so on..

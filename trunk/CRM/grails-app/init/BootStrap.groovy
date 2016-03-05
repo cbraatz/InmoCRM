@@ -43,8 +43,8 @@ class BootStrap {
 		this.saveObj(new Country(name: "Argentina"));		
 		this.saveObj(new Country(name: "Brasil"));		
 		this.saveObj(new Country(name: "Uruguay"));		
-		this.saveObj(new Country(name: "Chile"));
-		this.saveObj(new Country(name: "Estados Unidos"));
+		this.saveObj(new Country(name: "Deutschland"));
+		this.saveObj(new Country(name: "United States"));
 		
 		//department
 		this.saveObj(new Department(name: "Itapúa", country: Country.findByName("Paraguay")));		
@@ -86,7 +86,7 @@ class BootStrap {
 		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
 		
 		//crmuser
-		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true, agentsGreeting:"Soy Juan Peres, Agente de NombreEmpresa y a continuación encontrarás un formulario para contactar conmigo acerca de este inmueble. Escribe tu consulta a continuación y envía el mensaje sin compromiso."));
+		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true));
 		
 		//ClientCategory
 		this.saveObj(new ClientCategory(name: "Pequeño", description:"Clientes con sueldo mínimo o menos."));		
@@ -121,11 +121,11 @@ class BootStrap {
 		this.saveObj(new DimensionMeasuringUnit(name: "Hectárea", nameInPlural:"Hectáreas", abbreviation:"ha", abbreviationInPlural:"ha", isDefault:true, isArea:true));
 		
 		//BuildingType
-		this.saveObj(new BuildingType(name: "Casa", description:"Inmueble independiente y de uso habitacional", keywords:"casa,casa en ..,casa en venta,vendo casa", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Edificio de Departamentos", description:"Inmueble independiente que está dividido en departamentos", keywords:"edificio de departamentos,edificio de departamentos en ..,edificio de departamentos en venta,vendo edificio de departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", keywords:"piso,piso en ..,piso en venta,vendo piso", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Local Comercial", description:"Inmueble en planta baja destinado a actividades comerciales", keywords:"local comercial,local comercial en ..,local comercial en venta,vendo local comercial", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Depósito", description:"Inmueble destinado a guardar/depositar bienes", keywords:"deposito,deposito en ..,deposito en venta,vendo deposito", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));
+		this.saveObj(new BuildingType(name: "Casa", description:"Inmueble independiente y de uso habitacional", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
+		this.saveObj(new BuildingType(name: "Edificio de Departamentos", description:"Inmueble independiente que está dividido en departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
+		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
+		this.saveObj(new BuildingType(name: "Local Comercial", description:"Inmueble en planta baja destinado a actividades comerciales", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
+		this.saveObj(new BuildingType(name: "Depósito", description:"Inmueble destinado a guardar/depositar bienes", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));
 		
 		//BuildingFeatureByBuildingType
 		//casa
@@ -177,10 +177,21 @@ class BootStrap {
 		this.saveObj(new Usage(name: "Uso comercial", description:"Destinado a la construcción de locales comerciales."));
 		
 		//Language
-		this.saveObj(new Language(name: "Español", isDefault:true));
-		this.saveObj(new Language(name: "English", isDefault:true));
-		this.saveObj(new Language(name: "Português", isDefault:true));
-		this.saveObj(new Language(name: "Deutsch", isDefault:true));
+		this.saveObj(new Language(name: "Español", isDefault:true, symbol:"es", prepositionOfPlace:"en"));
+		this.saveObj(new Language(name: "English", isDefault:false, symbol:"en", prepositionOfPlace:"in"));
+		this.saveObj(new Language(name: "Português", isDefault:false, symbol:"pt", prepositionOfPlace:"em"));
+		this.saveObj(new Language(name: "Deutsch", isDefault:false, symbol:"de", prepositionOfPlace:"in"));
+		
+		//Locale
+		this.saveObj(new Locale(name: "Español-Paraguay", isDefault:true, symbol:"es_PY", language:Language.findByName("Español"), country:Country.findByName("Paraguay")));
+		this.saveObj(new Locale(name: "Alemán-Alemania", isDefault:false, symbol:"de_GE", language:Language.findByName("Deutsch"), country:Country.findByName("Deutschland")));
+		//Domain 
+		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
+		
+		//OperationType
+		this.saveObj(new OperationType(sale:"En Venta",rent:"En Alquiler",language:Language.findBySymbol("es")));
+		this.saveObj(new OperationType(sale:"Zum Verkauf",rent:"Zu vermieten",language:Language.findBySymbol("de")));
 		
 		//BroadcastMedia
 		this.saveObj(new BroadcastMedia(name: "Facebook", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"https://es-la.facebook.com/"));		
@@ -240,13 +251,13 @@ class BootStrap {
 		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByDescription("Contrato exclusivo.")));
 		
 		//PropertyType
-		this.saveObj(new PropertyType(name:"Sitio", keywords:"sitio,sitio en ..,sitio en venta,vendo sitio,lote,lote en ..,lote en venta,vendo lote", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
-		this.saveObj(new PropertyType(name:"Terreno agrícola", keywords:"terreno agricola,terreno agricola en ..,terreno agricola en venta,vendo terreno agricola,sitio,chacra en ..,chacra en venta,vendo chacra", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola"));
-		this.saveObj(new PropertyType(name:"Estancia", keywords:"estancia,estancia en ..,estancia en venta,vendo estancia", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal."));
+		this.saveObj(new PropertyType(name:"Sitio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
+		this.saveObj(new PropertyType(name:"Terreno agrícola", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola"));
+		this.saveObj(new PropertyType(name:"Estancia", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal."));
 		
 		//ManagedProperty
 		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), inWeb:false, valueDegree:1);
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1);
 		this.saveObj(managedProperty1);
 		System.out.println(managedProperty1.id);
 		
@@ -267,9 +278,9 @@ class BootStrap {
 		
 		
 		//UploadedImage
-		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, path:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html/img/crm/property/110", sizeInKB:1221 , managedProperty:managedProperty1));
-		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, path:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html/img/crm/property/110", sizeInKB:1221 , managedProperty:managedProperty1));
-		managedProperty1.createOrUpdateWebPage();
+		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, path:"alguna dire"+File.separatorChar+"110", sizeInKB:1221 , managedProperty:managedProperty1));
+		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, path:"alguna dire"+File.separatorChar+"110", sizeInKB:1221 , managedProperty:managedProperty1));
+		//managedProperty1.createOrUpdateWebPage();
 		//InterestType
 		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:true));
 		

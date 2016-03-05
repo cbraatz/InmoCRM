@@ -27,7 +27,7 @@ class ConcessionController {
     def create() {
 		Concession concession=new Concession(soldByCompany:false, isActive:true, contract:new Contract());
 		
-		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, inWeb:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
+		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
 	
     @Transactional

@@ -10,7 +10,7 @@ class Advertisement {
 	Date postDate;
 	String urlToPost;
 	String relatedInternalID;
-	Language language;
+	Locale locale;
 	PropertyDemand propertyDemand;
 	ManagedProperty managedProperty;
     static constraints = {
@@ -23,7 +23,7 @@ class Advertisement {
 		postDate(blank: true, nullable:true);
 		urlToPost(blank: true, nullable:true, size:0..255);
 		relatedInternalID(blank: true, nullable: true, size:0..40);//to define related transactions, transactions without related transactions will be null
-		language(nullable:false);
+		locale(nullable:false);
 		propertyDemand(nullable:true);
 		managedProperty(nullable:true);
     }

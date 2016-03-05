@@ -112,11 +112,12 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+crm:
+    upload:
+        image:
+            partner: uploads/partner
+            property: uploads/property
 web:
-    realPath: D:\TRABAJOS\crm\git_projects\root\web_trunk\HTML\html
     image:
-        partner: img\crm\partner
-        property: img\crm\property
-    page:
-        realEstate:
-            spanish: real_estate\es
+        partner: img/crm/partner
+        property: img/crm/property

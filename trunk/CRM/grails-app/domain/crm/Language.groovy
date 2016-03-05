@@ -2,10 +2,13 @@ package crm
 
 class Language {
 	String name;
-	Boolean isDefault;
-	static hasMany = [advertisements:Advertisement];
+	String symbol;
+	String prepositionOfPlace;
+	static hasMany = [locales:Locale, operationTypes:OperationType];
+
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
-		isDefault(nullable:false);
+		symbol(blank:false, nullable:false, unique:true, size:1..10);
+		prepositionOfPlace(blank:false, nullable:false, size:1..10);
 	}
 }

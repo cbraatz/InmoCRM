@@ -35,31 +35,47 @@ class UploadController {
 		//def f = new File(grailsApplication.config.images.location.toString())
 		//validar params.obj y params.oid
 		
-		ManagedProperty mp;
+		ManagedProperty managedProperty;
 		if(params.obj.equals("property") && params.oid != null){
-			mp=ManagedProperty.get(params.oid);
-			this.myPath=grailsApplication.config.getProperty('web.realPath')+File.separatorChar+grailsApplication.config.getProperty('web.image.property')+File.separatorChar+params.oid;
+			managedProperty=ManagedProperty.get(params.oid);
+			this.myPath=grailsApplication.config.getProperty('crm.upload.image.property')+File.separatorChar+params.oid;
 			def dire = new File(this.myPath);
 			dire.mkdirs();
 			UploadedImage uploadedImage;
 			if( dire.exists() ){
 				dire.eachFile(){ file->
-				if( !file.isDirectory() )
-					//si no existe en la base de datos hacer new uploadedImage y save
-					uploadedImage=UploadedImage.findByFileName(file.name);
-					if(!uploadedImage){
-						uploadedImage=new UploadedImage(description:"", fileName:file.name , path:file.getAbsolutePath(), sizeInKB:file.length(), managedProperty:mp, isMainImage:false, addToWeb:false);
-						if(uploadedImage.save(flush:true)){
-							fileResourceInstanceList.add(uploadedImage);
+					if( !file.isDirectory() ){
+						//si no existe en la base de datos hacer new uploadedImage y save
+						uploadedImage=UploadedImage.findByFileName(file.name);
+						if(!uploadedImage){
+							uploadedImage=new UploadedImage(description:"", fileName:file.name , path:file.getAbsolutePath(), sizeInKB:file.length(), managedProperty:managedProperty, isMainImage:false, addToWeb:true);
+							if(uploadedImage.save(flush:true)){
+								fileResourceInstanceList.add(uploadedImage);
+							}else{
+								GUtils.printErrors(uploadedImage, "Saving image '"+file.name+"'");
+								render(view:'/error', model:[message: message(code: 'upload.preloaded.image.save.error')]);
+							}
 						}else{
-							GUtils.printErrors(uploadedImage, "Saving image '"+file.name+"'");
-							render(view:'/error', model:[message: message(code: 'upload.preloaded.image.save.error')]);
+							fileResourceInstanceList.add(uploadedImage);
 						}
-					}else{
-						fileResourceInstanceList.add(uploadedImage);
 					}
 				}
-				
+				boolean exists=false;
+				def allImages=UploadedImage.findAll();
+				allImages.each(){
+					exists=false;
+					dire.eachFile(){ hdImg->
+						if( !hdImg.isDirectory() ){
+							if(it.fileName.equals(hdImg.name)){
+								exists=true;
+							}
+						}
+					}
+					if(!exists){
+						it.delete(flush:true);
+						System.out.println("Borrando imagen de la BD."+it.fileName);
+					}
+				}
 			}else{
 				render(view:'/error', model:[message: message(code: 'upload.image.directory.error')]);
 			}
@@ -67,7 +83,7 @@ class UploadController {
 		}else{
 			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error')]);
 		}
-		[ fileResourceInstanceList: fileResourceInstanceList ]
+		respond managedProperty, model:[fileResourceInstanceList:fileResourceInstanceList]
 	}
 	@Transactional
 	def deleteImage(){
