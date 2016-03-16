@@ -4,14 +4,18 @@ import java.util.List;
 
 class BuildingFeature {
 	String name;
+	String plural;
 	String description;
 	String defaultWebIcon;
+	Boolean hasValue;
 	static belongsTo = BuildingType;
-	static hasMany = [featuresByBuilding:FeatureByBuilding, buildingTypes:BuildingType, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand];
+	static hasMany = [featuresByBuilding:FeatureByBuilding, buildingTypes:BuildingType, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand, buildingFeaturesByLanguage: BuildingFeatureByLanguage];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
-		description (blank:true, nullable:true, widget:'textArea', size:0..100);
+		plural(blank:false, nullable:false, unique:true, size:1..50);
+		description(blank:true, nullable:true, widget:'textArea', size:0..100);
 		defaultWebIcon(blank:true, nullable:true, widget:'textArea', size:0..255);
+		hasValue(nullable:false);
     }
 	
 	public static List<FeatureByBuilding> getEmptyFeatureByBuildingListForEachBuildingFeature(){

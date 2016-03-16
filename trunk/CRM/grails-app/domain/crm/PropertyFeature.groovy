@@ -4,13 +4,15 @@ import java.util.List;
 
 class PropertyFeature {
 	String name;
+	String plural;
 	String description;
 	String defaultWebIcon;
 	Boolean hasValue;
 	static belongsTo = PropertyType;
-	static hasMany = [featuresByProperty:FeatureByProperty, propertyTypes:PropertyType, propertyFeaturesByPropertyDemand:PropertyFeatureByPropertyDemand];
+	static hasMany = [featuresByProperty:FeatureByProperty, propertyTypes:PropertyType, propertyFeaturesByPropertyDemand:PropertyFeatureByPropertyDemand, propertyFeaturesByLanguage: PropertyFeatureByLanguage];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
+		plural(blank:false, nullable:false, unique:true, size:1..50);
 		description(blank:true, nullable:true, widget:'textArea', size:0..100);
 		defaultWebIcon(blank:true, nullable:true, widget:'textArea', size:0..255);
 		hasValue(nullable:false);

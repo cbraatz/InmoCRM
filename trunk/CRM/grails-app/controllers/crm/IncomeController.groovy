@@ -102,7 +102,7 @@ class IncomeController {
 			Date d=new Date();
 			for(int i=0;i<n;i++){
 				IncomePayment ip=new IncomePayment();
-				ip.internalId=Utils.getShortUUIDWithNumbers(income.id.toString());
+				ip.internalID=Utils.getShortUUIDWithNumbers(income.id.toString());
 				if(i==0){
 					if(income.paymentPlan.initialFreeTimeInDays.intValue() > 0){
 						ip.dueDate=Utils.addToDate(d, income.paymentPlan.initialFreeTimeInDays.intValue(), 0);
@@ -155,7 +155,7 @@ class IncomeController {
 			}
 		}else{
 			IncomePayment ip=new IncomePayment();
-			ip.internalId=Utils.getShortUUIDWithNumbers(income.id.toString());
+			ip.internalID=Utils.getShortUUIDWithNumbers(income.id.toString());
 			ip.dueDate=new Date();
 			ip.amount=Utils.round(income.amount.doubleValue(), income.currency.hasDecimals);
 			ip.currency=income.currency;
@@ -170,7 +170,7 @@ class IncomeController {
 			for(int i=0;i<payments.size();i++){
 				IncomePayment ip=payments.get(i);
 				ip.save flush:true;
-				println "Saved"+ip.internalId;
+				println "Saved"+ip.internalID;
 			}
 		}finally{
 			payments=new ArrayList<IncomePayment>();

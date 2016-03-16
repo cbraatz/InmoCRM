@@ -29,6 +29,12 @@ class BootStrap {
 		this.saveObj(new ContextPermission(name: "Edit Bank",permissionId:"EDIT_BANK"));
 		this.saveObj(new ContextPermission(name: "Delete Bank",permissionId:"DELETE_BANK"));
 		
+		//Language
+		this.saveObj(new Language(name: "Español", symbol:"es", prepositionOfPlace:"en"));
+		this.saveObj(new Language(name: "English", symbol:"en", prepositionOfPlace:"in"));
+		this.saveObj(new Language(name: "Português", symbol:"pt", prepositionOfPlace:"em"));
+		this.saveObj(new Language(name: "Deutsch", symbol:"de", prepositionOfPlace:"in"));
+		
 		//Bank
 		this.saveObj(new Bank(name: "Banco Atlas"));
 		this.saveObj(new Bank(name: "Banco Continental"));
@@ -104,16 +110,16 @@ class BootStrap {
 		this.saveObj(new TaxRate(name: "0 %", percentage:0));
 		
 		//BuildingFeature
-		this.saveObj(new BuildingFeature(name: "Baños", description: "Cantidad de baños", defaultWebIcon:"b-icon b-icon--bathrooms"));
-		this.saveObj(new BuildingFeature(name: "Habitaciones", description: "Cantidad de habitaciones", defaultWebIcon: "b-icon b-icon--bed"));
-		this.saveObj(new BuildingFeature(name: "Garage", description: "Espacios para vehículos", defaultWebIcon: "b-icon b-icon--garage"));
-		this.saveObj(new BuildingFeature(name: "Acondicionador de aire", description: "Cuenta con acondicionador de aire (antiguo o split)"));		
-		this.saveObj(new BuildingFeature(name: "Cocina con amoblado básico", description: "Cuenta con los muebles básicos de cocina"));		
-		this.saveObj(new BuildingFeature(name: "Amoblamiento completo", description: "Cuenta con amoblamiento completo de todo el inmueble"));
+		this.saveObj(new BuildingFeature(name: "Baño", plural:"Baños", description: "Cantidad de baños", defaultWebIcon:"b-icon b-icon--bathrooms", hasValue:true));
+		this.saveObj(new BuildingFeature(name: "Habitación", plural:"Habitaciones", description: "Cantidad de habitaciones", defaultWebIcon: "b-icon b-icon--bed", hasValue:true));
+		this.saveObj(new BuildingFeature(name: "Garage", plural:"Garages", description: "Espacios para vehículos", defaultWebIcon: "b-icon b-icon--garage", hasValue:true));
+		this.saveObj(new BuildingFeature(name: "Acondicionador de aire", plural:"Acondicionadores de aire", description: "Cuenta con acondicionador de aire (antiguo o split)", hasValue:true));		
+		this.saveObj(new BuildingFeature(name: "Cocina con amoblado básico", plural:"Cocinas con amoblado básico", description: "Cuenta con los muebles básicos de cocina", hasValue:false));		
+		this.saveObj(new BuildingFeature(name: "Amoblamiento completo", plural:"Amoblamiento completo", description: "Cuenta con amoblamiento completo de todo el inmueble", hasValue:false));
 		
 		//PropertyFeature
-		this.saveObj(new PropertyFeature(name: "Agua potable", description: "Cuenta servicio de agua potable", hasValue:false));
-		this.saveObj(new PropertyFeature(name: "Ande", description: "Cuenta con servicio de Ande", hasValue:false));
+		this.saveObj(new PropertyFeature(name: "Agua potable", plural:"Agua potable", description: "Cuenta servicio de agua potable", hasValue:false));
+		this.saveObj(new PropertyFeature(name: "Ande", plural:"Ande", description: "Cuenta con servicio de Ande", hasValue:false));
 		
 		//DimensionMeasuringUnit
 		this.saveObj(new DimensionMeasuringUnit(name: "Metro", nameInPlural:"Metros", abbreviation:"m", abbreviationInPlural:"m", isDefault:true, isArea:false));		
@@ -121,11 +127,11 @@ class BootStrap {
 		this.saveObj(new DimensionMeasuringUnit(name: "Hectárea", nameInPlural:"Hectáreas", abbreviation:"ha", abbreviationInPlural:"ha", isDefault:true, isArea:true));
 		
 		//BuildingType
-		this.saveObj(new BuildingType(name: "Casa", description:"Inmueble independiente y de uso habitacional", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Edificio de Departamentos", description:"Inmueble independiente que está dividido en departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Local Comercial", description:"Inmueble en planta baja destinado a actividades comerciales", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Depósito", description:"Inmueble destinado a guardar/depositar bienes", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));
+		this.saveObj(new BuildingType(name: "Casa", description:"Inmueble independiente y de uso habitacional", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), language:Language.findByName("Español")));		
+		this.saveObj(new BuildingType(name: "Edificio de Departamentos", description:"Inmueble independiente que está dividido en departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), language:Language.findByName("Español")));		
+		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), language:Language.findByName("Español")));		
+		this.saveObj(new BuildingType(name: "Local Comercial", description:"Inmueble en planta baja destinado a actividades comerciales", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), language:Language.findByName("Español")));		
+		this.saveObj(new BuildingType(name: "Depósito", description:"Inmueble destinado a guardar/depositar bienes", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), language:Language.findByName("Español")));
 		
 		//BuildingFeatureByBuildingType
 		//casa
@@ -176,12 +182,6 @@ class BootStrap {
 		this.saveObj(new Usage(name: "Uso habitacional", description:"Destinado a la construcción de viviendas."));
 		this.saveObj(new Usage(name: "Uso comercial", description:"Destinado a la construcción de locales comerciales."));
 		
-		//Language
-		this.saveObj(new Language(name: "Español", isDefault:true, symbol:"es", prepositionOfPlace:"en"));
-		this.saveObj(new Language(name: "English", isDefault:false, symbol:"en", prepositionOfPlace:"in"));
-		this.saveObj(new Language(name: "Português", isDefault:false, symbol:"pt", prepositionOfPlace:"em"));
-		this.saveObj(new Language(name: "Deutsch", isDefault:false, symbol:"de", prepositionOfPlace:"in"));
-		
 		//Locale
 		this.saveObj(new Locale(name: "Español-Paraguay", isDefault:true, symbol:"es_PY", language:Language.findByName("Español"), country:Country.findByName("Paraguay")));
 		this.saveObj(new Locale(name: "Alemán-Alemania", isDefault:false, symbol:"de_GE", language:Language.findByName("Deutsch"), country:Country.findByName("Deutschland")));
@@ -190,8 +190,8 @@ class BootStrap {
 		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
 		
 		//OperationType
-		this.saveObj(new OperationType(sale:"En Venta",rent:"En Alquiler",language:Language.findBySymbol("es")));
-		this.saveObj(new OperationType(sale:"Zum Verkauf",rent:"Zu vermieten",language:Language.findBySymbol("de")));
+		this.saveObj(new OperationType(sale:"En Venta",rent:"En Alquiler",language:Language.findByName("Español")));
+		this.saveObj(new OperationType(sale:"Zum Verkauf",rent:"Zu vermieten",language:Language.findByName("Deutsch")));
 		
 		//BroadcastMedia
 		this.saveObj(new BroadcastMedia(name: "Facebook", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"https://es-la.facebook.com/"));		
@@ -251,9 +251,9 @@ class BootStrap {
 		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByDescription("Contrato exclusivo.")));
 		
 		//PropertyType
-		this.saveObj(new PropertyType(name:"Sitio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
-		this.saveObj(new PropertyType(name:"Terreno agrícola", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola"));
-		this.saveObj(new PropertyType(name:"Estancia", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal."));
+		this.saveObj(new PropertyType(name:"Sitio", plural:"Sitios", internalID:"SITIO", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano.", language:Language.findByName("Español")));
+		this.saveObj(new PropertyType(name:"Terreno agrícola", plural:"Terrenos agrícolas", internalID:"TERRENO_AGRICOLA", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola", language:Language.findByName("Español")));
+		this.saveObj(new PropertyType(name:"Estancia", plural:"Estancias", internalID:"ESTANCIA", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal.", language:Language.findByName("Español")));
 		
 		//ManagedProperty
 		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,

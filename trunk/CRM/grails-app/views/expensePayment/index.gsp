@@ -18,7 +18,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             
-            <f:table collection="${expensePaymentList}" properties="['internalId', 'amount', 'currency', 'dueDate', 'isPaid', 'isCanceled']"/>
+            <f:table collection="${expensePaymentList}" properties="['internalID', 'amount', 'currency', 'dueDate', 'isPaid', 'isCanceled']"/>
 
             <div class="pagination">
                 <g:paginate total="${expensePaymentCount ?: 0}" />

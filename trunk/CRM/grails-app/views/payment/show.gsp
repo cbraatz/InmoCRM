@@ -30,15 +30,15 @@
 		        <span id="name-label" class="property-label"><g:message code="payment.paymentMethod.label" default="Payment Method"/></span>
 		        <f:display bean="payment" property="paymentMethod"/>
 		        <g:if test="${payment?.paymentMethod?.hasNumber}">
-			        <span id="name-label" class="property-label"><g:message code="payment.paymentDocument.internalId.label" default="Document Number"/></span>
-			        <f:display bean="payment" property="paymentDocument.internalId"/>
+			        <span id="name-label" class="property-label"><g:message code="payment.paymentDocument.internalID.label" default="Document Number"/></span>
+			        <f:display bean="payment" property="paymentDocument.internalID"/>
 		        </g:if>
 		        <g:if test="${payment?.paymentMethod?.hasStartDate}">
-			        <span id="name-label" class="property-label"><g:message code="payment.paymentDocument.internalId.startDate.label" default="Document Start Date"/></span>
+			        <span id="name-label" class="property-label"><g:message code="payment.paymentDocument.internalID.startDate.label" default="Document Start Date"/></span>
 			        <f:display bean="payment" property="paymentDocument.documentStartDate"/>
 		        </g:if>
 			    <g:if test="${payment?.paymentMethod?.hasEndDate}">
-			        <span id="name-label" class="property-label"><g:message code="payment.paymentDocument.internalId.endDate.label" default="Document End Date"/></span>
+			        <span id="name-label" class="property-label"><g:message code="payment.paymentDocument.internalID.endDate.label" default="Document End Date"/></span>
 		        	<f:display bean="payment" property="paymentDocument.documentEndDate"/>
 		        </g:if>
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.id.label" default="Income Payment ID"/></span>

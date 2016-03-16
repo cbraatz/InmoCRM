@@ -5,7 +5,7 @@ import java.util.Date;
 import org.hibernate.collection.internal.PersistentSet
 
 class ExpensePayment{
-	String internalId;
+	String internalID;
 	Date dueDate;
 	Double amount;
 	Currency currency;
@@ -15,7 +15,7 @@ class ExpensePayment{
 	static belongsTo = Expense;
 	static hasMany = [payments:Payment, incomingInvoices:IncomingInvoice];
 	static constraints = {
-		internalId(blank:false, nullable:false, unique:true, size:5..40);
+		internalID(blank:false, nullable:false, unique:true, size:5..40);
 		dueDate(blank:false, nullable:false);
 		amount(blank:false, nullable:false);
 		currency(nullable:false);

@@ -19,8 +19,8 @@
             <div class="message" role="status">${flash.message}</div>
             </g:if>
             <fieldset class="fieldcontain">
-            	<span id="name-label" class="property-label"><g:message code="incomePayment.internalId.label" default="Internal Id"/></span>
-		        <f:display bean="incomePayment" property="internalId"/>
+            	<span id="name-label" class="property-label"><g:message code="incomePayment.internalID.label" default="Internal Id"/></span>
+		        <f:display bean="incomePayment" property="internalID"/>
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.dueDate.label" default="Due Date"/></span>
 		        <f:display bean="incomePayment" property="dueDate"/>
 		        <span id="name-label" class="property-label"><g:message code="incomePayment.amount.label" default="Amount"/></span>

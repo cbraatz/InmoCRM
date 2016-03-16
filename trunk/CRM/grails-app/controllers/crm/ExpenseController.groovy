@@ -100,7 +100,7 @@ class ExpenseController {
 			Date d=new Date();
 			for(int i=0;i<n;i++){
 				ExpensePayment ep=new ExpensePayment();
-				ep.internalId=Utils.getShortUUIDWithNumbers(expense.id.toString());
+				ep.internalID=Utils.getShortUUIDWithNumbers(expense.id.toString());
 				if(i==0){
 					if(expense.paymentPlan.initialFreeTimeInDays.intValue() > 0){
 						ep.dueDate=Utils.addToDate(d, expense.paymentPlan.initialFreeTimeInDays.intValue(), 0);
@@ -153,7 +153,7 @@ class ExpenseController {
 			}
 		}else{
 			ExpensePayment ep=new ExpensePayment();
-			ep.internalId=Utils.getShortUUIDWithNumbers(expense.id.toString());
+			ep.internalID=Utils.getShortUUIDWithNumbers(expense.id.toString());
 			ep.dueDate=new Date();
 			ep.amount=Utils.round(expense.amount.doubleValue(), expense.currency.hasDecimals);
 			ep.currency=expense.currency;
@@ -168,7 +168,7 @@ class ExpenseController {
 			for(int i=0;i<payments.size();i++){
 				ExpensePayment ep=payments.get(i);
 				ep.save flush:true;
-				println "Saved"+ep.internalId;
+				println "Saved"+ep.internalID;
 			}
 		}finally{
 			payments=new ArrayList<ExpensePayment>();

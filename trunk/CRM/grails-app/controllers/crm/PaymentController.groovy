@@ -111,7 +111,7 @@ class PaymentController {
 		//paymentDocument validation
 		if (payment.inPaymentMethod.isCash == false) {
 			boolean hasErrors=false;
-			if(!payment.inPaymentDocument?.internalId) {
+			if(!payment.inPaymentDocument?.internalID) {
 				hasErrors=true;
 				payment.errors.rejectValue('',message(code:'payment.document.number.required').toString());
 			}
@@ -208,15 +208,15 @@ class PaymentController {
 			return;
 		}
 
-		String internalId
+		String internalID
 		TransactionType transactionType;
 		if(payment.incomePayment){
-			internalId="IP-"+payment.incomePayment.id;
-			transactionType=TransactionType.findByInternalID("INCOME_PAYMENT");
+			internalID="IP-"+payment.incomePayment.id;
+			transactionType=TransactionType.findByinternalID("INCOME_PAYMENT");
 		}
 		if(payment.expensePayment){
-			internalId="EP-"+payment.expensePayment.id;
-			transactionType=TransactionType.findByInternalID("EXPENSE_PAYMENT");
+			internalID="EP-"+payment.expensePayment.id;
+			transactionType=TransactionType.findByinternalID("EXPENSE_PAYMENT");
 		}		
 		
 		boolean saved=true;
@@ -233,7 +233,7 @@ class PaymentController {
 			}
 		}
 		if(saved){
-			MoneyTransaction paymentMoneyTransaction=new MoneyTransaction(new Date(), payment.inAmount, internalId , payment, payment.inCurrency, payment.inPaymentMethod, transactionType, null, null);
+			MoneyTransaction paymentMoneyTransaction=new MoneyTransaction(new Date(), payment.inAmount, internalID , payment, payment.inCurrency, payment.inPaymentMethod, transactionType, null, null);
 			if(!paymentMoneyTransaction.save(flush:true)){
 				saved=false;
 				GUtils.printErrors(paymentMoneyTransaction, "paymentMoneyTransaction save");
@@ -241,7 +241,7 @@ class PaymentController {
 		}
 		if(saved){
 			if(payment.outAmount > 0){
-				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(payment.outAmount * -1), internalId , payment, payment.outCurrency, payment.outPaymentMethod, TransactionType.findByInternalID("PAYMENT_CHANGE"), null, null);
+				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(payment.outAmount * -1), internalID , payment, payment.outCurrency, payment.outPaymentMethod, TransactionType.findByinternalID("PAYMENT_CHANGE"), null, null);
 				if(!changeMoneyTransaction.save(flush:true)){
 					saved=false;
 					GUtils.printErrors(changeMoneyTransaction, "changeMoneyTransaction save");

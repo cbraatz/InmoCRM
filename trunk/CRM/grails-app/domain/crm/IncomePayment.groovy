@@ -2,7 +2,7 @@ package crm
 import org.hibernate.collection.internal.PersistentSet
 
 class IncomePayment {
-	String internalId;
+	String internalID;
 	Date dueDate;
 	Double amount;
 	Currency currency;
@@ -12,7 +12,7 @@ class IncomePayment {
 	static belongsTo = Income;
 	static hasMany = [payments:Payment, issuedInvoices:IssuedInvoice];
     static constraints = {
-		internalId(blank:false, nullable:false, unique:true, size:1..40);
+		internalID(blank:false, nullable:false, unique:true, size:1..40);
 		dueDate(blank:false, nullable:false);
 		amount(blank:false, nullable:false);
 		currency(nullable:false);

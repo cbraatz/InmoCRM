@@ -45,7 +45,7 @@
 		        </g:if>
             </fieldset>
             <h1><g:message code="income.incomePayments.label"/></h1>
-            <f:table collection="${income.incomePayments}" properties="['internalId','amount', 'currency', 'dueDate', 'isPaid', 'isCanceled']" />
+            <f:table collection="${income.incomePayments}" properties="['internalID','amount', 'currency', 'dueDate', 'isPaid', 'isCanceled']" />
             
             <g:form resource="${this.income}" method="DELETE">
                 <fieldset class="buttons">
