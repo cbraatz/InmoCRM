@@ -1,9 +1,6 @@
 package crm
 
 class Concession {
-	String adTitle;//page meta title and ad title
-	String adSummary;//page meta description and ad first description
-	String adText;//ad secondary description
 	Boolean isNegotiable;
 	Date startDate;
 	Date endDate;
@@ -14,7 +11,6 @@ class Concession {
 	Contract contract;
 	Boolean publishInMLS;
 	Boolean publishInPortals;
-	String keys;
 	String barter;
 	String financing;
 	Client client;
@@ -27,9 +23,6 @@ class Concession {
 	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
-		adTitle(blank:true, nullable:true, size:0..60);
-		adSummary(blank:true, nullable:true, size:0..150);
-		adText(blank:true, nullable:true, widget:'textArea', size:0..1000);
 		isNegotiable(nullable:false);
 		startDate(blank:false, nullable:false);
 		endDate(blank:false, nullable:false);
@@ -40,7 +33,6 @@ class Concession {
 		contract(nullable:true);
 		publishInMLS(nullable:false);
 		publishInPortals(nullable:false);
-		keys(blank:true, nullable:true, size:0..50);
 		barter(blank:true, nullable:true, size:0..50);
 		financing(blank:true, nullable:true, size:0..50);
 		client(nullable:false);

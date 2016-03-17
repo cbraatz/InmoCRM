@@ -8,6 +8,7 @@ import org.hibernate.collection.internal.PersistentSet
 
 import crm.commands.FeatureByBuildingCommand
 import crm.commands.FeatureByPropertyCommand
+import crm.exception.CRMException
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -52,7 +53,7 @@ class ConcessionController {
 		if (concession.commissionAmount == 0 && concession.commissionPercentage == 0) {
 			concession.errors.rejectValue('',message(code:'concession.commission.required.error').toString());
 		}
-		if (concession.adText) {
+		/*if (concession.adText) {
 			if (concession.adText.charAt(concession.adText.length()-1)!='.') {
 				concession.errors.rejectValue('adText',message(code:'concession.adText.point.finish.required.error').toString());
 			}
@@ -71,7 +72,7 @@ class ConcessionController {
 			if (!Utils.validatePageKeys(concession.keys)) {
 				concession.errors.rejectValue('keys',message(code:'concession.keys.validation.error').toString());
 			}
-		}
+		}*/
 		if (managedProperty.area <= 0) {
 			managedProperty.errors.rejectValue('area',message(code:'managedProperty.area.required.error').toString());
 		}
@@ -94,33 +95,39 @@ class ConcessionController {
 			GUtils.printErrors(concession.contract,"contract save");
 			transactionStatus.setRollbackOnly();
 			saved=false;
+			throw new CRMException("contract save Error");
 		}else{
 			if(!managedProperty.address.save(flush:true)){
 				GUtils.printErrors(managedProperty.address,"managedProperty.address save");
 				transactionStatus.setRollbackOnly();
 				saved=false;
+				throw new CRMException("managedProperty.address save");
 			}else{
 				if(!managedProperty.save(flush:true)){
 					GUtils.printErrors(managedProperty,"managedProperty save");
 					transactionStatus.setRollbackOnly();
 					saved=false;
+					throw new CRMException("managedProperty save");
 				}else{
 					if(!managedProperty.save(flush:true)){
 						GUtils.printErrors(managedProperty,"managedProperty save 1");
 						transactionStatus.setRollbackOnly();
 						saved=false;
+						throw new CRMException("managedProperty save 1");
 					}else{
 						concession.addToManagedProperties(managedProperty);
 						if(!concession.save(flush:true)){
 							GUtils.printErrors(concession,"concession save");
 							transactionStatus.setRollbackOnly();
 							saved=false;
+							throw new CRMException("concession save");
 						}else{
 							managedProperty.addToConcessions(concession);
 							if(!managedProperty.save(flush:true)){
 								GUtils.printErrors(managedProperty,"managedProperty save 2");
 								transactionStatus.setRollbackOnly();
 								saved=false;
+								throw new CRMException("managedProperty save 2");
 							}else{
 								if(hasBuilding){
 									building.managedProperty=managedProperty;
@@ -128,8 +135,8 @@ class ConcessionController {
 										GUtils.printErrors(building,"building save");
 										transactionStatus.setRollbackOnly();
 										saved=false;
+										throw new CRMException("building save");
 									}else{
-										
 										featureByBuildingCommand.bfitems.each{
 											if(it.value > 0){
 												it.building=building;
@@ -137,6 +144,7 @@ class ConcessionController {
 													GUtils.printErrors(it,"featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
 													transactionStatus.setRollbackOnly();
 													saved=false;
+													throw new CRMException("featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
 												}
 											}
 										}
@@ -147,7 +155,7 @@ class ConcessionController {
 													if(!it.save(flush:true)){
 														GUtils.printErrors(it,"featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
 														transactionStatus.setRollbackOnly();
-														saved=false;
+														throw new CRMException("featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
 													}
 												}
 											}
@@ -165,7 +173,7 @@ class ConcessionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'concession.label', default: 'Concession'), concession.id])
-				if(addImages && saved){
+				if(addImages/* && saved*/){
 					redirect(controller:'upload', action:'images', params: [obj:'property', oid: managedProperty.id])
 				}else{
 					redirect concession//, view:'create', model:[managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];

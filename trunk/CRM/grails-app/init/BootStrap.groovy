@@ -110,9 +110,6 @@ class BootStrap {
 		this.saveObj(new TaxRate(name: "0 %", percentage:0));
 		
 		//BuildingFeature
-		this.saveObj(new BuildingFeature(name: "Baño", plural:"Baños", description: "Cantidad de baños", defaultWebIcon:"b-icon b-icon--bathrooms", hasValue:true));
-		this.saveObj(new BuildingFeature(name: "Habitación", plural:"Habitaciones", description: "Cantidad de habitaciones", defaultWebIcon: "b-icon b-icon--bed", hasValue:true));
-		this.saveObj(new BuildingFeature(name: "Garage", plural:"Garages", description: "Espacios para vehículos", defaultWebIcon: "b-icon b-icon--garage", hasValue:true));
 		this.saveObj(new BuildingFeature(name: "Acondicionador de aire", plural:"Acondicionadores de aire", description: "Cuenta con acondicionador de aire (antiguo o split)", hasValue:true));		
 		this.saveObj(new BuildingFeature(name: "Cocina con amoblado básico", plural:"Cocinas con amoblado básico", description: "Cuenta con los muebles básicos de cocina", hasValue:false));		
 		this.saveObj(new BuildingFeature(name: "Amoblamiento completo", plural:"Amoblamiento completo", description: "Cuenta con amoblamiento completo de todo el inmueble", hasValue:false));
@@ -120,6 +117,9 @@ class BootStrap {
 		//PropertyFeature
 		this.saveObj(new PropertyFeature(name: "Agua potable", plural:"Agua potable", description: "Cuenta servicio de agua potable", hasValue:false));
 		this.saveObj(new PropertyFeature(name: "Ande", plural:"Ande", description: "Cuenta con servicio de Ande", hasValue:false));
+		this.saveObj(new PropertyFeature(name: "Baño", plural:"Baños", description: "Cantidad de baños", defaultWebIcon:"b-icon b-icon--bathrooms", hasValue:true));
+		this.saveObj(new PropertyFeature(name: "Dormitorio", plural:"Dormitorios", description: "Cantidad de dormitorios", defaultWebIcon: "b-icon b-icon--bed", hasValue:true));
+		this.saveObj(new PropertyFeature(name: "Garage", plural:"Garages", description: "Espacios para vehículos", defaultWebIcon: "b-icon b-icon--garage", hasValue:true));
 		
 		//DimensionMeasuringUnit
 		this.saveObj(new DimensionMeasuringUnit(name: "Metro", nameInPlural:"Metros", abbreviation:"m", abbreviationInPlural:"m", isDefault:true, isArea:false));		
@@ -269,8 +269,8 @@ class BootStrap {
 		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), buildingDescription:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
 		//Concession
-		Concession concession1=new Concession(adTitle:"Excelente casa en venta en el centro de Obligado.", adSummary:"Vendo Casa en pleno centro de Obligado", adText:"Excelente oportunidad en Obligado, se trata de una casa de 500m2 edificada sobre un terreno de 120m2 en pleno centro de Obligado", isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, keys:"NO", barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("nobody"), isActive:true, soldByCompany:false, isForRent:false);
+		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("nobody"), isActive:true, soldByCompany:false, isForRent:false);
 		concession1.addToManagedProperties(managedProperty1);
 		this.saveObj(concession1);
 		managedProperty1.addToConcessions(concession1);

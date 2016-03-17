@@ -1,6 +1,9 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
+import crm.commands.FeatureByBuildingCommand
+import crm.commands.FeatureByPropertyCommand;
+import crm.exception.CRMException
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -47,11 +50,11 @@ class BuildingController {
     }
 
     def edit(Building building) {
-        respond building
+        respond building, model:[featureByBuildingCommand: new FeatureByBuildingCommand(FeatureByBuilding.getStoredFeatureByBuildingListForEachBuildingFeature(building))]
     }
 
     @Transactional
-    def update(Building building) {
+    def update(Building building, FeatureByBuildingCommand featureByBuildingCommand) {
         if (building == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -64,7 +67,34 @@ class BuildingController {
             return
         }
 
-        building.save flush:true
+        if(building.save(flush:true)){
+			FeatureByBuilding fbp=null;
+			featureByBuildingCommand.bfitems.each{
+				if(it.value > 0){
+					it.building=building;
+					fbp=FeatureByBuilding.findByBuildingAndBuildingFeature(building,it.buildingFeature);
+					if(null!=fbp){
+						if(fbp.value != it.value || !fbp.description.equals(it.description)){
+							fbp.value=it.value;
+							fbp.description=it.description;
+							if(!fbp.save(flush:true)){
+								GUtils.printErrors(fbp,"featureByBuilding save. BuildingFeature = "+fbp.buildingFeature?.name);
+								transactionStatus.setRollbackOnly();
+								throw new CRMException("featureByBuilding save. BuildingFeature = "+fbp.buildingFeature?.name);
+							}
+						}
+					}else{
+						if(!it.save(flush:true)){
+							GUtils.printErrors(it,"featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
+							transactionStatus.setRollbackOnly();
+							throw new CRMException("featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
+						}
+					}
+				}
+			}
+		}else{
+			throw new CRMException("Error saving building.");
+		}
 
         request.withFormat {
             form multipartForm {

@@ -1,6 +1,8 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
+import crm.commands.FeatureByPropertyCommand;
+import crm.exception.CRMException
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -15,7 +17,7 @@ class ManagedPropertyController {
 
     def show(ManagedProperty managedProperty) {
 		Concession conc=managedProperty.getActiveConcession();
-		if (!conc.adTitle) {
+		/*if (!conc.adTitle) {
 			managedProperty.errors.rejectValue('',message(code:'concession.adTitle.required.error').toString());
 		}
 		if (!conc.adText) {
@@ -26,7 +28,7 @@ class ManagedPropertyController {
 		}
 		if (!conc.keys) {
 			managedProperty.errors.rejectValue('',message(code:'concession.keys.required.error').toString());
-		}
+		}*/
 		if (!conc.agent.partner.isAgent) {
 			managedProperty.errors.rejectValue('',message(code:'concession.partner.agent.required.error').toString());
 		}
@@ -71,11 +73,11 @@ class ManagedPropertyController {
 	
 	
     def edit(ManagedProperty managedProperty) {
-        respond managedProperty
+        respond managedProperty, model:[featureByPropertyCommand: new FeatureByPropertyCommand(FeatureByProperty.getStoredFeatureByPropertyListForEachPropertyFeature(managedProperty))]
     }
 
     @Transactional
-    def update(ManagedProperty managedProperty) {
+    def update(ManagedProperty managedProperty, FeatureByPropertyCommand featureByPropertyCommand) {
         if (managedProperty == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -88,8 +90,36 @@ class ManagedPropertyController {
             return
         }
 
-        managedProperty.save flush:true
-
+        
+		if(managedProperty.save(flush:true)){
+			FeatureByProperty fbp=null;
+			featureByPropertyCommand.pfitems.each{
+				if(it.value > 0){
+					it.managedProperty=managedProperty;
+					fbp=FeatureByProperty.findByManagedPropertyAndPropertyFeature(managedProperty,it.propertyFeature);
+					if(null!=fbp){
+						if(fbp.value != it.value || !fbp.description.equals(it.description)){
+							fbp.value=it.value;
+							fbp.description=it.description;
+							if(!fbp.save(flush:true)){
+								GUtils.printErrors(fbp,"featureByProperty save. PropertyFeature = "+fbp.propertyFeature?.name);
+								transactionStatus.setRollbackOnly();
+								throw new CRMException("featureByProperty save. PropertyFeature = "+fbp.propertyFeature?.name);
+							}
+						}
+					}else{
+						if(!it.save(flush:true)){
+							GUtils.printErrors(it,"featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
+							transactionStatus.setRollbackOnly();
+							throw new CRMException("featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
+						}
+					}
+				}
+			}
+		}else{
+			throw new CRMException("Error saving managedProperty.");
+		}
+		
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'managedProperty.label', default: 'ManagedProperty'), managedProperty.id])

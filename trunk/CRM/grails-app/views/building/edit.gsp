@@ -30,6 +30,8 @@
                 <g:hiddenField name="version" value="${this.building?.version}" />
                 
 				<g:render template="form"/>
+				<h1><g:message code="concession.building.features.title"/></h1>
+				<g:render template="/buildingFeature/cmdForm"/>
 				
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

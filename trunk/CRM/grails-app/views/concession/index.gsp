@@ -18,7 +18,8 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${concessionList}" />
+            
+            <f:table collection="${concessionList}" properties="['client', 'startDate', 'endDate', 'agent'], 'isActive', 'isForRent'"/>
 
             <div class="pagination">
                 <g:paginate total="${concessionCount ?: 0}" />

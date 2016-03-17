@@ -1,5 +1,7 @@
 package crm
 
+import java.util.List;
+
 class FeatureByProperty {
 	Float value;
 	String description;
@@ -11,4 +13,26 @@ class FeatureByProperty {
 		managedProperty(blank:false, nullable:false);
 		propertyFeature(blank:false, nullable:false, unique: 'managedProperty');
     }
+	
+	public static List<FeatureByProperty> getStoredFeatureByPropertyListForEachPropertyFeature(ManagedProperty managedProperty){
+		List<PropertyFeature> listAll=PropertyFeature.getAll();
+		List<FeatureByProperty> list = new ArrayList<FeatureByProperty>();
+		def featureByPropertyList=FeatureByProperty.findAllByManagedProperty(managedProperty);
+		boolean exists=false;
+		featureByPropertyList.each{
+			list.add(it);
+		}
+		for(PropertyFeature f:listAll){
+			exists=false;
+			featureByPropertyList.each{
+				if(it.propertyFeature.id.equals(f.id)){
+					 exists=true;
+				}
+			}
+			if(exists == false){
+				list.add(new FeatureByProperty(propertyFeature: f, value: new Float(0)));
+			}
+		}
+		return list;
+	}
 }

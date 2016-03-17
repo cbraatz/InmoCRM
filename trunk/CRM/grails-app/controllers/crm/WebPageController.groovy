@@ -151,37 +151,55 @@ class WebPageController {
 			if(idx<0){throw new WebPageCreationException("String: @#PTITLE not found");}
 			int idx2=fileContent.indexOf("#@",idx+2);
 			String str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.adTitle);
+			fileContent=fileContent.replace(str, webPage.title);
 			//PDESC
 			idx=fileContent.indexOf("@#PDESC");
 			if(idx<0){throw new WebPageCreationException("String: @#PDESC not found");}
 			idx2=fileContent.indexOf("#@",idx+2);
 			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.adSummary);
+			fileContent=fileContent.replace(str, webPage.summary);
 			//HEADER
 			idx=fileContent.indexOf("@#HEADER");
 			if(idx<0){throw new WebPageCreationException("String: @#HEADER not found");}
 			idx2=fileContent.indexOf("#@",idx+2);
 			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.adTitle);
+			fileContent=fileContent.replace(str, webPage.title);
 			//RESUM
 			idx=fileContent.indexOf("@#RESUM");
 			if(idx<0){throw new WebPageCreationException("String: @#RESUM not found");}
 			idx2=fileContent.indexOf("#@",idx+2);
 			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.adSummary);
-			//REDESC
-			idx=fileContent.indexOf("@#REDESC");
-			if(idx<0){throw new WebPageCreationException("String: @#REDESC not found");}
+			fileContent=fileContent.replace(str, webPage.summary);
+			//FIRSTP
+			idx=fileContent.indexOf("@#FIRSTP");
+			if(idx<0){throw new WebPageCreationException("String: @#FIRSTP not found");}
 			idx2=fileContent.indexOf("#@",idx+2);
 			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.adText);
+			fileContent=fileContent.replace(str, webPage.summary);
+			//FIRSTP
+			idx=fileContent.indexOf("@#SECONDP");
+			if(idx<0){throw new WebPageCreationException("String: @#SECONDP not found");}
+			idx2=fileContent.indexOf("#@",idx+2);
+			str=fileContent.substring(idx,idx2+2);
+			fileContent=fileContent.replace(str, webPage.summary);
+			//FIRSTP
+			idx=fileContent.indexOf("@#THIRDP");
+			if(idx<0){throw new WebPageCreationException("String: @#THIRDP not found");}
+			idx2=fileContent.indexOf("#@",idx+2);
+			str=fileContent.substring(idx,idx2+2);
+			fileContent=fileContent.replace(str, webPage.summary);
+			//FIRSTP
+			idx=fileContent.indexOf("@#CALLTOACT");
+			if(idx<0){throw new WebPageCreationException("String: @#CALLTOACT not found");}
+			idx2=fileContent.indexOf("#@",idx+2);
+			str=fileContent.substring(idx,idx2+2);
+			fileContent=fileContent.replace(str, webPage.summary);
 			//PKEYW
 			idx=fileContent.indexOf("@#PKEYW");
 			if(idx<0){throw new WebPageCreationException("String: @#PKEYW not found");}
 			idx2=fileContent.indexOf("#@",idx+2);
 			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.keys);
+			fileContent=fileContent.replace(str, webPage.keyWords);
 			//PRICE
 			idx=fileContent.indexOf("@#PRICE");
 			if(idx<0){throw new WebPageCreationException("String: @#PRICE not found");}
@@ -200,6 +218,42 @@ class WebPageController {
 			idx2=fileContent.indexOf("#@",idx+2);
 			str=fileContent.substring(idx,idx2+2);
 			fileContent=fileContent.replace(str, webPage.operationType);
+			//PF
+			def fbp=webPage.managedProperty.featuresByProperty;
+			idx=fileContent.indexOf("@#PF");
+			if(idx<0){throw new WebPageCreationException("String: @#PF not found");}
+			idx2=fileContent.indexOf("#@",idx+2);
+			str=fileContent.substring(idx,idx2+2);
+			if(fbp.size() > 0){
+				String newStr, prevStr;
+				boolean fir=true;
+				fbp.each{
+					if(null != it.propertyFeature.defaultWebIcon){//si tiene icono quiere decir que es para agregar a la web
+						newStr=str.replace("@@PFICON@@",it.propertyFeature.defaultWebIcon);
+						newStr=newStr.replace("@@PFNAME@@"," "+(it.propertyFeature.hasValue? it.value+" "+(it.value == 1 ? it.propertyFeature.name : it.propertyFeature.plural) : it.propertyFeature.name));
+						if(fir){
+							newStr=newStr.substring(4,newStr.length()-2);
+							idx=fileContent.indexOf(str);
+							if(idx>=0){
+								fileContent=fileContent.replace(str, newStr);
+							}else{
+								throw new WebPageCreationException("Error replacing Property Features. String: "+str+" NOT FOUND.");
+							}
+							fir=false;
+							str=str.substring(4,str.length()-2);
+						}else{
+							int x=fileContent.indexOf(prevStr)+prevStr.length();
+							String str1=fileContent.substring(0,x);
+							String str2=fileContent.substring(x+1);
+							fileContent=str1+"\n"+newStr+"\n"+str2;
+						}
+						prevStr=new String(newStr);
+					}
+				}
+			}else{
+				fileContent=fileContent.replace(str, "");//borra el tag por defecto si no hay property features que mostrar
+			}
+			
 			//AGENTCOM
 			idx=fileContent.indexOf("@#AGENTCOM");
 			if(idx<0){throw new WebPageCreationException("String: @#AGENTCOM not found");}
