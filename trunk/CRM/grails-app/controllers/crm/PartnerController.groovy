@@ -60,10 +60,10 @@ class PartnerController {
 				println "Partner SAVED";
 				if(f){
 					String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+File.separatorChar+partner.id;
-					String filePath=imageContainer + File.separatorChar + "profile.jpg";
+					//String filePath=imageContainer + File.separatorChar + "profile.jpg";
 					File dire=new File(imageContainer);
 					dire.mkdirs()
-					f.transferTo(new File(filePath));
+					f.transferTo(new File(dire.getAbsolutePath()+File.separatorChar + "profile.jpg"));
 				}
 			}else{
 				println "Partner DONT SAVED";

@@ -15,8 +15,6 @@
 		<f:field bean="concession" property="publishInMLS"/>
 		<f:field bean="concession" property="publishInPortals"/>
 		<f:field bean="concession" property="agent" input-propId="${concession?.agent?.id}"/>
-			<g:textArea name="${property}" maxlength="1000" value="${it.value}" rows="4" cols="70"/>
-		</f:field>
 		<f:field bean="concession" property="isForRent"/>
 		
 		<g:hiddenField name="propertyDemand" value="${concession?.propertyDemand?.id}"/>
