@@ -11,6 +11,6 @@ class BuildingFeatureByPropertyDemand {
 		maxValue(blank:true, nullable:true);
 		isRequired(nullable:false);
 		propertyDemand(nullable:false);
-		buildingFeature(nullable:false, unique: 'propertyDemand');
+		buildingFeature(nullable:false);
 	}
 }

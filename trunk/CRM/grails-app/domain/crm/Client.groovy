@@ -2,7 +2,6 @@ package crm
 
 class Client {
 	String name;
-	String lastName;
 	Integer IDNumber;
 	Date birthDate;
 	String description;
@@ -26,11 +25,10 @@ class Client {
 	
 	
 	static hasMany=[propertyDemands:PropertyDemand, concessions:Concession, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, issuedInvoices:IssuedInvoice,
-					managedProperties:ManagedProperty/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
+					managedProperties:ManagedProperty, realEstateContacts:RealEstateContact/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
 
     static constraints = {
-		name(blank:false, nullable:false, size:1..50);
-		lastName(blank:false, nullable:false, size:1..50);
+		name(blank:false, nullable:false, size:1..100);
 		IDNumber(blank:true, nullable:true);
 		birthDate(blank:true, nullable:true);
 		description(blank:true, nullable:true, size:0..200);

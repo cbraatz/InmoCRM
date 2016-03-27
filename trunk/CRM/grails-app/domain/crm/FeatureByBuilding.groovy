@@ -12,7 +12,7 @@ class FeatureByBuilding {
 		value(blank:false, nullable:true);
 		description (blank:true, nullable:true, widget:'textArea', size:0..50);
 		building(blank:false, nullable:false);
-		buildingFeature(blank:false, nullable:false, unique: 'building');
+		buildingFeature(blank:false, nullable:false);
 	}
 	
 	public static List<FeatureByBuilding> getStoredFeatureByBuildingListForEachBuildingFeature(Building building){

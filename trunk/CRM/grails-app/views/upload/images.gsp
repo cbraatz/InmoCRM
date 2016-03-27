@@ -11,7 +11,7 @@
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <g:if test="${managedProperty}">
-                	<li><g:link class="return" action="show" controller="managedProperty" id="${managedProperty.id}"><g:message code="managedProperty.label" default="Concession" /></g:link></li>
+                	<li><g:link class="return" action="show" controller="managedProperty" id="${managedProperty?.id}"><g:message code="managedProperty.label" default="Managed Property" /></g:link></li>
                 </g:if>
             </ul>
         </div>

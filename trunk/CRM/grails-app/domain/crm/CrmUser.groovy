@@ -16,7 +16,7 @@ class CrmUser {
 
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:5..20);
-		password(blank:false, nullable:false, size:5..30);
+		password(blank:false, nullable:false);
 		emailAddress(blank:false, nullable:false, unique:true, email: true);		
 		isAdmin(nullable:false);
 		isActive(nullable:false);
@@ -51,6 +51,15 @@ class CrmUser {
 		return false;*/
 		return this.isAdmin;
 	}
+	
+	public static String encodePassword(String pass){
+		return Utils.getSHA512Password(pass);
+	}
+	
+	public String getEncodedPassword(){
+		return CrmUser.encodedPassword(this.password);
+	}
+	
 	private boolean isActivateInUIX(String controller) {
 		return true;
 	}

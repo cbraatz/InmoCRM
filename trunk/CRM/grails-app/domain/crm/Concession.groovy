@@ -20,7 +20,7 @@ class Concession {
 	Boolean soldByCompany;
 	
 	static belongsTo = ManagedProperty;
-	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription/*,TagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, realEstateActions:RealEstateAction, realEstateContacts:RealEstateContact/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		isNegotiable(nullable:false);

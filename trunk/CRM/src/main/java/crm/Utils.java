@@ -1,5 +1,6 @@
 package crm;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -10,8 +11,31 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Utils {
+	public static String getSHA512Password(String pass){
+	    String generatedPass=null;
+	    String salt="CRMSaltDontChangeIt";
+	    try {
+	        MessageDigest md = MessageDigest.getInstance("SHA-512");//128 chars output
+	        md.update(salt.getBytes("UTF-8"));
+	        byte[] bytes = md.digest(pass.getBytes("UTF-8"));
+	        StringBuilder sb = new StringBuilder();
+	        for(int i=0; i< bytes.length ;i++){
+	            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	        generatedPass=sb.toString();
+	    } 
+	    catch (NoSuchAlgorithmException e){
+	        e.printStackTrace();
+	    } catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	    return generatedPass;
+	}
+	
     public static String getActionFromUri(String uri){
         int idx=uri.lastIndexOf('/');
         System.out.println("controller="+uri.substring(1,idx));

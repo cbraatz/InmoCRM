@@ -39,6 +39,7 @@ class CrmUserController {
             respond crmUser.errors, view:'create';
             return;
 		}
+		crmUser.password=crmUser.getEncodedPassword();
         crmUser.save flush:true
 
         request.withFormat {
@@ -67,7 +68,8 @@ class CrmUserController {
             respond crmUser.errors, view:'edit'
             return
         }
-
+		
+		crmUser.password=crmUser.getEncodedPassword();
         crmUser.save flush:true
 
         request.withFormat {

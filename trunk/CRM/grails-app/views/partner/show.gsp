@@ -24,8 +24,6 @@
             <fieldset class="fieldcontain">
             	<span id="name-label" class="property-label"><g:message code="partner.name.label" default="Name"/></span>
 		        <f:display bean="partner" property="name"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.lastName.label" default="LastName"/></span>
-		        <f:display bean="partner" property="lastName"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.IDNumber.label" default="IDNumber"/></span>
 		        <f:display bean="partner" property="IDNumber"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.birthDate.label" default="BirthDate"/></span>

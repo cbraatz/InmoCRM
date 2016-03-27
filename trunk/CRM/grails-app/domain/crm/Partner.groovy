@@ -4,7 +4,6 @@ import java.util.Date;
 
 class Partner {
 	String name;
-	String lastName;
 	Integer IDNumber;
 	Date birthDate;
 	String phone;
@@ -21,11 +20,10 @@ class Partner {
 	Boolean isAgent;
 	
 	
-	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount/*,realEstateAction,tagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount, realEstateActions:RealEstateAction, realEstateContacts:RealEstateContact/*,tagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
-		name (blank: false, nullable:false, size:1..50);
-		lastName(blank:false, nullable:false, size:1..50);
+		name (blank: false, nullable:false, size:1..100);
 		IDNumber(blank:false, nullable:false);
 		birthDate(blank:false, nullable:false);
 		phone(blank:false, nullable:false, size:1..40);

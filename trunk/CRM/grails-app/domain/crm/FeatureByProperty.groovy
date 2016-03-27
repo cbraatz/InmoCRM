@@ -11,7 +11,7 @@ class FeatureByProperty {
 		value(blank:false, nullable:true);
 		description(blank:true, nullable:true, widget:'textArea', size:0..50);
 		managedProperty(blank:false, nullable:false);
-		propertyFeature(blank:false, nullable:false, unique: 'managedProperty');
+		propertyFeature(blank:false, nullable:false);
     }
 	
 	public static List<FeatureByProperty> getStoredFeatureByPropertyListForEachPropertyFeature(ManagedProperty managedProperty){

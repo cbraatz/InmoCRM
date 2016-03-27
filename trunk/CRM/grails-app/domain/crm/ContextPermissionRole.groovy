@@ -6,6 +6,6 @@ class ContextPermissionRole {
 	
     static constraints = {
 		contextRole(blank:false, nullable:false, size:1..50);
-		contextPermission(blank:false, nullable:false, unique:'contextRole');
+		contextPermission(blank:false, nullable:false);
     }
 }

@@ -89,17 +89,17 @@ class BootStrap {
 		this.saveObj(new PartnerRole(name: "Admin", isEmployee:false, description:"Default Partner."));
 		
 		//Partner
-		this.saveObj(new Partner(name: "Default", lastName:"Partner", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
+		this.saveObj(new Partner(name: "Default", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
 		
 		//crmuser
-		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:"123456", emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true));
+		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:CrmUser.encodePassword("123456"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true));
 		
 		//ClientCategory
 		this.saveObj(new ClientCategory(name: "Pequeño", description:"Clientes con sueldo mínimo o menos."));		
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//Client
-		this.saveObj(new Client(name: "Cliente 1", lastName: "Apellido 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
+		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
 		
 		//Vendor
 		this.saveObj(new Vendor(name: "Cooperativa Colonias Unidas", description: "Cooperativa", phone:"071720512", emailAddress: "ccu@test.com", TIN:"80090084-2"));
@@ -278,8 +278,8 @@ class BootStrap {
 		
 		
 		//UploadedImage
-		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, path:"alguna dire"+File.separatorChar+"110", sizeInKB:1221 , managedProperty:managedProperty1));
-		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, path:"alguna dire"+File.separatorChar+"110", sizeInKB:1221 , managedProperty:managedProperty1));
+		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
+		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
 		//managedProperty1.createOrUpdateWebPage();
 		//InterestType
 		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:true));
@@ -306,7 +306,20 @@ class BootStrap {
 		this.saveObj(new TransactionType(name:"Cambio", internalID:"PAYMENT_CHANGE", isDefault:true, isInternalTransaction:false));
 		
 		//InvoicesPrinting
-		this.saveObj(new InvoicesPrinting(printingNumber:65898521, startDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2016"), firstNumber:"001", secondNumber:"001", quantity:50));
+		this.saveObj(new InvoicesPrinting(printingNumber:65898521, startDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2016"), firstNumber:"001", secondNumber:"001", thirdStartNumber:"0000001", quantity:50));
+		
+		//realEstateActionType
+		this.saveObj(new RealEstateActionType(name:"Corpida de pasto a cargo del cliente", description:"Corpida de pasto que paga el cliente.", hasCost:true, clientPays:true));
+		this.saveObj(new RealEstateActionType(name:"Corpida de pasto a cargo de la Inmobiliaria", description:"Corpida de pasto que paga la inmobiliaria.", hasCost:true, clientPays:false));
+		this.saveObj(new RealEstateActionType(name:"Recorrido para verificar estado", description:"Recorrido al inmueble para ver su estado.", hasCost:false, clientPays:false));
+		
+		//realEstateContactType
+		this.saveObj(new RealEstateContactType(name:"Informacion por email", description:"Información suministrada al cliente por email.", email:true, phoneCall:false, chat:false, showing:false, personally:false));
+		this.saveObj(new RealEstateContactType(name:"Informacion por chat", description:"Información suministrada al cliente por chat.", email:false, phoneCall:false, chat:true, showing:false, personally:false));
+		this.saveObj(new RealEstateContactType(name:"Informacion por llamada telefónica", description:"Información suministrada al cliente por llamada telefónica.", email:false, phoneCall:true, chat:false, showing:false, personally:false));
+		this.saveObj(new RealEstateContactType(name:"Visita del inmueble con el cliente", description:"Visita del inmueble con el cliente.", email:false, phoneCall:false, chat:false, showing:true, personally:false));
+		this.saveObj(new RealEstateContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
+			
 	}
 	private void saveObj(Object obj){
 		if (!obj.save(flush: true)) {

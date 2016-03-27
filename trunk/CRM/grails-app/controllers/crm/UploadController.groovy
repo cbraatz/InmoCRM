@@ -46,9 +46,9 @@ class UploadController {
 				dire.eachFile(){ file->
 					if( !file.isDirectory() ){
 						//si no existe en la base de datos hacer new uploadedImage y save
-						uploadedImage=UploadedImage.findByFileName(file.name);
+						uploadedImage=UploadedImage.findByFileNameAndManagedProperty(file.name, managedProperty);
 						if(!uploadedImage){
-							uploadedImage=new UploadedImage(description:"", fileName:file.name , path:file.getAbsolutePath(), sizeInKB:file.length(), managedProperty:managedProperty, isMainImage:false, addToWeb:true);
+							uploadedImage=new UploadedImage(description:"", fileName:file.name, sizeInKB:file.length(), managedProperty:managedProperty, isMainImage:false, addToWeb:true);
 							if(uploadedImage.save(flush:true)){
 								fileResourceInstanceList.add(uploadedImage);
 							}else{
@@ -88,10 +88,12 @@ class UploadController {
 	@Transactional
 	def deleteImage(){
 		UploadedImage upIm=UploadedImage.get(params.id);
-		def file = new File(upIm.path);
-		upIm.delete(flush:true);//deleting uploaded image
-		System.out.println(upIm)
-		if(!UploadedImage.get(params.id)){
+		def file=null;
+		if(null != upIm){
+			file=new File(grailsApplication.config.getProperty('crm.upload.image.property')+File.separatorChar+upIm.managedProperty.id+File.separatorChar+upIm.fileName);
+			upIm.delete(flush:true);//deleting uploaded image
+		}
+		if(null == UploadedImage.get(params.id) && null != file){//si ya se borró o la imagen quedó cargada por error
 			if(file.delete()){
 				flash.message = message(code: 'upload.removed.image.message', args: [upIm.fileName]);
 			}else{
@@ -125,7 +127,7 @@ class UploadController {
 			  if(!exists){
 				  f.transferTo(file);
 				  if(!UploadedImage.findByFileNameAndManagedProperty(file.name, ManagedProperty.get(this.objectId))){
-					  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, path:file.getAbsolutePath(), sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
+					  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
 					  if(!upIm.save(flush:true)){
 						  GUtils.printErrors(upIm, "Saving new image '"+file.name+"'");
 						  flash.message=message(code: 'upload.image.save.error', args: [file.name]);

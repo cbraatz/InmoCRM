@@ -1,17 +1,15 @@
 package crm.commands
 
-import crm.DimensionMeasuringUnit;
+import crm.DimensionMeasuringUnit
 import crm.FeatureNameByLanguage
 import crm.PropertyFeatureByLanguage
-import crm.PropertyFeature;
+import crm.PropertyFeature
 import crm.PropertyType
 import crm.Language
 import grails.validation.Validateable
 
-import org.apache.commons.collections.*
-
 class PropertyFeatureByLanguageCommand implements Validateable{
-	List<FeatureNameByLanguage> items = ListUtils.lazyList([], {new FeatureNameByLanguage()} as Factory);
+	List<FeatureNameByLanguage> items = new ArrayList<FeatureNameByLanguage>();
 	
 	public PropertyFeatureByLanguageCommand(PropertyFeature propertyFeature){
 		Language defLan=Language.getDefaultLanguage();

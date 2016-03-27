@@ -54,6 +54,8 @@
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.concession}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
                     <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                    <g:link class="action" action="create" controller="realEstateAction" params="[cid:concession.id]"><g:message code="concession.button.action.label" default="Add Action" /></g:link>
+                    <g:link class="contact" action="create" controller="realEstateContact" params="[cid:concession.id]"><g:message code="concession.button.contact.label" default="Add Contact" /></g:link>
                 </fieldset>
             </g:form>
         </div>

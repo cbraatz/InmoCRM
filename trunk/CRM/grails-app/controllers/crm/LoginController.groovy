@@ -9,7 +9,7 @@ class LoginController {
 	def pageNotAvailable = {
 	}
 	def doLogin(CrmUri crmUri){
-		 def user = CrmUser.findWhere(name:params['login'], password:params['pass']);
+		 def user = CrmUser.findWhere(name:params['login'], password:CrmUser.encodePassword(params['pass']));
 		 session.user = user;
 		 if (user){
 			//user.setPermissions(); cargar aca una lista en CrmUser para no hacer consultas cada vez que se pregunte por un permiso

@@ -1,7 +1,6 @@
 
 <fieldset class="form">
 	<f:field bean="client" property="name"/>
-	<f:field bean="client" property="lastName"/>
 	<f:field bean="client" property="IDNumber"/>
 	<f:field bean="client" property="birthDate"/>
 	<f:field bean="client" property="description">
