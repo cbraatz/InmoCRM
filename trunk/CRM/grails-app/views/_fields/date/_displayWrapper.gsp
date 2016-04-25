@@ -1,0 +1,1 @@
+<span class="property-value" aria-labelledby="${property}-label">${crm.Utils.getDateInStr(bean.getProperty(property))}</span>
