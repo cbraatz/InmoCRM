@@ -11,8 +11,8 @@ class CrmUser {
 	boolean isDefault;
 	Partner partner;
 	//Office office
-	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment/*, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
-	static mappedBy = [createdPropertyDemands: "owner", assignedPropertyDemands: "assignee"];
+	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, createdTasks:Task, assignedTasks:Task/*, Inbox,CreatedTask,AssignedTask,tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static mappedBy = [createdPropertyDemands: "owner", assignedPropertyDemands: "assignee", createdTasks: "owner", assignedTasks: "assignee"];
 
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:5..20);

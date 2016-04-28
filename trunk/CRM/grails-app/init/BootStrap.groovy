@@ -1,6 +1,7 @@
 import crm.Currency;
 
 import java.util.Date;
+
 import grails.util.Environment;
 import crm.*;
 
@@ -213,7 +214,20 @@ class BootStrap {
 		this.saveObj(new PriorityLevel(name: "Media", color: "yellow", level:3));		
 		this.saveObj(new PriorityLevel(name: "Baja", color: "green", level:4));	
 		
-		//InterestLevel
+		//TaskStatus
+		this.saveObj(new TaskStatus(name: "Nueva", isNew:true, isClosed:false));
+		this.saveObj(new TaskStatus(name: "Calendarizada", isNew:false, isClosed:false));
+		this.saveObj(new TaskStatus(name: "En Proceso", isNew:false, isClosed:false));
+		this.saveObj(new TaskStatus(name: "Terminada", isNew:false, isClosed:true));
+		this.saveObj(new TaskStatus(name: "Cancelada", isNew:false, isClosed:true));
+		
+		//NotificationMethod
+		this.saveObj(new NotificationMethod(name: "Email", isEmail:true, isSms:false, isInternetMessage1:false));
+		this.saveObj(new NotificationMethod(name: "Mensaje de Texto", isEmail:false, isSms:true, isInternetMessage1:false));
+		this.saveObj(new NotificationMethod(name: "WhatsApp", isEmail:false, isSms:false, isInternetMessage1:true));
+		
+		
+		/*//InterestLevel
 		this.saveObj(new InterestLevel(name: "Máximo", color: "red", level:1));		
 		this.saveObj(new InterestLevel(name: "Muy Interesado", color: "orange", level:2));		
 		this.saveObj(new InterestLevel(name: "Interesado", color: "yellow", level:3));		
@@ -224,12 +238,17 @@ class BootStrap {
 		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", hasDecimals:true, isDefault:false, isInvoicingCurrency:true, country: Country.findByName("Estados Unidos")));
 		this.saveObj(new Currency(name: "Euro", plural:"Euros", symbol:"€", hasDecimals:true, isDefault:false, isInvoicingCurrency:false));
 		
+		//DefaultsDateRage
+		this.saveObj(new DefaultsDateRange(startDate:new Date(), endDate:null, taxRate:TaxRate.findByName("10 %"), currency:null));
+		this.saveObj(new DefaultsDateRange(startDate:new Date(), endDate:null, taxRate:null, currency:Currency.findByName("Guaraní")));
+		
 		//CurrencyExchange
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("16/09/2015"), buy:new Double("5000"), sell:new Double("5050"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("13/09/2015"), buy:new Double("5100"), sell:new Double("5150"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("14/09/2015"), buy:new Double("5200"), sell:new Double("5250"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:new Double("5300"), sell:new Double("5350"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/09/2015"), buy:new Double("6000"), sell:new Double("6050"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findByName("Euro")));
+		
 		//PaymentMethod
 		this.saveObj(new PaymentMethod(name: "Efectivo", discountPercentage:0, isCash:true, hasStartDate:false, hasEndDate:false, hasBank:false));
 		this.saveObj(new PaymentMethod(name: "Cheque", discountPercentage:0, isCash:false, hasStartDate:true, hasEndDate:false, hasBank:true));
@@ -269,7 +288,7 @@ class BootStrap {
 		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), buildingDescription:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
 		//Concession
-		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionAmount:9600, commissionPercentage:4, description:"Ninguna", /*propertyDemand:PropertyDemand,*/ 
+		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionAmount:9600, commissionPercentage:4, description:"Ninguna", //propertyDemand:PropertyDemand,
 									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("nobody"), isActive:true, soldByCompany:false, isForRent:false);
 		concession1.addToManagedProperties(managedProperty1);
 		this.saveObj(concession1);
@@ -320,7 +339,7 @@ class BootStrap {
 		this.saveObj(new RealEstateContactType(name:"Visita del inmueble con el cliente", description:"Visita del inmueble con el cliente.", email:false, phoneCall:false, chat:false, showing:true, personally:false));
 		this.saveObj(new RealEstateContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
 			
-	}
+	*/}
 	private void saveObj(Object obj){
 		if (!obj.save(flush: true)) {
 			GUtils.printErrors(obj, null);

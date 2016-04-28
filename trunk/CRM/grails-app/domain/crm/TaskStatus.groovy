@@ -1,0 +1,13 @@
+package crm
+
+class TaskStatus {
+	String name;
+	boolean isNew;
+	boolean isClosed;
+	static hasMany = [tasks:Task];
+	static constraints = {
+		name(blank:false, nullable:false, unique:true, size:1..50);
+		isNew(nullable:false);
+		isClosed(nullable:false);
+	}
+}
