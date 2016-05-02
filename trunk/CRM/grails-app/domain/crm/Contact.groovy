@@ -2,13 +2,13 @@ package crm
 
 import java.util.Date;
 
-class RealEstateContact {
+class Contact {
 	Date date;
 	String description;
 	Concession concession;
 	Client client;
 	Partner partner;
-	RealEstateContactType realEstateContactType;
+	ContactType contactType;
 	
 	static constraints = {
 		date(blank:false, nullable:false);
@@ -16,6 +16,6 @@ class RealEstateContact {
 		concession(blank:false, nullable:false);
 		client(blank:false, nullable:false);
 		partner(blank:false, nullable:false);
-		realEstateContactType(blank:false, nullable:false);
+		contactType(blank:false, nullable:false);
 	}
 }

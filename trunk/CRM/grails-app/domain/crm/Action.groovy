@@ -1,10 +1,10 @@
 package crm
 
-class RealEstateAction {
+class Action {
 	Date date;
 	String description;
 	Concession concession;
-	RealEstateActionType realEstateActionType;
+	ActionType actionType;
 	Partner partner;
 	Float cost;
 	Currency currency;
@@ -12,7 +12,7 @@ class RealEstateAction {
 		date(blank:false, nullable:false);
 		description(blank:false, nullable:false, widget:'textArea', size:1..300);
 		concession(blank:false, nullable:false);
-		realEstateActionType(blank:false, nullable:false);
+		actionType(blank:false, nullable:false);
 		partner(blank:true, nullable:true);
 		cost(blank:true, nullable:true);
 		currency(blank:true, nullable:true);

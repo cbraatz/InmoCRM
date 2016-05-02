@@ -3,9 +3,9 @@ package crm
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(RealEstateActionController)
-@Mock(RealEstateAction)
-class RealEstateActionControllerSpec extends Specification {
+@TestFor(ContactController)
+@Mock(Contact)
+class ContactControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -19,8 +19,8 @@ class RealEstateActionControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.realEstateActionList
-            model.realEstateActionCount == 0
+            !model.contactList
+            model.contactCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -28,7 +28,7 @@ class RealEstateActionControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.realEstateAction!= null
+            model.contact!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -36,25 +36,25 @@ class RealEstateActionControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def realEstateAction = new RealEstateAction()
-            realEstateAction.validate()
-            controller.save(realEstateAction)
+            def contact = new Contact()
+            contact.validate()
+            controller.save(contact)
 
         then:"The create view is rendered again with the correct model"
-            model.realEstateAction!= null
+            model.contact!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            realEstateAction = new RealEstateAction(params)
+            contact = new Contact(params)
 
-            controller.save(realEstateAction)
+            controller.save(contact)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/realEstateAction/show/1'
+            response.redirectedUrl == '/contact/show/1'
             controller.flash.message != null
-            RealEstateAction.count() == 1
+            Contact.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -66,11 +66,11 @@ class RealEstateActionControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def realEstateAction = new RealEstateAction(params)
-            controller.show(realEstateAction)
+            def contact = new Contact(params)
+            controller.show(contact)
 
         then:"A model is populated containing the domain instance"
-            model.realEstateAction == realEstateAction
+            model.contact == contact
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -82,11 +82,11 @@ class RealEstateActionControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def realEstateAction = new RealEstateAction(params)
-            controller.edit(realEstateAction)
+            def contact = new Contact(params)
+            controller.edit(contact)
 
         then:"A model is populated containing the domain instance"
-            model.realEstateAction == realEstateAction
+            model.contact == contact
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -96,28 +96,28 @@ class RealEstateActionControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/realEstateAction/index'
+            response.redirectedUrl == '/contact/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def realEstateAction = new RealEstateAction()
-            realEstateAction.validate()
-            controller.update(realEstateAction)
+            def contact = new Contact()
+            contact.validate()
+            controller.update(contact)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.realEstateAction == realEstateAction
+            model.contact == contact
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            realEstateAction = new RealEstateAction(params).save(flush: true)
-            controller.update(realEstateAction)
+            contact = new Contact(params).save(flush: true)
+            controller.update(contact)
 
         then:"A redirect is issued to the show action"
-            realEstateAction != null
-            response.redirectedUrl == "/realEstateAction/show/$realEstateAction.id"
+            contact != null
+            response.redirectedUrl == "/contact/show/$contact.id"
             flash.message != null
     }
 
@@ -128,23 +128,23 @@ class RealEstateActionControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/realEstateAction/index'
+            response.redirectedUrl == '/contact/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def realEstateAction = new RealEstateAction(params).save(flush: true)
+            def contact = new Contact(params).save(flush: true)
 
         then:"It exists"
-            RealEstateAction.count() == 1
+            Contact.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(realEstateAction)
+            controller.delete(contact)
 
         then:"The instance is deleted"
-            RealEstateAction.count() == 0
-            response.redirectedUrl == '/realEstateAction/index'
+            Contact.count() == 0
+            response.redirectedUrl == '/contact/index'
             flash.message != null
     }
 }

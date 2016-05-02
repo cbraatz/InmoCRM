@@ -8,7 +8,7 @@ class Currency {
 	Boolean isDefault;
 	Boolean isInvoicingCurrency;
 	Country country;
-	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction, realEstateActions:RealEstateAction,
+	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction, actions:Action,
 					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, incomingInvoices:IncomingInvoice, incomePayments:IncomePayment, 
 					 expensePayments:ExpensePayment, currencyExchagesSource:CurrencyExchange, currencyExchagesTarget:CurrencyExchange, managedProperties:ManagedProperty,
 					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultsDateRanges:DefaultsDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];

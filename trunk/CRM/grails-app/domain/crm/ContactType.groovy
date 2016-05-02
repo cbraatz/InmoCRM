@@ -1,6 +1,6 @@
 package crm
 
-class RealEstateContactType {
+class ContactType {
 	String name;
 	String description;
 	Boolean email;
@@ -9,7 +9,7 @@ class RealEstateContactType {
 	Boolean personally;
 	Boolean showing;
 	
-	static hasMany=[realEstateContacts: RealEstateContact];
+	static hasMany=[contacts: Contact];
     static constraints = {
 		name(blank:false, nullable:false, size:1..50);
 		description(blank:true, nullable:true, size:0..100);

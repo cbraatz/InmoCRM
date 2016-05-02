@@ -20,7 +20,7 @@ class Partner {
 	Boolean isAgent;
 	
 	
-	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount, realEstateActions:RealEstateAction, realEstateContacts:RealEstateContact/*,tagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact/*,tagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		name (blank: false, nullable:false, size:1..100);

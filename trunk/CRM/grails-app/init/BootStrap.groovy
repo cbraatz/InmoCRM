@@ -227,7 +227,7 @@ class BootStrap {
 		this.saveObj(new NotificationMethod(name: "WhatsApp", isEmail:false, isSms:false, isInternetMessage1:true));
 		
 		
-		/*//InterestLevel
+		//InterestLevel
 		this.saveObj(new InterestLevel(name: "Máximo", color: "red", level:1));		
 		this.saveObj(new InterestLevel(name: "Muy Interesado", color: "orange", level:2));		
 		this.saveObj(new InterestLevel(name: "Interesado", color: "yellow", level:3));		
@@ -327,19 +327,19 @@ class BootStrap {
 		//InvoicesPrinting
 		this.saveObj(new InvoicesPrinting(printingNumber:65898521, startDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2016"), firstNumber:"001", secondNumber:"001", thirdStartNumber:"0000001", quantity:50));
 		
-		//realEstateActionType
-		this.saveObj(new RealEstateActionType(name:"Corpida de pasto a cargo del cliente", description:"Corpida de pasto que paga el cliente.", hasCost:true, clientPays:true));
-		this.saveObj(new RealEstateActionType(name:"Corpida de pasto a cargo de la Inmobiliaria", description:"Corpida de pasto que paga la inmobiliaria.", hasCost:true, clientPays:false));
-		this.saveObj(new RealEstateActionType(name:"Recorrido para verificar estado", description:"Recorrido al inmueble para ver su estado.", hasCost:false, clientPays:false));
+		//ActionType
+		this.saveObj(new ActionType(name:"Corpida de pasto a cargo del cliente", description:"Corpida de pasto que paga el cliente.", hasCost:true, clientPays:true));
+		this.saveObj(new ActionType(name:"Corpida de pasto a cargo de la Inmobiliaria", description:"Corpida de pasto que paga la inmobiliaria.", hasCost:true, clientPays:false));
+		this.saveObj(new ActionType(name:"Recorrido para verificar estado", description:"Recorrido al inmueble para ver su estado.", hasCost:false, clientPays:false));
 		
-		//realEstateContactType
-		this.saveObj(new RealEstateContactType(name:"Informacion por email", description:"Información suministrada al cliente por email.", email:true, phoneCall:false, chat:false, showing:false, personally:false));
-		this.saveObj(new RealEstateContactType(name:"Informacion por chat", description:"Información suministrada al cliente por chat.", email:false, phoneCall:false, chat:true, showing:false, personally:false));
-		this.saveObj(new RealEstateContactType(name:"Informacion por llamada telefónica", description:"Información suministrada al cliente por llamada telefónica.", email:false, phoneCall:true, chat:false, showing:false, personally:false));
-		this.saveObj(new RealEstateContactType(name:"Visita del inmueble con el cliente", description:"Visita del inmueble con el cliente.", email:false, phoneCall:false, chat:false, showing:true, personally:false));
-		this.saveObj(new RealEstateContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
+		//ContactType
+		this.saveObj(new ContactType(name:"Informacion por email", description:"Información suministrada al cliente por email.", email:true, phoneCall:false, chat:false, showing:false, personally:false));
+		this.saveObj(new ContactType(name:"Informacion por chat", description:"Información suministrada al cliente por chat.", email:false, phoneCall:false, chat:true, showing:false, personally:false));
+		this.saveObj(new ContactType(name:"Informacion por llamada telefónica", description:"Información suministrada al cliente por llamada telefónica.", email:false, phoneCall:true, chat:false, showing:false, personally:false));
+		this.saveObj(new ContactType(name:"Visita del inmueble con el cliente", description:"Visita del inmueble con el cliente.", email:false, phoneCall:false, chat:false, showing:true, personally:false));
+		this.saveObj(new ContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
 			
-	*/}
+	}
 	private void saveObj(Object obj){
 		if (!obj.save(flush: true)) {
 			GUtils.printErrors(obj, null);

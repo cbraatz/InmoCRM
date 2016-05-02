@@ -25,7 +25,7 @@ class Client {
 	
 	
 	static hasMany=[propertyDemands:PropertyDemand, concessions:Concession, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, issuedInvoices:IssuedInvoice,
-					managedProperties:ManagedProperty, realEstateContacts:RealEstateContact/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
+					managedProperties:ManagedProperty, contacts:Contact/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
 
     static constraints = {
 		name(blank:false, nullable:false, size:1..100);
