@@ -1,6 +1,6 @@
 package crm
 
-class PropertyDemand {
+class PropertyDemand extends CrmDomain{
 	Boolean isSellDemand;
 	Date addedDate;
 	Date dueDate;
@@ -213,5 +213,10 @@ class PropertyDemand {
 		}else{
 			return null;
 		}
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("additionalDescription")];
 	}
 }

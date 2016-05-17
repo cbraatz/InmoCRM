@@ -1,6 +1,6 @@
 package crm
 
-class Profession {
+class Profession extends CrmDomain{
 	String name;
 	static hasMany = [clients: Client, partners:Partner];
 	

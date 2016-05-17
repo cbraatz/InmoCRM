@@ -1,6 +1,6 @@
 package crm
 
-class PartnerRole {
+class PartnerRole extends CrmDomain{
 	String name;
 	boolean isEmployee;
 	String description;

@@ -1,6 +1,6 @@
 package crm
 
-class PropertyFeatureByLanguage {
+class PropertyFeatureByLanguage extends CrmDomain{
 	String name;
 	String plural;
 	Language language;

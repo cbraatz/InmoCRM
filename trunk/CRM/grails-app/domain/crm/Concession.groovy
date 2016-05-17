@@ -1,6 +1,6 @@
 package crm
 
-class Concession {
+class Concession extends CrmDomain{
 	Boolean isNegotiable;
 	Date startDate;
 	Date endDate;
@@ -46,6 +46,11 @@ class Concession {
 	
 	public Concession(def params){
 		this.properties = params;
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("id", false),new SearchAttribute("description")];
 	}
 	
 }

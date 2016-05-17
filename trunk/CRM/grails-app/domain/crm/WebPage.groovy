@@ -2,7 +2,7 @@ package crm
 
 import crm.exception.WebPageCreationException;
 
-class WebPage {
+class WebPage extends CrmDomain{
 	String title;
 	String summary;
 	String firstDescription;
@@ -32,6 +32,5 @@ class WebPage {
 		domain(blank:false, nullable:false);
 		managedProperty(blank:false, nullable:false);
 		inWeb(blank:false, nullable:false);
-    }
-	
+    }	
 }

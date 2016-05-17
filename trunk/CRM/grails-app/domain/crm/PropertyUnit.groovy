@@ -1,6 +1,6 @@
 package crm
 
-class PropertyUnit {
+class PropertyUnit extends CrmDomain{
 	String propertyID1;
 	String propertyID2;
 	String propertyID3;

@@ -2,7 +2,7 @@ package crm
 
 //import org.apache.jasper.tagplugins.jstl.core.Otherwise;
 
-class CrmUser {
+class CrmUser extends CrmDomain{
 	String name;
 	String password;
 	String emailAddress;
@@ -72,5 +72,10 @@ class CrmUser {
 			case "delete":  return "DELETE_"+controller.toUpperCase();
 		}
 		return null;
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("name"), new SearchAttribute("emailAddress")];
 	}
 }

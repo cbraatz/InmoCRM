@@ -2,7 +2,7 @@ package crm
 
 import java.util.Date;
 
-class MoneyTransaction {
+class MoneyTransaction extends CrmDomain{
 	Date date;
 	Double amount;
 	String internalID;

@@ -1,6 +1,6 @@
 package crm
 
-class DefaultsDateRange {
+class DefaultsDateRange extends CrmDomain{
 	Date startDate;
 	Date endDate;
 	Currency currency;

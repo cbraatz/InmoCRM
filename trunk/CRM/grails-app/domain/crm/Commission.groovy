@@ -1,6 +1,6 @@
 package crm
 
-class Commission {
+class Commission extends CrmDomain{
 	Float percentage;
 	String description;
 	Double fixedAmount;

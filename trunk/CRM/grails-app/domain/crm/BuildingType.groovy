@@ -1,6 +1,6 @@
 package crm
 
-class BuildingType {
+class BuildingType extends CrmDomain{
 	String name;
 	String description;
 	DimensionMeasuringUnit dimensionMeasuringUnit;

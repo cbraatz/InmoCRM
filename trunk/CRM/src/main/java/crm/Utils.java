@@ -168,7 +168,19 @@ public class Utils {
 	}
 	
 	public static void main(String args[]){
-		System.out.println("");
+		String searchedKey="como";
+		String attrValue="Hola, que tal, como te va";
+		int RESULT_DISPLAY_VALUE_LENGTH=10;
+		int idx=attrValue.indexOf(searchedKey);
+		if(idx+searchedKey.length() > RESULT_DISPLAY_VALUE_LENGTH){//si desde el principio hasta donde termina la palabra buscada es mayor al tamaño maximo del resultado
+			int i=((RESULT_DISPLAY_VALUE_LENGTH-searchedKey.length())/2);
+			if(idx-i >=0){
+				System.out.println("STR1="+attrValue.substring(idx-i, idx+i+searchedKey.length()));
+			}
+		}else{
+			System.out.println("STR2="+attrValue.substring(0, RESULT_DISPLAY_VALUE_LENGTH));
+		}
+		
 	}
 	public static boolean validatePageKeys(String str){
 		return Utils.regExMatches(str, "[a-zA-Z0-9 ]+[a-zA-Z0-9, ]*");
@@ -177,5 +189,14 @@ public class Utils {
 		Pattern pat = Pattern.compile(regEx);
 	    Matcher mat = pat.matcher(str);
 	    return mat.matches();
+	}
+	public static int getStringCount(String what, String where){
+		 return where.length() - where.replace(what, "").length();
+	}
+	public static String getStringBeforeStr(String str1, String str2){
+		 return str1.substring(0, str1.indexOf(str2));
+	}
+	public static boolean isNumber(String str){
+		return str.matches("-?\\d+(\\.\\d+)?");
 	}
 }

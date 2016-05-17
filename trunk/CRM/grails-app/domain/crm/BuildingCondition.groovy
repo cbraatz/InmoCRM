@@ -1,6 +1,6 @@
 package crm
 
-class BuildingCondition {
+class BuildingCondition extends CrmDomain{
 	String name;
 	
 	static hasMany = [propertyDemands:PropertyDemand, buildings:Building];

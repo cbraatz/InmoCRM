@@ -1,6 +1,6 @@
 package crm
 
-class InvoicesPrinting {
+class InvoicesPrinting extends CrmDomain{
 	Integer printingNumber;
 	Date startDate;
 	Date endDate;

@@ -1,6 +1,6 @@
 package crm
 
-class Building {
+class Building extends CrmDomain{
 	Float builtSize;
 	Integer builtYear;
 	ManagedProperty managedProperty;
@@ -16,4 +16,9 @@ class Building {
 		buildingCondition(nullable:false);
 		buildingDescription(blank:true, nullable:true, widget:'textArea', size:0..1000);
     }
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("buildingDescription")];
+	}
 }

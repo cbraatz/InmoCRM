@@ -1,6 +1,6 @@
 package crm
 
-class BankAccount {
+class BankAccount extends CrmDomain{
 	Bank bank;
 	String accountNumber;
 	Currency currency;

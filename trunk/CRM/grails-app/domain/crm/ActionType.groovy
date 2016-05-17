@@ -1,6 +1,6 @@
 package crm
 
-class ActionType {
+class ActionType extends CrmDomain{
 	String name;
 	String description;
 	Boolean hasCost;

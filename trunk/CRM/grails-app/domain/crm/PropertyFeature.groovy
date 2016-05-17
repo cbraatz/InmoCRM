@@ -2,7 +2,7 @@ package crm
 
 import java.util.List;
 
-class PropertyFeature {
+class PropertyFeature extends CrmDomain{
 	String name;
 	String plural;
 	String description;

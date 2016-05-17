@@ -2,7 +2,7 @@ package crm
 
 import java.text.SimpleDateFormat
 
-class CurrencyExchange {
+class CurrencyExchange extends CrmDomain{
 	Date date;
 	Double buy;
 	Double sell;

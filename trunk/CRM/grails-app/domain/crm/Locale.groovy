@@ -1,6 +1,6 @@
 package crm
 
-class Locale {
+class Locale extends CrmDomain{
 	String name;
 	String symbol;
 	Language language;

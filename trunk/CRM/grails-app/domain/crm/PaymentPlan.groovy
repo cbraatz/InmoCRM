@@ -1,6 +1,6 @@
 package crm
 
-class PaymentPlan {
+class PaymentPlan extends CrmDomain{
 	String name
 	Integer initialFreeTimeInDays;
 	Integer regularPaymentsInDays;

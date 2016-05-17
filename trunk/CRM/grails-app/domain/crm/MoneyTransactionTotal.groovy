@@ -1,6 +1,6 @@
 package crm
 
-class MoneyTransactionTotal {
+class MoneyTransactionTotal extends CrmDomain{
 	Date date;
 	Double amount;
 	Currency currency;

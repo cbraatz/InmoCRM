@@ -2,7 +2,7 @@ package crm
 
 import java.util.Date;
 
-class Contact {
+class Contact extends CrmDomain{
 	Date date;
 	String description;
 	Concession concession;

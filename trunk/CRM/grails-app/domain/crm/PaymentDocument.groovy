@@ -2,7 +2,7 @@ package crm
 
 import java.util.Date;
 
-class PaymentDocument {
+class PaymentDocument extends CrmDomain{
 	PaymentMethod paymentMethod;
 	String internalID;
 	Date startDate;

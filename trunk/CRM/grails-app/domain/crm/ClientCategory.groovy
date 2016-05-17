@@ -1,6 +1,6 @@
 package crm
 
-class ClientCategory {
+class ClientCategory extends CrmDomain{
 	String name;
 	String description;
 	static hasMany = [clients: Client];

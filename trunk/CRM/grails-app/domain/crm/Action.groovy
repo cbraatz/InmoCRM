@@ -1,6 +1,6 @@
 package crm
 
-class Action {
+class Action extends CrmDomain{
 	Date date;
 	String description;
 	Concession concession;

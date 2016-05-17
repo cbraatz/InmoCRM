@@ -1,6 +1,6 @@
 package crm
 
-class ContactType {
+class ContactType extends CrmDomain{
 	String name;
 	String description;
 	Boolean email;

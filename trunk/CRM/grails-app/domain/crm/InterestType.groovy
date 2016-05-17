@@ -1,6 +1,6 @@
 package crm
 
-class InterestType {
+class InterestType extends CrmDomain{
 	String name;
 	String description;
 	String internalID;

@@ -1,6 +1,6 @@
 package crm
 
-class ContractType {
+class ContractType extends CrmDomain{
 	String name;
 	boolean isExclusive;
 	String description;

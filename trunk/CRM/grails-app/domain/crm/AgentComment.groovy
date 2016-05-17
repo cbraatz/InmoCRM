@@ -1,6 +1,6 @@
 package crm
 
-class AgentComment {
+class AgentComment extends CrmDomain{
 	String contact;
 	Locale locale;
 	CrmUser crmUser;

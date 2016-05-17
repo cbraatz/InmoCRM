@@ -1,6 +1,6 @@
 package crm
 
-class CommissionType {
+class CommissionType extends CrmDomain{
 	String name;
 	String description;
 	String selfInvoiceDefaultDescription;

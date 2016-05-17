@@ -1,6 +1,6 @@
 package crm
 
-class Client {
+class Client extends CrmDomain{
 	String name;
 	Integer IDNumber;
 	Date birthDate;
@@ -49,6 +49,10 @@ class Client {
 		readsSms(nullable:true);
 		receiveNotifications(nullable:true);
 		isProspectiveClient(nullable:false);
-		
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("name")];
 	}
 }

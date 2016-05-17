@@ -1,6 +1,6 @@
 package crm
 
-class BroadcastMedia {
+class BroadcastMedia extends CrmDomain{
 	String name;
 	String urlToSite;
 	int adSummaryMaxLength;

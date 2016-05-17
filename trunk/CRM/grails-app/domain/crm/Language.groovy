@@ -1,6 +1,6 @@
 package crm
 
-class Language {
+class Language extends CrmDomain{
 	String name;
 	String symbol;
 	String prepositionOfPlace;

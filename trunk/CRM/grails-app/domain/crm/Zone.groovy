@@ -1,6 +1,6 @@
 package crm
 
-class Zone {
+class Zone extends CrmDomain{
     String name;
 	String description;
 	static hasMany = [addresses: Address, propertyDemands:PropertyDemand];

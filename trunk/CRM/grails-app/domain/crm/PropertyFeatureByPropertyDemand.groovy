@@ -1,6 +1,6 @@
 package crm
 
-class PropertyFeatureByPropertyDemand {
+class PropertyFeatureByPropertyDemand extends CrmDomain{
 	Float minValue;
 	Float maxValue;
 	boolean isRequired;

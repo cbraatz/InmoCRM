@@ -1,6 +1,6 @@
 package crm
 
-class Currency {
+class Currency extends CrmDomain{
 	String name;
 	String plural;
 	String symbol;

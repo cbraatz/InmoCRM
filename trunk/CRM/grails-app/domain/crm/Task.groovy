@@ -1,6 +1,6 @@
 package crm
 
-class Task {
+class Task extends CrmDomain{
 	String name;
 	String description;
 	String estimatedTime;
@@ -32,5 +32,10 @@ class Task {
 	
 	public Task(def params){
 		this.properties = params;
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("name")];
 	}
 }

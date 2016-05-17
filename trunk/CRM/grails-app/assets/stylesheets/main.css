@@ -80,6 +80,7 @@ img {
 }
 
 .content {
+	min-height: 650px;/*added by me*/
 }
 
 .content h1 {
@@ -812,3 +813,27 @@ ul#nav, ul.nav-item-list{
 .scaffold-list{
 	padding-left: 50px;
 }
+.crm-table{
+	padding-left: 50px;
+}
+/*quick-search*/
+#empty-search-results{
+	margin-top:100px;
+	padding-left: 150px;
+}
+#search-field{
+    margin-left: 15px;
+    margin-top: 3px;
+}
+#header-bar{
+	height: 50px;
+}
+#quick-search-panel{
+	margin-top:10px;
+	width:300px;
+	height: 30px;
+}
+#search-value-field{
+	width:200px;
+}
+/**/

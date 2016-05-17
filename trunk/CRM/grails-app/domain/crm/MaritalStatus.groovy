@@ -1,6 +1,6 @@
 package crm
 
-class MaritalStatus {
+class MaritalStatus extends CrmDomain{
 	String name;
 	static hasMany = [clients:Client, partners:Partner];
 	

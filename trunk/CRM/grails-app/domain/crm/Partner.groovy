@@ -2,7 +2,7 @@ package crm
 
 import java.util.Date;
 
-class Partner {
+class Partner extends CrmDomain{
 	String name;
 	Integer IDNumber;
 	Date birthDate;
@@ -38,5 +38,10 @@ class Partner {
 		invitedBy(nullable:true);
 		isActive(nullable:false);
 		isAgent(nullable:false);
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("name")];
 	}
 }

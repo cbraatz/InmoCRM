@@ -2,7 +2,7 @@ package crm
 
 import java.util.List;
 
-class FeatureByProperty {
+class FeatureByProperty extends CrmDomain{
 	Float value;
 	String description;
 	ManagedProperty managedProperty;

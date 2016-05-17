@@ -1,6 +1,6 @@
 package crm
 
-class ExpenseType {
+class ExpenseType extends CrmDomain{
 	String name;
 	String description;
 	String selfInvoiceDefaultDescription;

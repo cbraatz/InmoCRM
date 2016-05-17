@@ -1,6 +1,6 @@
 package crm
 
-class OperationType {
+class OperationType extends CrmDomain{
 	String sale;
 	String rent;
 	Language language;

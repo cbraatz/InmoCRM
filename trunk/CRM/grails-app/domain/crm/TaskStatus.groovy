@@ -1,6 +1,6 @@
 package crm
 
-class TaskStatus {
+class TaskStatus extends CrmDomain{
 	String name;
 	boolean isNew;
 	boolean isClosed;

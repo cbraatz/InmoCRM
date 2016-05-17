@@ -1,6 +1,6 @@
 package crm
 
-class Contract {
+class Contract extends CrmDomain{
 	Date date;
 	String documentURL;
 	ContractType contractType;

@@ -1,6 +1,6 @@
 package crm
 
-class UploadedImage {
+class UploadedImage extends CrmDomain{
 	String fileName;
 	String description;
 	Long sizeInKB;

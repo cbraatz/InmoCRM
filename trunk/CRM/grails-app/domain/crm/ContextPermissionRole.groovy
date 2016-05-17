@@ -1,6 +1,6 @@
 package crm
 
-class ContextPermissionRole {
+class ContextPermissionRole extends CrmDomain{
 	ContextRole contextRole;
 	ContextPermission contextPermission;
 	

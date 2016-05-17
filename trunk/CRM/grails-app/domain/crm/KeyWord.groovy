@@ -1,6 +1,6 @@
 package crm
 
-class KeyWord {
+class KeyWord extends CrmDomain{
 	String keys;
 	Locale locale
 	PropertyType propertyType;

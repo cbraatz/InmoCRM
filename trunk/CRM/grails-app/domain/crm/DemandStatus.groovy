@@ -1,6 +1,6 @@
 package crm
 
-class DemandStatus {
+class DemandStatus extends CrmDomain{
 	String name;
 	boolean isNew;
 	boolean isClosed;

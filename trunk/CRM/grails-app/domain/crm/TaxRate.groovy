@@ -1,6 +1,6 @@
 package crm
 
-class TaxRate {
+class TaxRate extends CrmDomain{
 	String name
 	Float percentage
 	static hasMany = [incomeTypes:IncomeType, expenseTypes:ExpenseType, defaultsDateRanges:DefaultsDateRange/*, exchangeGood, insuranceProduct*/];

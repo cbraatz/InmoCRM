@@ -1,6 +1,6 @@
 package crm
 
-class UserNotificationSubscription {
+class UserNotificationSubscription extends CrmDomain{
 	CrmUser crmUser;
 	PropertyDemand propertyDemand;
 	ManagedProperty managedProperty;

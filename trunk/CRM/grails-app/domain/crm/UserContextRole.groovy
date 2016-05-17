@@ -1,6 +1,6 @@
 package crm
 
-class UserContextRole {
+class UserContextRole extends CrmDomain{
 	CrmUser user;
 	ContextRole contextRole;
 	

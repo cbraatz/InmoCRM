@@ -1,7 +1,7 @@
 
 package crm
 
-class Domain {
+class Domain extends CrmDomain{
 	String name;
 	String realPath;
 	String realEstateFolder;

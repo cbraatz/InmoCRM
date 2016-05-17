@@ -1,6 +1,6 @@
 package crm
 
-class Address {
+class Address extends CrmDomain{
 	String streetOne;
 	String streetTwo;
 	Integer number;
@@ -34,5 +34,10 @@ class Address {
 	@Override
 	public String toString(){
 		return this.addressLine;
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("addressLine"),new SearchAttribute("reference"),new SearchAttribute("description")];
 	}
 }

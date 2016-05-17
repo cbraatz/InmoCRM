@@ -7,7 +7,7 @@ import grails.util.Holders;
 import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-class ManagedProperty {
+class ManagedProperty extends CrmDomain{
 	String title;
 	String propertyDescription;
 	String measures;
@@ -60,5 +60,10 @@ class ManagedProperty {
 	public boolean hasImagesForWeb(){
 		List<UploadedImage> list=ManagedProperty.executeQuery("select u from ManagedProperty p join p.uploadedImages u where p.id = :pid and u.addToWeb = :w",[pid:this.id, w:true]);
 		return (list.size()>0);
+	}
+	
+	@Override
+	public static SearchAttribute[] searchByAttributes() {
+		return [new SearchAttribute("title"),new SearchAttribute("propertyDescription"),new SearchAttribute("id",false)];
 	}
 }

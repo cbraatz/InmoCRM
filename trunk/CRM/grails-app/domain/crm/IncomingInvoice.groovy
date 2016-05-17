@@ -1,6 +1,6 @@
 package crm
 
-class IncomingInvoice {
+class IncomingInvoice extends CrmDomain{
 	String number;
 	Date date;
 	Double amount;

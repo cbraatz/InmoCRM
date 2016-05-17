@@ -1,6 +1,6 @@
 package crm
 
-class InterestLevel {
+class InterestLevel extends CrmDomain{
 	String name;
 	String color;
 	int level;

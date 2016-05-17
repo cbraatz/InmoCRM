@@ -1,6 +1,6 @@
 package crm
 
-class ContextPermission {
+class ContextPermission extends CrmDomain{
 	String name;
 	String description;
 	String permissionId;

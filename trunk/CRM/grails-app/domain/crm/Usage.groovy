@@ -1,6 +1,6 @@
 package crm
 
-class Usage {
+class Usage extends CrmDomain{
 	String name;
 	String description;
 	static hasMany = [propertyDemands:PropertyDemand, propertyUsages:PropertyUsage];

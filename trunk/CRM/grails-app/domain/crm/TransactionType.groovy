@@ -1,6 +1,6 @@
 package crm
 
-class TransactionType {
+class TransactionType extends CrmDomain{
 	String name;
 	String internalID;
 	boolean isDefault;

@@ -3,7 +3,7 @@ package crm
 import java.util.Date;
 import org.hibernate.collection.internal.PersistentSet
 
-class IssuedInvoice {
+class IssuedInvoice extends CrmDomain{
 	String number;
 	Date date;
 	Double amount;

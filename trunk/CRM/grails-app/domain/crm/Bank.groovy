@@ -1,6 +1,6 @@
 package crm
 
-class Bank {
+class Bank extends CrmDomain{
 	String name;
 	
 	static hasMany = [bankAccounts:BankAccount, paymentDocuments:PaymentDocument];

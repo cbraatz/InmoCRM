@@ -1,6 +1,6 @@
 package crm
 
-class Vendor {
+class Vendor extends CrmDomain{
 	String name;
 	String TIN;
 	String phone;

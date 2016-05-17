@@ -1,6 +1,6 @@
 package crm
 
-class PropertyUsage {
+class PropertyUsage extends CrmDomain{
 	Usage usage;
 	Float quantity;
 	boolean isQuantityInPercentage;

@@ -1,6 +1,6 @@
 package crm
 
-class ContextRole {
+class ContextRole extends CrmDomain{
 	String name;
 	Boolean isActive;
 	static hasMany = [contextPermissionRoles: ContextPermissionRole, userContextRole: UserContextRole];

@@ -1,6 +1,6 @@
 package crm
 
-class DimensionMeasuringUnit {
+class DimensionMeasuringUnit extends CrmDomain{
 	String name;
 	String nameInPlural;
 	String abbreviation;

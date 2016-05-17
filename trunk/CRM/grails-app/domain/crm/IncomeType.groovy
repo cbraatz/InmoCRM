@@ -1,6 +1,6 @@
 package crm
 
-class IncomeType {
+class IncomeType extends CrmDomain{
 	String name;
 	String description;
 	TaxRate taxRate;

@@ -1,6 +1,6 @@
 package crm
 
-class Payment {
+class Payment extends CrmDomain{
 	Date date;
 	Double amount;//amount currency = incomePayment or ExpensePayment Currency
 	Double inAmount;

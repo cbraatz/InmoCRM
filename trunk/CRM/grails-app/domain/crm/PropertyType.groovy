@@ -1,6 +1,6 @@
 package crm
 
-class PropertyType {
+class PropertyType extends CrmDomain{
 	String name;
 	String description;
 	DimensionMeasuringUnit dimensionMeasuringUnit;
@@ -10,6 +10,5 @@ class PropertyType {
 		name(blank: false, nullable:false, size:1..50);
 		description(blank:false, nullable:false, widget:'textArea', size:1..100);
 		dimensionMeasuringUnit(blank: false, nullable:false);
-	}
-	
+	}	
 }

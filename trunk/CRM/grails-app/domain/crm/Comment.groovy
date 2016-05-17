@@ -1,6 +1,6 @@
 package crm
 
-class Comment {
+class Comment extends CrmDomain{
 	String comment;
 	Date date;
 	CrmUser owner;

@@ -1,6 +1,6 @@
 package crm
 
-class NotificationMethod {
+class NotificationMethod extends CrmDomain{
 	String name;
 	Boolean isEmail;
 	Boolean isSms

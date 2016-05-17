@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import crm.ui.SearchResultItem
 import grails.util.Holders;
 class GUtils {
 	public static void printErrors(Object obj, String message){
@@ -45,11 +47,24 @@ class GUtils {
 			e.printStackTrace(System.out);
 		}
 	}
-	
-	public static void main(String[] args){
-		String realPath="D://TRABAJOS//crm//git_projects//root//web_trunk//HTML//html";
-		String fileContent=GUtils.readFile(realPath+File.separatorChar+"real_estate_detail.html");
-		String oldStr="<li data-transition=\"slotfade-vertical\" data-slotamount=\"7\"><img data-retina src=\"img/crm/home/b3.jpg\"></li>";
-		System.err.println("IDXold="+fileContent.indexOf(oldStr));
+	public static String getClassNameFromInstance(Object objInstance){
+		return Class.forName(objInstance.class.name).getSimpleName();
 	}
+	public static String getLowerClassNameFromInstance(Object objInstance){
+		String objectName=GUtils.getClassNameFromInstance(objInstance);
+		return Character.toLowerCase(objectName.charAt(0)).toString()+objectName.substring(1);
+	}
+	public static String getLowerNameFromString(String instanceName){
+		return Character.toLowerCase(instanceName.charAt(0)).toString()+instanceName.substring(1);
+	}
+	public static void main(String[] args){
+		ManagedProperty man=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, value:250000,
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, valueDegree:1);
+		/*String sss=man["title"];
+		SearchResultItem se=new SearchResultItem(man,"propertyDescription","Terreno");
+		System.out.println(se.getDisplayValue());
+		System.out.println(se.getObjectName());
+		System.out.println(se.getLinkTo());*/
+		System.out.println(GUtils.getLowerClassNameFromInstance(man));
+	}	
 }

@@ -1,6 +1,6 @@
 package crm
 
-class PriorityLevel {
+class PriorityLevel extends CrmDomain{
 	String name;
 	String color;
 	int level;

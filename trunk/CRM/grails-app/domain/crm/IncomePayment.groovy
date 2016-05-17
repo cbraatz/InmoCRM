@@ -1,7 +1,7 @@
 package crm
 import org.hibernate.collection.internal.PersistentSet
 
-class IncomePayment {
+class IncomePayment extends CrmDomain{
 	String internalID;
 	Date dueDate;
 	Double amount;

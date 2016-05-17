@@ -3,7 +3,7 @@ package crm
 import org.hibernate.collection.internal.PersistentSet
 
 
-class Income {
+class Income extends CrmDomain{
 	Date date;
 	String description;
 	Double amount;

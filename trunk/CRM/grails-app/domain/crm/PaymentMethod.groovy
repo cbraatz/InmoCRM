@@ -1,6 +1,6 @@
 package crm
 
-class PaymentMethod {
+class PaymentMethod extends CrmDomain{
 	String name;
 	Float discountPercentage;
 	Boolean isCash;

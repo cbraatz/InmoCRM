@@ -1,6 +1,6 @@
 package crm
 
-class Department {
+class Department extends CrmDomain{
 	String name;
 	Country country;
 	static hasMany = [cities: City, propertyDemands:PropertyDemand];

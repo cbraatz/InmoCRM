@@ -1,6 +1,6 @@
 package crm
 
-class Advertisement {
+class Advertisement extends CrmDomain{
 	String summary;
 	String content;
 	BroadcastMedia broadcastMedia;
