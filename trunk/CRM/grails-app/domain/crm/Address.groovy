@@ -40,4 +40,8 @@ class Address extends CrmDomain{
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("addressLine"),new SearchAttribute("reference"),new SearchAttribute("description")];
 	}
+	@Override
+	public static getDefaultPropertyName(){
+		return "addressLine";
+	}
 }

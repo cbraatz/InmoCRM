@@ -17,6 +17,8 @@
 		<f:field bean="managedProperty" property="price"/>
 		<f:field bean="managedProperty" property="value"/>
 		<f:field bean="managedProperty" property="clientInitialPrice"/>
+		<f:field bean="managedProperty" property="commissionAmount"/>
 		<f:field bean="managedProperty" property="valueDegree"/>
 		<f:field bean="managedProperty" property="placedBillboards"/>
+		<g:hiddenField name="soldByCompany" value="${managedProperty?.soldByCompany}"/>
 </fieldset>

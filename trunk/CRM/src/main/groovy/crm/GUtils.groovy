@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import crm.ui.SearchResultItem
 import grails.util.Holders;
 class GUtils {
@@ -50,21 +49,33 @@ class GUtils {
 	public static String getClassNameFromInstance(Object objInstance){
 		return Class.forName(objInstance.class.name).getSimpleName();
 	}
+	public static String getFirstCharInLowerCase(String str){
+		return Character.toLowerCase(str.charAt(0)).toString()+str.substring(1);
+	}
 	public static String getLowerClassNameFromInstance(Object objInstance){
 		String objectName=GUtils.getClassNameFromInstance(objInstance);
-		return Character.toLowerCase(objectName.charAt(0)).toString()+objectName.substring(1);
+		return getFirstCharInLowerCase(objectName);
 	}
-	public static String getLowerNameFromString(String instanceName){
-		return Character.toLowerCase(instanceName.charAt(0)).toString()+instanceName.substring(1);
+	public static String getLowerClassNameFromClassName(String name){
+		return getFirstCharInLowerCase(extractCRMPrefixFromClassName(name));
+	}
+	public static String extractCRMPrefixFromClassName(String name){
+		return (name.indexOf('crm.')>=0?name.substring(4):name);//quita el crm. si tiene
 	}
 	public static void main(String[] args){
-		ManagedProperty man=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, valueDegree:1);
-		/*String sss=man["title"];
-		SearchResultItem se=new SearchResultItem(man,"propertyDescription","Terreno");
-		System.out.println(se.getDisplayValue());
-		System.out.println(se.getObjectName());
-		System.out.println(se.getLinkTo());*/
-		System.out.println(GUtils.getLowerClassNameFromInstance(man));
+		Class<?> itemClass=Class.forName("crm.ManagedProperty");
+		//Primero agrego los fields que NO son many to one
+		itemClass.declaredFields.each{//java.lang.reflect.Field is each one
+			if(!it.isSynthetic()){
+				 String t=it.getType().getName();
+				//System.out.println("Name"+it.getName()+" Type "+t);
+				 if(!(t.equals("java.lang.Object") || t.equals("java.util.Set") || t.equals("org.apache.commons.logging.Log") || t.equals("org.grails.datastore.gorm.GormStaticApi") || t.equals("org.grails.datastore.gorm.GormInstanceApi") || t.equals("org.grails.datastore.gorm.GormValidationApi") || t.equals("org.springframework.validation.Errors") || t.equals("org.grails.plugins.web.controllers.api.ControllersDomainBindingApi") || t.equals("org.grails.plugins.converters.api.ConvertersApi") || t.equals("java.util.List") || it.getName().equals("version"))){
+					 if(!it.getType().getSuperclass().getName().equals("crm.CrmDomain")){//si NO una relacion many to one
+						 System.out.println(it.getName()+"  "+t);
+					 }
+				 }
+			}
+		}
+		
 	}	
 }

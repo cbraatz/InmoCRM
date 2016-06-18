@@ -2,7 +2,7 @@
 <g:set var="propertyFeatureByLanguageCommand" value="${new PropertyFeatureByLanguageCommand(propertyFeature)}" />
 <fieldset class="form">
         <dl class="feature-list">
-           <label class="pf-title-label pf-language-field"><g:message code="propertyFeature.language.label" default="Language"/></label><label class="pf-title-label pf-name-field"><g:message code="propertyFeature.name.label" default="Name"/></label><label class="pf-title-label pf-plural-label"><g:message code="propertyFeature.plural.label" default="Name in Plural"/></label>
+           <label class="bold-title-label pf-language-field"><g:message code="propertyFeature.language.label" default="Language"/></label><label class="bold-title-label pf-name-field"><g:message code="propertyFeature.name.label" default="Name"/></label><label class="bold-title-label pf-plural-label"><g:message code="propertyFeature.plural.label" default="Name in Plural"/></label>
 	       <g:each in="${propertyFeatureByLanguageCommand.items}" var="item1" status="pf">
 		        <dd>
 					<span class="">

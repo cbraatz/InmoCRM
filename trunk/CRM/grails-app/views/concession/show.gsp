@@ -25,8 +25,12 @@
 		        <f:display bean="concession" property="startDate"/>
 		        <span id="name-label" class="property-label"><g:message code="concession.endDate.label" default="End Date"/></span>
 				<f:display bean="concession" property="endDate"/>
-				<span id="name-label" class="property-label"><g:message code="concession.commissionAmount.label" default="Commission Amount"/></span>
-				<f:display bean="concession" property="commissionAmount"/>
+				
+				<span id="totalPrice-label" class="property-label"><g:message code="concession.totalPrice.label" default="Total Price"/></span>
+				<f:display bean="concession" property="totalPrice"/>
+				<span id="totalCommission-label" class="property-label"><g:message code="concession.totalCommission.label" default="Total Commission"/></span>
+				<f:display bean="concession" property="totalCommission"/>
+				
 				<span id="name-label" class="property-label"><g:message code="concession.commissionPercentage.label" default="Commission Percentage"/></span>
 				<f:display bean="concession" property="commissionPercentage"/>
 				<span id="name-label" class="property-label"><g:message code="concession.client.label" default="Client"/></span>

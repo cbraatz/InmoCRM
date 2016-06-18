@@ -3,7 +3,8 @@
 	<div class="fieldcontain">
 		<f:field bean="concession" property="startDate"/>
 		<f:field bean="concession" property="endDate"/>
-		<f:field bean="concession" property="commissionAmount"/>
+		<g:hiddenField name="totalPrice" value="${concession?.totalPrice}"/>
+		<g:hiddenField name="totalCommission" value="${concession?.totalCommission}"/>
 		<f:field bean="concession" property="commissionPercentage"/>
 		<f:field bean="concession" property="client"  input-propId="${concession?.client?.id}"/>
 		<f:field bean="concession" property="description">
@@ -19,7 +20,6 @@
 		
 		<g:hiddenField name="propertyDemand" value="${concession?.propertyDemand?.id}"/>
 		<g:hiddenField name="isActive" value="${concession?.isActive}"/>
-		<g:hiddenField name="soldByCompany" value="${concession?.soldByCompany}"/>
 		
 		<h1><g:message code="concession.contract.title"/></h1>
 		<f:field bean="concession" property="contract.documentURL"/>

@@ -3,6 +3,7 @@
 	<div class="buy-demand">
 		<f:field bean="propertyDemand" property="isSellDemand"/>
 		<div class="grouping-box demand-info">
+			<f:field bean="propertyDemand" property="name"/>
 			<f:field bean="propertyDemand" property="owner" input-propId="${propertyDemand?.owner?.id}"/>
 			<f:field bean="propertyDemand" property="assignee" input-propId="${propertyDemand?.assignee?.id}"/>
 			<g:if test="${actionName.equals('edit')}">

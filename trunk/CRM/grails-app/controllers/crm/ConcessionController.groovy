@@ -26,9 +26,9 @@ class ConcessionController {
     }
 
     def create() {
-		Concession concession=new Concession(soldByCompany:false, isActive:true, contract:new Contract());
+		Concession concession=new Concession(isActive:true, contract:new Contract(), totalPrice:new Double(0), totalCommission:new Double(0));
 		
-		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
+		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, soldByCompany:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
 	
     @Transactional
@@ -47,10 +47,10 @@ class ConcessionController {
 		building.validate();
 		concession.contract.validate();
 
-		if (concession.commissionAmount > 0 && concession.commissionPercentage > 0) {
+		/*if (concession.commissionAmount > 0 && concession.commissionPercentage > 0) {
 			concession.errors.rejectValue('',message(code:'concession.duplicate.commission.error').toString());
-		}
-		if (concession.commissionAmount == 0 && concession.commissionPercentage == 0) {
+		}*/
+		if (/*concession.commissionAmount == 0 && */concession.commissionPercentage == 0) {
 			concession.errors.rejectValue('',message(code:'concession.commission.required.error').toString());
 		}
 		/*if (concession.adText) {
@@ -79,7 +79,7 @@ class ConcessionController {
 		if (managedProperty.price <= 0) {
 			managedProperty.errors.rejectValue('price',message(code:'managedProperty.price.required.error').toString());
 		}
-		if (managedProperty.clientInitialPrice <= 0) {
+		if (null==managedProperty.clientInitialPrice || managedProperty.clientInitialPrice.isEmpty()) {
 			managedProperty.errors.rejectValue('clientInitialPrice',message(code:'managedProperty.client.initial.price.required.error').toString());
 		}
 		if (managedProperty.value <= 0) {
@@ -90,6 +90,10 @@ class ConcessionController {
             respond concession, view:'create', model:[managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];
             return
         }
+		
+		concession.totalPrice=managedProperty.price;//asignando el mismo precio y comision a la concesión que el del ManagedProperty (se puede mantener así mientras cada concesión tenga solo un ManagedProperty)
+		concession.totalCommission=managedProperty.commissionAmount;
+		
 		boolean saved=true;
 		if(!concession.contract.save(flush:true)){
 			GUtils.printErrors(concession.contract,"contract save");

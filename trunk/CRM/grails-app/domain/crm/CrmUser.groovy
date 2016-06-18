@@ -31,22 +31,22 @@ class CrmUser extends CrmDomain{
 			}
 	}
 	def hasPermission(String controller, String action) {
-		/*String permissionId=getPermissionIdFromActionAndController(controller, action);
-		System.out.println("Verifying "+permissionId+" permission.");
-		if(null!=controller && null!=action && null!=permissionId){
+		/*String permissionID=getpermissionIDFromActionAndController(controller, action);
+		System.out.println("Verifying "+permissionID+" permission.");
+		if(null!=controller && null!=action && null!=permissionID){
 			System.out.println(UserContextRole.findAllByUser(this).size());
 			for(UserContextRole ucr: UserContextRole.findAllByUser(this)){
 				System.out.println("UCR="+ucr.contextRole.name);
 				System.out.println(ContextPermissionRole.findAllByContextRole(ucr.contextRole).size());
 				for(ContextPermissionRole cpr: ContextPermissionRole.findAllByContextRole(ucr.contextRole)){
 					System.out.println("CPR="+cpr.contextPermission.name);
-					if(permissionId.equals(cpr.contextPermission.permissionId)){
+					if(permissionID.equals(cpr.contextPermission.permissionID)){
 						return true;
 					}
 				}
 			}
 		}else{
-			System.out.println("Null value for Controller= "+controller+". Action= "+action+". permissionId="+permissionId);
+			System.out.println("Null value for Controller= "+controller+". Action= "+action+". permissionID="+permissionID);
 		}
 		return false;*/
 		return this.isAdmin;
@@ -63,7 +63,7 @@ class CrmUser extends CrmDomain{
 	private boolean isActivateInUIX(String controller) {
 		return true;
 	}
-	private String getPermissionIdFromActionAndController(String controller, String action){
+	private String getpermissionIDFromActionAndController(String controller, String action){
 		switch(action){
 			case "index": return "VIEW_"+controller.toUpperCase();
 			case "show": return "VIEW_"+controller.toUpperCase();

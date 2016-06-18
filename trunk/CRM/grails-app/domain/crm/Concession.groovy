@@ -4,7 +4,8 @@ class Concession extends CrmDomain{
 	Boolean isNegotiable;
 	Date startDate;
 	Date endDate;
-	Double commissionAmount;
+	Double totalPrice;
+	Double totalCommission;
 	Float commissionPercentage;
 	String description;
 	PropertyDemand propertyDemand;
@@ -17,7 +18,6 @@ class Concession extends CrmDomain{
 	CrmUser agent;
 	Boolean isActive;
 	Boolean isForRent;
-	Boolean soldByCompany;
 	
 	static belongsTo = ManagedProperty;
 	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, actions:Action, contacts:Contact/*,TagSelectedValue,CustomFieldSelectedValue*/];
@@ -26,7 +26,8 @@ class Concession extends CrmDomain{
 		isNegotiable(nullable:false);
 		startDate(blank:false, nullable:false);
 		endDate(blank:false, nullable:false);
-		commissionAmount(blank:true, nullable:true, min:0D);
+		totalPrice(blank:false, nullable:false, min:0D);
+		totalCommission(blank:false, nullable:false, min:0D);
 		commissionPercentage(blank:true, nullable:true, min:0F, max:100F, scale:2);
 		description(blank:true, nullable:true, widget:'textArea', size:0..1500);
 		propertyDemand(nullable:true);
@@ -39,7 +40,6 @@ class Concession extends CrmDomain{
 		agent(nullable:true);
 		isActive(nullable:false);
 		isForRent(nullable:false);
-		soldByCompany(nullable:false);
 	}
 	
 	public Concession(){}

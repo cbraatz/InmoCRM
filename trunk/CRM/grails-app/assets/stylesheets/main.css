@@ -626,10 +626,6 @@ a.skip {
 .feature-line .feature-value-field{
 	width: 30px;
 }
-.pf-language-field{
-	width: 80px;
-	max-width:80px;
-}
 .pf-description-field{
 	width: 350px;
 }
@@ -644,11 +640,23 @@ a.skip {
 	width:150px;
 	max-width:150px;
 }
-.pf-language-field, .pf-name-field{
+.pf-language-field, .pf-name-field, .report-field-title{
 	width:120px;
 	max-width:120px;
 }
-.pf-title-label{
+.report-column-name-field{
+	width:250px;
+	max-width:250px;
+	text-align:right;
+}
+.report-column-med-field{
+	width:180px;
+	max-width:180px;
+}
+.report-field-name{
+	margin-right:20px;
+}
+.bold-title-label{
 	font-weight: bold;
 }
 .feature-label{

@@ -19,7 +19,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             
-            <f:table collection="${concessionList}" properties="['client', 'startDate', 'endDate', 'agent'], 'isActive', 'isForRent'"/>
+            <f:table collection="${concessionList}" properties="['client', 'totalPrice', 'startDate', 'endDate', 'agent', 'isActive']"/>
 
             <div class="pagination">
                 <g:paginate total="${concessionCount ?: 0}" />

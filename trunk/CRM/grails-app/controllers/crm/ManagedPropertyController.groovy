@@ -17,18 +17,6 @@ class ManagedPropertyController {
 
     def show(ManagedProperty managedProperty) {
 		Concession conc=managedProperty.getActiveConcession();
-		/*if (!conc.adTitle) {
-			managedProperty.errors.rejectValue('',message(code:'concession.adTitle.required.error').toString());
-		}
-		if (!conc.adText) {
-			managedProperty.errors.rejectValue('',message(code:'concession.adText.required.error').toString());
-		}
-		if (!conc.adSummary) {
-			managedProperty.errors.rejectValue('',message(code:'concession.adSummary.required.error').toString());
-		}
-		if (!conc.keys) {
-			managedProperty.errors.rejectValue('',message(code:'concession.keys.required.error').toString());
-		}*/
 		if (!conc.agent.partner.isAgent) {
 			managedProperty.errors.rejectValue('',message(code:'concession.partner.agent.required.error').toString());
 		}
@@ -40,6 +28,7 @@ class ManagedPropertyController {
 
     def create() {
 		ManagedProperty mp=new ManagedProperty(params);
+		mp.soldByCompany=false;
         respond mp
     }
 	def addEditImages(ManagedProperty managedProperty){

@@ -12,4 +12,8 @@ class Contract extends CrmDomain{
 		contractType(nullable:false);
 		internalID(blank: false, nullable:false, size:1..40, unique:true);
     }
+	@Override
+	public static getDefaultPropertyName(){
+		return "internalID";
+	}
 }

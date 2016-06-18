@@ -16,7 +16,8 @@ class ManagedProperty extends CrmDomain{
 	String publicCreditPrice;
 	Double price;
 	Double value;
-	Double clientInitialPrice;
+	String clientInitialPrice;
+	Double commissionAmount;
 	Integer valueDegree;
 	Currency currency;
 	Date addedDate;
@@ -26,6 +27,8 @@ class ManagedProperty extends CrmDomain{
 	Client owner;
 	Address address;
 	PropertyType propertyType;
+	Boolean soldByCompany;
+	
 	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, uploadedImages:UploadedImage, propertyUnits:PropertyUnit, advertisements:Advertisement, webPages:WebPage/*propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
     static constraints = {
 		title(blank:false, nullable:false, size:1..100, unique:true);
@@ -36,7 +39,8 @@ class ManagedProperty extends CrmDomain{
 		publicCreditPrice(blank:true, nullable:true, size:0..50);
 		price(blank:false, nullable:false, min:0D);
 		value(blank:false, nullable:false, min:0D);
-		clientInitialPrice(blank:false, nullable:false, min:0D);
+		clientInitialPrice(blank:true, nullable:true, size:0..100);
+		commissionAmount(blank:true, nullable:true, min:0D);
 		valueDegree(blank:false, nullable:false, min:0, max:5);
 		currency(blank:false, nullable:false);
 		addedDate(nullable:false);
@@ -46,6 +50,7 @@ class ManagedProperty extends CrmDomain{
 		owner(nullable:false);
 		address(nullable:false);
 		propertyType(nullable:false);
+		soldByCompany(nullable:false);
     }
 	
 	public Concession getActiveConcession(){

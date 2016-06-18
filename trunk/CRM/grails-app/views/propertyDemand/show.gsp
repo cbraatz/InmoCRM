@@ -24,6 +24,8 @@
             			<span id="isSellDemand-label" class="property-label"><g:message code="propertyDemand.isSellDemand.label" default="isSellDemand"/></span>
 						<f:display bean="propertyDemand" property="isSellDemand"/>
 	            		<div class="grouping-box demand-info">
+	            			<span id="name-label" class="property-label"><g:message code="propertyDemand.name.label" default="name"/></span>
+							<f:display bean="propertyDemand" property="name"/>
 		            		<span id="owner-label" class="property-label"><g:message code="propertyDemand.owner.label" default="owner"/></span>
 							<f:display bean="propertyDemand" property="owner"/>
 							<span id="assignee-label" class="property-label"><g:message code="propertyDemand.assignee.label" default="assignee"/></span>

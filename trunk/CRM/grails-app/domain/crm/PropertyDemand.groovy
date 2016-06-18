@@ -1,6 +1,7 @@
 package crm
 
 class PropertyDemand extends CrmDomain{
+	String name;
 	Boolean isSellDemand;
 	Date addedDate;
 	Date dueDate;
@@ -52,6 +53,7 @@ class PropertyDemand extends CrmDomain{
 	DemandStatus demandStatus;
 	static hasMany = [concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, propertyFeaturesByPropertyDemand:PropertyFeatureByPropertyDemand, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand/*,RealEstateAction,TagSelectedValue,CustomFieldSelectedValue*/]
     static constraints = {
+		name(blank: false, nullable:false, size:1..50);
 		isSellDemand(nullable:false);
 		addedDate(nullable:false);
 		dueDate(nullable:true);
