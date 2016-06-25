@@ -25,10 +25,8 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-											<g:select name="reportDesigner.reportDesignerColumns[$i].filterCriteria" value="${(null != item1.filterCriteria? FilterCriteria.valueOf(item1.filterCriteria) : null)}" from="${FilterCriteria.getAllFilterCriteriaList(item1.dataType)}" valueMessagePrefix="ENUM.FilterCriteria" />
-											<g:textField class="filter-value1" name="reportDesigner.reportDesignerColumns[$i].primaryFilterValue" value="${item1.primaryFilterValue}"/>
-											<g:textField class="filter-value2" name="reportDesigner.reportDesignerColumns[$i].secondaryFilterValue" value="${item1.secondaryFilterValue}"/>
-											<br/>								
+											<g:render template="/reportDesigner/filterCriteria" model="['colid':i,'dType':item1.dataType, 'fCriteria':item1.filterCriteria, 'primValue':item1.primaryFilterValue, 'secValue':item1.secondaryFilterValue]"/>
+											<br/>
 										</span>
 									</dd>
 								</g:if>
@@ -73,10 +71,10 @@
 					</fieldset>
 				</g:if>
 				<g:each in="${reportDesigner.reportDesignerColumns}" var="item1" status="i">
-					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].selected" value="${(item1?.selected)}" class="pf-name-field pf-line"/>
-					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].filterBy" value="${(item1?.filterBy)}" class="pf-name-field pf-line"/>
-					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].sortBy" value="${(item1?.sortBy)}" class="pf-name-field pf-line"/>
-					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].groupBy" value="${(item1?.groupBy)}" class="pf-name-field pf-line"/>
+					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].selected" value="${item1?.selected}"/>
+					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].filterBy" value="${item1?.filterBy}"/>
+					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].sortBy" value="${item1?.sortBy}"/>
+					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].groupBy" value="${item1?.groupBy}"/>
 					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].sortOrder" value="${item1?.sortOrder}"/>
 					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].dataType" value="${item1?.dataType}"/>
 					<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].groupOrder" value="${item1?.groupOrder}"/>

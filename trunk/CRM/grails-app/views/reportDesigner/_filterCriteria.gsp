@@ -1,0 +1,42 @@
+<%@ page import="crm.enums.FilterCriteria" %>
+<g:select id="fc-select-${colid}" onchange="filterChanged(this.value,$colid);" name="reportDesigner.reportDesignerColumns[$colid].filterCriteria" value="${(null != fCriteria? FilterCriteria.valueOf(fCriteria) : null)}" from="${FilterCriteria.getAllFilterCriteriaList(dType)}" valueMessagePrefix="ENUM.FilterCriteria" />
+<span id="hidenFldNumber-${colid}">${(null == fCriteria ? FilterCriteria.getAllFilterCriteriaList(dType).first().numberOfFields : FilterCriteria.valueOf(fCriteria).numberOfFields) }</span><!-- span con id hidenFldNumber- seguido del colid pasado como parametro -->
+<g:textField id="first-filter-criteria-field-${colid}" class="filter-value" name="reportDesigner.reportDesignerColumns[$colid].primaryFilterValue" value="${primValue}"/>
+<g:textField id="second-filter-criteria-field-${colid}" class="filter-value" name="reportDesigner.reportDesignerColumns[$colid].secondaryFilterValue" value="${secValue}"/>
+
+
+<script>
+	function filterChanged(filCriteria,coid) {
+    	//<g:remoteFunction controller="reportDesigner" action="getCategoryFieldNumberAJAX" update="hidenFldNumber-0" params="'filterCriteriaName='+filCriteria"/>
+		jQuery.ajax({type:'POST',data:'filterCriteriaName='+filCriteria, url:'/reportDesigner/getCategoryFieldNumberAJAX',success:function(data,textStatus){jQuery('#hidenFldNumber-'+coid).html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+    	updateFields(coid);
+    }
+	function updateFields(cid) {
+		var va=$("#hidenFldNumber-"+cid).html();
+		console.log("updateFields="+va+" cid="+cid+"colid="+${colid});
+		switch(va) {
+	    	case '1':
+	    		$("#first-filter-criteria-field-"+cid).show();
+				$("#second-filter-criteria-field-"+cid).hide();
+				console.log("Case 1");
+	        	break;
+	    	case '2':
+	    		$("#first-filter-criteria-field-"+cid).show();
+				$("#second-filter-criteria-field-"+cid).show();
+				console.log("Case 2");
+	        	break;
+	    	default:
+	    		$("#first-filter-criteria-field-"+cid).hide();
+				$("#second-filter-criteria-field-"+cid).hide();  
+				console.log("Case def");	
+    	}
+	}
+
+	$(document).ready(function() {
+		updateFields(${colid});//muestra el o los textfields de acuerdo al valor inicial del select
+		$("#hidenFldNumber-"+${colid}).bind("DOMSubtreeModified",function() {//agrega el listener al span oculto que se actualiza luego de que el un valor del select sea seleccionado
+			updateFields(${colid});//muestra el o los textfields de acuerdo al valor seleccionado en el select
+		});
+		$("#hidenFldNumber-"+${colid}).hide();//oculta el span al iniciar
+	});
+</script>

@@ -844,4 +844,8 @@ ul#nav, ul.nav-item-list{
 #search-value-field{
 	width:200px;
 }
+/*filtering*/
+.filter-value{
+	max-width:140px;
+}
 /**/

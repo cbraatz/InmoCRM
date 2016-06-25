@@ -1,6 +1,8 @@
 package crm
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import crm.enums.FilterCriteria
 
 @Transactional(readOnly = true)
 class ReportDesignerController {
@@ -45,5 +47,11 @@ class ReportDesignerController {
 		}
 		respond reportDesigner
 	}
-
+	
+	def getCategoryFieldNumberAJAX(String filterCriteriaName) {
+		System.out.println("Filter Criteria en controller="+filterCriteriaName);
+		def fc=FilterCriteria.valueOf(filterCriteriaName);
+		System.out.println("Numero en controller="+fc.numberOfFields);
+		render fc.numberOfFields
+	}
 }
