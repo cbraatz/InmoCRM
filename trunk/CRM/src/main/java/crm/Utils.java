@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,7 +73,7 @@ public class Utils {
     public static double round(double d, boolean withDecimals) {
     	return Utils.round(d, (withDecimals ? Utils.getDefaultDecimalPlaces() : 0));
     }
-    public static String getDateInStr(Date date){
+    public static String dateToStr(Date date){
     	if(null==date){
     		return null;
     	}else{
@@ -80,10 +81,14 @@ public class Utils {
 	    	return sdf.format(date);
     	}
     }
-    public static String getDateInStrDBFormat(Date date){
+    public static Date strToDate(String dateInString) throws ParseException{
+    	SimpleDateFormat formatter = new SimpleDateFormat(Utils.getDefaultDateFormat());
+    	return formatter.parse(dateInString);
+    }
+    /*public static String getDateAsStrDBFormat(Date date){
     	DateFormat sdf=new SimpleDateFormat(Utils.getDBDateFormat());
     	return sdf.format(date);
-    }
+    }*/
     public static Date removeTimeFromDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -94,7 +99,7 @@ public class Utils {
         return cal.getTime();
     }
     public static String getDefaultDateFormat(){
-		return "dd/MM/yyyy";
+		return "dd/MM/yyyy";//cambiar luego al guardado en la BD en crm_config
 	}
 	public static String getDBDateFormat(){
 		return "yyyy/MM/dd";
@@ -168,18 +173,6 @@ public class Utils {
 	}
 	
 	public static void main(String args[]){
-		String searchedKey="como";
-		String attrValue="Hola, que tal, como te va";
-		int RESULT_DISPLAY_VALUE_LENGTH=10;
-		int idx=attrValue.indexOf(searchedKey);
-		if(idx+searchedKey.length() > RESULT_DISPLAY_VALUE_LENGTH){//si desde el principio hasta donde termina la palabra buscada es mayor al tamaño maximo del resultado
-			int i=((RESULT_DISPLAY_VALUE_LENGTH-searchedKey.length())/2);
-			if(idx-i >=0){
-				System.out.println("STR1="+attrValue.substring(idx-i, idx+i+searchedKey.length()));
-			}
-		}else{
-			System.out.println("STR2="+attrValue.substring(0, RESULT_DISPLAY_VALUE_LENGTH));
-		}
 		
 	}
 	public static boolean validatePageKeys(String str){

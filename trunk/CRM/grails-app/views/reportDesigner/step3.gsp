@@ -14,6 +14,22 @@
 	                <li><g:actionSubmit action="advanceToStep3" class="advance" value="${message(code: 'reportDesigner.advance.to.step3', default: 'Advance to Step 3')}" /></li>
 	            </ul>
 	        </div>
+	        <g:hasErrors bean="${reportDesigner}">
+	            <ul class="errors" role="alert">
+	                <g:eachError bean="${reportDesigner}" var="error">
+	                	<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+	                </g:eachError>
+	            </ul>
+	            </g:hasErrors>
+	        <g:each in="${reportDesigner.reportDesignerColumns}" var="item1" status="i">
+	            <g:hasErrors bean="${item1}">
+	            <ul class="errors" role="alert">
+	                <g:eachError bean="${item1}" var="error">
+	                	<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+	                </g:eachError>
+	            </ul>
+	            </g:hasErrors>
+            </g:each>
 	        <div id="reportDesigner-step3" class="content scaffold-create" role="main">
 	        	<g:if test="${reportDesigner.hasFilter.booleanValue() == true}">
 		        	<fieldset class="form">
@@ -44,6 +60,7 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
+											<g:field type="number" name="reportDesigner.reportDesignerColumns[$i].groupOrder" min="1" required="" value="${item1?.groupOrder}"/>
 											<br/>								
 										</span>
 									</dd>
@@ -62,6 +79,7 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
+											<g:field type="number" name="reportDesigner.reportDesignerColumns[$i].sortOrder" min="1" required="" value="${item1?.sortOrder}"/>
 											<br/>								
 										</span>
 									</dd>
