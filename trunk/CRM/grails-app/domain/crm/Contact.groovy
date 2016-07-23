@@ -14,8 +14,8 @@ class Contact extends CrmDomain{
 		date(blank:false, nullable:false);
 		description(blank:false, nullable:false, widget:'textArea', size:1..300);
 		concession(blank:false, nullable:false);
-		client(blank:false, nullable:false);
-		partner(blank:false, nullable:false);
-		contactType(blank:false, nullable:false);
+		client(nullable:false);
+		partner(nullable:false);
+		contactType(nullable:false);
 	}
 }

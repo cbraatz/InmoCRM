@@ -1,10 +1,7 @@
 import crm.Currency;
-
 import java.util.Date;
-
 import grails.util.Environment;
 import crm.*;
-
 import java.text.SimpleDateFormat
 class BootStrap {
 
@@ -12,6 +9,19 @@ class BootStrap {
 		println("Starting init......................."+Environment.current);
 		if(Environment.current.equals(Environment.DEVELOPMENT)){
 			addDevelopmentData();
+			/*if ( Category.count() == 0 ) {
+				Category color = new Category(name:'Color').save()
+				new SubCategory(category:color, name:'Red').save()
+				new SubCategory(category:color, name:'Green').save()
+				new SubCategory(category:color, name:'Blue').save()
+				Category shape = new Category(name:'Shape').save()
+				new SubCategory(category:shape, name:'Square').save()
+				new SubCategory(category:shape, name:'Circle').save()
+				Category size = new Category(name:'Size').save()
+				new SubCategory(category:size, name:'Small').save()
+				new SubCategory(category:size, name:'Medium').save()
+				new SubCategory(category:size, name:'Large').save()
+			}*/
 		}
 		println("Finishing init......................");
     }
@@ -25,10 +35,10 @@ class BootStrap {
 		this.saveObj(new ContextRole(name: "Sales", isActive:true));
 
 		//ContextPermission
-		this.saveObj(new ContextPermission(name: "Create Bank",permissionId:"CREATE_BANK"));
-		this.saveObj(new ContextPermission(name: "View Bank",permissionId:"VIEW_BANK"));
-		this.saveObj(new ContextPermission(name: "Edit Bank",permissionId:"EDIT_BANK"));
-		this.saveObj(new ContextPermission(name: "Delete Bank",permissionId:"DELETE_BANK"));
+		this.saveObj(new ContextPermission(name: "Create Bank",permissionID:"CREATE_BANK"));
+		this.saveObj(new ContextPermission(name: "View Bank",permissionID:"VIEW_BANK"));
+		this.saveObj(new ContextPermission(name: "Edit Bank",permissionID:"EDIT_BANK"));
+		this.saveObj(new ContextPermission(name: "Delete Bank",permissionID:"DELETE_BANK"));
 		
 		//Language
 		this.saveObj(new Language(name: "Español", symbol:"es", prepositionOfPlace:"en"));
@@ -92,8 +102,12 @@ class BootStrap {
 		//Partner
 		this.saveObj(new Partner(name: "Default", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
 		
-		//crmuser
-		this.saveObj(new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:CrmUser.encodePassword("123456"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true));
+		//crmUser
+		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:CrmUser.encodePassword("123456"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true);
+		this.saveObj(defUsr);
+		
+		//ReportFolder
+		this.saveObj(new ReportFolder(name:"Reportes Públicos", crmUser: defUsr, isPublic:new Boolean("true")));
 		
 		//ClientCategory
 		this.saveObj(new ClientCategory(name: "Pequeño", description:"Clientes con sueldo mínimo o menos."));		
@@ -276,7 +290,7 @@ class BootStrap {
 		
 		//ManagedProperty
 		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1);
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600, soldByCompany:false);
 		this.saveObj(managedProperty1);
 		System.out.println(managedProperty1.id);
 		
@@ -288,8 +302,8 @@ class BootStrap {
 		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), buildingDescription:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
 		//Concession
-		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionAmount:9600, commissionPercentage:4, description:"Ninguna", //propertyDemand:PropertyDemand,
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("nobody"), isActive:true, soldByCompany:false, isForRent:false);
+		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionPercentage:4, description:"Ninguna", //propertyDemand:PropertyDemand,
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("nobody"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
 		concession1.addToManagedProperties(managedProperty1);
 		this.saveObj(concession1);
 		managedProperty1.addToConcessions(concession1);

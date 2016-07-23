@@ -183,7 +183,7 @@ class PaymentController {
 			if(payedAmountValue >= amountValue){
 				payment.outAmount=Utils.round(payedAmountValue - amountValue, defaultCurrency.hasDecimals);
 			}else{
-				def msg=ce1?(Utils.getDateInStr(ce1.date)+' '+ce1.targetCurrency.name+'=('+ce1.buy+' '+ce1.sourceCurrency.symbol+' , '+ce1.sell+' '+ce1.sourceCurrency.symbol+')'):'' + ce2?(Utils.getDateInStr(ce2.date)+' '+ce2.targetCurrency.name+'=('+ce2.buy+' '+ce2.sourceCurrency.symbol+' , '+ce2.sell+' '+ce2.sourceCurrency.symbol+')'):'';
+				def msg=ce1?(Utils.dateToStr(ce1.date)+' '+ce1.targetCurrency.name+'=('+ce1.buy+' '+ce1.sourceCurrency.symbol+' , '+ce1.sell+' '+ce1.sourceCurrency.symbol+')'):'' + ce2?(Utils.dateToStr(ce2.date)+' '+ce2.targetCurrency.name+'=('+ce2.buy+' '+ce2.sourceCurrency.symbol+' , '+ce2.sell+' '+ce2.sourceCurrency.symbol+')'):'';
 				payment.errors.rejectValue('',message(code:'payment.amount.not.enough.other.currency.error', args:[msg]).toString());
 				transactionStatus.setRollbackOnly();
 				respond payment, view:'create';

@@ -125,13 +125,18 @@ class UploadController {
 				  }
 			  }
 			  if(!exists){
-				  f.transferTo(file);
-				  if(!UploadedImage.findByFileNameAndManagedProperty(file.name, ManagedProperty.get(this.objectId))){
-					  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
-					  if(!upIm.save(flush:true)){
-						  GUtils.printErrors(upIm, "Saving new image '"+file.name+"'");
-						  flash.message=message(code: 'upload.image.save.error', args: [file.name]);
+				  //f.transferTo(file);
+				  if(GUtils.transferFile(f, file)){
+					  if(!UploadedImage.findByFileNameAndManagedProperty(file.name, ManagedProperty.get(this.objectId))){
+						  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
+						  if(!upIm.save(flush:true)){
+							  GUtils.printErrors(upIm, "Error Saving new image '"+file.name+"'");
+							  flash.message=message(code: 'upload.image.save.error', args: [file.name]);
+						  }
 					  }
+				  }else{
+						GUtils.printErrors(upIm, "Error transfering new image '"+file.name+"'");
+						flash.message=message(code: 'upload.image.transfer.error', args: [file.name]);
 				  }
 			  }else{
 				  flash.message=message(code: 'upload.image.already.uploaded.error', args: [file.name]);

@@ -1,11 +1,11 @@
 package crm
 
 class UserContextRole extends CrmDomain{
-	CrmUser user;
+	CrmUser crmUser;
 	ContextRole contextRole;
 	
     static constraints = {
-		user(nullable:false);
+		crmUser(nullable:false);
 		contextRole(nullable:false);
     }
 }

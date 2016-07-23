@@ -22,7 +22,7 @@
 			<a href="http://grails.org" style="float:left;">
 				<asset:image src="grails_logo.png" alt="Grails"/>
 			</a>
-			<div style="max-width:400px;float:left;"><g:render template="/search/quickSearch"/></div>
+			<div id="search-div"><g:render template="/search/quickSearch"/></div>
 			<div style="float:right;"><g:link class="logout-link" action="doLogout" controller="login" style="display: none;"><g:message code="logout.label" default="Log out" /></g:link></div>
 		</div>
 			<div id="icon-menu" style="display: none;"><g:render template="/menu/iconMenu"/></div>
@@ -37,6 +37,7 @@
 		if(!($('#login-body').is(':visible') || $('#body-layout .error-details').is(':visible'))){
 			$('.logout-link').show();
 			$('#icon-menu').show();
+			$('.search-form').show();
 		}
 	});
 </script>

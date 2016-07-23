@@ -1,6 +1,7 @@
 package crm
 
 import crm.exception.CRMException
+
 import java.util.ArrayList;
 
 class ReportDesigner {
@@ -9,12 +10,19 @@ class ReportDesigner {
 	Boolean hasGroup=false;
 	Boolean hasSort=false;
 	Integer reportType=new Integer(0);
+	CrmUser crmUser;
+	ReportFolder reportFolder;
 	List<ReportDesignerColumn> reportDesignerColumns=new ArrayList<ReportDesignerColumn>();
 	static hasMany = [reportDesignerColumns:ReportDesignerColumn];
 	
     static constraints = {
-		name(blank:true, nullable:true, size:0..50);
-		reportType(blank:true, nullable:true);
+		name(blank:false, nullable:false, size:1..50);
+		hasFilter(blank:false, nullable:false);
+		hasGroup(blank:false, nullable:false);
+		hasSort(blank:false, nullable:false);
+		reportType(blank:false, nullable:false);
+		crmUser(nullable:false);
+		reportFolder(nullable:true);
     }
 	
 	public ReportDesigner(){

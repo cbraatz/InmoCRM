@@ -783,6 +783,9 @@ ul#nav, ul.nav-item-list{
 	font-weight:bold;
 }
 /*starting added by me*/
+fieldset h3{
+	margin-left:15px;
+}
 #header-bar{
 	text-align: right;
 }
@@ -818,6 +821,12 @@ ul#nav, ul.nav-item-list{
 	padding-bottom: 10px;
 	font-size: 18px;
 }
+.logout-link{
+	padding-top:23px;
+}
+.search-form{
+	padding-top:23px;
+}
 .scaffold-list{
 	padding-left: 50px;
 }
@@ -832,6 +841,12 @@ ul#nav, ul.nav-item-list{
 #search-field{
     margin-left: 15px;
     margin-top: 3px;
+    max-width: 180px;
+}
+#search-div{
+	max-width: 400px;
+	float: left;
+	margin-left: 350px;
 }
 #header-bar{
 	height: 50px;

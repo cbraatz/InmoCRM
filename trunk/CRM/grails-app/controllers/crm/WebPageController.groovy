@@ -125,21 +125,8 @@ class WebPageController {
 	private void createOrUpdateWebPage(WebPage webPage) throws WebPageCreationException{
 		try{
 			String pageContainer=webPage.domain.realPath+File.separatorChar+webPage.domain.realEstateFolder+File.separatorChar+webPage.managedProperty.address.city.department.country.name+File.separatorChar+webPage.managedProperty.id;
-			String title=webPage.title;
-			title=title.replace(" ", "_");
-			title=title.replace(".", "_");
-			title=title.replace(",", "_");
-			title=title.replace("á", "a");
-			title=title.replace("é", "e");
-			title=title.replace("í", "i");
-			title=title.replace("ó", "o");
-			title=title.replace("ú", "u");
-			title=title.replace("Á", "A");
-			title=title.replace("É", "E");
-			title=title.replace("Í", "I");
-			title=title.replace("Ó", "O");
-			title=title.replace("Ú", "U");
-			
+			String title=GUtils.replaceIncorrectChars(webPage.title);
+
 			//def f = request.getFile('photo')
 			new File(pageContainer).mkdirs()
 			String filePath=pageContainer+File.separatorChar+File.separatorChar+title+webPage.id+".html";//título finaliza con . que es remplazado por _ y luego va el id de la WebPage

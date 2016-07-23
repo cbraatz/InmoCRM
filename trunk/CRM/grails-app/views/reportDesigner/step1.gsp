@@ -1,4 +1,3 @@
-<%@ page import="crm.commands.ReportMainCommand" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,11 +13,11 @@
 	            </ul>
 	        </div>
 	        <div id="create-buildingFeature" class="content scaffold-create" role="main">
-	            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+	            <h1><g:message code="reportDesigner.step1.title" default="STEP 1"/></h1>
 				<fieldset class="form">
 				        <dl class="feature-list">
-				            <label class="bold-title-label pf-language-field"><g:message code="propertyFeature.language.label" default="Language"/></label><label class="bold-title-label pf-name-field"><g:message code="propertyFeature.name.label" default="Name"/></label><label class="bold-title-label pf-plural-label"><g:message code="propertyFeature.plural.label" default="Name in Plural"/></label>
-						    <dd>
+				            <label class="bold-title-label" style="margin-bottom:10px;"><g:message code="reportDesigner.step1.secondary.title" default="Select Report Type"/></label>
+						    <dd style="margin-left:15px;">
                 		 		<g:link class="report-option" action="step2" params="[rt:'10']"><g:message code="reportDesigner.real.estate.type1.label"/></g:link></li>
 							</dd>
 						</dl>

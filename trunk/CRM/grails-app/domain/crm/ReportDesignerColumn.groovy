@@ -9,7 +9,6 @@ class ReportDesignerColumn {
 	String tableName;
 	String foreignTableName;//Constraint table name eg Concession.CrmUser ==> CrmUser
 	String foreignTableDisplay;//Constraint table changed/displayed name eg Concession.Agent ==> Agent
-	String dataType; //not persisted property
 	String primaryFilterValue;
 	String secondaryFilterValue;
 	String filterCriteria;
@@ -19,10 +18,11 @@ class ReportDesignerColumn {
 	Boolean groupBy;
 	Integer sortOrder;
 	Integer groupOrder;
+	Integer columnWidth;
 	ReportDesigner reportDesigner;
-	
-	//ReportFilterValue filterValue;
-	static transients = ["dataType"]
+	String dataType; //not persisted property
+
+	static transients = ["dataType","dateFilter2"]
     static constraints = {
 		propertyName(blank:false, nullable:false, size:1..50);
 		tableName(blank:false, nullable:false, size:1..50);
@@ -37,6 +37,7 @@ class ReportDesignerColumn {
 		groupBy(blank:false, nullable:false);
 		sortOrder(blank:true, nullable:true);
 		groupOrder(blank:true, nullable:true);
+		columnWidth(blank:true, nullable:true);
 		reportDesigner(blank:false, nullable:false);
     }
 	
@@ -73,7 +74,7 @@ class ReportDesignerColumn {
 		System.out.println("prop="+propertyName+"  tableName="+tableName+"  foreignTableName="+foreignTableName+"   tableDisplay="+foreignTableDisplay+"   dataType="+dataType);
 	}
 	public String getLabelName(){
-		return (null == this.foreignTableName ? GUtils.getFirstCharInLowerCase(this.tableName) : GUtils.getFirstCharInLowerCase(this.foreignTableName))+'.'+this.propertyName+'.label';
+		return (null == this.foreignTableName ? GUtils.getFirstCharInLowerCase(this.tableName) : GUtils.getFirstCharInLowerCase(this.foreignTableName))+'.'+(this.foreignTableDisplay != null ? this.foreignTableDisplay : this.propertyName)+'.label';
 	}
 	public void updateDataType(){
 		Class<?> itemClass=Class.forName("crm."+this.tableName);

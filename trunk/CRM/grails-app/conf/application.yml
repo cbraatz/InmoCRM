@@ -119,6 +119,8 @@ crm:
         image:
             partner: uploads/partner
             property: uploads/property
+        template:
+            report: uploads/template/report
 web:
     image:
         partner: img/crm/partner

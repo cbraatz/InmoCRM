@@ -1,9 +1,9 @@
 <%@ page import="crm.enums.FilterCriteria" %>
+<%@ page import="crm.Utils" %>
 <g:select id="fc-select-${colid}" onchange="filterChanged(this.value,$colid);" name="reportDesigner.reportDesignerColumns[$colid].filterCriteria" value="${(null != fCriteria? FilterCriteria.valueOf(fCriteria) : null)}" from="${FilterCriteria.getAllFilterCriteriaList(dType)}" valueMessagePrefix="ENUM.FilterCriteria" />
 <span id="hidenFldNumber-${colid}">${(null == fCriteria ? FilterCriteria.getAllFilterCriteriaList(dType).first().numberOfFields : FilterCriteria.valueOf(fCriteria).numberOfFields) }</span><!-- span con id hidenFldNumber- seguido del colid pasado como parametro -->
 <g:textField id="first-filter-criteria-field-${colid}" class="filter-value" name="reportDesigner.reportDesignerColumns[$colid].primaryFilterValue" value="${primValue}"/>
 <g:textField id="second-filter-criteria-field-${colid}" class="filter-value" name="reportDesigner.reportDesignerColumns[$colid].secondaryFilterValue" value="${secValue}"/>
-
 
 <script>
 	function filterChanged(filCriteria,coid) {
