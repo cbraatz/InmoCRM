@@ -40,6 +40,7 @@ class ReportDesigner {
 	
 	public ReportDesigner(String reportType) throws CRMException, NumberFormatException{
 		this.reportType=Integer.parseInt(reportType);
+		this.name="New Report";
 		switch(this.reportType){
 			case 10: this.realEstateWithActions(["crm.ManagedProperty","crm.Concession"], "crm.Action");break;
 			otherwise: throw new CRMException("Tipo de reporte invalido"); //String msg = message(code: 'reportDesigner.incorrect.report.type.error')

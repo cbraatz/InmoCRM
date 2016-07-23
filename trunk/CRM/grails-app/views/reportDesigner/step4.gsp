@@ -51,6 +51,7 @@
 					<g:hiddenField name="reportDesigner.hasGroup" value="${reportDesigner?.hasGroup}"/>
 					<g:hiddenField name="reportDesigner.hasSort" value="${reportDesigner?.hasSort}"/>
 					<g:hiddenField name="reportDesigner.reportFolder" value="${item1?.reportFolder?.id}"/>
+					<g:hiddenField name="reportDesigner.crmUser" value="${session?.user?.id}"/>
 					<g:hiddenField name="cameFromStep" value="4"/>
 				</fieldset>
 						

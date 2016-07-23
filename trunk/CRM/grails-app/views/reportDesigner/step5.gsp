@@ -44,6 +44,7 @@
 				<g:hiddenField name="reportDesigner.hasFilter" value="${reportDesigner?.hasFilter}"/>
 				<g:hiddenField name="reportDesigner.hasGroup" value="${reportDesigner?.hasGroup}"/>
 				<g:hiddenField name="reportDesigner.hasSort" value="${reportDesigner?.hasSort}"/>
+				<g:hiddenField name="reportDesigner.crmUser" value="${session?.user?.id}"/>
                 <fieldset class="buttons">
                 	<g:actionSubmit action="step4" class="return" value="${message(code: 'reportDesigner.previous.step.button', default: 'Previous')}" />
                     <g:actionSubmit action="save" class="save" value="${message(code: 'default.button.save.label', default: 'Save Report')}"/>

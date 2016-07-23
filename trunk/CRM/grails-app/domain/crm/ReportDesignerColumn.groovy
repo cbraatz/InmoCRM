@@ -22,7 +22,7 @@ class ReportDesignerColumn {
 	ReportDesigner reportDesigner;
 	String dataType; //not persisted property
 
-	static transients = ["dataType","dateFilter2"]
+	static transients = ["dataType"]
     static constraints = {
 		propertyName(blank:false, nullable:false, size:1..50);
 		tableName(blank:false, nullable:false, size:1..50);

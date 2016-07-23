@@ -42,7 +42,7 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-											<g:render template="/reportDesigner/filterCriteria" model="['colid':i,'dType':item1.dataType, 'fCriteria':item1.filterCriteria, 'primValue':item1.primaryFilterValue, 'secValue':item1.secondaryFilterValue]"/>
+											<g:render template="/reportDesigner/filterCriteria" model="['colid':i,'dType':item1.dataType, 'fCriteria':item1.filterCriteria, 'primValue':item1.primaryFilterValue, 'secValue':item1.secondaryFilterValue, 'domType':'crm.'+item1.foreignTableName]"/>
 											<br/>
 										</span>
 									</dd>
@@ -107,6 +107,7 @@
 				<g:hiddenField name="reportDesigner.hasGroup" value="${reportDesigner?.hasGroup}"/>
 				<g:hiddenField name="reportDesigner.hasSort" value="${reportDesigner?.hasSort}"/>
 				<g:hiddenField name="reportDesigner.reportFolder" value="${item1?.reportFolder?.id}"/>
+				<g:hiddenField name="reportDesigner.crmUser" value="${session?.user?.id}"/>
                 <fieldset class="buttons">
                 	<g:actionSubmit action="step2" class="return" value="${message(code: 'reportDesigner.previous.step.button', default: 'Previous')}" />
                     <g:actionSubmit action="step4" class="advance" value="${message(code: 'reportDesigner.next.step.button', default: 'Next')}"/>
