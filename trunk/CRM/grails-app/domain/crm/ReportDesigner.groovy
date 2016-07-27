@@ -14,7 +14,7 @@ class ReportDesigner extends CrmDomain{
 	String reportType;
 	CrmUser crmUser;
 	ReportFolder reportFolder;
-	List<ReportDesignerColumn> reportDesignerColumns=new ArrayList<ReportDesignerColumn>();
+	//List<ReportDesignerColumn> reportDesignerColumns=new ArrayList<ReportDesignerColumn>();
 	static hasMany = [reportDesignerColumns:ReportDesignerColumn];
 	//static transients = ["reportDesignerColumns"];
 	/*static mapping = {
@@ -42,9 +42,16 @@ class ReportDesigner extends CrmDomain{
 		}*/
 	}
 	
-	public ReportDesigner(String reportType) throws CRMException, NumberFormatException{
+	public ReportDesigner(String reportType) throws IllegalArgumentException{
 		ReportDesignerType reportDesignerType=ReportDesignerType.REAL_ESTATE;
-		for(String tableName:reportDesignerType.getDomainObjects()){
+		ReportDesignerType.valueOf(reportType);//to test if reportType is correct if not throws IllegalArgumentException
+		this.reportType=reportDesignerType;
+		this.name="New Report";
+	}
+	public List<ReportDesignerColumn> getReportDesignerColumnList() throws CRMException, NumberFormatException{
+		List<ReportDesignerColumn> columnList=new ArrayList<ReportDesignerColumn>();
+		ReportDesignerType rdt=ReportDesignerType.valueOf(this.reportType);
+		for(String tableName:rdt.getDomainObjects()){
 			Class<?> itemClass=Class.forName("crm."+tableName);
 			//Primero agrego los fields que NO son many to one
 			itemClass.declaredFields.each{
@@ -53,7 +60,7 @@ class ReportDesigner extends CrmDomain{
 				   //System.out.println("Name"+it.getName()+" Type "+t);
 					if(!(t.equals("java.lang.Object") || t.equals("java.util.Set") || t.equals("org.apache.commons.logging.Log") || t.equals("org.grails.datastore.gorm.GormStaticApi") || t.equals("org.grails.datastore.gorm.GormInstanceApi") || t.equals("org.grails.datastore.gorm.GormValidationApi") || t.equals("org.springframework.validation.Errors") || t.equals("org.grails.plugins.web.controllers.api.ControllersDomainBindingApi") || t.equals("org.grails.plugins.converters.api.ConvertersApi") || t.equals("java.util.List") || it.getName().equals("version"))){
 						if(!it.getType().getSuperclass().getName().equals("crm.CrmDomain")){//si NO es una relacion many to one
-							this.addToReportDesignerColumns(new ReportDesignerColumn(tableName, it));
+							columnList.add(new ReportDesignerColumn(tableName, it));
 						}
 					}
 				}
@@ -65,13 +72,12 @@ class ReportDesigner extends CrmDomain{
 				   //System.out.println("Name"+it.getName()+" Type "+t);
 					if(!(t.equals("java.lang.Object") || t.equals("java.util.Set") || t.equals("org.apache.commons.logging.Log") || t.equals("org.grails.datastore.gorm.GormStaticApi") || t.equals("org.grails.datastore.gorm.GormInstanceApi") || t.equals("org.grails.datastore.gorm.GormValidationApi") || t.equals("org.springframework.validation.Errors") || t.equals("org.grails.plugins.web.controllers.api.ControllersDomainBindingApi") || t.equals("org.grails.plugins.converters.api.ConvertersApi") || t.equals("java.util.List") || it.getName().equals("version"))){
 						if(it.getType().getSuperclass().getName().equals("crm.CrmDomain")){//si es una relacion many to one
-							this.addToReportDesignerColumns(new ReportDesignerColumn(tableName, it));
+							columnList.add(new ReportDesignerColumn(tableName, it));
 						}
 					}
 				}
 			}
 		}
-		this.reportType=reportDesignerType;
-		this.name="New Report";
+		return columnList;
 	}
 }

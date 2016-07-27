@@ -35,22 +35,22 @@
 				<g:hiddenField name="hasSort" value="${reportDesigner?.hasSort}"/>
 				<g:hiddenField name="crmUser" value="${session?.user?.id}"/>
 	         	
-				<g:each in="${reportDesigner.reportDesignerColumns}" var="item1" status="i">
-					<g:hiddenField name="reportDesignerColumns[$i].selected" value="${item1?.selected}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].filterBy" value="${item1?.filterBy}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].sortBy" value="${item1?.sortBy}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].groupBy" value="${item1?.groupBy}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].sortOrder" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].dataType" value="${item1?.dataType}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].groupOrder" value="${(true == item1?.groupBy ? item1?.groupOrder : null)}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].tableName" value="${item1?.tableName}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].propertyName" value="${item1?.propertyName}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].foreignTableName" value="${item1?.foreignTableName}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].foreignTableDisplay" value="${item1?.foreignTableDisplay}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].columnWidth" value="${item1?.columnWidth}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].filterCriteria" value="${item1?.filterCriteria}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].primaryFilterValue" value="${item1?.primaryFilterValue}"/>
-					<g:hiddenField name="reportDesignerColumns[$i].secondaryFilterValue" value="${item1?.secondaryFilterValue}"/>
+				<g:each in="${reportDesignerColumnsCommand.columnList}" var="item1" status="i">
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].selected" value="${item1?.selected}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].filterBy" value="${item1?.filterBy}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortBy" value="${item1?.sortBy}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].groupBy" value="${item1?.groupBy}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortOrder" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].dataType" value="${item1?.dataType}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].groupOrder" value="${(true == item1?.groupBy ? item1?.groupOrder : null)}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].tableName" value="${item1?.tableName}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].propertyName" value="${item1?.propertyName}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableName" value="${item1?.foreignTableName}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableDisplay" value="${item1?.foreignTableDisplay}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].columnWidth" value="${item1?.columnWidth}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].filterCriteria" value="${item1?.filterCriteria}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].primaryFilterValue" value="${item1?.primaryFilterValue}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].secondaryFilterValue" value="${item1?.secondaryFilterValue}"/>
 				</g:each>
 				
                 <fieldset class="buttons">

@@ -2,6 +2,7 @@ package crm
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import crm.commands.ReportDesignerColumnsCommand
 import crm.enums.FilterCriteria;
 import crm.enums.DataType;
 
@@ -15,20 +16,25 @@ class ReportDesignerController {
 	def step1() {
 		
 	}
-	def step2(ReportDesigner reportDesigner) {
+	def step2(ReportDesigner reportDesigner, ReportDesignerColumnsCommand reportDesignerColumnsCommand) {
 		if(null != params.rt || null != reportDesigner){
 			if(null == reportDesigner){
 				reportDesigner=new ReportDesigner(params.rt);
+				reportDesignerColumnsCommand=new ReportDesignerColumnsCommand(reportDesigner);
 			}
 		}else{
-			render(view:'/error', model:[message: message(code: 'reportDesigner.step2.not.valid.params.error')]);
+			render(view:'/error', model:[message: message(code: 'reportDesigner.step2.not.valid.params.error', default:'INVALID PARAMETHERS ERROR')]);
 		}
-		respond reportDesigner
+		respond reportDesigner, model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 		//render (view:'step2', model:[reportDesigner:reportDesigner])
 	}
 	
-	def step3(ReportDesigner reportDesigner, char cameFromStep){
-		reportDesigner.reportDesignerColumns.each{
+	def step3(ReportDesigner reportDesigner, char cameFromStep, ReportDesignerColumnsCommand reportDesignerColumnsCommand){
+		if(null == reportDesigner || null == reportDesignerColumnsCommand){
+			notFound()
+			return
+		}
+		reportDesignerColumnsCommand.columnList.each{
 			if(true==it.selected.booleanValue()){
 				if(true==it.filterBy.booleanValue()){
 					reportDesigner.hasFilter=true;
@@ -42,28 +48,32 @@ class ReportDesignerController {
 			}
 		}
 		if(true==reportDesigner.hasFilter.booleanValue() || true==reportDesigner.hasGroup.booleanValue() || true==reportDesigner.hasSort.booleanValue()){
-			respond reportDesigner//va a step3
+			respond reportDesigner, model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]//va a step3
 		}else{//si no tiene filtro ni agrupamiento ni ordenamiento saltar el step 3
 			if(cameFromStep=='2'){
-				respond reportDesigner, view:'step4'
+				respond reportDesigner, view:'step4', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 			}else{
 				if(cameFromStep=='4'){
-					respond reportDesigner, view:'step2'
+					respond reportDesigner, view:'step2', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 				}else{
-					respond reportDesigner
+					respond reportDesigner, model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 				}
 			}
 		}
 	}
 	
-	def step4(ReportDesigner reportDesigner){
-		/*if(reportDesigner.reportType.intValue() <= 0){
-			render(view:'/error', model:[message: message(code: 'reportDesigner.step3.not.valid.params.error')]);
+	def step4(ReportDesigner reportDesigner, ReportDesignerColumnsCommand reportDesignerColumnsCommand){
+		/*if(null == reportDesigner || null == reportDesignerColumnsCommand){
+			render(view:'/error', model:[message: message(code: 'reportDesigner.step4.not.valid.params.error', default:'INVALID PARAMETHERS ERROR')]);
 		}*/
+		if(null == reportDesigner || null == reportDesignerColumnsCommand){
+			notFound()
+			return
+		}
 		boolean hasErrors=false;
 		List<Integer> groupOrderNumbers=new ArrayList<>();
 		List<Integer> sortOrderNumbers=new ArrayList<>();
-		reportDesigner.reportDesignerColumns.each{
+		reportDesignerColumnsCommand.columnList.each{
 			if(true==it.selected.booleanValue()){
 				if(true==it.filterBy.booleanValue()){
 					if(!this.validateFilterValues(it)){
@@ -93,18 +103,25 @@ class ReportDesignerController {
 			return
 		}*/
 		if(hasErrors){
-			respond reportDesigner, view:'step3'
+			respond reportDesigner, view:'step3', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 		}else{
-			respond reportDesigner
+			respond reportDesigner, model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 		}
 	}
 
-	def step5(ReportDesigner reportDesigner){
-		respond reportDesigner
+	def step5(ReportDesigner reportDesigner, ReportDesignerColumnsCommand reportDesignerColumnsCommand){
+		/*if(null == reportDesigner || null == reportDesignerColumnsCommand){
+			render(view:'/error', model:[message: message(code: 'reportDesigner.step5.not.valid.params.error', default:'INVALID PARAMETHERS ERROR')]);
+		}*/
+		if(null == reportDesigner || null == reportDesignerColumnsCommand){
+			notFound()
+			return
+		}
+		respond reportDesigner, model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 	}
 	@Transactional
-	def save(ReportDesigner reportDesigner) {
-		if (reportDesigner == null) {
+	def save(ReportDesigner reportDesigner, ReportDesignerColumnsCommand reportDesignerColumnsCommand) {
+		if (reportDesigner == null || reportDesignerColumnsCommand == null) {
 			transactionStatus.setRollbackOnly()
 			notFound()
 			return
@@ -112,11 +129,12 @@ class ReportDesignerController {
 
 		if (reportDesigner.hasErrors()) {
 			transactionStatus.setRollbackOnly()
-			respond reportDesigner/*.errors*/, view:'step5'
+			respond reportDesigner/*.errors*/, view:'step5', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 			return
 		}
+
 		if (reportDesigner.save(flush:true)){
-			reportDesigner.reportDesignerColumns.each{
+			reportDesignerColumnsCommand.columnList.each{
 				it.setReportDesigner(reportDesigner);
 				it.save(flush:true);
 			}

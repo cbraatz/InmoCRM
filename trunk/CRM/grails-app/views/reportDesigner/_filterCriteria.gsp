@@ -1,13 +1,13 @@
 <%@ page import="crm.enums.FilterCriteria" %>
 <%@ page import="crm.Utils" %>
-<g:select id="fc-select-${colid}" onchange="filterChanged(this.value,$colid);" name="reportDesigner.reportDesignerColumns[$colid].filterCriteria" value="${(null != fCriteria? FilterCriteria.valueOf(fCriteria) : null)}" from="${FilterCriteria.getAllFilterCriteriaList(dType)}" valueMessagePrefix="ENUM.FilterCriteria" />
+<g:select id="fc-select-${colid}" onchange="filterChanged(this.value,$colid);" name="reportDesignerColumnsCommand.columnList[$colid].filterCriteria" value="${(null != fCriteria? FilterCriteria.valueOf(fCriteria) : null)}" from="${FilterCriteria.getAllFilterCriteriaList(dType)}" valueMessagePrefix="ENUM.FilterCriteria" />
 <span id="hidenFldNumber-${colid}">${(null == fCriteria ? FilterCriteria.getAllFilterCriteriaList(dType).first().numberOfFields : FilterCriteria.valueOf(fCriteria).numberOfFields) }</span><!-- span con id hidenFldNumber- seguido del colid pasado como parametro -->
 <g:if test="${dType.equals("crm.CrmDomain")}">
-	<g:select id="CrmDomain-filter-select-${colid}" optionKey="id" name="reportDesigner.reportDesignerColumns[$colid].primaryFilterValue" optionValue="${Class.forName(domType).getDefaultPropertyName()}" value="${(null != primValue? Class.forName(domType).get(new Long(primValue)) : null)}" from="${Class.forName(domType).getAll()}"/>
+	<g:select id="CrmDomain-filter-select-${colid}" optionKey="id" name="reportDesignerColumnsCommand.columnList[$colid].primaryFilterValue" optionValue="${Class.forName(domType).getDefaultPropertyName()}" value="${(null != primValue? Class.forName(domType).get(new Long(primValue)) : null)}" from="${Class.forName(domType).getAll()}"/>
 </g:if>
 <g:else>
-	<g:textField id="first-filter-criteria-field-${colid}" class="filter-value" name="reportDesigner.reportDesignerColumns[$colid].primaryFilterValue" value="${primValue}"/>
-	<g:textField id="second-filter-criteria-field-${colid}" class="filter-value" name="reportDesigner.reportDesignerColumns[$colid].secondaryFilterValue" value="${secValue}"/>
+	<g:textField id="first-filter-criteria-field-${colid}" class="filter-value" name="reportDesignerColumnsCommand.columnList[$colid].primaryFilterValue" value="${primValue}"/>
+	<g:textField id="second-filter-criteria-field-${colid}" class="filter-value" name="reportDesignerColumnsCommand.columnList[$colid].secondaryFilterValue" value="${secValue}"/>
 </g:else>
 <script>
 	function filterChanged(filCriteria,coid) {
