@@ -33,9 +33,9 @@
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].filterBy" value="${(item1?.filterBy)}"/>
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].sortBy" value="${(item1?.sortBy)}"/>
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].groupBy" value="${(item1?.groupBy)}"/>
-							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].sortOrder" value="${item1?.sortOrder}"/>
+							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].sortOrder" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].dataType" value="${item1?.dataType}"/>
-							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].groupOrder" value="${item1?.groupOrder}"/>
+							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].groupOrder" value="${(true == item1?.groupBy ? item1?.groupOrder : null)}"/>
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].tableName" value="${item1?.tableName}"/>
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].propertyName" value="${item1?.propertyName}"/>
 							<g:hiddenField name="reportDesigner.reportDesignerColumns[$i].foreignTableName" value="${item1?.foreignTableName}"/>
@@ -47,6 +47,7 @@
 					</dl>
 					<g:hiddenField name="reportDesigner.reportType" value="${reportDesigner?.reportType}"/>
 					<g:hiddenField name="reportDesigner.name" value="${reportDesigner?.name}"/>
+					<g:hiddenField name="reportDesigner.description" value="${reportDesigner?.description}"/>
 					<g:hiddenField name="reportDesigner.hasFilter" value="${reportDesigner?.hasFilter}"/>
 					<g:hiddenField name="reportDesigner.hasGroup" value="${reportDesigner?.hasGroup}"/>
 					<g:hiddenField name="reportDesigner.hasSort" value="${reportDesigner?.hasSort}"/>

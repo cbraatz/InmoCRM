@@ -1,6 +1,6 @@
 package crm
 
-class Inbox {
+class Inbox extends CrmDomain{
 
     static constraints = {
     }

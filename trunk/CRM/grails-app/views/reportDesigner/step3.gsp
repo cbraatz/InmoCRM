@@ -7,7 +7,7 @@
     </head>
     <body>
         <a href="#create-buildingFeature" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <g:form controller="reportDesigner">
+        <g:form>
 	        <div class="nav" role="navigation">
 	            <ul>
 	                <li><g:actionSubmit action="step2" class="return" value="${message(code: 'reportDesigner.previous.step.button', default: 'Previous')}" /></li>
@@ -61,7 +61,7 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-											<g:field type="number" name="reportDesigner.reportDesignerColumns[$i].groupOrder" min="1" required="" value="${item1?.groupOrder}"/>
+											<g:field type="number" name="reportDesigner.reportDesignerColumns[$i].groupOrder" min="1" required="" value="${(true == item1?.groupBy ? item1?.groupOrder : null)}"/>
 											<br/>								
 										</span>
 									</dd>
@@ -80,7 +80,7 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-											<g:field type="number" name="reportDesigner.reportDesignerColumns[$i].sortOrder" min="1" required="" value="${item1?.sortOrder}"/>
+											<g:field type="number" name="reportDesigner.reportDesignerColumns[$i].sortOrder" min="1" required="" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
 											<br/>								
 										</span>
 									</dd>
@@ -103,6 +103,7 @@
 				</g:each>
 				<g:hiddenField name="reportDesigner.reportType" value="${reportDesigner?.reportType}"/>
 				<g:hiddenField name="reportDesigner.name" value="${reportDesigner?.name}"/>
+				<g:hiddenField name="reportDesigner.description" value="${reportDesigner?.description}"/>
 				<g:hiddenField name="reportDesigner.hasFilter" value="${reportDesigner?.hasFilter}"/>
 				<g:hiddenField name="reportDesigner.hasGroup" value="${reportDesigner?.hasGroup}"/>
 				<g:hiddenField name="reportDesigner.hasSort" value="${reportDesigner?.hasSort}"/>

@@ -1,6 +1,6 @@
 package crm
 
-class ReportFolder {
+class ReportFolder extends CrmDomain{
 	String name;
 	CrmUser crmUser;
 	Boolean isPublic;

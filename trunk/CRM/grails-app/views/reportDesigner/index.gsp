@@ -19,7 +19,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             
-            <f:table collection="${reportDesignerList}" properties="['name', 'reportType', 'reportFolder.name']"/>
+            <f:table collection="${reportDesignerList}" properties="['name', 'description', 'reportType', 'reportFolder.name']"/>
 
             <div class="pagination">
                 <g:paginate total="${reportDesignerCount ?: 0}" />

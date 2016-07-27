@@ -2,7 +2,7 @@ package crm
 
 import java.util.List;
 
-class ClassicReport {
+class ClassicReport extends CrmDomain{
 	String name;
 	ClassicReportTemplate classicReportTemplate;
 	CrmUser crmUser;

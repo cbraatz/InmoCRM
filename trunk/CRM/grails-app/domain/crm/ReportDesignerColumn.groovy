@@ -1,10 +1,11 @@
 package crm
 
 import java.lang.reflect.Field;
+
 import crm.GUtils;
 //import java.lang.reflect.Method;
 
-class ReportDesignerColumn {
+class ReportDesignerColumn extends CrmDomain{
 	String propertyName;
 	String tableName;
 	String foreignTableName;//Constraint table name eg Concession.CrmUser ==> CrmUser
@@ -20,9 +21,9 @@ class ReportDesignerColumn {
 	Integer groupOrder;
 	Integer columnWidth;
 	ReportDesigner reportDesigner;
-	String dataType; //not persisted property
+	String dataType; //no debería ser persistido
 
-	static transients = ["dataType"]
+	//static transients = ["dataType"]
     static constraints = {
 		propertyName(blank:false, nullable:false, size:1..50);
 		tableName(blank:false, nullable:false, size:1..50);
@@ -39,6 +40,7 @@ class ReportDesignerColumn {
 		groupOrder(blank:true, nullable:true);
 		columnWidth(blank:true, nullable:true);
 		reportDesigner(blank:false, nullable:false);
+		dataType(blank:false, nullable:false);
     }
 	
 	public ReportDesignerColumn() { }
@@ -76,7 +78,7 @@ class ReportDesignerColumn {
 	public String getLabelName(){
 		return (null == this.foreignTableName ? GUtils.getFirstCharInLowerCase(this.tableName) : GUtils.getFirstCharInLowerCase(this.foreignTableName))+'.'+(this.foreignTableDisplay != null ? this.foreignTableDisplay : this.propertyName)+'.label';
 	}
-	public void updateDataType(){
+	/*public String getDataType(){
 		Class<?> itemClass=Class.forName("crm."+this.tableName);
 		for(java.lang.reflect.Field f:itemClass.declaredFields){//java.lang.reflect.Field is each one
 			if(this.propertyName.equals(f.getName())){
@@ -85,14 +87,16 @@ class ReportDesignerColumn {
 					//System.out.println("Name"+it.getName()+" Type "+t);
 					 if(!(t.equals("java.lang.Object") || t.equals("java.util.Set") || t.equals("org.apache.commons.logging.Log") || t.equals("org.grails.datastore.gorm.GormStaticApi") || t.equals("org.grails.datastore.gorm.GormInstanceApi") || t.equals("org.grails.datastore.gorm.GormValidationApi") || t.equals("org.springframework.validation.Errors") || t.equals("org.grails.plugins.web.controllers.api.ControllersDomainBindingApi") || t.equals("org.grails.plugins.converters.api.ConvertersApi") || t.equals("java.util.List") || it.getName().equals("version"))){
 						 if(f.getType().getSuperclass().getName().equals("crm.CrmDomain")){//si es una relacion many to one
-							 this.dataType="crm.CrmDomain";
+							 return "crm.CrmDomain";
 						 }else{
-						 	this.dataType=t;
+						 	 return t;
 						 }
 					 }
-				 }	
+				 }else{
+				 	return null;
+				 }
 			}
-			break;
+			//break;
 		}
-	}
+	}*/
 }

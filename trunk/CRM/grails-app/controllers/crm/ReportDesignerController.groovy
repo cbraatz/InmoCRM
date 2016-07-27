@@ -7,7 +7,7 @@ import crm.enums.DataType;
 
 @Transactional(readOnly = true)
 class ReportDesignerController {
-	//static allowedMethods = [step3: "POST", step4: "POST", step5: "POST"]
+	static allowedMethods = [save: "POST", step3: "POST", step4: "POST"]
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ReportDesigner.list(params), model:[reportDesignerCount: ReportDesigner.count()]
@@ -16,8 +16,8 @@ class ReportDesignerController {
 		
 	}
 	def step2(ReportDesigner reportDesigner) {
-		if(null!=params.rt || null!=reportDesigner){
-			if(null==reportDesigner){
+		if(null != params.rt || null != reportDesigner){
+			if(null == reportDesigner){
 				reportDesigner=new ReportDesigner(params.rt);
 			}
 		}else{
@@ -28,9 +28,6 @@ class ReportDesignerController {
 	}
 	
 	def step3(ReportDesigner reportDesigner, char cameFromStep){
-		if(reportDesigner.reportType.intValue() <= 0){
-			render(view:'/error', model:[message: message(code: 'reportDesigner.step3.not.valid.params.error')]);
-		}
 		reportDesigner.reportDesignerColumns.each{
 			if(true==it.selected.booleanValue()){
 				if(true==it.filterBy.booleanValue()){
@@ -45,24 +42,24 @@ class ReportDesignerController {
 			}
 		}
 		if(true==reportDesigner.hasFilter.booleanValue() || true==reportDesigner.hasGroup.booleanValue() || true==reportDesigner.hasSort.booleanValue()){
-			respond reportDesigner;//va a step3
+			respond reportDesigner//va a step3
 		}else{//si no tiene filtro ni agrupamiento ni ordenamiento saltar el step 3
 			if(cameFromStep=='2'){
-				respond reportDesigner, view:'step4';
+				respond reportDesigner, view:'step4'
 			}else{
 				if(cameFromStep=='4'){
-					respond reportDesigner, view:'step2';
+					respond reportDesigner, view:'step2'
 				}else{
-					respond reportDesigner;
+					respond reportDesigner
 				}
 			}
 		}
 	}
 	
 	def step4(ReportDesigner reportDesigner){
-		if(reportDesigner.reportType.intValue() <= 0){
+		/*if(reportDesigner.reportType.intValue() <= 0){
 			render(view:'/error', model:[message: message(code: 'reportDesigner.step3.not.valid.params.error')]);
-		}
+		}*/
 		boolean hasErrors=false;
 		List<Integer> groupOrderNumbers=new ArrayList<>();
 		List<Integer> sortOrderNumbers=new ArrayList<>();
@@ -96,18 +93,55 @@ class ReportDesignerController {
 			return
 		}*/
 		if(hasErrors){
-			respond reportDesigner, view:'step3';
+			respond reportDesigner, view:'step3'
 		}else{
 			respond reportDesigner
 		}
 	}
 
 	def step5(ReportDesigner reportDesigner){
-		if(reportDesigner.reportType.intValue() <= 0){
-			render(view:'/error', model:[message: message(code: 'reportDesigner.step3.not.valid.params.error')]);
-		}
-		//respond reportDesigner, view:'step5'
 		respond reportDesigner
+	}
+	@Transactional
+	def save(ReportDesigner reportDesigner) {
+		if (reportDesigner == null) {
+			transactionStatus.setRollbackOnly()
+			notFound()
+			return
+		}
+
+		if (reportDesigner.hasErrors()) {
+			transactionStatus.setRollbackOnly()
+			respond reportDesigner/*.errors*/, view:'step5'
+			return
+		}
+		if (reportDesigner.save(flush:true)){
+			reportDesigner.reportDesignerColumns.each{
+				it.setReportDesigner(reportDesigner);
+				it.save(flush:true);
+			}
+		}/*else{
+			reportDesigner.errors.rejectValue('',message(code:'reportDesigner.column.groupOrder.validation.error').toString());
+		}*/
+		
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.created.message', args: [message(code: 'reportDesigner.label', default: 'Report Designer'), reportDesigner.id])
+				redirect reportDesigner
+			}
+			'*' { respond reportDesigner, [status: CREATED] }
+		}
+	}
+	def show(ReportDesigner reportDesigner){
+		respond reportDesigner
+	}
+	@Transactional
+	def delete(ReportDesigner reportDesigner) {
+		
+	}
+	@Transactional
+	def run(ReportDesigner reportDesigner) {
+		
 	}
 	def getCategoryFieldNumberAJAX(String filterCriteriaName) {//retorna si los numeros que contiene la lista de enteros tiene todos los numeros empezando de 1 hasta la cantidad de numeros que contenga la lista
 		System.out.println("Filter Criteria en controller="+filterCriteriaName);
