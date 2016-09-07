@@ -55,4 +55,7 @@ class Client extends CrmDomain{
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("name")];
 	}
+	public String getCity(){
+		return address.city.name;
+	}
 }

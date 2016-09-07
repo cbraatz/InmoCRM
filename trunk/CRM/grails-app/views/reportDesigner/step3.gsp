@@ -1,4 +1,5 @@
 <%@ page import="crm.enums.FilterCriteria" %>
+<%@ page import="crm.enums.SortOrder" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +21,7 @@
 	                	<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 	                </g:eachError>
 	            </ul>
-	            </g:hasErrors>
+	        </g:hasErrors>
 	        <g:each in="${reportDesignerColumnsCommand.columnList}" var="item1" status="i">
 	            <g:hasErrors bean="${item1}">
 	            <ul class="errors" role="alert">
@@ -61,7 +62,7 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-											<g:field type="number" name="reportDesignerColumnsCommand.columnList[$i].groupOrder" min="1" required="" value="${(true == item1?.groupBy ? item1?.groupOrder : null)}"/>
+											<g:field type="number" name="reportDesignerColumnsCommand.columnList[$i].groupPosition" min="1" required="" value="${(true == item1?.groupBy ? item1?.groupPosition : null)}"/>
 											<br/>								
 										</span>
 									</dd>
@@ -80,8 +81,9 @@
 								 	<dd>
 										<span class="">
 											<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-											<g:field type="number" name="reportDesignerColumnsCommand.columnList[$i].sortOrder" min="1" required="" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
-											<br/>								
+											<g:field type="number" name="reportDesignerColumnsCommand.columnList[$i].sortPosition" min="1" required="" value="${(true == item1?.sortBy ? item1?.sortPosition : null)}"/>
+											<g:select id="SortPosition-filter-select-[$i]" name="reportDesignerColumnsCommand.columnList[$i].sortOrder" value="${(null != item1.sortOrder? SortOrder.valueOf(item1.sortOrder) : null)}" from="${SortOrder.getAllSortOrders()}" valueMessagePrefix="ENUM.SortOrder"/>
+											<br/>
 										</span>
 									</dd>
 								</g:if>

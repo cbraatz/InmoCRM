@@ -6,17 +6,17 @@ class CrmUser extends CrmDomain{
 	String name;
 	String password;
 	String emailAddress;
-	boolean isAdmin;
-	boolean isActive;
-	boolean isDefault;
+	Boolean isAdmin;
+	Boolean isActive;
+	Boolean isDefault;
 	Partner partner;
 	//Office office
 	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, createdTasks:Task, assignedTasks:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [createdPropertyDemands: "owner", assignedPropertyDemands: "assignee", createdTasks: "owner", assignedTasks: "assignee"];
 
 	static constraints = {
-		name(blank:false, nullable:false, unique:true, size:5..20);
-		password(blank:false, nullable:false);
+		name(blank:false, nullable:false, unique:true, size:1..20);
+		password(blank:false, nullable:false);//al editar un usuario no es necesario volver a cargar el pass.
 		emailAddress(blank:false, nullable:false, unique:true, email: true);		
 		isAdmin(nullable:false);
 		isActive(nullable:false);
@@ -57,7 +57,7 @@ class CrmUser extends CrmDomain{
 	}
 	
 	public String getEncodedPassword(){
-		return CrmUser.encodedPassword(this.password);
+		return CrmUser.encodePassword(this.password);
 	}
 	
 	private boolean isActivateInUIX(String controller) {

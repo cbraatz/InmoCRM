@@ -27,7 +27,7 @@ class ManagedProperty extends CrmDomain{
 	Client owner;
 	Address address;
 	PropertyType propertyType;
-	Boolean soldByCompany;
+	Boolean soldByUs;
 	
 	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, uploadedImages:UploadedImage, propertyUnits:PropertyUnit, advertisements:Advertisement, webPages:WebPage/*propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
     static constraints = {
@@ -50,7 +50,7 @@ class ManagedProperty extends CrmDomain{
 		owner(nullable:false);
 		address(nullable:false);
 		propertyType(nullable:false);
-		soldByCompany(nullable:false);
+		soldByUs(nullable:false);
     }
 	
 	public Concession getActiveConcession(){

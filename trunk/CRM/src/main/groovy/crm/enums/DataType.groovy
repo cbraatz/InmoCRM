@@ -2,15 +2,15 @@ package crm.enums
 
 public enum DataType {
 	STRING("java.lang.String", DataTypeGroup.STRINGS),
-	CHARACTER("java.lang.Character",DataTypeGroup.CHARACTERS),
-	SHORT("java.lang.Short",DataTypeGroup.NUMBERS),
-	INTEGER("java.lang.Integer",DataTypeGroup.NUMBERS),
-	LONG("java.lang.Long",DataTypeGroup.NUMBERS),
-	FLOAT("java.lang.Float",DataTypeGroup.NUMBERS),
-	DOUBLE("java.lang.Double",DataTypeGroup.NUMBERS),
-	BOOLEAN("java.lang.Boolean",DataTypeGroup.BOOLEANS),
-	DATE("java.util.Date",DataTypeGroup.DATES)	
-	
+	CHARACTER("java.lang.Character", DataTypeGroup.CHARACTERS),
+	SHORT("java.lang.Short", DataTypeGroup.NUMBERS),
+	INTEGER("java.lang.Integer", DataTypeGroup.NUMBERS),
+	LONG("java.lang.Long", DataTypeGroup.NUMBERS),
+	FLOAT("java.lang.Float", DataTypeGroup.NUMBERS),
+	DOUBLE("java.lang.Double", DataTypeGroup.NUMBERS),
+	BOOLEAN("java.lang.Boolean", DataTypeGroup.BOOLEANS),
+	DATE("java.util.Date", DataTypeGroup.DATES),	
+	DOMAIN_CLASS("crm.CrmDomain", DataTypeGroup.DOMAIN_CLASSES)
 	private final DataTypeGroup dataTypeGroup;
 	private final String className;	
 
@@ -30,7 +30,19 @@ public enum DataType {
 		return null;
 	}
 	public boolean validateValue(String value){
-		
+		switch(this){
+			case "STRING": return validateStringValue(value);
+			case "CHARACTER": return validateCharacterValue(value);
+			case "SHORT": return validateShortValue(value);
+			case "INTEGER": return validateIntegerValue(value);
+			case "LONG": return validateLongValue(value);
+			case "FLOAT": return validateFloatValue(value);
+			case "DOUBLE": return validateDoubleValue(value);
+			case "BOOLEAN": return validateBooleanValue(value);
+			case "DATE": return validateDateValue(value);
+			case "DOMAIN_CLASS": return validateLongValue(value);
+			otherwise: return false;
+		}
 	}
 	private boolean validateStringValue(String val){
 		return true;
@@ -87,12 +99,7 @@ public enum DataType {
 		}
 	}
 	private boolean validateDateValue(String val){
-		try{
-			crm.Utils.strToDate(val);
-			return true;
-		}catch(Exception e){
-			return false;
-		}
+		return (null != crm.Utils.strToDate(val));
 	}
 	
 }

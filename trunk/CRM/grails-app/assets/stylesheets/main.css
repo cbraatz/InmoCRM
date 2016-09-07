@@ -74,11 +74,15 @@ img {
 
 /* GENERAL */
 
-#grailsLogo a {
+#grailsLogo #logo {
     display: inline-block;
-    margin: 1em;
+    margin-top: 1em;
+    margin-left: 1em;
 }
 
+#logout-div {
+    display: inline-block;
+}
 .content {
 	min-height: 650px;/*added by me*/
 }
@@ -86,7 +90,7 @@ img {
 .content h1 {
     border-bottom: 1px solid #CCCCCC;
     margin: 0.8em 1em 0.3em;
-    padding: 0 0.25em 0 70px;
+    padding: 0 0.25em 0 30px;
 }
 
 .scaffold-list h1 {
@@ -127,7 +131,7 @@ img {
     -webkit-box-shadow: 0 0 3px 1px #aaaaaa;
             box-shadow: 0 0 3px 1px #aaaaaa;
     zoom: 1;
-    padding-left:70px;
+    padding-left:30px;
 }
 
 .nav ul {
@@ -550,7 +554,7 @@ th:hover, tr:hover {
             box-shadow: 0 0 3px 1px #aaaaaa;
     margin: 0.1em 0 0 0;
     border: none;
-    padding-left:70px;
+    padding-left:30px;
 }
 
 .buttons input,
@@ -633,7 +637,7 @@ a.skip {
 	margin-top:10px;
 }
 .feature-line .feature-description-field{
-	width: 400px;
+	width: 250px;
 }
 .pf-plural-label{
 	margin-left:15px;
@@ -671,7 +675,7 @@ a.skip {
 	padding-bottom:5px;
 }
 .feature-list{
-	padding-left:90px;
+	padding-left:30px;
 }
 
 .comment_note{
@@ -694,7 +698,7 @@ a.skip {
 	border-color: green;
 }
 #icon-menu{
-	width:60px;
+	width:35px;
 	float: left;
 	z-index: 2;
 	position: fixed;
@@ -713,14 +717,14 @@ a.skip {
     text-indent: 25px;
 }*/
 .imenu-item{
-	width:60px;
-	height:60px;
+	width:34px;
+	height:34px;
 }
 .imenu-item div{
-	margin-left:5px;
-	margin-top:5px;
-	width:50px;
-	height:50px;
+	margin-left:1px;
+	margin-top:1px;
+	width:32px;
+	height:32px;
 }
 #basic-icon {
 	background-image: url(../images/menu/basic.png);
@@ -745,7 +749,7 @@ ul#nav, ul.nav-item-list{
 	z-index: 1;
 	float: right;
 	position: absolute;
-	padding-left:55px;
+	padding-left:30px;
 	background-color:transparent;
 	
 }
@@ -795,7 +799,7 @@ fieldset h3{
 }
 #login-box{
 	border: 1px solid #CCCCCC;
-	margin-left:330px;
+	/*margin-left:330px;*/
 	margin-top:100px;
 	width: 300px;
 	padding: 3px;
@@ -805,7 +809,7 @@ fieldset h3{
             border-radius: 0.3em;
 }
 #login-name-txt, #login-pass-txt{
-	width:130px;
+	width:100px;
 	height: 13px;
 }
 #login-name-label, #login-pass-label{
@@ -824,29 +828,38 @@ fieldset h3{
 .logout-link{
 	padding-top:23px;
 }
-.search-form{
-	padding-top:23px;
-}
+
 .scaffold-list{
-	padding-left: 50px;
+	padding-left: 35px;
 }
 .crm-table{
 	padding-left: 50px;
 }
 /*quick-search*/
-#empty-search-results{
+.search-form{
+	padding-top:23px;
+}
+#search-button{
+    background-image: url(../images/skin/search.png);
+    width:28px;
+    height:28px;
+}
+#empty-list-results{
 	margin-top:100px;
 	padding-left: 150px;
 }
 #search-field{
     margin-left: 15px;
     margin-top: 3px;
-    max-width: 180px;
+    max-width: 100px;
+}
+#banner-right{
+	float:right;
+	padding-right:10px;
 }
 #search-div{
 	max-width: 400px;
-	float: left;
-	margin-left: 350px;
+	display: inline-block;
 }
 #header-bar{
 	height: 50px;

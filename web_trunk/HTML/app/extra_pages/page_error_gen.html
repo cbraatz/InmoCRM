@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>404 page | Frexy Responsive HTML Template</title>
+    @@include('../templates/header-links.html')
+
+</head>
+<body>
+@@include('../templates/header.html')
+<div class="l-main-container">
+    <div class="b-page-error">
+        <div class="container">
+            <div class="b-title-error f-title-error">
+                <span class="f-primary-eb">Ups</span>
+                <strong class="f-primary-l">Ha ocurrido un error</strong>
+            </div>
+            <div class="b-error-description f-error-description">
+                <strong class="f-primary" id="msg-strong">Nos sentimos muy apenados por esto :(</strong>
+                <span class="f-primary">Favor verifique los valores ingresados al formulario de contacto y vuelva a intentarlo, o envíenos un email directamente a nuestra dirección de correo y le responderemos en la brevedad posible.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@@include('../templates/footer-simple.html')
+<script language="JavaScript">
+  $( document ).ready(function() {
+    var parameters = location.search.substring(1).split("&");
+    var temp = parameters[0].split("=");
+    document.getElementById("msg-strong").innerHTML = unescape(temp[1]);
+  });
+</script>
+</body>
+</html>

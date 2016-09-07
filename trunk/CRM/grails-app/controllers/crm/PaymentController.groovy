@@ -324,7 +324,7 @@ class PaymentController {
 			}
 		/*add ThirdPartyPayment here...*/
 		}else{
-			payment.errors.rejectValue('',message(code:'payment.save.error').toString());
+			payment.errors.rejectValue('',message(code:'default.save.error', args: ['Payment']).toString());
 			transactionStatus.setRollbackOnly();
 			payment.outAmount=0;
 			if(!payment.inPaymentDocument){

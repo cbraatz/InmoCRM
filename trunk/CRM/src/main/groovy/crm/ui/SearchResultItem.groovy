@@ -40,7 +40,7 @@ class SearchResultItem {
 					displayValue=attrValue;
 				}
 				this.objectName=GUtils.getClassNameFromInstance(obj);
-				this.linkTo="/"+GUtils.getLowerNameFromString(this.objectName)+"/show/"+obj?.id;
+				this.linkTo="/"+GUtils.getFirstCharInLowerCase(this.objectName)+"/show/"+obj?.id;
 				break;
 			}/*else{
 				throw new CRMException("El valor buscado: '"+searchedKey+"' no se encuentra en el atributo especificado:'"+attrValue+"'.")

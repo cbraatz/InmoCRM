@@ -19,11 +19,13 @@
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner" style="height: 80px;">
-			<a href="http://grails.org" style="float:left;">
+			<span id="logo" style="float:left;">
 				<asset:image src="grails_logo.png" alt="Grails"/>
-			</a>
-			<div id="search-div"><g:render template="/search/quickSearch"/></div>
-			<div style="float:right;"><g:link class="logout-link" action="doLogout" controller="login" style="display: none;"><g:message code="logout.label" default="Log out" /></g:link></div>
+			</span>
+			<div id="banner-right">
+				<div id="search-div"><g:render template="/search/quickSearch"/></div>
+				<div id="logout-div"><g:link class="logout-link" action="doLogout" controller="login" style="display: none;"><g:message code="logout.label" default="Log out" /></g:link></div>
+			</div>
 		</div>
 			<div id="icon-menu" style="display: none;"><g:render template="/menu/iconMenu"/></div>
 		<div id="body-layout"><g:layoutBody/></div>
@@ -38,6 +40,11 @@
 			$('.logout-link').show();
 			$('#icon-menu').show();
 			$('.search-form').show();
+		}else{
+			if($('#login-body').is(':visible')){
+				var box=$('#login-box');
+				box.css('margin-left',($('#body-layout').width()-box.width())/2+'px');//centra el panel de login
+			}
 		}
 	});
 </script>

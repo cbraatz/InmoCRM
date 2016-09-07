@@ -66,6 +66,49 @@ class WebPageController {
             return
         }
 
+		webPage=this.validateObject(webPage);
+		
+        if (webPage.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond webPage.errors, view:'create'
+            return
+        }
+		boolean err=false;
+        if(webPage.save(flush:true)){
+			List<String> lis=this.transferImagesToWeb(webPage);
+			if(!lis.empty){
+				err=true;
+				lis.each{
+					webPage.errors.rejectValue('',it);
+				}
+			}
+			lis=this.createOrUpdateWebPage(webPage);
+			if(!lis.empty){
+				err=true;
+				lis.each{
+					webPage.errors.rejectValue('',it);
+				}
+			}
+		}else{
+			webPage.errors.rejectValue('',message(code:'webPage.save.error').toString());
+			err=true;
+		}
+		
+		if (err==true) {
+			transactionStatus.setRollbackOnly()
+			respond webPage.errors, view:'create'
+			return
+		}
+		
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'webPage.label', default: 'WebPage'), webPage.id])
+                redirect webPage
+            }
+            '*' { respond webPage, [status: CREATED] }
+        }
+    }
+	private WebPage validateObject(WebPage webPage){
 		if (webPage.title) {
 			if (webPage.title.charAt(webPage.title.length()-1)!='.') {
 				webPage.errors.rejectValue('title',message(code:'webPage.title.point.finish.required.error').toString());
@@ -100,159 +143,187 @@ class WebPageController {
 			if (webPage.agentComment.charAt(webPage.agentComment.length()-1)!='.') {
 				webPage.errors.rejectValue('agentComment',message(code:'webPage.agentComment.point.finish.required.error').toString());
 			}
-		}
-		
-        if (webPage.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond webPage.errors, view:'create'
-            return
-        }
-
-        if(webPage.save(flush:true)){
-			this.transferImagesToWeb(webPage);
-			this.createOrUpdateWebPage(webPage);
-			
-		}
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'webPage.label', default: 'WebPage'), webPage.id])
-                redirect webPage
-            }
-            '*' { respond webPage, [status: CREATED] }
-        }
-    }
-	private void createOrUpdateWebPage(WebPage webPage) throws WebPageCreationException{
+		}		
+		return webPage;
+	}
+	private List<String> createOrUpdateWebPage(WebPage webPage){
+		List<String> errs=new ArrayList<String>();
 		try{
 			String pageContainer=webPage.domain.realPath+File.separatorChar+webPage.domain.realEstateFolder+File.separatorChar+webPage.managedProperty.address.city.department.country.name+File.separatorChar+webPage.managedProperty.id;
 			String title=GUtils.replaceIncorrectChars(webPage.title);
 
 			//def f = request.getFile('photo')
 			new File(pageContainer).mkdirs()
-			String filePath=pageContainer+File.separatorChar+File.separatorChar+title+webPage.id+".html";//título finaliza con . que es remplazado por _ y luego va el id de la WebPage
+			String filePath=pageContainer+File.separatorChar+title+webPage.id+".html";//título finaliza con . que es remplazado por _ y luego va el id de la WebPage
 			String fileContent=GUtils.readFile(webPage.domain.realPath+File.separatorChar+"real_estate_detail.html");
 			Concession conc=webPage.managedProperty.getActiveConcession();
 			
 			//PTITLE
 			int idx=fileContent.indexOf("@#PTITLE");
-			if(idx<0){throw new WebPageCreationException("String: @#PTITLE not found");}
-			int idx2=fileContent.indexOf("#@",idx+2);
-			String str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.title);
+			int idx2;
+			String str;
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PTITLE"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.title);
+			}
 			//PDESC
 			idx=fileContent.indexOf("@#PDESC");
-			if(idx<0){throw new WebPageCreationException("String: @#PDESC not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.summary);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PDESC"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.summary);
+			}
 			//HEADER
 			idx=fileContent.indexOf("@#HEADER");
-			if(idx<0){throw new WebPageCreationException("String: @#HEADER not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.title);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#HEADER"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.title);
+			}
 			//RESUM
 			idx=fileContent.indexOf("@#RESUM");
-			if(idx<0){throw new WebPageCreationException("String: @#RESUM not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.summary);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#RESUM"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.summary);
+			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#FIRSTP");
-			if(idx<0){throw new WebPageCreationException("String: @#FIRSTP not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.summary);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#FIRSTP"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.summary);
+			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#SECONDP");
-			if(idx<0){throw new WebPageCreationException("String: @#SECONDP not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.summary);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#SECONDP"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.summary);
+			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#THIRDP");
-			if(idx<0){throw new WebPageCreationException("String: @#THIRDP not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.summary);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#THIRDP"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.summary);
+			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#CALLTOACT");
-			if(idx<0){throw new WebPageCreationException("String: @#CALLTOACT not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.summary);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#CALLTOACT"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.summary);
+			}
 			//PKEYW
 			idx=fileContent.indexOf("@#PKEYW");
-			if(idx<0){throw new WebPageCreationException("String: @#PKEYW not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.keyWords);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PKEYW"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.keyWords);
+			}
 			//PRICE
 			idx=fileContent.indexOf("@#PRICE");
-			if(idx<0){throw new WebPageCreationException("String: @#PRICE not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.price);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PRICE"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.price);
+			}
 			//ID
 			idx=fileContent.indexOf("@#ID");
-			if(idx<0){throw new WebPageCreationException("String: @#ID not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, conc.id+"-"+webPage.managedProperty.id.toString());
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#ID"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, conc.id+"-"+webPage.managedProperty.id.toString());
+			}
 			//PDESC
 			idx=fileContent.indexOf("@#TYPE");
-			if(idx<0){throw new WebPageCreationException("String: @#TYPE not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.operationType);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#TYPE"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.operationType);
+			}
 			//PF
 			def fbp=webPage.managedProperty.featuresByProperty;
 			idx=fileContent.indexOf("@#PF");
-			if(idx<0){throw new WebPageCreationException("String: @#PF not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			if(fbp.size() > 0){
-				String newStr, prevStr;
-				boolean fir=true;
-				fbp.each{
-					if(null != it.propertyFeature.defaultWebIcon){//si tiene icono quiere decir que es para agregar a la web
-						newStr=str.replace("@@PFICON@@",it.propertyFeature.defaultWebIcon);
-						newStr=newStr.replace("@@PFNAME@@"," "+(it.propertyFeature.hasValue? it.value+" "+(it.value == 1 ? it.propertyFeature.name : it.propertyFeature.plural) : it.propertyFeature.name));
-						if(fir){
-							newStr=newStr.substring(4,newStr.length()-2);
-							idx=fileContent.indexOf(str);
-							if(idx>=0){
-								fileContent=fileContent.replace(str, newStr);
-							}else{
-								throw new WebPageCreationException("Error replacing Property Features. String: "+str+" NOT FOUND.");
-							}
-							fir=false;
-							str=str.substring(4,str.length()-2);
-						}else{
-							int x=fileContent.indexOf(prevStr)+prevStr.length();
-							String str1=fileContent.substring(0,x);
-							String str2=fileContent.substring(x+1);
-							fileContent=str1+"\n"+newStr+"\n"+str2;
-						}
-						prevStr=new String(newStr);
-					}
-				}
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PF"]).toString());
 			}else{
-				fileContent=fileContent.replace(str, "");//borra el tag por defecto si no hay property features que mostrar
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				if(fbp.size() > 0){
+					String newStr, prevStr;
+					boolean fir=true;
+					fbp.each{
+						if(null != it.propertyFeature.defaultWebIcon){//si tiene icono quiere decir que es para agregar a la web
+							newStr=str.replace("@@PFICON@@",it.propertyFeature.defaultWebIcon);
+							newStr=newStr.replace("@@PFNAME@@"," "+(it.propertyFeature.hasValue? it.value+" "+(it.value == 1 ? it.propertyFeature.name : it.propertyFeature.plural) : it.propertyFeature.name));
+							if(fir){
+								newStr=newStr.substring(4,newStr.length()-2);
+								idx=fileContent.indexOf(str);
+								if(idx>=0){
+									fileContent=fileContent.replace(str, newStr);
+								}else{
+									errs.add(message(code: 'webPage.template.property.feature.replace.error', args: [str]).toString());
+								}
+								fir=false;
+								str=str.substring(4,str.length()-2);
+							}else{
+								int x=fileContent.indexOf(prevStr)+prevStr.length();
+								String str1=fileContent.substring(0,x);
+								String str2=fileContent.substring(x+1);
+								fileContent=str1+"\n"+newStr+"\n"+str2;
+							}
+							prevStr=new String(newStr);
+						}
+					}
+				}else{
+					fileContent=fileContent.replace(str, "");//borra el tag por defecto si no hay property features que mostrar
+				}
 			}
-			
 			//AGENTCOM
 			idx=fileContent.indexOf("@#AGENTCOM");
-			if(idx<0){throw new WebPageCreationException("String: @#AGENTCOM not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, webPage.agentComment);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#AGENTCOM"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, webPage.agentComment);
+			}
 			//AGENTPH
 			idx=fileContent.indexOf("@#AGENTPH");
-			if(idx<0){throw new WebPageCreationException("String: @#AGENTPH not found");}
-			idx2=fileContent.indexOf("#@",idx+2);
-			str=fileContent.substring(idx,idx2+2);
-			fileContent=fileContent.replace(str, grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+conc.agent.partner.id + File.separatorChar + "profile.jpg");
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#AGENTPH"]).toString());
+			}else{
+				idx2=fileContent.indexOf("#@",idx+2);
+				str=fileContent.substring(idx,idx2+2);
+				fileContent=fileContent.replace(str, grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+conc.agent.partner.id + File.separatorChar + "profile.jpg");
+			}
 			//Holders.config.getProperty('web.image.partner') se usa para obtener los datos de application.yml desde la domain class
 			//IMPORT - LINKS
 			//#1
@@ -261,7 +332,7 @@ class WebPageController {
 			if(idx>=0){
 				fileContent=fileContent.replace(str, "rel='stylesheet' href=\""+webPage.domain.realPath+File.separatorChar);
 			}else{
-				throw new WebPageCreationException("Error replacing import #1. String: "+str+" NOT FOUND.");
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#1: "+str]).toString());
 			}
 			//#2
 			str="<script src=\"js";
@@ -269,7 +340,7 @@ class WebPageController {
 			if(idx>=0){
 				fileContent=fileContent.replace(str, "<script src=\""+webPage.domain.realPath+File.separatorChar+"js");
 			}else{
-				throw new WebPageCreationException("Error replacing import #2. String: "+str+" NOT FOUND.");
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#2: "+str]).toString());
 			}
 			//#3
 			str="<script src=\'js";
@@ -277,7 +348,7 @@ class WebPageController {
 			if(idx>=0){
 				fileContent=fileContent.replace(str, "<script src=\'"+webPage.domain.realPath+File.separatorChar+"js");
 			}else{
-				throw new WebPageCreationException("Error replacing import #3. String: "+str+" NOT FOUND.");
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#3: "+str]).toString());
 			}
 			
 			//adding images
@@ -300,7 +371,7 @@ class WebPageController {
 										if(idx>=0){
 											fileContent=fileContent.replace(oldStr, newStr);
 										}else{
-											throw new WebPageCreationException("Error replacing Property Images. String: "+oldStr+" NOT FOUND.");
+											errs.add(message(code: 'webPage.template.property.image.replace.error', args: [oldStr]).toString());
 										}
 										fir=false;
 									}else{
@@ -313,20 +384,20 @@ class WebPageController {
 									prevStr=new String(newStr);
 								}
 							}else{
-								throw new WebPageCreationException("File:"+file.name+" is not loaded into the CRM.");
+								errs.add(message(code: 'webPage.file.not.found.error', args: [file.name]).toString());
 							}
 						}
 					}else{
-						throw new WebPageCreationException("The specified image container directory is empty. Directory:"+direPath);
+						errs.add(message(code: 'webPage.directory.empty.error', args: [direPath]).toString());
 					}
 				}else{
-					throw new WebPageCreationException("The specified image container directory is not a directory. Specified Directory is:"+direPath);
+					errs.add(message(code: 'webPage.directory.is.not.directory.error', args: [direPath]).toString());
 				}
 			}else{
-				throw new WebPageCreationException("The specified image container directory does not exist. "+direPath);
+				errs.add(message(code: 'webPage.directory.not.exist.error', args: [direPath]).toString());
 			}
 			if(addedCount==0){
-				throw new WebPageCreationException("No files were added to the web.");
+				errs.add(message(code: 'webPage.add.files.error').toString());
 			}
 			//IMPORTS #4
 			str="src=\"img";
@@ -334,18 +405,21 @@ class WebPageController {
 			if(idx>=0){
 				fileContent=fileContent.replace(str, "src=\""+webPage.domain.realPath+File.separatorChar+"img");//esta despues de agregar las imagenes xq sino remplaza la imagen por defecto
 			}else{
-				throw new WebPageCreationException("Error replacing import #4. String: "+str+" NOT FOUND.");
+				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
 			}
 			GUtils.writeFile(filePath, fileContent);
 			webPage.inWeb=true;
-			webPage.pageUrl="http://www."+filePath.replace(webPage.domain.realPath, webPage.domain.name);
+			webPage.pageUrl=filePath.replace(webPage.domain.realPath, "");//guarda la url sin la direccion fija del dominio
 			webPage.save();
 			
 		}catch(Exception e){
-			throw new WebPageCreationException(e);
+			errs.add(message(code: 'webPage.creation.error', args: ["Message: "+e.message+". Detailed Message: "+e.detailMessage]).toString());
 		}
+		return errs;
 	}
-	private void transferImagesToWeb(WebPage webPage){
+	
+	private List<String> transferImagesToWeb(WebPage webPage){
+		List<String> errs = new ArrayList<String>();
 		//property uploaded images transfer to target domain web page
 		String originPath=grailsApplication.config.getProperty('crm.upload.image.property')+File.separatorChar+webPage.managedProperty.id;
 		String targetPath=webPage.domain.realPath + File.separatorChar + grailsApplication.config.getProperty('web.image.property') + File.separatorChar + webPage.managedProperty.id;
@@ -382,7 +456,7 @@ class WebPageController {
 			}
 			
 		}else{
-			throw new WebPageCreationException(message(code: 'upload.property.image.origin.not.exist.error', args: [originPath]));
+			errs.add(message(code: 'upload.property.image.origin.not.exist.error', args: [originPath]).toString());
 		}
 		//verify transfer and delete unnecessary images
 		if(target.exists()){
@@ -404,7 +478,7 @@ class WebPageController {
 				}
 			}
 		}else{
-			throw new WebPageCreationException(message(code: 'upload.property.image.copy.failed.error', args: [targetPath]));
+			errs.add(message(code: 'upload.property.image.copy.failed.error', args: [targetPath]).toString());
 		}
 		
 		//partner uploaded profile image transfer to target domain web page
@@ -437,8 +511,9 @@ class WebPageController {
 				System.out.println("Transfiriendo profile image.");
 			}
 		}else{
-			throw new WebPageCreationException(message(code: 'upload.partner.origin.profile.image.not.exist.error', args: [originPath]));
-		}		   
+			errs.add(message(code: 'upload.partner.origin.profile.image.not.exist.error', args: [originPath]).toString());
+		}	
+		return errs;	   
 	}
 	
     def edit(WebPage webPage) {
@@ -452,14 +527,41 @@ class WebPageController {
             notFound()
             return
         }
-
+		
+		webPage=this.validateObject(webPage);
+		
         if (webPage.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond webPage.errors, view:'edit'
             return
         }
 
-        webPage.save flush:true
+        boolean err=false;
+        if(webPage.save(flush:true)){
+			List<String> lis=this.transferImagesToWeb(webPage);
+			if(!lis.empty){
+				err=true;
+				lis.each{
+					webPage.errors.rejectValue('',it);
+				}
+			}
+			lis=this.createOrUpdateWebPage(webPage);
+			if(!lis.empty){
+				err=true;
+				lis.each{
+					webPage.errors.rejectValue('',it);
+				}
+			}
+		}else{
+			webPage.errors.rejectValue('',message(code:'webPage.save.error').toString());
+			err=true;
+		}
+		
+		if (err==true) {
+			transactionStatus.setRollbackOnly()
+			respond webPage.errors, view:'edit'
+			return
+		}
 
         request.withFormat {
             form multipartForm {

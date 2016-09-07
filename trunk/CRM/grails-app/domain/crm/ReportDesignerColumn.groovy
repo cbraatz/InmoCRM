@@ -17,8 +17,9 @@ class ReportDesignerColumn extends CrmDomain{
 	Boolean filterBy;
 	Boolean sortBy;
 	Boolean groupBy;
-	Integer sortOrder;
-	Integer groupOrder;
+	Integer sortPosition;
+	String sortOrder;
+	Integer groupPosition;
 	Integer columnWidth;
 	ReportDesigner reportDesigner;
 	String dataType; //no debería ser persistido
@@ -36,11 +37,12 @@ class ReportDesignerColumn extends CrmDomain{
 		filterBy(blank:false, nullable:false);
 		sortBy(blank:false, nullable:false);
 		groupBy(blank:false, nullable:false);
-		sortOrder(blank:true, nullable:true);
-		groupOrder(blank:true, nullable:true);
+		sortPosition(blank:true, nullable:true);
+		sortOrder(blank:true, nullable:true, size:0..4);
+		groupPosition(blank:true, nullable:true);
 		columnWidth(blank:true, nullable:true);
 		reportDesigner(blank:false, nullable:false);
-		dataType(blank:false, nullable:false);
+		dataType(blank:false, nullable:false, size:1..15);
     }
 	
 	public ReportDesignerColumn() { }
@@ -70,8 +72,8 @@ class ReportDesignerColumn extends CrmDomain{
 		this.filterBy=false;
 		this.sortBy=false;
 		this.groupBy=false;
-		this.sortOrder=0;
-		this.groupOrder=0;
+		this.sortPosition=0;
+		this.groupPosition=0;
 		//this.filterValue=null;
 		System.out.println("prop="+propertyName+"  tableName="+tableName+"  foreignTableName="+foreignTableName+"   tableDisplay="+foreignTableDisplay+"   dataType="+dataType);
 	}

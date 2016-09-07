@@ -14,6 +14,22 @@
 	                <li><g:actionSubmit action="step5" class="advance" value="${message(code: 'reportDesigner.next.step.button', default: 'Next')}" /></li>
 	            </ul>
 	        </div>
+	        <g:hasErrors bean="${reportDesigner}">
+	            <ul class="errors" role="alert">
+	                <g:eachError bean="${reportDesigner}" var="error">
+	                	<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+	                </g:eachError>
+	            </ul>
+	        </g:hasErrors>
+	        <g:each in="${reportDesignerColumnsCommand.columnList}" var="item1" status="i">
+	            <g:hasErrors bean="${item1}">
+	            <ul class="errors" role="alert">
+	                <g:eachError bean="${item1}" var="error">
+	                	<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+	                </g:eachError>
+	            </ul>
+	            </g:hasErrors>
+            </g:each>
 	        <div id="reportDesigner-step4" class="content scaffold-create" role="main">
 	            <h1><g:message code="reportDesigner.step4.title" default="STEP 4"/></h1>
 			   	<fieldset class="form">
@@ -33,9 +49,10 @@
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].filterBy" value="${(item1?.filterBy)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortBy" value="${(item1?.sortBy)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].groupBy" value="${(item1?.groupBy)}"/>
+							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortPosition" value="${(true == item1?.sortBy ? item1?.sortPosition : null)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortOrder" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].dataType" value="${item1?.dataType}"/>
-							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].groupOrder" value="${(true == item1?.groupBy ? item1?.groupOrder : null)}"/>
+							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].groupPosition" value="${(true == item1?.groupBy ? item1?.groupPosition : null)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].tableName" value="${item1?.tableName}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].propertyName" value="${item1?.propertyName}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableName" value="${item1?.foreignTableName}"/>

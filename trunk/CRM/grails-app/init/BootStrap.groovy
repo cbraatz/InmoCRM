@@ -7,22 +7,11 @@ class BootStrap {
 
     def init = { servletContext ->
 		println("Starting init......................."+Environment.current);
-		if(Environment.current.equals(Environment.DEVELOPMENT)){
+		//if(Environment.current.equals(Environment.DEVELOPMENT)){
+		if(CrmConfig.count()==0){
 			addDevelopmentData();
-			/*if ( Category.count() == 0 ) {
-				Category color = new Category(name:'Color').save()
-				new SubCategory(category:color, name:'Red').save()
-				new SubCategory(category:color, name:'Green').save()
-				new SubCategory(category:color, name:'Blue').save()
-				Category shape = new Category(name:'Shape').save()
-				new SubCategory(category:shape, name:'Square').save()
-				new SubCategory(category:shape, name:'Circle').save()
-				Category size = new Category(name:'Size').save()
-				new SubCategory(category:size, name:'Small').save()
-				new SubCategory(category:size, name:'Medium').save()
-				new SubCategory(category:size, name:'Large').save()
-			}*/
 		}
+		//}
 		println("Finishing init......................");
     }
     def destroy = {
@@ -103,7 +92,7 @@ class BootStrap {
 		this.saveObj(new Partner(name: "Default", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
 		
 		//crmUser
-		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"nobody", password:CrmUser.encodePassword("123456"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true);
+		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true);
 		this.saveObj(defUsr);
 		
 		//ReportFolder
@@ -114,7 +103,7 @@ class BootStrap {
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//Client
-		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("nobody"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
+		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("test"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
 		
 		//Vendor
 		this.saveObj(new Vendor(name: "Cooperativa Colonias Unidas", description: "Cooperativa", phone:"071720512", emailAddress: "ccu@test.com", TIN:"80090084-2"));
@@ -202,7 +191,7 @@ class BootStrap {
 		this.saveObj(new Locale(name: "Alemán-Alemania", isDefault:false, symbol:"de_GE", language:Language.findByName("Deutsch"), country:Country.findByName("Deutschland")));
 		//Domain 
 		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
-		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
+		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"/var/www/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
 		
 		//OperationType
 		this.saveObj(new OperationType(sale:"En Venta",rent:"En Alquiler",language:Language.findByName("Español")));
@@ -290,7 +279,7 @@ class BootStrap {
 		
 		//ManagedProperty
 		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600, soldByCompany:false);
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600, soldByUs:false);
 		this.saveObj(managedProperty1);
 		System.out.println(managedProperty1.id);
 		
@@ -303,7 +292,7 @@ class BootStrap {
 		
 		//Concession
 		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionPercentage:4, description:"Ninguna", //propertyDemand:PropertyDemand,
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("nobody"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
 		concession1.addToManagedProperties(managedProperty1);
 		this.saveObj(concession1);
 		managedProperty1.addToConcessions(concession1);

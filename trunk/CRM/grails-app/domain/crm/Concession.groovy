@@ -18,9 +18,8 @@ class Concession extends CrmDomain{
 	CrmUser agent;
 	Boolean isActive;
 	Boolean isForRent;
-	
 	static belongsTo = ManagedProperty;
-	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, actions:Action, contacts:Contact/*,TagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		isNegotiable(nullable:false);
@@ -52,5 +51,8 @@ class Concession extends CrmDomain{
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("id", false),new SearchAttribute("description")];
 	}
-	
+	@Override
+	public static getDefaultPropertyName(){
+		return "id";
+	}
 }

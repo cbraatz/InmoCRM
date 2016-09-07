@@ -18,9 +18,9 @@ class Partner extends CrmDomain{
 	Partner invitedBy;
 	Boolean isActive;
 	Boolean isAgent;
+	Integer salary;
 	
-	
-	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact/*,tagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact, commissionByConcession:CommissionByConcession/*,tagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		name (blank: false, nullable:false, size:1..100);
@@ -38,6 +38,7 @@ class Partner extends CrmDomain{
 		invitedBy(nullable:true);
 		isActive(nullable:false);
 		isAgent(nullable:false);
+		salary(blank:true, nullable:true);
 	}
 	
 	@Override

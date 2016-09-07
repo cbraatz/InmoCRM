@@ -71,8 +71,8 @@ class ReportDesignerController {
 			return
 		}
 		boolean hasErrors=false;
-		List<Integer> groupOrderNumbers=new ArrayList<>();
-		List<Integer> sortOrderNumbers=new ArrayList<>();
+		List<Integer> groupPositionNumbers=new ArrayList<>();
+		List<Integer> sortPositionNumbers=new ArrayList<>();
 		reportDesignerColumnsCommand.columnList.each{
 			if(true==it.selected.booleanValue()){
 				if(true==it.filterBy.booleanValue()){
@@ -82,19 +82,19 @@ class ReportDesignerController {
 					}
 				}
 				if(true==it.groupBy.booleanValue()){
-					groupOrderNumbers.add(it.groupOrder);
+					groupPositionNumbers.add(it.groupPosition);
 				}
 				if(true==it.sortBy.booleanValue()){
-					sortOrderNumbers.add(it.sortOrder);
+					sortPositionNumbers.add(it.sortPosition);
 				}
 			}
 		}
-		if(!this.validateOrderNumbers(sortOrderNumbers)){
-			reportDesigner.errors.rejectValue('',message(code:'reportDesigner.column.sortOrder.validation.error').toString());
+		if(!this.validateOrderNumbers(sortPositionNumbers)){
+			reportDesigner.errors.rejectValue('',message(code:'reportDesigner.column.sortPosition.validation.error').toString());
 			hasErrors=true;
 		}
-		if(!this.validateOrderNumbers(groupOrderNumbers)){
-			reportDesigner.errors.rejectValue('',message(code:'reportDesigner.column.groupOrder.validation.error').toString());
+		if(!this.validateOrderNumbers(groupPositionNumbers)){
+			reportDesigner.errors.rejectValue('',message(code:'reportDesigner.column.groupPosition.validation.error').toString());
 			hasErrors=true;
 		}
 		/*if (propertyDemand.hasErrors()) {
@@ -132,16 +132,31 @@ class ReportDesignerController {
 			respond reportDesigner/*.errors*/, view:'step5', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 			return
 		}
-
+		boolean saveError=false;
 		if (reportDesigner.save(flush:true)){
 			reportDesignerColumnsCommand.columnList.each{
 				it.setReportDesigner(reportDesigner);
-				it.save(flush:true);
+				it.validate();
+				if (it.hasErrors()) {
+					saveError=true;
+				}else{
+					if(false == it.save(flush:true)){
+						it.errors.rejectValue('',message(code:'default.save.error', args:['ReportDesignerColumn']).toString());
+						GUtils.printErrors(it, "Error al guardar nuevo ReportDesignerColumn");
+						saveError=true;
+					}
+				}
 			}
-		}/*else{
-			reportDesigner.errors.rejectValue('',message(code:'reportDesigner.column.groupOrder.validation.error').toString());
-		}*/
-		
+		}else{
+			reportDesigner.errors.rejectValue('',message(code:'default.save.error', args:['ReportDesigner']).toString());
+			GUtils.printErrors(reportDesigner, "Error al guardar nuevo ReportDesigner");
+			saveError=true;
+		}
+		if(true==saveError){
+			transactionStatus.setRollbackOnly()
+			respond reportDesigner, view:'step5', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
+			return
+		}
 		request.withFormat {
 			form multipartForm {
 				flash.message = message(code: 'default.created.message', args: [message(code: 'reportDesigner.label', default: 'Report Designer'), reportDesigner.id])

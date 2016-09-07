@@ -28,7 +28,7 @@ class ManagedPropertyController {
 
     def create() {
 		ManagedProperty mp=new ManagedProperty(params);
-		mp.soldByCompany=false;
+		mp.soldByUs=false;
         respond mp
     }
 	def addEditImages(ManagedProperty managedProperty){

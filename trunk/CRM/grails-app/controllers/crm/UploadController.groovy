@@ -13,17 +13,6 @@ class UploadController {
 	String myPath=null;
 	String parentObject=null;
 	String objectId=null;
-
-	/*def upload(String path) {
-		def f = request.getFile('myFile')
-		if (f.empty) {
-			flash.message = 'file cannot be empty'
-			render(view: 'uploadForm')
-			return
-		}
-		f.transferTo(new File('D:/uploadTest/'+f.getName()))
-		response.sendError(200, 'Done')
-	}*/
 	
 	//from https://fbflex.wordpress.com/2008/11/26/a-simple-grails-controller-for-file-management/
 	@Transactional

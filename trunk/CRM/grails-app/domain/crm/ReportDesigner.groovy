@@ -14,16 +14,12 @@ class ReportDesigner extends CrmDomain{
 	String reportType;
 	CrmUser crmUser;
 	ReportFolder reportFolder;
-	//List<ReportDesignerColumn> reportDesignerColumns=new ArrayList<ReportDesignerColumn>();
+
 	static hasMany = [reportDesignerColumns:ReportDesignerColumn];
-	//static transients = ["reportDesignerColumns"];
-	/*static mapping = {
-		reportDesignerColumns sort:'propertyName';
-	}*/
-	
+
     static constraints = {
 		name(blank:false, nullable:false, size:1..50);
-		description(blank:true, nullable:true, size:0..200);
+		description(blank:true, nullable:true, widget:'textArea', size:0..200);
 		hasFilter(blank:false, nullable:false);
 		hasGroup(blank:false, nullable:false);
 		hasSort(blank:false, nullable:false);

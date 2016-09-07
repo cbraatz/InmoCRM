@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.springframework.web.multipart.MultipartFile
 import crm.ui.SearchResultItem
 import grails.util.Holders;
 class GUtils {
@@ -62,8 +63,36 @@ class GUtils {
 	public static String extractCRMPrefixFromClassName(String name){
 		return (name.indexOf('crm.')>=0?name.substring(4):name);//quita el crm. si tiene
 	}
+	public static String replaceIncorrectChars(String str){
+		str=str.replace(" ", "_");
+		str=str.replace(".", "_");
+		str=str.replace(",", "_");
+		str=str.replace("á", "a");
+		str=str.replace("é", "e");
+		str=str.replace("í", "i");
+		str=str.replace("ó", "o");
+		str=str.replace("ú", "u");
+		str=str.replace("Á", "A");
+		str=str.replace("É", "E");
+		str=str.replace("Í", "I");
+		str=str.replace("Ó", "O");
+		str=str.replace("Ú", "U");
+		return str;
+	}
+	public static boolean stringFinishesWith(String mainStr, String endStr){
+		return mainStr.substring(mainStr.length()-endStr.length()).equals(endStr);
+	}
+	public static boolean transferFile(MultipartFile inFile, File outFile){
+		try{
+			inFile.transferTo(outFile);
+			return outFile.exists();
+		}catch(Exception e){
+			return false;
+		}
+	}
 	public static void main(String[] args){
-		Class<?> itemClass=Class.forName("crm.ManagedProperty");
+		crm.db.CrmDbTableList.getAlias();
+		/*Class<?> itemClass=Class.forName("crm.ManagedProperty");
 		//Primero agrego los fields que NO son many to one
 		itemClass.declaredFields.each{//java.lang.reflect.Field is each one
 			if(!it.isSynthetic()){
@@ -75,7 +104,7 @@ class GUtils {
 					 }
 				 }
 			}
-		}
-		
+		}*/
+		//System.out.println(GUtils.stringFinishesWith("algooo.jrxml", ".jrxml"));
 	}	
 }

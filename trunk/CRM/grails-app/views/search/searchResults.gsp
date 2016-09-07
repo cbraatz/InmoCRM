@@ -17,7 +17,7 @@
 				<g:render template="searchResultsTable" model="['list':resultList.getSearchResultItems()]"/>
             </g:if>
             <g:else>
-			     <label id="empty-search-results"><g:message code="search.empty.results.list.message" args="[searchKeyWords]"/></label>
+			     <label id="empty-list-results"><g:message code="search.empty.results.list.message" args="[searchKeyWords]"/></label>
 			</g:else>
         </div>
     </body>

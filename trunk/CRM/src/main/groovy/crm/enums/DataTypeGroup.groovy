@@ -7,8 +7,8 @@ public enum DataTypeGroup {
 	CHARACTERS("Characters"),
 	NUMBERS("Numbers"),
 	BOOLEANS("Booleans"),
-	DATES("Dates")	
-	
+	DATES("Dates"),	
+	DOMAIN_CLASSES("Domain-Classes")
 	private final String name;
 
 	public DataTypeGroup(String name) {

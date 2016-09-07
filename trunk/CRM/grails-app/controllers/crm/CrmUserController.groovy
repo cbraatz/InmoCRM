@@ -62,14 +62,34 @@ class CrmUserController {
             notFound()
             return
         }
-
+		if(crmUser.password == null){
+			String tempName=crmUser.name;
+			String tempEmailAddress=crmUser.emailAddress;
+			Boolean tempIsAdmin=crmUser.isAdmin;
+			Boolean tempIsActive=crmUser.isActive;
+			Partner tempPartner=crmUser.partner;
+			crmUser.refresh();//get crmUser from DB
+			crmUser.name= tempName;
+			crmUser.emailAddress= tempEmailAddress;
+			crmUser.isAdmin= tempIsAdmin;
+			crmUser.isActive= tempIsActive;
+			crmUser.partner= tempPartner;
+			crmUser.validate();
+		}else{
+			if(params.pass2!=crmUser.password){
+				crmUser.errors.rejectValue('',message(code:'crmUser.password.doesnotmatch').toString());
+				transactionStatus.setRollbackOnly();
+	            respond crmUser.errors, view:'create';
+	            return;
+			}
+			crmUser.password=crmUser.getEncodedPassword();
+		}
         if (crmUser.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond crmUser.errors, view:'edit'
-            return
+	        transactionStatus.setRollbackOnly()
+	        respond crmUser.errors, view:'edit'
+	        return
         }
 		
-		crmUser.password=crmUser.getEncodedPassword();
         crmUser.save flush:true
 
         request.withFormat {

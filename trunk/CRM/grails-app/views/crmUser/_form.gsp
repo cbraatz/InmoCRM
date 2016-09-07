@@ -2,7 +2,7 @@
 <fieldset class="form">
 	<f:field bean="crmUser" property="name"/>
 	<f:field bean="crmUser" property="password">
-		<g:passwordField name="${property}" value="${it.value}" />
+		<g:passwordField name="${property}" value="" />
 	</f:field>
 	<f:field property="password" label="Repeate password">
 		<g:passwordField name="pass2" value="" />

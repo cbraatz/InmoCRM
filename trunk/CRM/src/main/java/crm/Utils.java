@@ -49,8 +49,11 @@ public class Utils {
     public static String getUUID(){
     	return UUID.randomUUID().toString();
     }
+    public static String getShortUUID(){
+    	return UUID.randomUUID().toString().substring(0, 7);
+    }
     public static String getShortUUIDWithNumbers(String id){
-    	return (!id.isEmpty() ? id+'-' : "")+Utils.getNumericID()+'-'+UUID.randomUUID().toString().substring(0, 7);
+    	return (!id.isEmpty() ? id+'-' : "")+Utils.getNumericID()+'-'+Utils.getShortUUID();
     }
     public static Long getNumericID(){
     	Date date=new Date();
@@ -81,9 +84,22 @@ public class Utils {
 	    	return sdf.format(date);
     	}
     }
-    public static Date strToDate(String dateInString) throws ParseException{
-    	SimpleDateFormat formatter = new SimpleDateFormat(Utils.getDefaultDateFormat());
-    	return formatter.parse(dateInString);
+    public static Date strToDate(String strDate){
+    	if(null!=strDate){
+	    	try{	
+		    	SimpleDateFormat formatter = new SimpleDateFormat(Utils.getDefaultDateFormat());
+		    	Date dd=formatter.parse(strDate);
+		    	if(strDate.equals(formatter.format(dd))){
+		    		return dd;
+		    	}else{
+		    		return null;
+		    	}
+	    	} catch (ParseException e) {
+	    		return null;
+			}
+    	}else{
+    		return null;
+    	}
     }
     /*public static String getDateAsStrDBFormat(Date date){
     	DateFormat sdf=new SimpleDateFormat(Utils.getDBDateFormat());
@@ -173,7 +189,7 @@ public class Utils {
 	}
 	
 	public static void main(String args[]){
-		
+		System.out.println(Utils.strToDate("29/02/2015"));
 	}
 	public static boolean validatePageKeys(String str){
 		return Utils.regExMatches(str, "[a-zA-Z0-9 ]+[a-zA-Z0-9, ]*");

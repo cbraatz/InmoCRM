@@ -1,4 +1,3 @@
-
 <fieldset class="form">
 	<div class="fieldcontain">
 		<f:field bean="concession" property="startDate"/>
@@ -17,7 +16,7 @@
 		<f:field bean="concession" property="publishInPortals"/>
 		<f:field bean="concession" property="agent" input-propId="${concession?.agent?.id}"/>
 		<f:field bean="concession" property="isForRent"/>
-		
+
 		<g:hiddenField name="propertyDemand" value="${concession?.propertyDemand?.id}"/>
 		<g:hiddenField name="isActive" value="${concession?.isActive}"/>
 		

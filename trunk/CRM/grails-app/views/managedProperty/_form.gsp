@@ -1,4 +1,3 @@
-
 <fieldset class="form">
 	<div class="fieldcontain">		
 		<f:field bean="managedProperty" property="propertyType" input-propId="${managedProperty?.propertyType?.id}"/>
@@ -20,5 +19,5 @@
 		<f:field bean="managedProperty" property="commissionAmount"/>
 		<f:field bean="managedProperty" property="valueDegree"/>
 		<f:field bean="managedProperty" property="placedBillboards"/>
-		<g:hiddenField name="soldByCompany" value="${managedProperty?.soldByCompany}"/>
+		<g:hiddenField name="soldByUs" value="${managedProperty?.soldByUs}"/>
 </fieldset>

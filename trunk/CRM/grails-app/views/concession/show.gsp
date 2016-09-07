@@ -57,6 +57,7 @@
             <g:form resource="${this.concession}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.concession}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                    <g:actionSubmit action="commissions" class="createCommissions" value="${message(code: 'default.button.commissions.label', default: 'Commissions')}"/>
                     <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
                     <g:link class="action" action="create" controller="action" params="[cid:concession.id]"><g:message code="concession.button.action.label" default="Add Action" /></g:link>
                     <g:link class="contact" action="create" controller="contact" params="[cid:concession.id]"><g:message code="concession.button.contact.label" default="Add Contact" /></g:link>

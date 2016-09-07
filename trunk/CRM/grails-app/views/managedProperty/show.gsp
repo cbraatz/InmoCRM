@@ -60,14 +60,14 @@
 				<f:display bean="managedProperty" property="value"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.clientInitialPrice.label" default="clientInitialPrice"/></span>
 				<f:display bean="managedProperty" property="clientInitialPrice"/>
-				<span id="name-label" class="property-label"><g:message code="managedProperty.commissionAmount.label" default="Commission Amount"/></span>
+				<span id="name-label" class="property-label"><g:message code="managedProperty.commissionAmount.label" default="commission Amount"/></span>
 				<f:display bean="managedProperty" property="commissionAmount"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.valueDegree.label" default="valueDegree"/></span>
 				<f:display bean="managedProperty" property="valueDegree"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.placedBillboards.label" default="placedBillboards"/></span>
 				<f:display bean="managedProperty" property="placedBillboards"/>
-				<span id="name-label" class="property-label"><g:message code="managedProperty.soldByCompany.label" default="Sold by Company"/></span>
-				<f:display bean="managedProperty" property="soldByCompany"/>
+				<span id="name-label" class="property-label"><g:message code="managedProperty.soldByUs.label" default="Sold by Us"/></span>
+				<f:display bean="managedProperty" property="soldByUs"/>
 			</fieldset>
 			<g:if test="${managedProperty.buildings.size() > 0}">
 				<h1><g:message code="managedProperty.buildings.label"/></h1>

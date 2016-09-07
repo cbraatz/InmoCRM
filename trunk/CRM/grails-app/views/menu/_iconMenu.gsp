@@ -83,7 +83,7 @@
 		 }*/
 	
 	function setNavigationMenuOffset(icon, menu) {
-		menu.offset({top: icon.position().top+17});
+		menu.offset({top: icon.position().top+81});
 	};
 	function hideAllMenues() {
 		$(".nav-menu").hide();

@@ -28,7 +28,7 @@ class ConcessionController {
     def create() {
 		Concession concession=new Concession(isActive:true, contract:new Contract(), totalPrice:new Double(0), totalCommission:new Double(0));
 		
-		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, soldByCompany:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
+		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, soldByUs:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
 	
     @Transactional
@@ -47,32 +47,9 @@ class ConcessionController {
 		building.validate();
 		concession.contract.validate();
 
-		/*if (concession.commissionAmount > 0 && concession.commissionPercentage > 0) {
-			concession.errors.rejectValue('',message(code:'concession.duplicate.commission.error').toString());
-		}*/
-		if (/*concession.commissionAmount == 0 && */concession.commissionPercentage == 0) {
+		if (managedProperty.commissionAmount == 0 && concession.commissionPercentage == 0) {
 			concession.errors.rejectValue('',message(code:'concession.commission.required.error').toString());
 		}
-		/*if (concession.adText) {
-			if (concession.adText.charAt(concession.adText.length()-1)!='.') {
-				concession.errors.rejectValue('adText',message(code:'concession.adText.point.finish.required.error').toString());
-			}
-		}
-		if (concession.adTitle) {
-			if (concession.adTitle.charAt(concession.adTitle.length()-1)!='.') {
-				concession.errors.rejectValue('adTitle',message(code:'concession.adTitle.point.finish.required.error').toString());
-			}
-		}
-		if (concession.adSummary) {
-			if (concession.adSummary.charAt(concession.adSummary.length()-1)!='.') {
-				concession.errors.rejectValue('adSummary',message(code:'concession.adSummary.point.finish.required.error').toString());
-			}
-		}
-		if (concession.keys) {
-			if (!Utils.validatePageKeys(concession.keys)) {
-				concession.errors.rejectValue('keys',message(code:'concession.keys.validation.error').toString());
-			}
-		}*/
 		if (managedProperty.area <= 0) {
 			managedProperty.errors.rejectValue('area',message(code:'managedProperty.area.required.error').toString());
 		}
@@ -191,7 +168,11 @@ class ConcessionController {
         //respond concession, model:[managedProperty: manProp, building: bui, featureByBuildingCommand: new FeatureByBuildingCommand(bui?.featuresByBuilding), featureByPropertyCommand: new FeatureByPropertyCommand(manProp?.featuresByProperty), displayBuilding: (bui ? true : false), addImages:true];
 		respond concession
 	}
-
+	
+	def commissions(Concession concession){
+		redirect(controller:'commissionByConcession', action:'addCommission', params: [cid: concession.id])
+	}
+	
     @Transactional
     def update(Concession concession) {
         if (concession == null) {
@@ -236,7 +217,7 @@ class ConcessionController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+	
     protected void notFound() {
         request.withFormat {
             form multipartForm {

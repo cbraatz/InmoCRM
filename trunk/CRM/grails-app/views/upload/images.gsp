@@ -15,30 +15,33 @@
                 </g:if>
             </ul>
         </div>
-        <div id="images-upload" class="content scaffold-show" role="main">
+        <div id="images-upload" class="content scaffold-create" role="main">
 			<g:if test="${flash.message}">
             	<div class="message">${flash.message}</div>
             </g:if>
 			<h1><g:message code="upload.image.title"/></h1><br>
 			<g:form method="post"  enctype="multipart/form-data">
-			 	<fieldset class="fieldcontain">
-			 		<span id="fileupload-label" class="property-label"><g:message code="upload.image.selector.label" default="Upload"/></span>
-			 		<input type="file" id="fileUpload" name="fileUpload" class="property-value"/>
-			 		<span id="fileDescription-label" class="property-label"><g:message code="upload.image.name.label" default="File Name"/></span>
-			 		<g:textField id="description" name="description" class="property-value"/>
-			 	</fieldset>
-			 	<fieldset class="fieldcontain">
-			 		<span id="fileMain-label" class="property-label"><g:message code="upload.image.main.label" default="Main Image"/></span>
-			 		<g:checkBox id="mainImage" name="mainImage" class="property-value"/>
-			 	</fieldset>
-			 	<fieldset class="fieldcontain">
-			 		<span id="fileWeb-label" class="property-label"><g:message code="upload.image.web.label" default="Web Image"/></span>
-			 		<g:checkBox id="addToWebPage" name="addToWebPage" class="property-value"/>
-	            </fieldset>
-	            <div class="buttons">
-	                <span class="button"><g:actionSubmit class="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" action="uploadImage" /></span>
-	            </div>
-	            
+				<fieldset class="form">
+				 	<div class="fieldcontain required">
+				 		<label for="fileUpload" id="fileupload-label" class="property-label"><g:message code="upload.image.selector.label" default="Upload"/></label>
+				 		<input type="file" id="fileUpload" name="fileUpload"/>
+				 	</div>
+				 	<div class="fieldcontain">
+				 		<label for="description" id="fileDescription-label" class="property-label"><g:message code="upload.image.name.label" default="File Name"/></label>
+				 		<g:textField id="description" name="description"/>
+				 	</div>
+				 	<div class="fieldcontain">
+				 		<label for="mainImage" id="fileMain-label" class="property-label"><g:message code="upload.image.main.label" default="Main Image"/></label>
+				 		<g:checkBox id="mainImage" name="mainImage"/>
+				 	</div>
+				 	<div class="fieldcontain">
+				 		<label for="addToWebPage" id="fileWeb-label" class="property-label"><g:message code="upload.image.web.label" default="Web Image"/></label>
+				 		<g:checkBox id="addToWebPage" name="addToWebPage"/>
+		            </div>
+		        </fieldset> 
+		        <div class="buttons">
+		            <span class="button"><g:actionSubmit class="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" action="uploadImage" /></span>
+		        </div> 
 	        </g:form>
 			<g:if test="${fileResourceInstanceList.size > 0}">
 	            <h1><g:message code="upload.image.list.title"/></h1>

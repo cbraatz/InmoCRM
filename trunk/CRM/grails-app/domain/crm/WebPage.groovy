@@ -33,4 +33,7 @@ class WebPage extends CrmDomain{
 		managedProperty(blank:false, nullable:false);
 		inWeb(blank:false, nullable:false);
     }	
+	public String getWebPage(){
+		return "http://www."+this.domain.realPath+this.pageUrl;
+    }
 }
