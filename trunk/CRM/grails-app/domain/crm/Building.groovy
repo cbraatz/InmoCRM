@@ -21,4 +21,8 @@ class Building extends CrmDomain{
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("buildingDescription")];
 	}
+	@Override
+	public static String getPluralName(){
+		return "buildings";
+	}
 }

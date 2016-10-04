@@ -71,4 +71,9 @@ class ManagedProperty extends CrmDomain{
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("title"),new SearchAttribute("propertyDescription"),new SearchAttribute("id",false)];
 	}
+	
+	@Override
+	public static String getPluralName(){
+		return "managedProperties";
+	}
 }

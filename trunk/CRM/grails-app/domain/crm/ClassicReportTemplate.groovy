@@ -8,4 +8,8 @@ class ClassicReportTemplate extends CrmDomain{
 		name(blank:false, nullable:false, size:1..50);
 		description(blank:true, nullable:true, widget:'textArea', size:0..200);
 	}
+	@Override
+	public static String getPluralName(){
+		return "classicReportTemplates";
+	}
 }

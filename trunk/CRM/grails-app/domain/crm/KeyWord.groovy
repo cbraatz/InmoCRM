@@ -10,4 +10,8 @@ class KeyWord extends CrmDomain{
 		locale(blank:false, nullable:false);
 		propertyType(blank:false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "keyWords";
+	}
 }

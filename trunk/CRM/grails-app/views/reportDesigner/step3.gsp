@@ -101,6 +101,7 @@
 					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].propertyName" value="${item1?.propertyName}"/>
 					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableName" value="${item1?.foreignTableName}"/>
 					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableDisplay" value="${item1?.foreignTableDisplay}"/>
+					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].parentTableName" value="${item1?.parentTableName}"/>
 					<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].columnWidth" value="${item1?.columnWidth}"/>
 				</g:each>
 				<g:hiddenField name="reportDesigner.reportType" value="${reportDesigner?.reportType}"/>

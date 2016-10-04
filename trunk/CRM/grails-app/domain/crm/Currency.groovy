@@ -11,7 +11,7 @@ class Currency extends CrmDomain{
 	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction, actions:Action,
 					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, incomingInvoices:IncomingInvoice, incomePayments:IncomePayment, 
 					 expensePayments:ExpensePayment, currencyExchagesSource:CurrencyExchange, currencyExchagesTarget:CurrencyExchange, managedProperties:ManagedProperty,
-					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultsDateRanges:DefaultsDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
+					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultDateRanges:DefaultDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
 	static mappedBy = [currencyExchagesSource: "sourceCurrency", currencyExchagesTarget: "targetCurrency",
 					   paymentsIn:"inCurrency", paymentsOut:"outCurrency"];
 	static constraints = {
@@ -31,5 +31,9 @@ class Currency extends CrmDomain{
 			System.err.println("Currency list size = "+list.size());
 			return null;
 		}
+	}
+	@Override
+	public static String getPluralName(){
+		return "currencies";
 	}
 }

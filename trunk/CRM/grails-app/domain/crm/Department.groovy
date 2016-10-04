@@ -9,4 +9,8 @@ class Department extends CrmDomain{
 		name(blank: false, nullable: false, size:1..50);
 		country(nullable: false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "departments";
+	}
 }

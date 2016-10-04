@@ -29,7 +29,10 @@ class IncomingInvoice extends CrmDomain{
 		expensePayment(nullable:true);
 		vendor(nullable:false);
     }
-	
+	@Override
+	public static String getPluralName(){
+		return "incomingInvoices";
+	}
 	public Double getIncomingInvoiceAmountInExpenseCurrency(){
 		List<IncomingInvoice> list=IncomingInvoice.executeQuery("from IncomingInvoice where expensePayment = :e",[e: this.expensePayment]);
 		double amount=0;

@@ -12,4 +12,8 @@ class MoneyTransactionTotal extends CrmDomain{
 		currency(nullable:false);
 		paymentMethod(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "moneyTransactionTotals";
+	}
 }

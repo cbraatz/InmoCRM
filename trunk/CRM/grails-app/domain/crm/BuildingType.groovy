@@ -11,4 +11,8 @@ class BuildingType extends CrmDomain{
 		description(blank:false, nullable:false, widget:'textArea', size:1..100);
 		dimensionMeasuringUnit(blank: false, nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "buildingTypes";
+	}
 }

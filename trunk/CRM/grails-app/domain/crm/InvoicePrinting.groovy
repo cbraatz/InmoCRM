@@ -1,6 +1,6 @@
 package crm
 
-class InvoicesPrinting extends CrmDomain{
+class InvoicePrinting extends CrmDomain{
 	Integer printingNumber;
 	Date startDate;
 	Date endDate;
@@ -18,8 +18,11 @@ class InvoicesPrinting extends CrmDomain{
 		thirdStartNumber(blank:false, nullable:false, size:1..10);
 		quantity(blank:false, nullable:false);
     }
-	
-	public static InvoicesPrinting getLatestInvoicesPrinting(){
-		return InvoicesPrinting.getAll().last();
+	@Override
+	public static String getPluralName(){
+		return "invoicePrintings";
+	}
+	public static InvoicePrinting getLatestInvoicePrinting(){
+		return InvoicePrinting.getAll().last();
 	}
 }

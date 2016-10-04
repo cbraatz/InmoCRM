@@ -20,4 +20,8 @@ class Commission extends CrmDomain{
 		partner(nullable:false);
 		commissionRate(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "commissions";
+	}
 }

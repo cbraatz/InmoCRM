@@ -11,4 +11,8 @@ class PropertyUnit extends CrmDomain{
 		propertyID3(blank:true, nullable:true, size:0..20);
 		managedProperty(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "propertyUnits";
+	}
 }

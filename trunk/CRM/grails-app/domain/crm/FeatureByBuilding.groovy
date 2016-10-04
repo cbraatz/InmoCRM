@@ -36,4 +36,8 @@ class FeatureByBuilding extends CrmDomain{
 		}
 		return list;
 	}
+	@Override
+	public static String getPluralName(){
+		return "featuresByBuilding";
+	}
 }

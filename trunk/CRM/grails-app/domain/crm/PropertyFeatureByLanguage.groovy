@@ -23,4 +23,8 @@ class PropertyFeatureByLanguage extends CrmDomain{
 			return null;
 		}
 	}
+	@Override
+	public static String getPluralName(){
+		return "propertyFeaturesByLanguage";
+	}
 }

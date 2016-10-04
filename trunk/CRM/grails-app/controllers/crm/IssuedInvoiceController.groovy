@@ -33,7 +33,7 @@ class IssuedInvoiceController {
 				issuedInvoice.currency=issuedInvoice.incomePayment.income.currency;
 				issuedInvoice.date=Utils.removeTimeFromDate(new Date());
 				issuedInvoice.amountInDefaultCurrency=null;//is completed automatically once accounting resume is done
-				InvoicesPrinting ip=InvoicesPrinting.getLatestInvoicesPrinting();
+				InvoicePrinting ip=InvoicePrinting.getLatestInvoicePrinting();
 				issuedInvoice.number=new String(ip.printingNumber+"_"+ip.firstNumber+"-"+ip.secondNumber+"-");
 				float tr=issuedInvoice.incomePayment.income.incomeType.taxRate.percentage.floatValue();
 				issuedInvoice.totalTax=issuedInvoice.amount.doubleValue()*tr/(100+tr);

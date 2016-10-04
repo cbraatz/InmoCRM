@@ -12,4 +12,8 @@ class TransactionType extends CrmDomain{
 		isDefault(nullable:false);
 		isInternalTransaction(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "transactionTypes";
+	}
 }

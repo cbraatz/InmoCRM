@@ -15,9 +15,11 @@ class CurrencyExchange extends CrmDomain{
 		sourceCurrency(nullable:false);
 		targetCurrency(nullable:false);
     }
-	public CurrencyExchange(){
-		
+	@Override
+	public static String getPluralName(){
+		return "currencyExchanges";
 	}
+	public CurrencyExchange(){	}
 	public CurrencyExchange(Date date, Double buy, Double sell,	Currency sourceCurrency, Currency targetCurrency){
 		this.date=date;
 		this.buy=buy;

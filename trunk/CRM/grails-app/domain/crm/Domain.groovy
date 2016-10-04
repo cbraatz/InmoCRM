@@ -13,4 +13,8 @@ class Domain extends CrmDomain{
 		realEstateFolder(blank:false, nullable:false, size:0..15);//el nombre de la carpeta que contendrá las páginas de inmuebles
 		locale(blank:false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "domains";
+	}
 }

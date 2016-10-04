@@ -1,92 +1,117 @@
 package crm.db
 
+import java.util.List;
+
 import crm.ReportDesignerColumn
 import crm.Utils;
+import crm.exception.CRMException;
 
 class CrmDbTableList {
-	private final Map<String, String> tables=new HashMap<String, String>();
-	private final String START_STRING="FROM ";
-	private final String SEPARATOR_STRING=" , ";
-	private final String AS_STRING=" AS ";
-	public CrmDbTableList(List<ReportDesignerColumn> reportDesignerColumn) {
-		boolean exists=false;
-		reportDesignerColumn.each{
-			exists=false;
-			for (Map.Entry<String, String> entry : tables.entrySet()){
-				if(entry.getKey().equals(it.tableName)){
-					exists=true;
-				}
-			}
-			if(!exists){
-				//cada vez que se encuentra una tabla nueva recorre todas las tablas ya cargadas y en el while crea un nuevo alias y queda ahi hasta que se encuentre uno que no exista, primero toma la primera letra de la tabla el lowerCase, luego la segunda y así, en ultima instance agrega la primera letra concatenado con un shourt UUID
-				exists=true;
-				int idx=1;
-				while(exists==true && idx <= it.tableName.length()){
-					exists=false;
-					for (Map.Entry<String, String> entry : tables.entrySet()){
-						if(entry.getValue().equals(it.tableName.substring(0, idx).toLowerCase())){
-							exists=true;
-						}
-					}
-					if(exists){
-						idx++;
-					}
-				}
-				if(idx > it.tableName.length()){
-					tables.put(it.tableName,it.tableName.substring(0, 1).toLowerCase()+Utils.getShortUUID());
-				}else{
-					tables.put(it.tableName,it.tableName.substring(0, idx).toLowerCase());
-				}
-				System.out.println("Agregando tabla "+it.tableName+" con alias="+tables.get(it.tableName));
-			}
+	private final List<CrmDbTable> tables=new ArrayList<>();
+	
+	public CrmDbTableList(List<ReportDesignerColumn> reportDesignerColumns) throws CRMException{
+		if(null==reportDesignerColumns){
+			throw new IllegalArgumentException(message(code: 'default.invalid.paramethers.error', args: ["reportDesignerColumns = null"]));
 		}
-	}
-	public String getFromClause(){
-		StringBuilder sb = new StringBuilder();
-		sb.append(this.START_STRING);
-		boolean first=true;
-		for (Map.Entry<String, String> entry : tables.entrySet()){
-			if(true==first){
-				sb.append(entry.getKey()+this.AS_STRING+entry.getKey());
-				first=false;
+		reportDesignerColumns.each{
+			
+			if(null==it.foreignTableName){
+				System.out.println(it.toString());
+				this.addTableIfNotAlreadyAdded(it.tableName, it.parentTableName, false);
 			}else{
-				sb.append(this.SEPARATOR_STRING+entry.getKey()+this.AS_STRING+entry.getKey());
+				System.err.println(it.toString());
+				this.addTableIfNotAlreadyAdded(it.foreignTableName, it.tableName, true);
 			}
 		}
-		return sb.toString();
-	}
-	/*public static String getAlias(){
-		List <String> tbs=["Ca","Ca","Ca","Algomas","Ca","Ca2"];
-		List <String> aliases=new ArrayList<String>();
-		tbs.each{
-			boolean exists=true;
-			int idx=1;
-			while(exists==true && idx <= it.length()){
+		/*itera las tablas y remplaza el nombre del parent por el alias
+		boolean exists=false;
+		for (CrmDbTable tbl : tables){
+			if(null != tbl.getParent()){
 				exists=false;
-				for (String al : aliases){
-					if(al.equals(it.substring(0, idx).toLowerCase())){
+				for (CrmDbTable tbl2 : tables){
+					if(tbl.getParent().equals(tbl2.getName())){
+						tbl.setAlias(tbl2.getAlias());
 						exists=true;
+						break;
+					}
+				}
+				if(!exists){
+					throw new CRMException("Parent Domain object with name '"+tbl.getParent()+ "' was not found in loaded table list.");
+				}
+			}
+		}*/
+	}
+	
+	private boolean addTableIfNotAlreadyAdded(String tableName, String parentName, boolean isForeignTable)throws CRMException{
+		boolean exists=false;
+		for(CrmDbTable tbl: this.tables){
+			if(tbl.getName().equals(tableName)){
+				exists=true;
+				break;
+			}
+		}
+		if(!exists){
+			//cada vez que se encuentra una tabla nueva recorre todas las tablas ya cargadas y en el while crea un nuevo alias y queda ahi hasta que se encuentre uno que no exista, primero toma la primera letra de la tabla el lowerCase, luego la segunda y así, en ultima instance agrega la primera letra concatenado con un shourt UUID
+			exists=true;
+			int idx=1;
+			while(exists==true && idx <= tableName.length()){
+				exists=false;
+				for (CrmDbTable tbl : this.tables){
+					if(tbl.getAlias().equals(tableName.substring(0, idx).toLowerCase())){
+						exists=true;
+						break;
 					}
 				}
 				if(exists){
 					idx++;
 				}
 			}
-			if(idx > it.length()){
-				String aa=it.substring(0, 1).toLowerCase()+Utils.getShortUUID()
-				aliases.add(aa);
-				System.out.println(aa);
-			}else{
-				System.out.println(it.substring(0, idx).toLowerCase());
-				aliases.add(it.substring(0, idx).toLowerCase());
+			if(this.tables.isEmpty() && isForeignTable==true){
+				throw new CRMException("A foreign table can not be the first table added to the list");
+			}else{	
+				if(idx > tableName.length()){
+					this.tables.add(new CrmDbTable(tableName, parentName, tableName.substring(0, 1).toLowerCase()+Utils.getShortUUID(), isForeignTable));
+				}else{
+					this.tables.add(new CrmDbTable(tableName, parentName, tableName.substring(0, idx).toLowerCase(), isForeignTable));
+				}
+			}
+			//System.out.println("Agregando tabla "+tableName+" con alias="+tables.get(tableName));
+		}
+	}
+	
+	//select c.id, m.id, u.name from Concession as c INNER JOIN c.managedProperties as m, CrmUser as u WHERE c.agent = u.id
+	//no anda el inner join xx on c.id=m.id ni el where c.id=m.id xq tira error.
+	
+	public CrmDbTable getTableByName(String tableName){
+		for(CrmDbTable tbl: this.tables){
+			if(tbl.getName().equals(tableName)){
+				return tbl;
 			}
 		}
-	}*/
-	
-	public Map getTables(){
-		return this.tables;
+		return null;
 	}
-	public String getTableAliasByTableName(String tableName){
-		return tables.get(tableName);
+	public String getTableAliasByName(String tableName) throws CRMException{
+		CrmDbTable tbl=this.getTableByName(tableName);
+		if(null!=tbl){
+			return tbl.getAlias();
+		}else{
+			throw new CRMException("Table '"+tableName+"' was not found by name in Table's list.");
+		}
+	}
+	/*public String getParentTableAliasByChildTableName(String childTable) throws CRMException{
+		CrmDbTable tbl=this.getTableByName(childTable);
+		if(null!=tbl){
+			tbl=this.getTableByName(tbl.getParent());
+			if(null!=tbl){
+				return tbl.getAlias();
+			}else{
+				return null;
+			}
+		}else{
+			throw new CRMException("Table '"+childTable+"' was not found by name in Table's list.");
+		}
+	}*/
+	public List<CrmDbTable> getTables(){
+		return this.tables;
 	}
 }

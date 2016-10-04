@@ -11,4 +11,8 @@ class ContextPermission extends CrmDomain{
 		description(blank:true, nullable:true, unique:true, size:0..100);
 		permissionID(blank:false, nullable:false, unique:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "contextPermissions";
+	}
 }

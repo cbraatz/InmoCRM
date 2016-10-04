@@ -10,4 +10,8 @@ class TaskStatus extends CrmDomain{
 		isNew(nullable:false);
 		isClosed(nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "taskStatuses";
+	}
 }

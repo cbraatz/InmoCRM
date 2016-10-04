@@ -33,7 +33,10 @@ class IssuedInvoice extends CrmDomain{
 		incomePayment(nullable:false);
 		//thirdPartyPayment(true);
     }
-	
+	@Override
+	public static String getPluralName(){
+		return "issuedInvoices";
+	}
 	public Double getIssuedInvoiceAmountInIncomeCurrency(){
 		List<IssuedInvoice> list=IssuedInvoice.executeQuery("from IssuedInvoice where incomePayment = :i and isCanceled = :c",[i: this.incomePayment, c:true]);	
 		double amount=0;

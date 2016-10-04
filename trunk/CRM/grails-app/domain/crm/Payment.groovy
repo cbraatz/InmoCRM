@@ -48,4 +48,8 @@ class Payment extends CrmDomain{
 		this.incomePayment=incomePayment;
 		this.expensePayment=expensePayment;
 	}
+	@Override
+	public static String getPluralName(){
+		return "payments";
+	}
 }

@@ -16,4 +16,8 @@ class UserNotificationSubscription extends CrmDomain{
 		concession(nullable:true);
 		client(nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "userNotificationSubscriptions";
+	}
 }

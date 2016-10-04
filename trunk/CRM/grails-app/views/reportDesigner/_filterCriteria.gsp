@@ -11,8 +11,7 @@
 </g:else>
 <script>
 	function filterChanged(filCriteria,coid) {
-    	//<g:remoteFunction controller="reportDesigner" action="getCategoryFieldNumberAJAX" update="hidenFldNumber-0" params="'filterCriteriaName='+filCriteria"/>
-		jQuery.ajax({type:'POST',data:'filterCriteriaName='+filCriteria, url:'/reportDesigner/getCategoryFieldNumberAJAX',success:function(data,textStatus){jQuery('#hidenFldNumber-'+coid).html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+    	jQuery.ajax({type:'POST',data:'filterCriteriaName='+filCriteria, url:'/reportDesigner/getCategoryFieldNumberAJAX',success:function(data,textStatus){jQuery('#hidenFldNumber-'+coid).html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
     	updateFields(coid);
     }
 	function updateFields(cid) {

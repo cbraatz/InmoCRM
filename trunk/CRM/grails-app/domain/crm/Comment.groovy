@@ -19,4 +19,8 @@ class Comment extends CrmDomain{
 		propertyDemand(nullable:true);
 		concession(nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "comments";
+	}
 }

@@ -10,4 +10,8 @@ class ReportFolder extends CrmDomain{
 		crmUser(nullable:false);
 		isPublic(blank:false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "reportFolders";
+	}
 }

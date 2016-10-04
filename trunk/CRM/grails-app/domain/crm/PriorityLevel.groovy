@@ -10,4 +10,8 @@ class PriorityLevel extends CrmDomain{
 		color(blank: false, nullable:false, unique:true, size:1..15);
 		level(blank: false, nullable:false, unique:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "priorityLevels";
+	}
 }

@@ -12,4 +12,8 @@ class InterestType extends CrmDomain{
 		internalID(blank:false, nullable:false, size:1..40);
 		isSimpleInterest(nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "interestTypes";
+	}
 }

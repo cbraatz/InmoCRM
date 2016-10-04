@@ -1,6 +1,7 @@
 package crm
 
 import java.util.Date;
+
 import org.hibernate.collection.internal.PersistentSet
 
 class ExpensePayment extends CrmDomain{
@@ -22,7 +23,10 @@ class ExpensePayment extends CrmDomain{
 		isCanceled(nullable:false);
 		isPaid(nullable:false);
 	}
-	
+	@Override
+	public static String getPluralName(){
+		return "expensePayments";
+	}
 	public Double getPayedTotalAmount(){
 		PersistentSet list=this.payments;
 		double amount=0;

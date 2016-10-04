@@ -9,4 +9,8 @@ class AgentComment extends CrmDomain{
 		locale(blank:false, nullable:false);
 		crmUser(blank:false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "agentComments";
+	}
 }

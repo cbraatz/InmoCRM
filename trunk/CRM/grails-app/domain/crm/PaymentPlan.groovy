@@ -20,4 +20,8 @@ class PaymentPlan extends CrmDomain{
 		interestPercentage(blank:false, nullable:false, min:0F, max:100F, scale:2);
 		interestType(nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "paymentPlans";
+	}
 }

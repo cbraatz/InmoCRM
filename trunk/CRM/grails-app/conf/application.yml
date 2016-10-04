@@ -89,12 +89,12 @@ environments:
     test:
         dataSource:
             dbCreate: create-drop
-            url: jdbc:postgresql://localhost:5432/crm_test
+            url: jdbc:postgresql://crmtestdb.c4ivuzc6wh7s.sa-east-1.rds.amazonaws.com:5432/
             logSql: true
     production:
         dataSource:
             dbCreate: update
-            url: jdbc:postgresql://localhost:5432/crm_prod
+            url: jdbc:postgresql://crmtestdb.c4ivuzc6wh7s.sa-east-1.rds.amazonaws.com:5432/
             logSql: true
             properties:
                 jmxEnabled: true

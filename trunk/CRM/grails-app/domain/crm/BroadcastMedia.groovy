@@ -14,4 +14,8 @@ class BroadcastMedia extends CrmDomain{
 		adTextMaxLength(blank: true, nullable:true);
 		country(nullable:true);
 	}
+	@Override
+	public static String getPluralName(){
+		return "broadcastMedias";
+	}
 }

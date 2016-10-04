@@ -9,4 +9,8 @@ class City extends CrmDomain{
 		name(blank: false, nullable: false, unique: 'department', size:1..50);
 		department(nullable: false);
     }
+	@Override
+	public static String getPluralName(){
+		return "cities";
+	}
 }

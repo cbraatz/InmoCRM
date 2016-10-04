@@ -13,4 +13,8 @@ class PropertyUsage extends CrmDomain{
 		isCurrentUsage(nullable: false);
 		description(blank: true, nullable: true, widget:'textArea', size:0..100);
     }
+	@Override
+	public static String getPluralName(){
+		return "propertyUsages";
+	}
 }

@@ -9,4 +9,8 @@ class Neighborhood extends CrmDomain{
 		name(blank:false, nullable:false, unique:true, size:1..50);
 		description(blank:true, nullable:true, widget:'textArea', size:0..100);
     }
+	@Override
+	public static String getPluralName(){
+		return "neighborhoods";
+	}
 }

@@ -23,6 +23,10 @@ class CrmUser extends CrmDomain{
 		isDefault(nullable:false);
 		partner(nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "crmUsers";
+	}
 	private boolean checkPermissions(String controller, String action) {
 			if(isActivateInUIX(controller)){
 				return hasPermission(controller, action);

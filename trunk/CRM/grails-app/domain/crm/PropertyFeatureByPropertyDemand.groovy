@@ -13,4 +13,8 @@ class PropertyFeatureByPropertyDemand extends CrmDomain{
 		propertyDemand(nullable:false);
 		propertyFeature(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "propertyFeaturesByPropertyDemand";
+	}
 }

@@ -13,7 +13,11 @@ class Contract extends CrmDomain{
 		internalID(blank: false, nullable:false, size:1..40, unique:true);
     }
 	@Override
-	public static getDefaultPropertyName(){
+	public static String getDefaultPropertyName(){
 		return "internalID";
+	}
+	@Override
+	public static String getPluralName(){
+		return "contracts";
 	}
 }

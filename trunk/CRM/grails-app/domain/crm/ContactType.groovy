@@ -19,4 +19,8 @@ class ContactType extends CrmDomain{
 		personally(blank:false, nullable:false);
 		showing(blank:false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "contractTypes";
+	}
 }

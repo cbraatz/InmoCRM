@@ -104,7 +104,10 @@ class PropertyDemand extends CrmDomain{
 		interestLevel(nullable:false);
 		demandStatus(nullable:false);
     }
-	
+	@Override
+	public static String getPluralName(){
+		return "propertyDemands";
+	}
 	public ArrayList<PropertyDemand> getSmartMatchesForSellDemand(){
 		if(this.isSellDemand){
 			List<PropertyDemand> demands;

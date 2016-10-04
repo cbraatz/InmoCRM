@@ -1,6 +1,6 @@
 package crm
 
-class CommissionByConcession {
+class CommissionByConcession extends CrmDomain{
 	Float amount;
 	Float percentage;
 	Concession concession;
@@ -11,5 +11,9 @@ class CommissionByConcession {
 		percentage(blank: false, nullable: false, min:0F, max:100F, scale:2);
 		concession(nullable: false);
 		partner(nullable: false);
+	}
+	@Override
+	public static String getPluralName(){
+		return "commissionsByConcession";
 	}
 }

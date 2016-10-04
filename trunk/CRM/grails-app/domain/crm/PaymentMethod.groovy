@@ -27,4 +27,8 @@ class PaymentMethod extends CrmDomain{
 			return null;
 		}
 	}
+	@Override
+	public static String getPluralName(){
+		return "paymentMethods";
+	}
 }

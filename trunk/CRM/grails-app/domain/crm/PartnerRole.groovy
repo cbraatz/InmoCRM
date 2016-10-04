@@ -10,4 +10,8 @@ class PartnerRole extends CrmDomain{
 		isEmployee(nullable:false);
 		description(blank: false, nullable:false, widget:'textArea', size:1..200);
     }
+	@Override
+	public static String getPluralName(){
+		return "partnerRoles";
+	}
 }

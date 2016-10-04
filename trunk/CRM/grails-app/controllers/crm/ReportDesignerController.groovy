@@ -1,6 +1,9 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
+
+import java.util.List;
+
 import grails.transaction.Transactional
 import crm.commands.ReportDesignerColumnsCommand
 import crm.enums.FilterCriteria;
@@ -126,12 +129,15 @@ class ReportDesignerController {
 			notFound()
 			return
 		}
-
+		
 		if (reportDesigner.hasErrors()) {
 			transactionStatus.setRollbackOnly()
 			respond reportDesigner/*.errors*/, view:'step5', model:[reportDesignerColumnsCommand:reportDesignerColumnsCommand]
 			return
 		}
+		
+		reportDesigner.executeReportQuery(reportDesignerColumnsCommand.getColumnList());
+		
 		boolean saveError=false;
 		if (reportDesigner.save(flush:true)){
 			reportDesignerColumnsCommand.columnList.each{

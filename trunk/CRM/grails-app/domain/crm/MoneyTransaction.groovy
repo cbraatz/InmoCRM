@@ -29,7 +29,10 @@ class MoneyTransaction extends CrmDomain{
 	public MoneyTransaction(){
 		
 	}
-	
+	@Override
+	public static String getPluralName(){
+		return "moneyTransactions";
+	}
 	public MoneyTransaction(Date date, Double amount, String internalID, Payment payment, Currency currency, PaymentMethod paymentMethod, TransactionType transactionType, BankAccount bankAccount, MoneyTransactionTotal moneyTransactionTotal){
 		this.date=date;
 		this.amount=amount;

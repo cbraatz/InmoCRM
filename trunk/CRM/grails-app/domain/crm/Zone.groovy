@@ -9,4 +9,8 @@ class Zone extends CrmDomain{
 		name(blank: false, nullable:false, unique: true, size:1..50);
 		description(blank: false, nullable: false, widget:'textArea', size: 1..200);
     }
+	@Override
+	public static String getPluralName(){
+		return "zones";
+	}
 }

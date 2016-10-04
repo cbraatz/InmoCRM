@@ -16,4 +16,8 @@ class ContractType extends CrmDomain{
 		commissionPercentage(blank:false, nullable:false, min:0F, max:100F, scale:2);
 		billingDefaultDescription(blank:false, nullable:false, size:1..100);
     }
+	@Override
+	public static String getPluralName(){
+		return "contractTypes";
+	}
 }

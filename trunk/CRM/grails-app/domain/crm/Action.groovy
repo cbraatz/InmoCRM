@@ -17,4 +17,8 @@ class Action extends CrmDomain{
 		cost(blank:true, nullable:true);
 		currency(blank:true, nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "actions";
+	}
 }

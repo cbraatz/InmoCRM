@@ -33,7 +33,12 @@ public enum FilterCriteria {
 		this.whereCondition=whereCondition;
 	}
 	
-	public String generateWhereClause(String column, String value1, String value2){
-		return column+this.whereCondition.replace("#1", value1).replace("#2", value2);
+	public String generateWhereCondition(String column, String value1, String value2){
+		String res = column+this.whereCondition.replace("#1", value1);
+		if(value2!=null && this.whereCondition.indexOf("#2")>=0){
+			return res.replace("#2", value2);
+		}else{
+			return res;
+		}
 	}
 }

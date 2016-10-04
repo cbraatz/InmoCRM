@@ -9,4 +9,8 @@ class OperationType extends CrmDomain{
 		rent(blank:false, nullable:false, unique:true, size:1..20);
 		language(blank:false, nullable:false, unique:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "operationTypes";
+	}
 }

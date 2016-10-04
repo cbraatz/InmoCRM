@@ -15,6 +15,10 @@ class Locale extends CrmDomain{
 		country(blank:false, nullable:false);
 		isDefault(nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "locales";
+	}
 	public static Locale getDefaultLocale(){
 		List<Locale> list=Locale.executeQuery("from Locale where isDefault = :d",[d:true]);
 		if(list.size()==1){

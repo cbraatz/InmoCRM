@@ -52,7 +52,11 @@ class Concession extends CrmDomain{
 		return [new SearchAttribute("id", false),new SearchAttribute("description")];
 	}
 	@Override
-	public static getDefaultPropertyName(){
+	public static String getDefaultPropertyName(){
 		return "id";
+	}
+	@Override
+	public static String getPluralName(){
+		return "concessions";
 	}
 }

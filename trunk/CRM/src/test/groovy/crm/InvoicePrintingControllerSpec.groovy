@@ -3,9 +3,9 @@ package crm
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(InvoicesPrintingController)
-@Mock(InvoicesPrinting)
-class InvoicesPrintingControllerSpec extends Specification {
+@TestFor(InvoicePrintingController)
+@Mock(InvoicePrinting)
+class InvoicePrintingControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -19,8 +19,8 @@ class InvoicesPrintingControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.invoicesPrintingList
-            model.invoicesPrintingCount == 0
+            !model.invoicePrintingList
+            model.invoicePrintingCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -28,7 +28,7 @@ class InvoicesPrintingControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.invoicesPrinting!= null
+            model.invoicePrinting!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -36,25 +36,25 @@ class InvoicesPrintingControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def invoicesPrinting = new InvoicesPrinting()
-            invoicesPrinting.validate()
-            controller.save(invoicesPrinting)
+            def invoicePrinting = new InvoicePrinting()
+            invoicePrinting.validate()
+            controller.save(invoicePrinting)
 
         then:"The create view is rendered again with the correct model"
-            model.invoicesPrinting!= null
+            model.invoicePrinting!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            invoicesPrinting = new InvoicesPrinting(params)
+            invoicePrinting = new InvoicePrinting(params)
 
-            controller.save(invoicesPrinting)
+            controller.save(invoicePrinting)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/invoicesPrinting/show/1'
+            response.redirectedUrl == '/invoicePrinting/show/1'
             controller.flash.message != null
-            InvoicesPrinting.count() == 1
+            InvoicePrinting.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -66,11 +66,11 @@ class InvoicesPrintingControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def invoicesPrinting = new InvoicesPrinting(params)
-            controller.show(invoicesPrinting)
+            def invoicePrinting = new InvoicePrinting(params)
+            controller.show(invoicePrinting)
 
         then:"A model is populated containing the domain instance"
-            model.invoicesPrinting == invoicesPrinting
+            model.invoicePrinting == invoicePrinting
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -82,11 +82,11 @@ class InvoicesPrintingControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def invoicesPrinting = new InvoicesPrinting(params)
-            controller.edit(invoicesPrinting)
+            def invoicePrinting = new InvoicePrinting(params)
+            controller.edit(invoicePrinting)
 
         then:"A model is populated containing the domain instance"
-            model.invoicesPrinting == invoicesPrinting
+            model.invoicePrinting == invoicePrinting
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -96,28 +96,28 @@ class InvoicesPrintingControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/invoicesPrinting/index'
+            response.redirectedUrl == '/invoicePrinting/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def invoicesPrinting = new InvoicesPrinting()
-            invoicesPrinting.validate()
-            controller.update(invoicesPrinting)
+            def invoicePrinting = new InvoicePrinting()
+            invoicePrinting.validate()
+            controller.update(invoicePrinting)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.invoicesPrinting == invoicesPrinting
+            model.invoicePrinting == invoicePrinting
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            invoicesPrinting = new InvoicesPrinting(params).save(flush: true)
-            controller.update(invoicesPrinting)
+            invoicePrinting = new InvoicePrinting(params).save(flush: true)
+            controller.update(invoicePrinting)
 
         then:"A redirect is issued to the show action"
-            invoicesPrinting != null
-            response.redirectedUrl == "/invoicesPrinting/show/$invoicesPrinting.id"
+            invoicePrinting != null
+            response.redirectedUrl == "/invoicePrinting/show/$invoicePrinting.id"
             flash.message != null
     }
 
@@ -128,23 +128,23 @@ class InvoicesPrintingControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/invoicesPrinting/index'
+            response.redirectedUrl == '/invoicePrinting/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def invoicesPrinting = new InvoicesPrinting(params).save(flush: true)
+            def invoicePrinting = new InvoicePrinting(params).save(flush: true)
 
         then:"It exists"
-            InvoicesPrinting.count() == 1
+            InvoicePrinting.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(invoicesPrinting)
+            controller.delete(invoicePrinting)
 
         then:"The instance is deleted"
-            InvoicesPrinting.count() == 0
-            response.redirectedUrl == '/invoicesPrinting/index'
+            InvoicePrinting.count() == 0
+            response.redirectedUrl == '/invoicePrinting/index'
             flash.message != null
     }
 }

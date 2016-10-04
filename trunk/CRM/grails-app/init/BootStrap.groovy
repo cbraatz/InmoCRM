@@ -241,9 +241,9 @@ class BootStrap {
 		this.saveObj(new Currency(name: "Dólar", plural:"Dólares", symbol:"USS", hasDecimals:true, isDefault:false, isInvoicingCurrency:true, country: Country.findByName("Estados Unidos")));
 		this.saveObj(new Currency(name: "Euro", plural:"Euros", symbol:"€", hasDecimals:true, isDefault:false, isInvoicingCurrency:false));
 		
-		//DefaultsDateRage
-		this.saveObj(new DefaultsDateRange(startDate:new Date(), endDate:null, taxRate:TaxRate.findByName("10 %"), currency:null));
-		this.saveObj(new DefaultsDateRange(startDate:new Date(), endDate:null, taxRate:null, currency:Currency.findByName("Guaraní")));
+		//DefaultDateRage
+		this.saveObj(new DefaultDateRange(startDate:new Date(), endDate:null, taxRate:TaxRate.findByName("10 %"), currency:null));
+		this.saveObj(new DefaultDateRange(startDate:new Date(), endDate:null, taxRate:null, currency:Currency.findByName("Guaraní")));
 		
 		//CurrencyExchange
 		this.saveObj(new CurrencyExchange(date:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("16/09/2015"), buy:new Double("5000"), sell:new Double("5050"), sourceCurrency:Currency.findBySymbol("Gs"), targetCurrency:Currency.findBySymbol("USS")));
@@ -327,8 +327,8 @@ class BootStrap {
 		this.saveObj(new TransactionType(name:"Cobro de Ingresos", internalID:"EXPENSE_PAYMENT", isDefault:true, isInternalTransaction:false));
 		this.saveObj(new TransactionType(name:"Cambio", internalID:"PAYMENT_CHANGE", isDefault:true, isInternalTransaction:false));
 		
-		//InvoicesPrinting
-		this.saveObj(new InvoicesPrinting(printingNumber:65898521, startDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2016"), firstNumber:"001", secondNumber:"001", thirdStartNumber:"0000001", quantity:50));
+		//InvoicePrinting
+		this.saveObj(new InvoicePrinting(printingNumber:65898521, startDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/2016"), firstNumber:"001", secondNumber:"001", thirdStartNumber:"0000001", quantity:50));
 		
 		//ActionType
 		this.saveObj(new ActionType(name:"Corpida de pasto a cargo del cliente", description:"Corpida de pasto que paga el cliente.", hasCost:true, clientPays:true));

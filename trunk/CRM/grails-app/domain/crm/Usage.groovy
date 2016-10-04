@@ -9,4 +9,8 @@ class Usage extends CrmDomain{
 		name(blank: false, nullable:false, unique:true, size:1..50);
 		description(blank: false, nullable:false, size:1..100);
 	}
+	@Override
+	public static String getPluralName(){
+		return "usages";
+	}
 }

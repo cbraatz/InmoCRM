@@ -14,4 +14,8 @@ class BankAccount extends CrmDomain{
 		partner(nullable:true);
 		isSavingsAccount(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "bankAccounts";
+	}
 }

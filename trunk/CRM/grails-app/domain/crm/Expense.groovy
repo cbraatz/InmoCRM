@@ -29,7 +29,10 @@ class Expense extends CrmDomain{
 	static mapping = {
 		expensePayments sort: "dueDate"
 	}
-	
+	@Override
+	public static String getPluralName(){
+		return "expenses";
+	}
 	public boolean areAllExpensePaymentsPaid(){
 		PersistentSet list=this.expensePayments;
 		list.each{

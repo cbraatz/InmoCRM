@@ -17,7 +17,10 @@ class PropertyFeature extends CrmDomain{
 		defaultWebIcon(blank:true, nullable:true, widget:'textArea', size:0..255);
 		hasValue(nullable:false);
 	}
-	
+	@Override
+	public static String getPluralName(){
+		return "propertyFeatures";
+	}
 	public static List<FeatureByProperty> getEmptyFeatureByPropertyListForEachPropertyFeature(){
 		List<FeatureByProperty> list = new ArrayList<FeatureByProperty>();
 		PropertyFeature.getAll().each{

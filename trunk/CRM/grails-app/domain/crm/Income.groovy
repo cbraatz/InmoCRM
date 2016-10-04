@@ -33,6 +33,7 @@ class Income extends CrmDomain{
 	static mapping = {
 		incomePayments sort: "dueDate"
 	}
+	
 	public Income(){
 		this.concession=new Concession();
 	}
@@ -40,6 +41,11 @@ class Income extends CrmDomain{
 		this.properties = params;
 		this.concession=new Concession();
 	}
+	@Override
+	public static String getPluralName(){
+		return "incomes";
+	}
+	
 	public boolean areAllIncomePaymentsPaid(){
 		PersistentSet list=this.incomePayments;
 		list.each{

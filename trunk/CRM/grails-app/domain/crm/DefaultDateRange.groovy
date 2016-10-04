@@ -1,6 +1,6 @@
 package crm
 
-class DefaultsDateRange extends CrmDomain{
+class DefaultDateRange extends CrmDomain{
 	Date startDate;
 	Date endDate;
 	Currency currency;
@@ -11,4 +11,8 @@ class DefaultsDateRange extends CrmDomain{
 		currency(nullable:true);
 		taxRate(nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "defaultDateRanges";
+	}
 }

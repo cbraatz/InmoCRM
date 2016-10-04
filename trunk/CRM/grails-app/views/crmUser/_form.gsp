@@ -11,4 +11,5 @@
 	<f:field bean="crmUser" property="partner" input-propId="${crmUser?.partner?.id}"/>
 	<f:field bean="crmUser" property="isAdmin"/>
 	<f:field bean="crmUser" property="isActive"/>
+	<g:hiddenField name="crmUser" value="isDefault"/>
 </fieldset>

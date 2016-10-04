@@ -16,4 +16,8 @@ class ExpenseType extends CrmDomain{
 		taxRate(nullable:false);
 		isCompanyExpense(nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "expenseTypes";
+	}
 }

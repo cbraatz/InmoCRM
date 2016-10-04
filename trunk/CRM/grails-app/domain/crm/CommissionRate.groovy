@@ -11,4 +11,8 @@ class CommissionRate extends CrmDomain{
 		percentage(blank:false, nullable:false, min:0F, max:100F, scale:2);
 		commissionType(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "commissionRates";
+	}
 }

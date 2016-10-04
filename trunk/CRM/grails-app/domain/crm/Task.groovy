@@ -33,7 +33,10 @@ class Task extends CrmDomain{
 	public Task(def params){
 		this.properties = params;
 	}
-	
+	@Override
+	public static String getPluralName(){
+		return "tasks";
+	}
 	@Override
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("name")];

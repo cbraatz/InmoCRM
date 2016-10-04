@@ -17,4 +17,8 @@ class PaymentDocument extends CrmDomain{
 		endDate(blank:true, nullable:true);
 		bank(nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "paymentDocuments";
+	}
 }

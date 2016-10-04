@@ -7,26 +7,18 @@ import crm.ReportDesignerColumn;
 import crm.enums.FilterCriteria;
 
 public class CrmDbQueryWhereList {
-	private final List<ReportFilterValue> filterValues=new ArrayList<ReportFilterValue>();
-	private final String START_STRING="WHERE ";
-	private final String SEPARATOR_STRING=" , ";
+	
+	
+	private final String SEPARATOR_STRING=", ";
 	public CrmDbQueryWhereList(List<ReportDesignerColumn> reportDesignerColumn) {
-		reportDesignerColumn.each{
-			this.filterValues.add(new ReportFilterValue(it.primaryFilterValue,	it.secondaryFilterValue, FilterCriteria.valueOf(it.filterCriteria)));
+		if(null==reportDesignerColumn){
+			throw new IllegalArgumentException(message(code: 'default.invalid.paramethers.error', args: ["reportDesignerColumn = null"]));
 		}
-	}
-	public String getWhereClause(){
-		StringBuilder sb = new StringBuilder();
-		sb.append(this.START_STRING);
-		boolean first=true;
-		filterValues.each{
-			if(true==first){
-				//sb.append(it.getWhereClause(String column));ver para juntar los 3 xq column debe contener c.name por ejemplo, no solo name
-				first=false;
-			}else{
-				sb.append(this.SEPARATOR_STRING+it);
+		reportDesignerColumn.each{
+			if(true==it.filterBy.booleanValue()){
+				this.filterValues.add(new ReportFilterValue(it.propertyName, it.primaryFilterValue,	it.secondaryFilterValue, FilterCriteria.valueOf(it.filterCriteria)));
 			}
 		}
-		return sb.toString();
 	}
+	
 }

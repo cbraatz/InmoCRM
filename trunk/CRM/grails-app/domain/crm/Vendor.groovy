@@ -14,4 +14,8 @@ class Vendor extends CrmDomain{
 		description(blank:false, nullable:false, widget:'textArea', size:1..200);
 		emailAddress(blank:true, nullable:true, email: true);
     }
+	@Override
+	public static String getPluralName(){
+		return "vendors";
+	}
 }

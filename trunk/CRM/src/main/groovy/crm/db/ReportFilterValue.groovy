@@ -13,7 +13,7 @@ class ReportFilterValue {
 		this.value2=value2;
 		this.criteria=criteria;
 	}
-	public String getWhereClause(){
-		return criteria.generateWhereClause(column, value1, value2);
+	public String getWhereCondition(){
+		return criteria.generateWhereCondition(column, value1, value2);
 	}
 }

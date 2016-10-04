@@ -14,4 +14,8 @@ class IncomeType extends CrmDomain{
 		billingDefaultDescription(blank:false, nullable:false, size:1..100);
 		isConcessionRelated(blank:false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "incomeTypes";
+	}
 }

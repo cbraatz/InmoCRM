@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(DefaultsDateRange)
-class DefaultsDateRangeSpec extends Specification {
+@TestFor(InvoicePrinting)
+class InvoicePrintingSpec extends Specification {
 
     def setup() {
     }

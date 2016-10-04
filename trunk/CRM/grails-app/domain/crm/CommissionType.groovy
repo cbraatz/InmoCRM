@@ -15,4 +15,8 @@ class CommissionType extends CrmDomain{
 		internalID(blank:false, nullable:false, unique:true, size:1..40);
 		expenseType(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "commissionTypes";
+	}
 }

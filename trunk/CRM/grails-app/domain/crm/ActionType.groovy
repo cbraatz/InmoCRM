@@ -13,4 +13,8 @@ class ActionType extends CrmDomain{
 		hasCost(blank: false, nullable:false);
 		clientPays(blank: false, nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "actionTypes";
+	}
 }

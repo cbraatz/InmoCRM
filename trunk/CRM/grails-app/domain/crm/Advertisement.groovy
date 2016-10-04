@@ -27,4 +27,8 @@ class Advertisement extends CrmDomain{
 		propertyDemand(nullable:true);
 		managedProperty(nullable:true);
     }
+	@Override
+	public static String getPluralName(){
+		return "advertisements";
+	}
 }

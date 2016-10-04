@@ -20,7 +20,10 @@ class IncomePayment extends CrmDomain{
 		isCanceled(nullable:false);
 		isPaid(nullable:false);
     }
-	
+	@Override
+	public static String getPluralName(){
+		return "incomePayments";
+	}
 	public Double getPayedTotalAmount(){
 		PersistentSet list=this.payments;
 		double amount=0;

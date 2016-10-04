@@ -40,7 +40,10 @@ class Partner extends CrmDomain{
 		isAgent(nullable:false);
 		salary(blank:true, nullable:true);
 	}
-	
+	@Override
+	public static String getPluralName(){
+		return "partners";
+	}
 	@Override
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("name")];

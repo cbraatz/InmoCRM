@@ -18,4 +18,8 @@ class Contact extends CrmDomain{
 		partner(nullable:false);
 		contactType(nullable:false);
 	}
+	@Override
+	public static String getPluralName(){
+		return "contracts";
+	}
 }

@@ -11,6 +11,10 @@ class Language extends CrmDomain{
 		symbol(blank:false, nullable:false, unique:true, size:1..10);
 		prepositionOfPlace(blank:false, nullable:false, size:1..10);
 	}
+	@Override
+	public static String getPluralName(){
+		return "languages";
+	}
 	public static Language getDefaultLanguage(){
 		return Locale.getDefaultLocale().language;
 	}

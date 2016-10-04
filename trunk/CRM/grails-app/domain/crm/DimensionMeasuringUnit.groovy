@@ -16,4 +16,8 @@ class DimensionMeasuringUnit extends CrmDomain{
 		isDefault(nullable:false);
 		isArea(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "dimensionMeasuringUnits";
+	}
 }

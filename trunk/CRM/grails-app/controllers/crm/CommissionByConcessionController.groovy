@@ -20,7 +20,7 @@ class CommissionByConcessionController {
 		if(params.cid != null){
 			concession=Concession.get(params.cid);
 		}else{
-			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error')]);
+			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["cid = "+params.cid])]);
 		}
 		/*if(null==commissionInstanceList){
 			commissionInstanceList=CommissionByConcession.list(concession:concession);

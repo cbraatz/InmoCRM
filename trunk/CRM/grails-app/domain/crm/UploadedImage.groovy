@@ -15,4 +15,8 @@ class UploadedImage extends CrmDomain{
 		addToWeb(nullable:false);
 		managedProperty(nullable:false);
     }
+	@Override
+	public static String getPluralName(){
+		return "uploadedImages";
+	}
 }

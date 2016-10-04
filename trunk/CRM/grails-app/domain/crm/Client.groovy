@@ -58,4 +58,8 @@ class Client extends CrmDomain{
 	public String getCity(){
 		return address.city.name;
 	}
+	@Override
+	public static String getPluralName(){
+		return "clients";
+	}
 }

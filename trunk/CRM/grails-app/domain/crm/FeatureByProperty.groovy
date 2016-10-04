@@ -35,4 +35,8 @@ class FeatureByProperty extends CrmDomain{
 		}
 		return list;
 	}
+	@Override
+	public static String getPluralName(){
+		return "featuresByProperty";
+	}
 }

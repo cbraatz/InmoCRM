@@ -14,4 +14,8 @@ class ClassicReport extends CrmDomain{
 		crmUser(nullable:false);
 		reportFolder(nullable:true);
 	}
+	@Override
+	public static String getPluralName(){
+		return "classicReports";
+	}
 }

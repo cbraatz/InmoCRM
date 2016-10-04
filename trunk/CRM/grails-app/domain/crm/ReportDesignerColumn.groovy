@@ -10,6 +10,7 @@ class ReportDesignerColumn extends CrmDomain{
 	String tableName;
 	String foreignTableName;//Constraint table name eg Concession.CrmUser ==> CrmUser
 	String foreignTableDisplay;//Constraint table changed/displayed name eg Concession.Agent ==> Agent
+	String parentTableName;//si la tabla es root, parent es null, pero sino hay que especificar la tabla parent. Ej Concession es parent de Comment. Concession es root por eso no tiene parent
 	String primaryFilterValue;
 	String secondaryFilterValue;
 	String filterCriteria;
@@ -30,6 +31,7 @@ class ReportDesignerColumn extends CrmDomain{
 		tableName(blank:false, nullable:false, size:1..50);
 		foreignTableName(blank:true, nullable:true, size:0..50);
 		foreignTableDisplay(blank:true, nullable:true, size:0..50);
+		parentTableName(blank:true, nullable:true, size:0..50);
 		primaryFilterValue(blank:true, nullable:true, size:0..100);
 		secondaryFilterValue(blank:true, nullable:true, size:0..100);
 		filterCriteria(blank:true, nullable:true);
@@ -42,12 +44,12 @@ class ReportDesignerColumn extends CrmDomain{
 		groupPosition(blank:true, nullable:true);
 		columnWidth(blank:true, nullable:true);
 		reportDesigner(blank:false, nullable:false);
-		dataType(blank:false, nullable:false, size:1..15);
+		dataType(blank:false, nullable:false, size:1..30);
     }
 	
 	public ReportDesignerColumn() { }
 	
-	public ReportDesignerColumn(String tableName, Field field) {
+	public ReportDesignerColumn(String tableName, String parentTableName, Field field) {
 		if(field.getType().getSuperclass().getName().equals("crm.CrmDomain")){//si es una relacion many to one
 			try {
 				//Class<crm.CrmDomain> crmDom=(Class<crm.CrmDomain>) field.getType();
@@ -68,6 +70,7 @@ class ReportDesignerColumn extends CrmDomain{
 			this.dataType=field.getType().getName();
 		}
 		this.tableName=GUtils.extractCRMPrefixFromClassName(tableName);
+		this.parentTableName=(parentTableName!=null?GUtils.extractCRMPrefixFromClassName(parentTableName):null);
 		this.selected=true;
 		this.filterBy=false;
 		this.sortBy=false;
@@ -77,8 +80,35 @@ class ReportDesignerColumn extends CrmDomain{
 		//this.filterValue=null;
 		System.out.println("prop="+propertyName+"  tableName="+tableName+"  foreignTableName="+foreignTableName+"   tableDisplay="+foreignTableDisplay+"   dataType="+dataType);
 	}
+	@Override
+	public static String getPluralName(){
+		return "reportDesignerColumns";
+	}
 	public String getLabelName(){
 		return (null == this.foreignTableName ? GUtils.getFirstCharInLowerCase(this.tableName) : GUtils.getFirstCharInLowerCase(this.foreignTableName))+'.'+(this.foreignTableDisplay != null ? this.foreignTableDisplay : this.propertyName)+'.label';
+	}
+	@Override
+	public String toString(){
+		StringBuilder sb=new StringBuilder();
+		sb.append("tableName="+tableName);
+		sb.append(", foreignTableName="+foreignTableName);
+		sb.append(", foreignTableDisplay="+foreignTableDisplay);
+		sb.append(", parentTableName="+parentTableName);
+		sb.append(", propertyName="+propertyName);
+		sb.append(", primaryFilterValue="+primaryFilterValue);
+		sb.append(", secondaryFilterValue="+secondaryFilterValue);
+		sb.append(", filterCriteria="+filterCriteria);
+		sb.append(", selected="+selected);
+		sb.append(", filterBy="+filterBy);
+		sb.append(", sortBy="+sortBy);
+		sb.append(", groupBy="+groupBy);
+		sb.append(", sortPosition="+sortPosition);
+		sb.append(", sortOrder="+sortOrder);
+		sb.append(", groupPosition="+groupPosition);
+		sb.append(", columnWidth="+columnWidth);
+		sb.append(", reportDesigner="+reportDesigner);
+		sb.append(", dataType="+dataType);
+		return sb.toString();
 	}
 	/*public String getDataType(){
 		Class<?> itemClass=Class.forName("crm."+this.tableName);
