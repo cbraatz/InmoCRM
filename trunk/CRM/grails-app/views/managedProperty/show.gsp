@@ -34,9 +34,7 @@
             <fieldset class="fieldcontain">
             	<span id="name-label" class="property-label"><g:message code="managedProperty.propertyType.label" default="Property Type"/></span>
 				<f:display bean="managedProperty" property="propertyType"/>
-				<span id="name-label" class="property-label"><g:message code="managedProperty.owner.label" default="owner"/></span>
-				<f:display bean="managedProperty" property="owner"/>
-				<span id="name-label" class="property-label"><g:message code="managedProperty.title.label" default="title"/></span>
+				<span id="name-label" class="property-label"><g:message code="managedProperty.title.label" default="Title"/></span>
 				<f:display bean="managedProperty" property="title"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.propertyDescription.label" default="propertyDescription"/></span>
 				<f:display bean="managedProperty" property="propertyDescription"/>
@@ -69,6 +67,34 @@
 				<span id="name-label" class="property-label"><g:message code="managedProperty.soldByUs.label" default="Sold by Us"/></span>
 				<f:display bean="managedProperty" property="soldByUs"/>
 			</fieldset>
+			
+			 <h1><g:message code="address.label"/></h1>
+            <fieldset class="fieldcontain">
+            	<span id="name-label" class="property-label"><g:message code="address.streetOne.label" default="Street One"/></span>
+		        <f:display bean="managedProperty" property="address.streetOne"/>
+		        <span id="name-label" class="property-label"><g:message code="address.streetTwo.label" default="Street Two"/></span>
+		        <f:display bean="managedProperty" property="address.streetTwo"/>
+		        <span id="name-label" class="property-label"><g:message code="address.addressLine.label" default="Address"/></span>
+		        <f:display bean="managedProperty" property="address.addressLine"/>
+		        <span id="name-label" class="property-label"><g:message code="address.reference.label" default="Reference"/></span>
+		        <f:display bean="managedProperty" property="address.reference"/>
+		        <span id="name-label" class="property-label"><g:message code="address.description.label" default="Description"/></span>
+		        <f:display bean="managedProperty" property="address.description"/>
+		        <span id="name-label" class="property-label"><g:message code="address.code.label" default="Zip Code"/></span>
+		        <f:display bean="managedProperty" property="address.code"/>
+		        <span id="name-label" class="property-label"><g:message code="address.latitude.label" default="Latitude"/></span>
+		        <f:display bean="managedProperty" property="address.latitude"/>
+		        <span id="name-label" class="property-label"><g:message code="address.longitude.label" default="Longitude"/></span>
+		        <f:display bean="managedProperty" property="address.longitude"/>
+		        <span id="name-label" class="property-label"><g:message code="address.homePhone.label" default="Home Phone"/></span>
+		        <f:display bean="managedProperty" property="address.homePhone"/>
+		        <span id="name-label" class="property-label"><g:message code="address.city.label" default="City"/></span>
+		        <f:display bean="managedProperty" property="address.city"/>
+		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
+		        <f:display bean="managedProperty" property="address.neighborhood"/>
+		        <span id="name-label" class="property-label"><g:message code="address.zone.label" default="Zone"/></span>
+		        <f:display bean="managedProperty" property="address.zone"/>
+            </fieldset>
 			<g:if test="${managedProperty.buildings.size() > 0}">
 				<h1><g:message code="managedProperty.buildings.label"/></h1>
 	            <f:table collection="${managedProperty.buildings}" properties="['buildingType','builtSize', 'builtYear', 'buildingCondition', 'buildingDescription']" />

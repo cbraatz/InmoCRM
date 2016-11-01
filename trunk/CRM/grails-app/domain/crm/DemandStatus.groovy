@@ -2,8 +2,8 @@ package crm
 
 class DemandStatus extends CrmDomain{
 	String name;
-	boolean isNew;
-	boolean isClosed;
+	Boolean isNew;
+	Boolean isClosed;
 	static hasMany = [propertyDemands:PropertyDemand/*InsuranceDemand*/];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);

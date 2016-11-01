@@ -2,7 +2,7 @@ package crm
 
 class PartnerRole extends CrmDomain{
 	String name;
-	boolean isEmployee;
+	Boolean isEmployee;
 	String description;
 	static hasMany = [partners:Partner, commissionRates:CommissionRate/*,ContextPermissionByPartnerRole*/];
     static constraints = {

@@ -8,8 +8,8 @@ class PaymentDocument extends CrmDomain{
 	Date startDate;
 	Date endDate;
 	Bank bank;
-	static hasMany=[paymentsIn:Payment, paymentsOut:Payment];
-	static mappedBy = [paymentsIn:"inPaymentDocument", paymentsOut:"outPaymentDocument"];
+	static hasMany=[paymentsInPaymentDocument:Payment, paymentsOutPaymentDocument:Payment];
+	static mappedBy = [paymentsInPaymentDocument:"inPaymentDocument", paymentsOutPaymentDocument:"outPaymentDocument"];
     static constraints = {
 		paymentMethod(nullable:false);
 		internalID(blank:true, nullable:true, size:1..40);//should be nullable=false but it is validated after submit

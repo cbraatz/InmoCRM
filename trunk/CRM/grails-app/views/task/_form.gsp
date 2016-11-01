@@ -10,7 +10,7 @@
 	<f:field bean="task" property="assignee" input-propId="${task?.assignee?.id}"/>
 	<f:field bean="task" property="taskStatus" input-propId="${task?.taskStatus?.id}"/>
 
-	<g:hiddenField name="owner.id" value="${session?.user?.id}"/>
+	<g:hiddenField name="creator.id" value="${session?.user?.id}"/>
 	<g:hiddenField name="internalID" value="${task?.internalID}"/>
 	<div class="fieldcontain">
 	<label class="property-label" id="manyToMany-label"><g:message code="task.notificationMethods.label"/></label>

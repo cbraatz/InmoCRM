@@ -8,8 +8,8 @@ class PaymentMethod extends CrmDomain{
 	Boolean hasEndDate;
 	Boolean hasBank;
 	
-	static hasMany=[moneyTransactions:MoneyTransaction, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, paymentDocuments:PaymentDocument];
-	static mappedBy = [paymentsIn:"inPaymentMethod", paymentsOut:"outPaymentMethod"];
+	static hasMany=[moneyTransactions:MoneyTransaction, paymentsInPaymentMethod:Payment, paymentsOutPaymentMethod:Payment, moneyTransactionTotals:MoneyTransactionTotal, paymentDocuments:PaymentDocument];
+	static mappedBy = [paymentsInPaymentMethod:"inPaymentMethod", paymentsOutPaymentMethod:"outPaymentMethod"];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
 		discountPercentage(blank:false, nullable:false, min:0F, max:100F, scale:2);

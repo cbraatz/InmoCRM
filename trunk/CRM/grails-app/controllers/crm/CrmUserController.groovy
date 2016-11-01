@@ -17,7 +17,10 @@ class CrmUserController {
     }
 
     def create() {
-        respond new CrmUser(params)
+		CrmUser usr=new CrmUser();
+		//def uu=session.user;
+		usr.crmUser=session.user;
+        respond usr
     }
 
     @Transactional

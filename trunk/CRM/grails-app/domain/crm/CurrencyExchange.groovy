@@ -9,7 +9,7 @@ class CurrencyExchange extends CrmDomain{
 	Currency sourceCurrency;
 	Currency targetCurrency;
     static constraints = {
-		date(blank: false, nullable:false, unique: ['sourceCurrency', 'targetCurrency']);
+		date(blank: false, nullable:false); //unique: ['sourceCurrency', 'targetCurrency']
 		buy(blank: false, nullable:false);
 		sell(blank: false, nullable:false);
 		sourceCurrency(nullable:false);

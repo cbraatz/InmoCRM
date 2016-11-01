@@ -31,6 +31,8 @@
 		        <f:display bean="crmUser" property="isAdmin"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.isActive.label" default="Active"/></span>
 		        <f:display bean="crmUser" property="isActive"/>
+		        <span id="name-label" class="property-label"><g:message code="crmUser.crmUser.label" default="Created By"/></span>
+		        <f:display bean="crmUser" property="crmUser"/>
             </fieldset>
             
             <g:form resource="${this.crmUser}" method="DELETE">

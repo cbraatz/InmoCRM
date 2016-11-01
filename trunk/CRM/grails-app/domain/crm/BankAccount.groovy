@@ -5,7 +5,7 @@ class BankAccount extends CrmDomain{
 	String accountNumber;
 	Currency currency;
 	Partner partner;
-	boolean isSavingsAccount;
+	Boolean isSavingsAccount;
 	static hasMany = [moneyTransactions:MoneyTransaction];
     static constraints = {
 		bank(blank: false, nullable:false);

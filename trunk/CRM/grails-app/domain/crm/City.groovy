@@ -3,7 +3,7 @@ package crm
 class City extends CrmDomain{
 	String name;
 	Department department;
-	static hasMany = [addresses:Address, propertyDemands:PropertyDemand/*,Office*/];
+	static hasMany = [addresses:Address, propertyDemands:PropertyDemand, neighborhoods:Neighborhood/*,Office*/];
 
     static constraints = {
 		name(blank: false, nullable: false, unique: 'department', size:1..50);

@@ -53,6 +53,9 @@ class GUtils {
 	public static String getFirstCharInLowerCase(String str){
 		return Character.toLowerCase(str.charAt(0)).toString()+str.substring(1);
 	}
+	public static String getFirstCharInUpperCase(String str){
+		return Character.toUpperCase(str.charAt(0)).toString()+str.substring(1);
+	}
 	public static String getLowerClassNameFromInstance(Object objInstance){
 		String objectName=GUtils.getClassNameFromInstance(objInstance);
 		return getFirstCharInLowerCase(objectName);
@@ -90,21 +93,20 @@ class GUtils {
 			return false;
 		}
 	}
-	public static void main(String[] args){
-		crm.db.CrmDbTableList.getAlias();
-		/*Class<?> itemClass=Class.forName("crm.ManagedProperty");
-		//Primero agrego los fields que NO son many to one
-		itemClass.declaredFields.each{//java.lang.reflect.Field is each one
-			if(!it.isSynthetic()){
-				 String t=it.getType().getName();
-				//System.out.println("Name"+it.getName()+" Type "+t);
-				 if(!(t.equals("java.lang.Object") || t.equals("java.util.Set") || t.equals("org.apache.commons.logging.Log") || t.equals("org.grails.datastore.gorm.GormStaticApi") || t.equals("org.grails.datastore.gorm.GormInstanceApi") || t.equals("org.grails.datastore.gorm.GormValidationApi") || t.equals("org.springframework.validation.Errors") || t.equals("org.grails.plugins.web.controllers.api.ControllersDomainBindingApi") || t.equals("org.grails.plugins.converters.api.ConvertersApi") || t.equals("java.util.List") || it.getName().equals("version"))){
-					 if(!it.getType().getSuperclass().getName().equals("crm.CrmDomain")){//si NO una relacion many to one
-						 System.out.println(it.getName()+"  "+t);
-					 }
-				 }
-			}
-		}*/
-		//System.out.println(GUtils.stringFinishesWith("algooo.jrxml", ".jrxml"));
-	}	
+	/*public static void main(String[] args){
+		String query="SELECT c.isNegotiable, c.startDate FROM Concession AS c INNER JOIN c.managedProperties AS m";
+		java.sql.ResultSetMetaData resm=Concession.executeQuery(query).getMetaData();
+		final int columnCount = resm.getColumnCount();
+		List<List<String>> rowList = new LinkedList<List<String>>();
+		while(resm.next()){
+		    List<String> columnList = new LinkedList<String>();
+		    rowList.add(columnList);
+		
+		    for (int column = 1; column <= columnCount; column++){
+		        Object value = resm.getObject(column);
+		        columnList.add(String.valueOf(value));
+		    }
+		}
+		System.out.println(rowList.size());
+	}	*/
 }

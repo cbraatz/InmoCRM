@@ -1,5 +1,9 @@
 package crm.enums
 
+import crm.enums.DataType;
+import crm.enums.DataTypeGroup;
+import crm.enums.FilterCriteria;
+
 public enum FilterCriteria {
 	LIKE_VALUE(DataTypeGroup.STRINGS,1," like '#1'"),
 	EXACT_VALUE(DataTypeGroup.STRINGS,1," = '#1'"),
@@ -19,7 +23,7 @@ public enum FilterCriteria {
 		List<FilterCriteria> list=new ArrayList<>();
 		if (null!=dataType){
 			for (FilterCriteria filter : this.values()) {
-				if(DataType.getByClassName(dataType).dataTypeGroup == filter.dataTypeGroup){
+				if(DataType.valueOf(dataType).dataTypeGroup == filter.dataTypeGroup){
 					list.add(filter);
 				}
 			}

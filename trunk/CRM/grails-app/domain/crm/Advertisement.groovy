@@ -4,9 +4,9 @@ class Advertisement extends CrmDomain{
 	String summary;
 	String content;
 	BroadcastMedia broadcastMedia;
-	boolean isContactProvenance;
-	boolean byOwner;
-	boolean byCompany;
+	Boolean isContactProvenance;
+	Boolean byOwner;
+	Boolean byCompany;
 	Date postDate;
 	String urlToPost;
 	String relatedInternalID;

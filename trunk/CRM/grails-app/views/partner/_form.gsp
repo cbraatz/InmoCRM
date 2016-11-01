@@ -11,7 +11,7 @@
 	<f:field bean="partner" property="profession" input-propId="${partner?.profession?.id}"/>
 	<f:field bean="partner" property="partnerRole" input-propId="${partner?.partnerRole?.id}"/>
 	<f:field bean="partner" property="maritalStatus" input-propId="${partner?.maritalStatus?.id}"/>
-	<f:field bean="partner" property="invitedBy" input-propId="${partner?.invitedBy?.id}"/>
+	<f:field bean="partner" property="partner" input-propId="${partner?.partner?.id}"/>
 	<div class="fieldcontain">
 		<label id="partner-label" class="property-label"><g:message code="partner.photo.label" default="Photo"/></label>
 		<input type="file" id="fileUpload" name="photo" class="property-value"/>

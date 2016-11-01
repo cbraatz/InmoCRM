@@ -10,10 +10,10 @@ class Currency extends CrmDomain{
 	Country country;
 	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction, actions:Action,
 					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, incomingInvoices:IncomingInvoice, incomePayments:IncomePayment, 
-					 expensePayments:ExpensePayment, currencyExchagesSource:CurrencyExchange, currencyExchagesTarget:CurrencyExchange, managedProperties:ManagedProperty,
-					 bankAccounts:BankAccount, paymentsIn:Payment, paymentsOut:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultDateRanges:DefaultDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
-	static mappedBy = [currencyExchagesSource: "sourceCurrency", currencyExchagesTarget: "targetCurrency",
-					   paymentsIn:"inCurrency", paymentsOut:"outCurrency"];
+					 expensePayments:ExpensePayment, currencyExchagesSourceCurrency:CurrencyExchange, currencyExchagesTargetCurrency:CurrencyExchange, managedProperties:ManagedProperty,
+					 bankAccounts:BankAccount, paymentsInCurrency:Payment, paymentsOutCurrency:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultDateRanges:DefaultDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];
+	static mappedBy = [currencyExchagesSourceCurrency: "sourceCurrency", currencyExchagesTargetCurrency: "targetCurrency",
+					   paymentsInCurrency:"inCurrency", paymentsOutCurrency:"outCurrency"];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
 		plural(blank:false, nullable:false, unique:true, size:1..50);

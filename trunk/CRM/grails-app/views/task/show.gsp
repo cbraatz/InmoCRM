@@ -25,8 +25,8 @@
 		        <f:display bean="task" property="name"/>
 		        <span id="description-label" class="property-label"><g:message code="task.description.label" default="Description"/></span>
 		        <f:display bean="task" property="description"/>
-		        <span id="owner-label" class="property-label"><g:message code="task.owner.label" default="Owner"/></span>
-		        <f:display bean="task" property="owner"/>
+		        <span id="creator-label" class="property-label"><g:message code="task.creator.label" default="Creator"/></span>
+		        <f:display bean="task" property="creator"/>
 		        <span id="assignee-label" class="property-label"><g:message code="task.assignee.label" default="Assignee"/></span>
 		        <f:display bean="task" property="assignee"/>
 		        <span id="dateTime-label" class="property-label"><g:message code="task.dateTime.label" default="Date and Time"/></span>

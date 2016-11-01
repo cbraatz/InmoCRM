@@ -3,8 +3,8 @@ package crm
 class BroadcastMedia extends CrmDomain{
 	String name;
 	String urlToSite;
-	int adSummaryMaxLength;
-	int adTextMaxLength;
+	Integer adSummaryMaxLength;
+	Integer adTextMaxLength;
 	Country country;
 	static hasMany = [advertisements:Advertisement, propertyDemands:PropertyDemand];
 	static constraints = {

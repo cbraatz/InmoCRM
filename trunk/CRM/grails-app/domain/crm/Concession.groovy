@@ -6,7 +6,6 @@ class Concession extends CrmDomain{
 	Date endDate;
 	Double totalPrice;
 	Double totalCommission;
-	Float commissionPercentage;
 	String description;
 	PropertyDemand propertyDemand;
 	Contract contract;
@@ -15,7 +14,7 @@ class Concession extends CrmDomain{
 	String barter;
 	String financing;
 	Client client;
-	CrmUser agent;
+	CrmUser crmUser;
 	Boolean isActive;
 	Boolean isForRent;
 	static belongsTo = ManagedProperty;
@@ -27,7 +26,6 @@ class Concession extends CrmDomain{
 		endDate(blank:false, nullable:false);
 		totalPrice(blank:false, nullable:false, min:0D);
 		totalCommission(blank:false, nullable:false, min:0D);
-		commissionPercentage(blank:true, nullable:true, min:0F, max:100F, scale:2);
 		description(blank:true, nullable:true, widget:'textArea', size:0..1500);
 		propertyDemand(nullable:true);
 		contract(nullable:true);
@@ -36,7 +34,7 @@ class Concession extends CrmDomain{
 		barter(blank:true, nullable:true, size:0..50);
 		financing(blank:true, nullable:true, size:0..50);
 		client(nullable:false);
-		agent(nullable:true);
+		crmUser(nullable:true);
 		isActive(nullable:false);
 		isForRent(nullable:false);
 	}

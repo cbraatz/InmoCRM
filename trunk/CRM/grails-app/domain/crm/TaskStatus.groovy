@@ -2,8 +2,8 @@ package crm
 
 class TaskStatus extends CrmDomain{
 	String name;
-	boolean isNew;
-	boolean isClosed;
+	Boolean isNew;
+	Boolean isClosed;
 	static hasMany = [tasks:Task];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);

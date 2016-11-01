@@ -5,8 +5,8 @@ class DimensionMeasuringUnit extends CrmDomain{
 	String nameInPlural;
 	String abbreviation;
 	String abbreviationInPlural;
-	boolean isDefault;
-	boolean isArea;
+	Boolean isDefault;
+	Boolean isArea;
 	static hasMany = [buildingTypes:BuildingType, propertyTypes:PropertyType];
     static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);

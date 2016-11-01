@@ -6,7 +6,7 @@ class Commission extends CrmDomain{
 	Double fixedAmount;
 	Double taxTotal;
 	Currency currency;
-	CrmUser owner;
+	CrmUser crmUser;
 	Partner partner;
 	CommissionRate commissionRate;
 	static hasMany = [expenses:Expense];
@@ -15,7 +15,7 @@ class Commission extends CrmDomain{
 		description(blank: true, nullable:true, widget:'textArea', size:0..200);
 		fixedAmount(blank: true, nullable:true);
 		currency(nullable:false);
-		owner(nullable:false);
+		crmUser(nullable:false);
 		taxTotal(blank: false, nullable:false);
 		partner(nullable:false);
 		commissionRate(nullable:false);

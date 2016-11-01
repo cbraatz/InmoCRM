@@ -24,7 +24,6 @@ class ManagedProperty extends CrmDomain{
 	Integer placedBillboards;
 	Float area;
 	Float excess;
-	Client owner;
 	Address address;
 	PropertyType propertyType;
 	Boolean soldByUs;
@@ -47,7 +46,6 @@ class ManagedProperty extends CrmDomain{
 		placedBillboards(nullable:false, min:0);
 		area(nullable:false, min:0F);
 		excess(nullable:false, min:0F);
-		owner(nullable:false);
 		address(nullable:false);
 		propertyType(nullable:false);
 		soldByUs(nullable:false);

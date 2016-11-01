@@ -17,8 +17,8 @@ class ManagedPropertyController {
 
     def show(ManagedProperty managedProperty) {
 		Concession conc=managedProperty.getActiveConcession();
-		if (!conc.agent.partner.isAgent) {
-			managedProperty.errors.rejectValue('',message(code:'concession.partner.agent.required.error').toString());
+		if (!conc.crmUser.partner.isAgent) {
+			managedProperty.errors.rejectValue('',message(code:'concession.crmUser.agent.required.error').toString());
 		}
 		if (!managedProperty.hasImagesForWeb()) {
 			managedProperty.errors.rejectValue('',message(code:'managedProperty.images.required.error').toString());

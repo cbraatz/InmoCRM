@@ -3,8 +3,8 @@ package crm
 class TransactionType extends CrmDomain{
 	String name;
 	String internalID;
-	boolean isDefault;
-	boolean isInternalTransaction;
+	Boolean isDefault;
+	Boolean isInternalTransaction;
 	static hasMany = [moneyTransactions:MoneyTransaction];
     static constraints = {
 		name(blank:false, nullable:false, size:1..50);

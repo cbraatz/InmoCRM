@@ -3,7 +3,7 @@ package crm
 class BuildingFeatureByPropertyDemand extends CrmDomain{
 	Float minValue;
 	Float maxValue;
-	boolean isRequired;
+	Boolean isRequired;
 	PropertyDemand propertyDemand;
 	BuildingFeature buildingFeature;
 	static constraints = {

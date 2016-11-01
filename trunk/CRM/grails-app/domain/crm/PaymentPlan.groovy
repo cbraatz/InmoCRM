@@ -9,7 +9,7 @@ class PaymentPlan extends CrmDomain{
 	Integer numberOfParts;
 	Float interestPercentage;
 	InterestType interestType;
-	static hasMany = [income:Income, expenses:Expense/*,ThirdPartyIncome,ThirdPartyExpense*/];
+	static hasMany = [incomes:Income, expenses:Expense/*,ThirdPartyIncome,ThirdPartyExpense*/];
     static constraints = {
 		name(blank: false, nullable:false, size:1..50);
 		initialFreeTimeInDays(blank:false, nullable:false);

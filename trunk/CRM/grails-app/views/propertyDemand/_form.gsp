@@ -1,10 +1,9 @@
-            
-<fieldset class="form">
+ <fieldset class="form">
 	<div class="buy-demand">
 		<f:field bean="propertyDemand" property="isSellDemand"/>
 		<div class="grouping-box demand-info">
 			<f:field bean="propertyDemand" property="name"/>
-			<f:field bean="propertyDemand" property="owner" input-propId="${propertyDemand?.owner?.id}"/>
+			<f:field bean="propertyDemand" property="creator" input-propId="${propertyDemand?.creator?.id}"/>
 			<f:field bean="propertyDemand" property="assignee" input-propId="${propertyDemand?.assignee?.id}"/>
 			<g:if test="${actionName.equals('edit')}">
 				<f:field bean="propertyDemand" property="demandStatus" input-propId="${propertyDemand?.demandStatus?.id}"/>
@@ -38,12 +37,14 @@
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isCityRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="neighborhood" input-propId="${propertyDemand?.neighborhood?.id}" input-allowNull="${true}"/>
+		<span class="fieldcontain">
+			<span id="neighborhood-label" class="property-label"  style="margin: 1em 0.25em 0 0;"><g:message code="propertyDemand.neighborhood.label" default="neighborhood"/></span>
+		</span>
+		<div id="neighborhoodField"></div>
 		<f:field bean="propertyDemand" property="specifyNeighborhood"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isNeighborhoodRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="zone" input-propId="${propertyDemand?.neighborhood?.id}" input-allowNull="${true}"/>
 		<f:field bean="propertyDemand" property="specifyZone"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isZoneRequired"/>
@@ -85,9 +86,6 @@
 				<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="2" cols="60"/>
 			</f:field>
 		</div>
-		<!--<f:field bean="propertyDemand" property="mainUsage" input-propId="${propertyDemand?.mainUsage?.id}"/>  -->
-		<!--<f:field bean="propertyDemand" property="specifyUsage"/>  -->
-		<!--<f:field bean="propertyDemand" property="isUsageRequired"/>  buy only-->
 	</div>
 </fieldset>
 <script>
@@ -110,6 +108,20 @@
 	});
 	
 	displayOrHideFields();
+
+	//actualizar neighborhood drop-down al seleccionar city
+	
+	$(".city-selector").change(function() {
+		cityChanged(this.value);
+	});
+	
+	function cityChanged(cityId) {
+		if("${session.user != null}"){
+			//mainDomainType es vacio porque o sino en el selector pone address.neighborhood en lugar de solo neighborhood
+    		jQuery.ajax({type:'POST',data:{mainDomainType: '', cityId:cityId, neighborhoodId:"${(propertyDemand?.neighborhood?.id ? propertyDemand?.neighborhood?.id : null)}"} , url:'/neighborhood/getNeighborhoodsByCityAJAX2',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+		}
+    }
+	$(".city-selector").change();
 </script>
 
 

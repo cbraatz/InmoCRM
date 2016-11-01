@@ -104,4 +104,16 @@ class NeighborhoodController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	def getNeighborhoodsByCityAJAX(String cityId, String neighborhoodId) {
+		//System.out.println("Filter Criteria en controller="+filterCriteriaName);
+		City city=City.get(cityId);
+		def neighborhoods=Neighborhood.findByCity(city);
+		render(template:"/neighborhood/dynamicNeighborhoodSelector", model:[cid:cityId, nid:neighborhoodId]);
+	}
+	def getNeighborhoodsByCityAJAX2(String mainDomainType, String cityId, String neighborhoodId) {
+		//System.out.println("Filter Criteria en controller="+filterCriteriaName);
+		//City city=City.get(cityId);
+		//def neighborhoods=Neighborhood.findByCity(city);
+		render(template:"/neighborhood/dynamicNeighborhoodSelector", model:[doty: mainDomainType, cid:cityId, nid:neighborhoodId]);
+	}
 }

@@ -33,7 +33,7 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.partner}" method="post" enctype="multipart/form-data">
+            <g:form resource="${this.partner}" method="post" enctype="multipart/form-data"  action="update">
                 <g:hiddenField name="version" value="${this.partner?.version}" />
                
                 <g:render template="form"/>

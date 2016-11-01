@@ -7,12 +7,10 @@ class Task extends CrmDomain{
 	Date dateTime;
 	Integer minutesBeforeNotification;
 	PriorityLevel priorityLevel;
-	CrmUser owner;
+	CrmUser creator;
 	CrmUser assignee;
 	TaskStatus taskStatus;
-	
 	String internalID;
-	
 	
 	static hasMany = [notificationMethods:NotificationMethod];
 	static belongsTo = NotificationMethod;
@@ -23,7 +21,7 @@ class Task extends CrmDomain{
 		dateTime(blank:true, nullable:true);
 		minutesBeforeNotification(nullable:true);
 		priorityLevel(nullable:false);
-		owner(nullable:true);
+		creator(nullable:true);
 		assignee(nullable:true);
 		taskStatus(nullable:false);
 		internalID(blank:true, nullable:true, size:0..40);

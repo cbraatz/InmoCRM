@@ -34,17 +34,21 @@
 	            <h1><g:message code="reportDesigner.step4.title" default="STEP 4"/></h1>
 			   	<fieldset class="form">
 					<dl class="feature-list">
-						<label class="bold-title-label report-field-name column-field report-column-name-field"><g:message code="reportDesigner.step2.column.name.label" default="Column"/></label><label class="bold-title-label report-field-title selected-field"><g:message code="reportDesigner.step4.column.width.label" default="Width"/></label>
+						<label class="bold-title-label report-field-name column-field report-column-name-field"><g:message code="reportDesigner.step4.column.name.label" default="Column"/></label><label class="bold-title-label report-field-title selected-field"><g:message code="reportDesigner.step4.column.width.label" default="Width"/></label><label class="bold-title-label reportBigField selected-field" style="margin-left: 30px;"><g:message code="reportDesigner.step4.column.display.name.label" default="Display Name"/></label>
 						<g:each in="${reportDesignerColumnsCommand.columnList}" var="item1" status="i">
 							<g:if test="${item1?.selected}">
 								<dd>
 									<span class="">
 										<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
 										<g:field type="number" name="reportDesignerColumnsCommand.columnList[$i].columnWidth" value="${item1?.columnWidth}" class="pf-name-field pf-line"/>
+										<g:field type="text" name="reportDesignerColumnsCommand.columnList[$i].displayName" value="${(item1?.displayName!=null ? item1?.displayName : message(code: item1.getLabelName()))}" class="reportBigField pf-line"/>
 										<br/>
 									</span>
 								</dd>
 							</g:if>
+							<g:else>
+								<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].displayName" value="${(item1?.displayName!=null ? item1?.displayName : message(code: item1.getLabelName()))}"/>
+							</g:else>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].selected" value="${(item1?.selected)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].filterBy" value="${(item1?.filterBy)}"/>
 							<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortBy" value="${(item1?.sortBy)}"/>

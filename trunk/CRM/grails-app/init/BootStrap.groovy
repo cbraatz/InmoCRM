@@ -7,6 +7,14 @@ class BootStrap {
 
     def init = { servletContext ->
 		println("Starting init......................."+Environment.current);
+		File tempDir=new File("temp");
+		File uploadsDir=new File("uploads");
+		if(!tempDir.exists()){
+			tempDir.mkdirs()
+		}
+		if(!uploadsDir.exists()){
+			uploadsDir.mkdirs()
+		}
 		//if(Environment.current.equals(Environment.DEVELOPMENT)){
 		if(CrmConfig.count()==0){
 			addDevelopmentData();
@@ -75,15 +83,15 @@ class BootStrap {
 		this.saveObj(new Profession(name: "Agente de Seguros"));
 		
 		//neighborhood
-		this.saveObj(new Neighborhood(name:"Centro", description:"test"));		
-		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test"));		
-		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test"));
+		this.saveObj(new Neighborhood(name:"Centro", description:"test", city: City.findByName("Obligado")));		
+		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test", city: City.findByName("Obligado")));		
+		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test", city: City.findByName("Obligado")));
 		
 		//Zone
 		this.saveObj(new Zone(name: "Colonias Unidas", description: "Obligado + Hohenau + Bella Vista"));
 		
 		//Address
-		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:1568, addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:"0988541258", city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
+		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:"1568", addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:"0988541258", city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
 		
 		//PartnerRole
 		this.saveObj(new PartnerRole(name: "Admin", isEmployee:false, description:"Default Partner."));
@@ -92,7 +100,7 @@ class BootStrap {
 		this.saveObj(new Partner(name: "Default", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
 		
 		//crmUser
-		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true, isDefault:true);
+		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true);
 		this.saveObj(defUsr);
 		
 		//ReportFolder
@@ -103,7 +111,7 @@ class BootStrap {
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//Client
-		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", nationality: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), owner: CrmUser.findByName("test"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
+		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", country: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), crmUser: CrmUser.findByName("test"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
 		
 		//Vendor
 		this.saveObj(new Vendor(name: "Cooperativa Colonias Unidas", description: "Cooperativa", phone:"071720512", emailAddress: "ccu@test.com", TIN:"80090084-2"));
@@ -279,7 +287,10 @@ class BootStrap {
 		
 		//ManagedProperty
 		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, owner:Client.findByName("Cliente 1"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600, soldByUs:false);
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600, soldByUs:false);
+		this.saveObj(managedProperty1);
+		ManagedProperty managedProperty2=new ManagedProperty(title:"Terreno de 2200m2 en Obligado Centro", propertyDescription:"Terreno grande en Obligado", measures:"30m x 100m", publicAddress:"Obligado Centro", publicCashPrice:"340.000 USS", price:340000, currency:Currency.findBySymbol("USS"), value:350000,
+			clientInitialPrice:340000, addedDate:new Date(), placedBillboards:1, area:2200,excess:0, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:1500, soldByUs:false);
 		this.saveObj(managedProperty1);
 		System.out.println(managedProperty1.id);
 		
@@ -290,15 +301,22 @@ class BootStrap {
 		//Building
 		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), buildingDescription:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
-		//Concession
-		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), commissionPercentage:4, description:"Ninguna", //propertyDemand:PropertyDemand,
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), agent:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
+		//Concession 1
+		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
+									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
 		concession1.addToManagedProperties(managedProperty1);
 		this.saveObj(concession1);
 		managedProperty1.addToConcessions(concession1);
 		this.saveObj(managedProperty1);
-		
-		
+		//Concession 2
+		Concession concession2=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("20/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("20/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
+			contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:55600, totalCommission:55600);
+		concession2.addToManagedProperties(managedProperty2);
+		this.saveObj(concession2);
+		managedProperty1.addToConcessions(concession2);
+		this.saveObj(managedProperty2);
+
+
 		//UploadedImage
 		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
 		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));

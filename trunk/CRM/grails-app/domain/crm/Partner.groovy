@@ -15,12 +15,12 @@ class Partner extends CrmDomain{
 	PartnerRole partnerRole;
 	MaritalStatus maritalStatus;
 	Address address;
-	Partner invitedBy;
+	Partner partner;
 	Boolean isActive;
 	Boolean isAgent;
 	Integer salary;
 	
-	static hasMany = [invitedPartners:Partner, users:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact, commissionByConcession:CommissionByConcession/*,tagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [partners:Partner, crmUsers:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,tagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		name (blank: false, nullable:false, size:1..100);
@@ -35,7 +35,7 @@ class Partner extends CrmDomain{
 		partnerRole(nullable:false);
 		maritalStatus(nullable:true);
 		address(nullable:false);
-		invitedBy(nullable:true);
+		partner(nullable:true);
 		isActive(nullable:false);
 		isAgent(nullable:false);
 		salary(blank:true, nullable:true);

@@ -2,12 +2,35 @@ package crm
 
 import static org.springframework.http.HttpStatus.*
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRCsvExporter
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput
+import net.sf.jasperreports.export.SimpleWriterExporterOutput
 import grails.transaction.Transactional
 import crm.commands.ReportDesignerColumnsCommand
+import crm.db.CrmReportQueryBuilder
 import crm.enums.FilterCriteria;
+import crm.enums.ReportDesignerType;
 import crm.enums.DataType;
+import crm.exception.CRMException
+import crm.report.CrmDynamicColumnDataSource;
+import crm.report.CrmDynamicReportBuilder;
 
 @Transactional(readOnly = true)
 class ReportDesignerController {
@@ -136,8 +159,6 @@ class ReportDesignerController {
 			return
 		}
 		
-		reportDesigner.executeReportQuery(reportDesignerColumnsCommand.getColumnList());
-		
 		boolean saveError=false;
 		if (reportDesigner.save(flush:true)){
 			reportDesignerColumnsCommand.columnList.each{
@@ -176,12 +197,109 @@ class ReportDesignerController {
 	}
 	@Transactional
 	def delete(ReportDesigner reportDesigner) {
-		
+		boolean deleted=true;
+		reportDesigner.reportDesignerColumns.each {
+			if(!it.delete(flush:true)){
+				deleted=false;
+				reportDesigner.errors.rejectValue('',message(code:'default.save.error', args:[message(code:'reportDesignerColumn.label')]).toString()+"="+it.id);
+			}
+		}
+		if(!reportDesigner.delete(flush:true)){
+			deleted=false;
+			reportDesigner.errors.rejectValue('',message(code:'default.save.error', args:[message(code:'reportDesigner.label')]).toString()+"="+reportDesigner.id);
+		}
+		if(!deleted) {
+			transactionStatus.setRollbackOnly()
+			respond reportDesigner.errors, view:'show'
+			return
+		}
 	}
 	@Transactional
 	def run(ReportDesigner reportDesigner) {
+		CrmReportQueryBuilder queryBuilder= new CrmReportQueryBuilder(reportDesigner.getReportDesignerColumnsFromDb(), ReportDesignerType.valueOf(reportDesigner.reportType));
+		String query=queryBuilder.getBuildedQuery();
+		List<List<Object>> res=reportDesigner.getReportDesignerType().getMainDomainClass().executeQuery(query);
+		/*for(List<Object> li:res){
+			System.out.print("\n");
+			for(int i=0;i<li.size();i++){
+				Object ob=li.get(i);
+				ob=queryBuilder.getSelectedReportColumnByIndex(i).getDataType().getValueAsString(ob);//setea el objeto a valor string correcto obtenido de DataType
+				System.out.print(ob+"\t");
+			}
+		}*/
 		
+		
+		List<List<String>> res2=new ArrayList<List<String>>();
+		List<String> rowx;
+		Iterator<List<Object>> itr = res.iterator();
+		List<Object> li;
+		while(itr.hasNext()){
+		   li = itr.next();
+		   rowx=new ArrayList<String>();
+		   for(int i=0;i<li.size();i++){
+				Object ob=li.get(i);
+				ob=queryBuilder.getSelectedReportColumnByIndex(i).getDataType().getValueAsString(ob);//setea el objeto a valor string correcto obtenido de DataType
+				rowx.add(ob.toString());
+		   }
+		   res2.add(rowx);
+		   itr.remove();
+		}
+		
+
+		System.err.println("Numero filas="+res2.size());
+		try {
+			this.runReport(queryBuilder.getSelectedColumnDisplayNames(), res2, reportDesigner.name, params.ef);
+		} catch (JRException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+		} catch (FileNotFoundException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		}
 	}
+	
+	public void runReport(List<String> columnHeaders, List<List<String>> rows, String reportName, String exportFormat) throws JRException, FileNotFoundException, CRMException {
+		if(exportFormat==null){
+			throw new CRMException("Export type can not be null in runReport method.");
+		}
+		//System.out.println("Loading the .jrxml");
+		//System.out.println(getClass().getName());
+		//InputStream is = getClass().getResourceAsStream("/../empty_template.jrxml");
+		 InputStream is = new FileInputStream(new File("D:/empty_template.jrxml"));
+		JasperDesign jasperReportDesign = JRXmlLoader.load(is);
+		
+		//System.out.println("Adding the dynamic columns");
+		CrmDynamicReportBuilder reportBuilder = new CrmDynamicReportBuilder(jasperReportDesign, columnHeaders.size());
+		reportBuilder.addDynamicColumns();
+		
+		//System.out.println("Compiling the report");
+		JasperReport jasperReport = JasperCompileManager.compileReport(jasperReportDesign);
+					Map<String, Object> params = new HashMap<String, Object>();
+		params.put("REPORT_TITLE", "Sample Dynamic Columns Report");
+		CrmDynamicColumnDataSource pdfDataSource = new CrmDynamicColumnDataSource(columnHeaders, rows);
+		//System.out.println("Filling the report");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, pdfDataSource);
+		String exportedTempFilePath="temp/dynamicTempReport";
+		switch(exportFormat){
+			case "pdf": JasperExportManager.exportReportToPdfFile(jasperPrint, exportedTempFilePath);break;
+			case "html":JasperExportManager.exportReportToHtmlFile(jasperPrint, exportedTempFilePath);break;
+			case "csv": JRCsvExporter csvExporter = new JRCsvExporter();
+						csvExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+						csvExporter.setExporterOutput(new SimpleWriterExporterOutput(exportedTempFilePath));
+						csvExporter.exportReport();break;
+			otherwise: throw new CRMException("Export format = '"+exportFormat+"' is not a valid export format.");
+		}
+		String fileName=reportName+"."+exportFormat;
+		def file = new File(exportedTempFilePath)
+		if (file.exists()) {
+		   response.setContentType("application/octet-stream")
+		   response.setHeader("Content-disposition", "filename=${fileName}")
+		   response.outputStream << file.bytes
+		   return
+		}
+	}
+			
+	
 	def getCategoryFieldNumberAJAX(String filterCriteriaName) {//retorna si los numeros que contiene la lista de enteros tiene todos los numeros empezando de 1 hasta la cantidad de numeros que contenga la lista
 		System.out.println("Filter Criteria en controller="+filterCriteriaName);
 		def fc=FilterCriteria.valueOf(filterCriteriaName);
@@ -206,12 +324,12 @@ class ReportDesignerController {
 					if(null == col.secondaryFilterValue || col.secondaryFilterValue.isEmpty()){
 						return false;
 					}else{
-						if(!DataType.getByClassName(col.dataType).validateValue(col.secondaryFilterValue)){
+						if(!DataType.valueOf(col.dataType).validateValue(col.secondaryFilterValue)){
 							return false;
 						}
 					}
 				}		
-				return DataType.getByClassName(col.dataType).validateValue(col.primaryFilterValue);
+				return DataType.valueOf(col.dataType).validateValue(col.primaryFilterValue);
 			}else{
 				return false;
 			}

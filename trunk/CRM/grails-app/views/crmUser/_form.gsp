@@ -1,4 +1,3 @@
-
 <fieldset class="form">
 	<f:field bean="crmUser" property="name"/>
 	<f:field bean="crmUser" property="password">
@@ -11,5 +10,5 @@
 	<f:field bean="crmUser" property="partner" input-propId="${crmUser?.partner?.id}"/>
 	<f:field bean="crmUser" property="isAdmin"/>
 	<f:field bean="crmUser" property="isActive"/>
-	<g:hiddenField name="crmUser" value="isDefault"/>
+	<g:hiddenField name="crmUser" value="${crmUser?.crmUser?.id}"/>
 </fieldset>

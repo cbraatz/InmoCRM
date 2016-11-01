@@ -1,12 +1,12 @@
 package crm
 
-import crm.db.CrmDbTable
-import crm.db.CrmReportBuilder
-import crm.enums.ReportDesignerType
-import crm.exception.CRMException
-
-import java.lang.reflect.Field
-import java.sql.ResultSet
+import crm.db.CrmDbTable;
+import crm.enums.ReportDesignerType;
+//import crm.enums.DataType;
+import crm.exception.CRMException;
+import java.lang.reflect.Field;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,14 +67,49 @@ class ReportDesigner extends CrmDomain{
 	private ReportDesignerType getReportDesignerType(){
 		return ReportDesignerType.valueOf(this.reportType);
 	}
-	private String getReportQuery(List<ReportDesignerColumn> columns){
-		if(null==columns){
-			throw new IllegalArgumentException(message(code: 'default.invalid.paramethers.error', args: ["columns = null"]));
+	/*public ResultSet void executeReportQuery(List<ReportDesignerColumn> columns){
+		String query=this.getReportQuery(columns);
+		System.err.println("Executing: "+query);
+		def res=this.getReportDesignerType().getMainDomainClass().executeQuery(query);
+		System.err.println(res.size()+"  "+res);
+	}*/
+	/*public List<String> getColumnNames(){
+		List<String> cols=new ArrayList<String>();
+		res.each{
+			cols.add(it.displayName);
 		}
-		return new CrmReportBuilder(columns).getBuildedQuery();
+		return cols;
+	}*/
+	/*public int getColumnCount(){
+		int c=0;
+		res.each{
+			c++;
+		}
+		return c;
+	}*/
+	private List<ReportDesignerColumn> getReportDesignerColumnsFromDb(){
+		List<ReportDesignerColumn> columns=new ArrayList<>();
+		def res=ReportDesignerColumn.findAllByReportDesigner(this);
+		res.each{
+			columns.add(it);
+		}
+		return columns;
 	}
-	public /*ResultSet*/ void executeReportQuery(List<ReportDesignerColumn> columns){
-		def res=this.getReportDesignerType().getMainDomainClass().executeQuery(this.getReportQuery(columns));
-		System.err.println(res.size());
-	}
+	/*public List<List<String>> getAllRows(){
+		if(this.id==null){
+			throw new CRMException("Query can not be get from not saved ReportWizard object.");
+		}
+		CrmReportQueryBuilder queryBuilder= new CrmReportQueryBuilder(this.getReportDesignerColumnsFromDb(), ReportDesignerType.valueOf(this.reportType));
+		String query=queryBuilder.getBuildedQuery();
+		List<List<Object>> res=this.getReportDesignerType().getMainDomainClass().executeQuery(query);
+		for(List<Object> li:res){
+			System.out.print("\n");
+			for(int i=0;i<li.size();i++){
+				Object ob=li.get(i);
+				ob=queryBuilder.getSelectedReportColumnByIndex(i).getDataType().getValueAsString(ob);//setea el objeto a valor string correcto obtenido de DataType
+				System.out.print(ob+"\t");
+			}
+		}
+		return res;
+	}*/
 }

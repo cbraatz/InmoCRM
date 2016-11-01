@@ -1,7 +1,6 @@
 <fieldset class="form">
 	<div class="fieldcontain">		
 		<f:field bean="managedProperty" property="propertyType" input-propId="${managedProperty?.propertyType?.id}"/>
-		<f:field bean="managedProperty" property="owner" input-propId="${managedProperty?.owner?.id}"/>
 		<f:field bean="managedProperty" property="title"/>
 		<f:field bean="managedProperty" property="propertyDescription">
 			<g:textArea name="${property}" maxlength="500" value="${it.value}" rows="4" cols="70"/>
@@ -20,4 +19,8 @@
 		<f:field bean="managedProperty" property="valueDegree"/>
 		<f:field bean="managedProperty" property="placedBillboards"/>
 		<g:hiddenField name="soldByUs" value="${managedProperty?.soldByUs}"/>
+	</div>		
 </fieldset>
+
+<h1><g:message code="address.label"/></h1>
+<g:render template="/address/multiForm" model="['parentBean':'managedProperty']"/>

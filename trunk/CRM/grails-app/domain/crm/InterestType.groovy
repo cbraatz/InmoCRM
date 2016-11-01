@@ -4,7 +4,7 @@ class InterestType extends CrmDomain{
 	String name;
 	String description;
 	String internalID;
-	boolean isSimpleInterest;
+	Boolean isSimpleInterest;
 	static hasMany = [paymentPlans:PaymentPlan];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);

@@ -14,11 +14,17 @@ class ClientController {
     }
 
     def show(Client client) {
-        respond client
+		if(client.isActive){
+			respond client
+		}else{
+			render(view:'/error', model:[message: message(code: 'default.object.deleted.message', default:'Object has been deleted.', args:[message(code: 'client.label', default:'Client'), client.id])]);
+		}
     }
 
     def create() {
-        respond new Client(params)
+		Client client=new Client(params);
+		client.isActive=true;
+        respond client
     }
 
     @Transactional
@@ -112,7 +118,9 @@ class ClientController {
             return
         }
 
-        client.delete flush:true
+        //client.delete flush:true
+		client.isActive=false;
+		client.save(flush:true);
 
         request.withFormat {
             form multipartForm {

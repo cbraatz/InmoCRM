@@ -2,6 +2,7 @@ package crm.db
 
 import java.util.List;
 import java.lang.reflect.Field;
+import crm.GUtils;
 import crm.ReportDesignerColumn;
 import crm.exception.CRMException;
 
@@ -43,10 +44,13 @@ class CrmDbTable {
 	public void setAlias(String alias){
 		this.alias=alias;
 	}
-	private List<String> getOneToManySetTableNames(String table) throws CRMException{
+	public boolean isForeing(){
+		return this.isForeign;
+	}
+	private List<String> getOneToManySetTableNames() throws CRMException{
 		List<String> list=new ArrayList<String>();
 		if(this.getParent()!=null){
-			Class<?> parentClass=Class.forName("crm."+table);
+			Class<?> parentClass=Class.forName("crm."+(this.isForeign ? this.getName() : this.getParent()));
 			//Class<?> childClass=Class.forName("crm."+this.getName());
 			parentClass.declaredFields.each{
 				if(!it.isSynthetic()){
@@ -58,6 +62,29 @@ class CrmDbTable {
 		}
 		return list;
 	}
+
+	public String getForeignKeyNameFromOneToManySet() throws CRMException{//obtiene el nombre que toma el foreignKey en la tabla foranea (solo se aplica cuando isForeign=true)
+		if(this.getParent()!=null){
+			if(this.isForeign==true){
+				List<String> list=this.getOneToManySetTableNames();
+				String childPlural=Class.forName("crm."+this.getParent()).getPluralName();//usa getParent xq isForeign = false, de otro modo sería getName()
+				for(String s:list){
+					if(s.indexOf(childPlural)==0){//si encontró y empieza con el plural
+						if(s.length() > childPlural.length()){
+							return s.substring(childPlural.length());
+						}else{
+							return GUtils.getFirstCharInLowerCase(this.getName());
+						}
+					}
+				}
+			}else{
+				throw new CRMException("getForeignNameFromOneToManySet() method can not be applied whe isForeign property is false. Name = "+this.getName()+". Parent = "+this.getParent());
+			}
+		}else{
+			throw new CRMException("getForeignNameFromOneToManySet() method can not me call with null ParentTable Name. Name = "+this.getName());
+		}
+	}
+	
 	public List<Field> getAllTableFields()  throws CRMException, NumberFormatException{
 		List<Field> fields=new ArrayList<>();
 		Class<?> itemClass=Class.forName("crm."+this.getName());
@@ -88,7 +115,7 @@ class CrmDbTable {
 		return fields;
 	}
 	private boolean areValidParentAndChildTables() throws CRMException{//if in parent table is a hasMany pointing to name (child)
-		List<String> chs=this.getOneToManySetTableNames((this.isForeign ? this.getName() : this.getParent()));
+		List<String> chs=this.getOneToManySetTableNames();
 		String tablePluralName=Class.forName("crm."+(this.isForeign ? this.getParent() : this.getName())).getPluralName();
 		for(String ch:chs){
 			if(ch.toUpperCase().indexOf(tablePluralName.toUpperCase())==0){//si empieza con ese nombre

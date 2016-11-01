@@ -3,8 +3,8 @@ package crm
 class PropertyUsage extends CrmDomain{
 	Usage usage;
 	Float quantity;
-	boolean isQuantityInPercentage;
-	boolean isCurrentUsage;
+	Boolean isQuantityInPercentage;
+	Boolean isCurrentUsage;
 	String description;
     static constraints = {
 		usage(nullable: false);

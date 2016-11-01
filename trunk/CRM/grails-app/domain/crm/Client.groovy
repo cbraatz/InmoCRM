@@ -9,9 +9,9 @@ class Client extends CrmDomain{
 	String phone2;
 	String notificationPhone;
 	String emailAddress;
-	Country nationality;
+	Country country;
 	Profession profession;
-	CrmUser owner;
+	CrmUser crmUser;
 	MaritalStatus maritalStatus;
 	Gender gender;
 	Address address;
@@ -25,7 +25,7 @@ class Client extends CrmDomain{
 	
 	
 	static hasMany=[propertyDemands:PropertyDemand, concessions:Concession, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, issuedInvoices:IssuedInvoice,
-					managedProperties:ManagedProperty, contacts:Contact/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
+					contacts:Contact/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
 
     static constraints = {
 		name(blank:false, nullable:false, size:1..100);
@@ -36,9 +36,9 @@ class Client extends CrmDomain{
 		phone2(blank:true, nullable:true, size:0..40);
 		notificationPhone(blank:true, nullable:true, size:0..40);
 		emailAddress(blank:true, nullable:true, email: true);
-		nationality(nullable:true);
+		country(nullable:true);
 		profession(nullable:true);
-		owner(nullable:false);
+		crmUser(nullable:false);
 		maritalStatus(nullable:true);
 		gender(nullable:true);
 		address(nullable:true);

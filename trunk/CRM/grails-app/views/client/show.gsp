@@ -39,20 +39,18 @@
 		        <f:display bean="client" property="emailAddress"/>
 		        <span id="name-label" class="property-label"><g:message code="client.timeAvailability.label" default="Time Availability"/></span>
 		        <f:display bean="client" property="timeAvailability"/>
-		        <span id="name-label" class="property-label"><g:message code="client.nationality.label" default="Nationality"/></span>
-		        <f:display bean="client" property="nationality"/>
+		        <span id="name-label" class="property-label"><g:message code="client.country.label" default="Country"/></span>
+		        <f:display bean="client" property="country"/>
 		        <span id="name-label" class="property-label"><g:message code="client.gender.label" default="Gender"/></span>
 		        <f:display bean="client" property="gender"/>
 		        <span id="name-label" class="property-label"><g:message code="client.profession.label" default="Profession"/></span>
 		        <f:display bean="client" property="profession"/>
 		        <span id="name-label" class="property-label"><g:message code="client.maritalStatus.label" default="MaritalStatus"/></span>
 		        <f:display bean="client" property="maritalStatus"/>
-		        <span id="name-label" class="property-label"><g:message code="client.owner.label" default="Owner"/></span>
-		        <f:display bean="client" property="owner"/>
+		        <span id="name-label" class="property-label"><g:message code="client.crmUser.label" default="Owner"/></span>
+		        <f:display bean="client" property="crmUser"/>
 		        <span id="name-label" class="property-label"><g:message code="client.category.label" default="Category"/></span>
 		        <f:display bean="client" property="category"/>
-		        <span id="name-label" class="property-label"><g:message code="client.isActive.label" default="Active"/></span>
-		        <f:display bean="client" property="isActive"/>
 		        <span id="name-label" class="property-label"><g:message code="client.readsEmail.label" default="Reads Email"/></span>
 		        <f:display bean="client" property="readsEmail"/>
 		        <span id="name-label" class="property-label"><g:message code="client.readsSms.label" default="Reads Sms"/></span>

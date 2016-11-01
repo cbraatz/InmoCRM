@@ -24,7 +24,9 @@
 			</span>
 			<div id="banner-right">
 				<div id="search-div"><g:render template="/search/quickSearch"/></div>
-				<div id="logout-div"><g:link class="logout-link" action="doLogout" controller="login" style="display: none;"><g:message code="logout.label" default="Log out" /></g:link></div>
+				<if test="${session.user}">
+					<div id="login-info"><g:link class="user-login-link" action="show" controller="crmUser" params="['id':"${session?.user?.id}"]">${session?.user?.name}</g:link><g:link class="logout-link" action="doLogout" controller="login"><g:message code="logout.label" default="Log out" /></g:link></div>
+				</if>
 			</div>
 		</div>
 			<div id="icon-menu" style="display: none;"><g:render template="/menu/iconMenu"/></div>

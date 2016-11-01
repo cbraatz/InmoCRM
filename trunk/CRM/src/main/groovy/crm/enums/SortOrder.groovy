@@ -2,14 +2,16 @@ package crm.enums
 
 import java.util.List;
 
+import crm.enums.SortOrder;
+
 public enum SortOrder {
 	ASC(true),
 	DESC(false)
 	
 	private final boolean isAscending;
 
-	public SortOrder(boolean value) {
-		this.isAscending=value;
+	public SortOrder(boolean isAscending) {
+		this.isAscending=isAscending;
 	}
 	public boolean getValue(){
 		return this.value;

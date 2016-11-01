@@ -2,7 +2,7 @@ package crm
 
 class ContractType extends CrmDomain{
 	String name;
-	boolean isExclusive;
+	Boolean isExclusive;
 	String description;
 	String templateURL;
 	Float commissionPercentage;

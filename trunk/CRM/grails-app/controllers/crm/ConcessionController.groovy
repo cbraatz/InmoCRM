@@ -47,8 +47,8 @@ class ConcessionController {
 		building.validate();
 		concession.contract.validate();
 
-		if (managedProperty.commissionAmount == 0 && concession.commissionPercentage == 0) {
-			concession.errors.rejectValue('',message(code:'concession.commission.required.error').toString());
+		if (managedProperty.commissionAmount <= 0) {
+			concession.errors.rejectValue('',message(code:'concession.managedProperty.commission.required.error').toString());
 		}
 		if (managedProperty.area <= 0) {
 			managedProperty.errors.rejectValue('area',message(code:'managedProperty.area.required.error').toString());

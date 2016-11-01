@@ -4,7 +4,6 @@
 		<f:field bean="concession" property="endDate"/>
 		<g:hiddenField name="totalPrice" value="${concession?.totalPrice}"/>
 		<g:hiddenField name="totalCommission" value="${concession?.totalCommission}"/>
-		<f:field bean="concession" property="commissionPercentage"/>
 		<f:field bean="concession" property="client"  input-propId="${concession?.client?.id}"/>
 		<f:field bean="concession" property="description">
 			<g:textArea name="${property}" maxlength="1500" value="${it.value}" rows="4" cols="50"/>
@@ -14,7 +13,7 @@
 		<f:field bean="concession" property="isNegotiable"/>
 		<f:field bean="concession" property="publishInMLS"/>
 		<f:field bean="concession" property="publishInPortals"/>
-		<f:field bean="concession" property="agent" input-propId="${concession?.agent?.id}"/>
+		<f:field bean="concession" property="crmUser" input-propId="${concession?.crmUser?.id}"/>
 		<f:field bean="concession" property="isForRent"/>
 
 		<g:hiddenField name="propertyDemand" value="${concession?.propertyDemand?.id}"/>

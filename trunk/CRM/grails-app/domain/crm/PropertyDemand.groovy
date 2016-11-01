@@ -18,7 +18,7 @@ class PropertyDemand extends CrmDomain{
 	Float propertyMinArea;
 	Float propertyMaxArea;
 	Boolean isAreaRequired;
-	Usage mainUsage;
+	Usage usage;
 	String specifyUsage;
 	Boolean isUsageRequired;
 	Zone zone;
@@ -42,7 +42,7 @@ class PropertyDemand extends CrmDomain{
 	Boolean isPriceRequired;
 	Currency currency;
 	Client client;
-	CrmUser owner;
+	CrmUser creator;
 	CrmUser assignee;
 	BroadcastMedia broadcastMedia;
 	String specifyBroadcastMedia;
@@ -70,7 +70,7 @@ class PropertyDemand extends CrmDomain{
 		propertyMinArea(blank: true, nullable:true);
 		propertyMaxArea(blank: true, nullable:true);
 		isAreaRequired(nullable:false);
-		mainUsage(nullable:true);
+		usage(nullable:true);
 		specifyUsage(blank: true, nullable:true, size:0..80);
 		isUsageRequired(nullable:false);
 		zone(nullable:true);
@@ -94,7 +94,7 @@ class PropertyDemand extends CrmDomain{
 		isPriceRequired(blank: false, nullable:false);
 		currency(nullable:true);
 		client(nullable:false);
-		owner(nullable:false);
+		creator(nullable:false);
 		assignee(nullable:true);
 		broadcastMedia(nullable:true);
 		specifyBroadcastMedia(blank: true, nullable:true, widget:'textArea', size:0..100);

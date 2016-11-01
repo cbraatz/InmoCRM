@@ -38,14 +38,15 @@
 							<dd>
 								<span class="">
 									<label class="report-column-name-field pf-line"><g:message code="${item1.getLabelName()}"/></label>
-									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].selected" value="${(item1?.selected)}" class="pf-name-field pf-line"/>
-									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].filterBy" value="${(item1?.filterBy)}" class="pf-name-field pf-line"/>
-									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].sortBy" value="${(item1?.sortBy)}" class="pf-name-field pf-line"/>
-									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].groupBy" value="${(item1?.groupBy)}" class="pf-name-field pf-line"/>
+									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].selected" value="${(item1?.selected)}" class="pf-name-field pf-line selectCheckBox"/>
+									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].filterBy" value="${(item1?.filterBy)}" class="pf-name-field pf-line filterByCheckBox"/>
+									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].sortBy" value="${(item1?.sortBy)}" class="pf-name-field pf-line sortByCheckBox"/>
+									<g:checkBox name="reportDesignerColumnsCommand.columnList[$i].groupBy" value="${(item1?.groupBy)}" class="pf-name-field pf-line groupByCheckBox"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortPosition" value="${(true == item1?.sortBy ? item1?.sortPosition : null)}"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].sortOrder" value="${(true == item1?.sortBy ? item1?.sortOrder : null)}"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].groupPosition" value="${(true == item1?.groupBy ? item1?.groupPosition : null)}"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].tableName" value="${item1?.tableName}"/>
+									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].displayName" value="${item1?.displayName}"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].propertyName" value="${item1?.propertyName}"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableName" value="${item1?.foreignTableName}"/>
 									<g:hiddenField name="reportDesignerColumnsCommand.columnList[$i].foreignTableDisplay" value="${item1?.foreignTableDisplay}"/>
@@ -59,6 +60,18 @@
 								</span>
 							</dd>
 						</g:each>
+						
+						<dd>
+							<span class="">
+								<hr>
+								<label class="report-column-name-field pf-line"><g:message code="default.select.all.label"/></label>
+								<g:checkBox name="selectAll" value="${false}" class="pf-name-field pf-line" id="selectAllCheckBox"/>
+								<g:checkBox name="filterByAll" value="${false}" class="pf-name-field pf-line" id="filterByAllCheckBox"/>
+								<g:checkBox name="sortByAll" value="${false}" class="pf-name-field pf-line" id="sortByAllCheckBox"/>
+								<g:checkBox name="groupByAll" value="${false}" class="pf-name-field pf-line" id="groupByAllCheckBox"/>	
+								<br/>
+							</span>
+						</dd>
 					</dl>
 					<g:hiddenField name="reportDesigner.reportType" value="${reportDesigner?.reportType}"/>
 					<g:hiddenField name="reportDesigner.name" value="${reportDesigner?.name}"/>
@@ -77,6 +90,48 @@
 		  		</fieldset>
 		  	</div>
 		</g:form>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#selectAllCheckBox").click(function() {
+					$('.selectCheckBox').prop("checked", $('#selectAllCheckBox').is(':checked'));
+				});
+				$("#filterByAllCheckBox").click(function() {
+					$('.filterByCheckBox').prop("checked", $('#filterByAllCheckBox').is(':checked'));
+				});
+				$("#sortByAllCheckBox").click(function() {
+					$('.sortByCheckBox').prop("checked", $('#sortByAllCheckBox').is(':checked'));
+				});
+				$("#groupByAllCheckBox").click(function() {
+					$('.groupByCheckBox').prop("checked", $('#groupByAllCheckBox').is(':checked'));
+				});
+			});
+			
+			/*function setSelected(){
+				$('.selectCheckBox').prop("checked", $('#selectAllCheckBox').is(':checked'));
+			}
+			function setFilterBy(){
+				if ($('#filterByAllCheckBox').is(':checked')) {
+					$('.filterByCheckBox').prop("checked", true);
+				}else{
+					$('.filterByCheckBox').prop("checked", false);
+				}
+			}
+			function setSortBy(){
+				if ($('#sortAllCheckBox').is(':checked')) {
+					$('.sortByCheckBox').prop("checked", true);
+				}else{
+					$('.sortByCheckBox').prop("checked", false);
+				}
+			}
+			function setGroup(){
+				if ($('#groupAllCheckBox').is(':checked')) {
+					$('.groupByCheckBox').prop("checked", true);
+				}else{
+					$('.groupByCheckBox').prop("checked", false);
+				}
+				
+			}*/
+		</script>
     </body>
 </html>
 

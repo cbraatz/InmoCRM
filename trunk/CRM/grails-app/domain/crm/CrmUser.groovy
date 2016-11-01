@@ -8,11 +8,11 @@ class CrmUser extends CrmDomain{
 	String emailAddress;
 	Boolean isAdmin;
 	Boolean isActive;
-	Boolean isDefault;
 	Partner partner;
+	CrmUser crmUser;
 	//Office office
-	static hasMany = [clients: Client, createdPropertyDemands:PropertyDemand, assignedPropertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, createdTasks:Task, assignedTasks:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
-	static mappedBy = [createdPropertyDemands: "owner", assignedPropertyDemands: "assignee", createdTasks: "owner", assignedTasks: "assignee"];
+	static hasMany = [clients: Client, propertyDemandsCreator:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsers:CrmUser/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static mappedBy = [propertyDemandsCreator: "creator", propertyDemandsAssignee: "assignee", tasksCreator: "creator", tasksAssignee: "assignee"];
 
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..20);
@@ -20,8 +20,8 @@ class CrmUser extends CrmDomain{
 		emailAddress(blank:false, nullable:false, unique:true, email: true);		
 		isAdmin(nullable:false);
 		isActive(nullable:false);
-		isDefault(nullable:false);
 		partner(nullable:false);
+		crmUser(nullable:true);
 	}
 	@Override
 	public static String getPluralName(){

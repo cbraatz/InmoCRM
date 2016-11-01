@@ -3,7 +3,7 @@ package crm
 class InterestLevel extends CrmDomain{
 	String name;
 	String color;
-	int level;
+	Integer level;
 	static hasMany = [propertyDemands:PropertyDemand/*InsuranceDemand*/];
 	static constraints = {
 		name(blank: false, nullable:false, unique:true, size:1..50);

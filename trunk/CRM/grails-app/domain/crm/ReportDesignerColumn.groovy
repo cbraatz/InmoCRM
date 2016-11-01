@@ -1,12 +1,13 @@
 package crm
 
 import java.lang.reflect.Field;
-
+import crm.enums.DataType;
 import crm.GUtils;
 //import java.lang.reflect.Method;
 
 class ReportDesignerColumn extends CrmDomain{
 	String propertyName;
+	String displayName;
 	String tableName;
 	String foreignTableName;//Constraint table name eg Concession.CrmUser ==> CrmUser
 	String foreignTableDisplay;//Constraint table changed/displayed name eg Concession.Agent ==> Agent
@@ -28,6 +29,7 @@ class ReportDesignerColumn extends CrmDomain{
 	//static transients = ["dataType"]
     static constraints = {
 		propertyName(blank:false, nullable:false, size:1..50);
+		displayName(blank:false, nullable:false, size:1..50);
 		tableName(blank:false, nullable:false, size:1..50);
 		foreignTableName(blank:true, nullable:true, size:0..50);
 		foreignTableDisplay(blank:true, nullable:true, size:0..50);
@@ -44,7 +46,7 @@ class ReportDesignerColumn extends CrmDomain{
 		groupPosition(blank:true, nullable:true);
 		columnWidth(blank:true, nullable:true);
 		reportDesigner(blank:false, nullable:false);
-		dataType(blank:false, nullable:false, size:1..30);
+		dataType(blank:false, nullable:false, size:1..10);
     }
 	
 	public ReportDesignerColumn() { }
@@ -59,7 +61,7 @@ class ReportDesignerColumn extends CrmDomain{
 				this.propertyName=field.getType().getDefaultPropertyName();//solo se puede hacer si es un Domain Object
 				this.foreignTableName=GUtils.extractCRMPrefixFromClassName(field.getType().getName());
 				this.foreignTableDisplay=field.getName();
-				this.dataType="crm.CrmDomain";
+				this.dataType=(String) DataType.DOMAIN;
 			} catch (Exception e) {
 				GUtils.printException(e, null);
 			}
@@ -67,11 +69,11 @@ class ReportDesignerColumn extends CrmDomain{
 			this.propertyName=field.getName();
 			this.foreignTableName=null;
 			this.foreignTableDisplay=null;
-			this.dataType=field.getType().getName();
+			this.dataType=(String) DataType.getByClassName(field.getType().getName());
 		}
 		this.tableName=GUtils.extractCRMPrefixFromClassName(tableName);
 		this.parentTableName=(parentTableName!=null?GUtils.extractCRMPrefixFromClassName(parentTableName):null);
-		this.selected=true;
+		this.selected=false;
 		this.filterBy=false;
 		this.sortBy=false;
 		this.groupBy=false;

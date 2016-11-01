@@ -80,8 +80,11 @@ img {
     margin-left: 1em;
 }
 
-#logout-div {
+#login-info {
     display: inline-block;
+}
+#login-info a{
+    display: block;
 }
 .content {
 	min-height: 650px;/*added by me*/
@@ -148,7 +151,7 @@ img {
     padding: 0;
 }
 
-.nav a {
+.nav a, .report-links a {
     color: #666666;
     display: block;
     padding: 0.25em 0.7em;
@@ -157,7 +160,12 @@ img {
     -webkit-border-radius: 0.3em;
             border-radius: 0.3em;
 }
-
+.report-links a {
+    display: inline-block;
+}
+.report-links{
+    margin-left:35px;
+}
 .nav a:active, .nav a:visited {
     color: #666666;
 }
@@ -175,7 +183,7 @@ img {
     text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create, .nav a.return {
+.nav a.home, .nav a.list, .nav a.create, .nav a.return, .report-links a{
     background-position: 0.7em center;
     background-repeat: no-repeat;
     text-indent: 25px;
@@ -193,6 +201,15 @@ img {
 }
 .nav a.create {
     background-image: url(../images/skin/database_add.png);
+}
+.report-links a.html{
+    background-image: url(../images/report/html.png);
+}
+.report-links a.pdf{
+    background-image: url(../images/report/pdf.png);
+}
+.report-links a.csv{
+    background-image: url(../images/report/csv.png);
 }
 a.add {/*added by me*/
 	background-image: url(../images/skin/database_add_new.png);
@@ -648,6 +665,10 @@ a.skip {
 	width:120px;
 	max-width:120px;
 }
+.reportBigField{
+	width:300px;
+	max-width:300px;
+}
 .report-column-name-field{
 	width:250px;
 	max-width:250px;
@@ -825,9 +846,9 @@ fieldset h3{
 	padding-bottom: 10px;
 	font-size: 18px;
 }
-.logout-link{
+/*.logout-link{
 	padding-top:23px;
-}
+}*/
 
 .scaffold-list{
 	padding-left: 35px;

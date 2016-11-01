@@ -3,7 +3,7 @@ package crm
 class Address extends CrmDomain{
 	String streetOne;
 	String streetTwo;
-	Integer number;
+	String number;
 	String addressLine;
 	String reference;
 	String description;
@@ -19,7 +19,7 @@ class Address extends CrmDomain{
 	static constraints = {
 		streetOne (blank:true, nullable:true, size:0..45);
 		streetTwo (blank:true, nullable:true, size:0..45);
-		number(blank:true, nullable:true);
+		number(blank:true, nullable:true, size:0..10);
 		addressLine (blank:false, nullable:false, widget:'textArea', size:10..500);
 		reference (blank:false, nullable:false, size:10..100);
 		description (blank:true, nullable:true, widget:'textArea', size:0..300);

@@ -1,5 +1,9 @@
 package crm.enums
 
+import crm.exception.CRMException
+import crm.enums.DataType;
+import crm.enums.DataTypeGroup;
+
 public enum DataType {
 	STRING("java.lang.String", DataTypeGroup.STRINGS),
 	CHARACTER("java.lang.Character", DataTypeGroup.CHARACTERS),
@@ -10,7 +14,7 @@ public enum DataType {
 	DOUBLE("java.lang.Double", DataTypeGroup.NUMBERS),
 	BOOLEAN("java.lang.Boolean", DataTypeGroup.BOOLEANS),
 	DATE("java.util.Date", DataTypeGroup.DATES),	
-	DOMAIN_CLASS("crm.CrmDomain", DataTypeGroup.DOMAIN_CLASSES)
+	DOMAIN("crm.CrmDomain", DataTypeGroup.DOMAIN_CLASSES)
 	private final DataTypeGroup dataTypeGroup;
 	private final String className;	
 
@@ -27,7 +31,7 @@ public enum DataType {
 				}
 			}
 		}
-		return null;
+		throw new CRMException("ClassName = "+dataTypeClassName+" is not correct.");
 	}
 	public boolean validateValue(String value){
 		switch(this){
@@ -40,7 +44,22 @@ public enum DataType {
 			case "DOUBLE": return validateDoubleValue(value);
 			case "BOOLEAN": return validateBooleanValue(value);
 			case "DATE": return validateDateValue(value);
-			case "DOMAIN_CLASS": return validateLongValue(value);
+			case "DOMAIN": return validateLongValue(value);
+			otherwise: return false;
+		}
+	}
+	public String getValueAsString(Object obj){
+		switch(this){
+			case "STRING": return getStringValue(obj);
+			case "CHARACTER": return getStringValue(obj);
+			case "SHORT": return getStringValue(obj);
+			case "INTEGER": return getStringValue(obj);
+			case "LONG": return getStringValue(obj);
+			case "FLOAT": return getStringValue(obj);
+			case "DOUBLE": return getStringValue(obj);
+			case "BOOLEAN": return getStringValue(obj);
+			case "DATE": return getDateValue(obj);
+			case "DOMAIN": return getStringValue(obj);
 			otherwise: return false;
 		}
 	}
@@ -100,6 +119,40 @@ public enum DataType {
 	}
 	private boolean validateDateValue(String val){
 		return (null != crm.Utils.strToDate(val));
+	}
+
+	private String getStringValue(Object input){
+		return input.toString();
+	}
+	
+	private String getDateValue(Object input){
+		return crm.Utils.dateToStr(input);
+	}
+	
+	/*private String getCharacterValue(Object input){
+		return input.toString();
+	}
+	private String getShortValue(Object input){
+		return input.toString();
+	}
+	private String getIntegerValue(Object input){
+		return input.toString();
+	}
+	private String getLongValue(Object input){
+		return input.toString();
+	}
+	private String getFloatValue(Object input){
+		return input.toString();
+	}
+	private String getDoubleValue(Object input){
+		return input.toString();
+	}
+	private String getBooleanValue(Object input){
+		return input.toString();
+	}*/
+
+	public String getClassName() {
+		return className;
 	}
 	
 }

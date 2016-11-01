@@ -3,7 +3,7 @@ package crm
 class Comment extends CrmDomain{
 	String comment;
 	Date date;
-	CrmUser owner;
+	CrmUser crmUser;
 	ManagedProperty managedProperty;
 	Client client;
 	PropertyDemand propertyDemand;
@@ -13,7 +13,7 @@ class Comment extends CrmDomain{
     static constraints = {
 		comment(blank:false, nullable:false, widget:'textArea', size:1..400);
 		date(blank:false, nullable:false);
-		owner(nullable:false);
+		crmUser(nullable:false);
 		managedProperty(nullable:true);
 		client(nullable:true);
 		propertyDemand(nullable:true);

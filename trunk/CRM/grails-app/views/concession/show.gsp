@@ -31,8 +31,6 @@
 				<span id="totalCommission-label" class="property-label"><g:message code="concession.totalCommission.label" default="Total Commission"/></span>
 				<f:display bean="concession" property="totalCommission"/>
 				
-				<span id="name-label" class="property-label"><g:message code="concession.commissionPercentage.label" default="Commission Percentage"/></span>
-				<f:display bean="concession" property="commissionPercentage"/>
 				<span id="name-label" class="property-label"><g:message code="concession.client.label" default="Client"/></span>
 				<f:display bean="concession" property="client"/>
 				<span id="name-label" class="property-label"><g:message code="concession.description.label" default="Description"/></span>
@@ -47,13 +45,13 @@
 				<f:display bean="concession" property="publishInMLS"/>
 				<span id="name-label" class="property-label"><g:message code="concession.publishInPortals.label" default="Publish in Portals"/></span>
 				<f:display bean="concession" property="publishInPortals"/>
-				<span id="name-label" class="property-label"><g:message code="concession.agent.label" default="Agent"/></span>
-				<f:display bean="concession" property="agent"/>
+				<span id="name-label" class="property-label"><g:message code="concession.crmUser.label" default="Agent"/></span>
+				<f:display bean="concession" property="crmUser"/>
 				<span id="name-label" class="property-label"><g:message code="concession.isForRent.label" default="Is For Rent"/></span>
 				<f:display bean="concession" property="isForRent"/>
             </fieldset>
             <h1><g:message code="concession.managedProperties.label"/></h1>
-            <f:table collection="${concession.managedProperties}" properties="['title', 'area', 'price', 'currency', 'owner']"/>
+            <f:table collection="${concession.managedProperties}" properties="['title', 'area', 'price', 'currency']"/>
             <g:form resource="${this.concession}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.concession}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

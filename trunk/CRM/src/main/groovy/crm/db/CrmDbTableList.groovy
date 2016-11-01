@@ -4,23 +4,28 @@ import java.util.List;
 
 import crm.ReportDesignerColumn
 import crm.Utils;
+import crm.enums.ReportDesignerType
 import crm.exception.CRMException;
 
 class CrmDbTableList {
 	private final List<CrmDbTable> tables=new ArrayList<>();
 	
-	public CrmDbTableList(List<ReportDesignerColumn> reportDesignerColumns) throws CRMException{
+	public CrmDbTableList(List<ReportDesignerColumn> reportDesignerColumns, ReportDesignerType reportDesignerType) throws CRMException{
 		if(null==reportDesignerColumns){
 			throw new IllegalArgumentException(message(code: 'default.invalid.paramethers.error', args: ["reportDesignerColumns = null"]));
 		}
+		reportDesignerType.getDomainObjects().each{//agrega primero las tablas cargadas en el tipo de reporte, o sea las principales, para luego poder cargar solo las selecctionadas o con agrupamiento o filtro. Asi no agrego todas las tablas existentes en columns pero si me aseguro de agregar las principales.
+			this.addTableIfNotAlreadyAdded(it);
+		}
 		reportDesignerColumns.each{
-			
-			if(null==it.foreignTableName){
-				System.out.println(it.toString());
-				this.addTableIfNotAlreadyAdded(it.tableName, it.parentTableName, false);
-			}else{
-				System.err.println(it.toString());
-				this.addTableIfNotAlreadyAdded(it.foreignTableName, it.tableName, true);
+			if(it.selected.booleanValue()==true || it.groupBy.booleanValue()==true || it.filterBy.booleanValue()==true){
+				if(null==it.foreignTableName){
+					System.out.println(it.toString());
+					this.addTableIfNotAlreadyAdded(it.tableName, it.parentTableName, false);
+				}else{
+					System.err.println(it.toString());
+					this.addTableIfNotAlreadyAdded(it.foreignTableName, it.tableName, true);
+				}
 			}
 		}
 		/*itera las tablas y remplaza el nombre del parent por el alias
@@ -40,6 +45,9 @@ class CrmDbTableList {
 				}
 			}
 		}*/
+	}
+	private boolean addTableIfNotAlreadyAdded(CrmDbTable crmDbTable)throws CRMException{
+		return this.addTableIfNotAlreadyAdded(crmDbTable.getName(), crmDbTable.getParent(), crmDbTable.isForeing());
 	}
 	
 	private boolean addTableIfNotAlreadyAdded(String tableName, String parentName, boolean isForeignTable)throws CRMException{

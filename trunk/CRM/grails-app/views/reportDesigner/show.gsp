@@ -29,11 +29,14 @@
 		        <span id="reportFolder-label" class="property-label"><g:message code="reportDesigner.reportFolder.label" default="Report Folder"/></span>
 		        <f:display bean="reportDesigner" property="reportFolder"/>
             </fieldset>
-            
+            <div class="report-links">
+            	<g:link class="html" action="run" resource="${this.reportDesigner}" params="[ef:'html']"><g:message code="ENUM.ReportExportType.HTML" default="html" /></g:link>
+            	<g:link class="pdf" action="run" resource="${this.reportDesigner}" params="[ef:'pdf']"><g:message code="ENUM.ReportExportType.PDF" default="pdf" /></g:link>
+            	<g:link class="csv" action="run" resource="${this.reportDesigner}" params="[ef:'csv']"><g:message code="ENUM.ReportExportType.CSV" default="csv" /></g:link>
+            </div>
             <g:form resource="${this.reportDesigner}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="step2" resource="${this.reportDesigner}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <g:link class="run" action="run" resource="${this.reportDesigner}"><g:message code="default.button.run.label" default="Run" /></g:link>
                     <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
                 </fieldset>
             </g:form>
