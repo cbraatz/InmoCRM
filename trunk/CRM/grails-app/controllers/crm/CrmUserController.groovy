@@ -18,8 +18,8 @@ class CrmUserController {
 
     def create() {
 		CrmUser usr=new CrmUser();
-		//def uu=session.user;
-		usr.crmUser=session.user;
+		usr.isActive= new Boolean("true");
+		usr.addedBy=session.user;
         respond usr
     }
 

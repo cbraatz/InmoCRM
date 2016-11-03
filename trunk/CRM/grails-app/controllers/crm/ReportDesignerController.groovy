@@ -31,6 +31,7 @@ import crm.enums.DataType;
 import crm.exception.CRMException
 import crm.report.CrmDynamicColumnDataSource;
 import crm.report.CrmDynamicReportBuilder;
+import crm.report.CrmDynamicColumnReportService;
 
 @Transactional(readOnly = true)
 class ReportDesignerController {
@@ -262,40 +263,15 @@ class ReportDesignerController {
 		if(exportFormat==null){
 			throw new CRMException("Export type can not be null in runReport method.");
 		}
-		//System.out.println("Loading the .jrxml");
-		//System.out.println(getClass().getName());
-		//InputStream is = getClass().getResourceAsStream("/../empty_template.jrxml");
-		 InputStream is = new FileInputStream(new File("D:/empty_template.jrxml"));
-		JasperDesign jasperReportDesign = JRXmlLoader.load(is);
-		
-		//System.out.println("Adding the dynamic columns");
-		CrmDynamicReportBuilder reportBuilder = new CrmDynamicReportBuilder(jasperReportDesign, columnHeaders.size());
-		reportBuilder.addDynamicColumns();
-		
-		//System.out.println("Compiling the report");
-		JasperReport jasperReport = JasperCompileManager.compileReport(jasperReportDesign);
-					Map<String, Object> params = new HashMap<String, Object>();
-		params.put("REPORT_TITLE", "Sample Dynamic Columns Report");
-		CrmDynamicColumnDataSource pdfDataSource = new CrmDynamicColumnDataSource(columnHeaders, rows);
-		//System.out.println("Filling the report");
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, pdfDataSource);
-		String exportedTempFilePath="temp/dynamicTempReport";
-		switch(exportFormat){
-			case "pdf": JasperExportManager.exportReportToPdfFile(jasperPrint, exportedTempFilePath);break;
-			case "html":JasperExportManager.exportReportToHtmlFile(jasperPrint, exportedTempFilePath);break;
-			case "csv": JRCsvExporter csvExporter = new JRCsvExporter();
-						csvExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-						csvExporter.setExporterOutput(new SimpleWriterExporterOutput(exportedTempFilePath));
-						csvExporter.exportReport();break;
-			otherwise: throw new CRMException("Export format = '"+exportFormat+"' is not a valid export format.");
-		}
+		File file=CrmDynamicColumnReportService.runReport(columnHeaders, rows, reportName, exportFormat);
 		String fileName=reportName+"."+exportFormat;
-		def file = new File(exportedTempFilePath)
 		if (file.exists()) {
-		   response.setContentType("application/octet-stream")
-		   response.setHeader("Content-disposition", "filename=${fileName}")
-		   response.outputStream << file.bytes
-		   return
+			response.setContentType("application/octet-stream")
+			response.setHeader("Content-disposition", "filename=${fileName}")
+			response.outputStream << file.bytes
+			return
+		}else{
+			throw new CRMException(message(code: 'reportDesigner.report.creation.error'));
 		}
 	}
 			

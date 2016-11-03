@@ -15,13 +15,13 @@ class Partner extends CrmDomain{
 	PartnerRole partnerRole;
 	MaritalStatus maritalStatus;
 	Address address;
-	Partner partner;
+	Partner invitedBy;//self referenced properties should not have the same name than the Domain. In this case the select drop down is causing LazyInitializationException on Partner/Create when it returns with any validation error from the controller.
 	Boolean isActive;
 	Boolean isAgent;
 	Integer salary;
 	
-	static hasMany = [partners:Partner, crmUsers:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,tagSelectedValue,CustomFieldSelectedValue*/];
-	
+	static hasMany = [partnersInvitedBy:Partner, crmUsers:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,tagSelectedValue,CustomFieldSelectedValue*/];
+
 	static constraints = {
 		name (blank: false, nullable:false, size:1..100);
 		IDNumber(blank:false, nullable:false);
@@ -35,10 +35,15 @@ class Partner extends CrmDomain{
 		partnerRole(nullable:false);
 		maritalStatus(nullable:true);
 		address(nullable:false);
-		partner(nullable:true);
+		invitedBy(nullable:true);
 		isActive(nullable:false);
 		isAgent(nullable:false);
 		salary(blank:true, nullable:true);
+	}
+	public Partner(){}
+	
+	public Partner(def params){
+		this.properties = params;
 	}
 	@Override
 	public static String getPluralName(){

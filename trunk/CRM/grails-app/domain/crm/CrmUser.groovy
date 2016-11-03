@@ -9,11 +9,10 @@ class CrmUser extends CrmDomain{
 	Boolean isAdmin;
 	Boolean isActive;
 	Partner partner;
-	CrmUser crmUser;
+	CrmUser addedBy;//self referenced properties should not have the same name than the Domain. See Partner Domain Class for more info
 	//Office office
-	static hasMany = [clients: Client, propertyDemandsCreator:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsers:CrmUser/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static hasMany = [clients: Client, propertyDemandsCreator:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [propertyDemandsCreator: "creator", propertyDemandsAssignee: "assignee", tasksCreator: "creator", tasksAssignee: "assignee"];
-
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..20);
 		password(blank:false, nullable:false);//al editar un usuario no es necesario volver a cargar el pass.
@@ -21,7 +20,7 @@ class CrmUser extends CrmDomain{
 		isAdmin(nullable:false);
 		isActive(nullable:false);
 		partner(nullable:false);
-		crmUser(nullable:true);
+		addedBy(nullable:true);
 	}
 	@Override
 	public static String getPluralName(){

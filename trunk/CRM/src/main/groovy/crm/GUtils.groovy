@@ -20,6 +20,14 @@ class GUtils {
 			}
 		}
 	}
+	public static void removeAllFilesFromDirectory(String directoryPath){
+		def dire = new File(directoryPath);
+		if( dire.exists() ){
+			dire.eachFile(){ file->
+				file.delete();
+			}
+		}
+	}
 	public static String readFile(String path){
 		String res=null;
 		try{

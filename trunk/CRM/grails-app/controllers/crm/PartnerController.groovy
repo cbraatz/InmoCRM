@@ -20,7 +20,8 @@ class PartnerController {
     }
 
     def create() {
-        respond new Partner(params)
+		Partner part=new Partner(isActive: new Boolean("true"));
+        respond part
     }
 
     @Transactional

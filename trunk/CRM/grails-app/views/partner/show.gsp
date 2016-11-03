@@ -44,8 +44,8 @@
 		        <f:display bean="partner" property="partnerRole"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.maritalStatus.label" default="Marital Status"/></span>
 		        <f:display bean="partner" property="maritalStatus"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.partner.label" default="Invited By"/></span>
-		        <f:display bean="partner" property="partner"/>
+		        <span id="name-label" class="property-label"><g:message code="partner.invitedBy.label" default="Invited By"/></span>
+		        <f:display bean="partner" property="invitedBy"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.isAgent.label" default="Is Agent"/></span>
 		        <f:display bean="partner" property="isAgent"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.isActive.label" default="Is Active"/></span>
