@@ -1,9 +1,10 @@
 package crm
 
 import crm.db.CrmDbTable;
-import crm.enums.ReportDesignerType;
 //import crm.enums.DataType;
+import crm.enums.report.ReportDesignerType;
 import crm.exception.CRMException;
+
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

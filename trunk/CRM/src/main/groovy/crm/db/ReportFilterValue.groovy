@@ -1,6 +1,6 @@
 package crm.db
 
-import crm.enums.FilterCriteria
+import crm.enums.report.FilterCriteria;
 
 class ReportFilterValue {
 	private String column;

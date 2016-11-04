@@ -1,8 +1,8 @@
-package crm.enums
+package crm.enums.report
 
-import crm.enums.DataType;
-import crm.enums.DataTypeGroup;
-import crm.enums.FilterCriteria;
+import crm.enums.data.DataType;
+import crm.enums.data.DataTypeGroup;
+import crm.enums.report.FilterCriteria;
 
 public enum FilterCriteria {
 	LIKE_VALUE(DataTypeGroup.STRINGS,1," like '#1'"),

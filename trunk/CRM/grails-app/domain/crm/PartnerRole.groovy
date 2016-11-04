@@ -4,7 +4,7 @@ class PartnerRole extends CrmDomain{
 	String name;
 	Boolean isEmployee;
 	String description;
-	static hasMany = [partners:Partner, commissionRates:CommissionRate/*,ContextPermissionByPartnerRole*/];
+	static hasMany = [partners:Partner, commissionRates:CommissionRate];
     static constraints = {
 		name(blank: false, nullable:false, unique:true, size:1..50);
 		isEmployee(nullable:false);

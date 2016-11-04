@@ -1,4 +1,4 @@
-package crm.enums
+package crm.enums.report
 
 import crm.db.CrmDbTable
 

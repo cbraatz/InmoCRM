@@ -1,6 +1,6 @@
 package crm.db
 
-import crm.enums.DataType;
+import crm.enums.data.DataType;
 
 class SelectedReportColumn {
 	String name;

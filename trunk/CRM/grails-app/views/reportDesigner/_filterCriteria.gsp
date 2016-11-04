@@ -1,6 +1,6 @@
-<%@ page import="crm.enums.FilterCriteria" %>
-<%@ page import="crm.enums.BooleanDataValue" %>
-<%@ page import="crm.enums.DataType" %>
+<%@ page import="crm.enums.report.FilterCriteria" %>
+<%@ page import="crm.enums.data.BooleanDataValue" %>
+<%@ page import="crm.enums.data.DataType" %>
 <%@ page import="crm.Utils" %>
 <g:select id="fc-select-${colid}" onchange="filterChanged(this.value,$colid);" name="reportDesignerColumnsCommand.columnList[$colid].filterCriteria" value="${(null != fCriteria? FilterCriteria.valueOf(fCriteria) : null)}" from="${FilterCriteria.getAllFilterCriteriaList(dType)}" valueMessagePrefix="ENUM.FilterCriteria" />
 <span id="hidenFldNumber-${colid}">${(null == fCriteria ? FilterCriteria.getAllFilterCriteriaList(dType).first().numberOfFields : FilterCriteria.valueOf(fCriteria).numberOfFields) }</span><!-- span con id hidenFldNumber- seguido del colid pasado como parametro -->

@@ -25,9 +25,9 @@ import net.sf.jasperreports.export.SimpleWriterExporterOutput
 import grails.transaction.Transactional
 import crm.commands.ReportDesignerColumnsCommand
 import crm.db.CrmReportQueryBuilder
-import crm.enums.FilterCriteria;
-import crm.enums.ReportDesignerType;
-import crm.enums.DataType;
+import crm.enums.data.DataType;
+import crm.enums.report.FilterCriteria;
+import crm.enums.report.ReportDesignerType;
 import crm.exception.CRMException
 import crm.report.CrmDynamicColumnDataSource;
 import crm.report.CrmDynamicReportBuilder;

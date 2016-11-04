@@ -27,8 +27,6 @@
 		        <f:display bean="crmUser" property="emailAddress"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.partner.label" default="Partner"/></span>
 		        <f:display bean="crmUser" property="partner"/>
-		        <span id="name-label" class="property-label"><g:message code="crmUser.isAdmin.label" default="Admin"/></span>
-		        <f:display bean="crmUser" property="isAdmin"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.isActive.label" default="Active"/></span>
 		        <f:display bean="crmUser" property="isActive"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.addedBy.label" default="Added By"/></span>

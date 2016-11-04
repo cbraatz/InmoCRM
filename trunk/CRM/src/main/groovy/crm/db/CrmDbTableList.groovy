@@ -4,7 +4,7 @@ import java.util.List;
 
 import crm.ReportDesignerColumn
 import crm.Utils;
-import crm.enums.ReportDesignerType
+import crm.enums.report.ReportDesignerType;
 import crm.exception.CRMException;
 
 class CrmDbTableList {

@@ -68,13 +68,13 @@ class CrmUserController {
 		if(crmUser.password == null){
 			String tempName=crmUser.name;
 			String tempEmailAddress=crmUser.emailAddress;
-			Boolean tempIsAdmin=crmUser.isAdmin;
+			//Boolean tempIsAdmin=crmUser.isAdmin;
 			Boolean tempIsActive=crmUser.isActive;
 			Partner tempPartner=crmUser.partner;
 			crmUser.refresh();//get crmUser from DB
 			crmUser.name= tempName;
 			crmUser.emailAddress= tempEmailAddress;
-			crmUser.isAdmin= tempIsAdmin;
+			//crmUser.isAdmin= tempIsAdmin;
 			crmUser.isActive= tempIsActive;
 			crmUser.partner= tempPartner;
 			crmUser.validate();
@@ -106,7 +106,15 @@ class CrmUserController {
 
     @Transactional
     def delete(CrmUser crmUser) {
-
+		
+		if(crmUser.addedBy == null){//if is default user
+			crmUser.errors.rejectValue('',message(code:'default.default.object.delete.error', default:'Default object can not be deleted').toString());
+			transactionStatus.setRollbackOnly();
+			crmUser.partner.name;//para que cargue partner y evitar LazyInitializationException
+			respond crmUser, view:'show'
+			return;
+		}
+		
         if (crmUser == null) {
             transactionStatus.setRollbackOnly()
             notFound()

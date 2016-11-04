@@ -1,7 +1,8 @@
 package crm
 
 import java.lang.reflect.Field;
-import crm.enums.DataType;
+
+import crm.enums.data.DataType;
 import crm.GUtils;
 //import java.lang.reflect.Method;
 

@@ -1,8 +1,8 @@
-package crm.enums
+package crm.enums.data
 
 import crm.exception.CRMException
-import crm.enums.DataType;
-import crm.enums.DataTypeGroup;
+import crm.enums.data.DataType;
+import crm.enums.data.DataTypeGroup;
 
 public enum DataType {
 	STRING("java.lang.String", DataTypeGroup.STRINGS),

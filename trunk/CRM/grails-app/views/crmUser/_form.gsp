@@ -8,7 +8,6 @@
 	</f:field>
 	<f:field bean="crmUser" property="emailAddress"/>
 	<f:field bean="crmUser" property="partner" input-propId="${crmUser?.partner?.id}"/>
-	<f:field bean="crmUser" property="isAdmin"/>
 	<f:field bean="crmUser" property="isActive"/>
 	<g:hiddenField name="addedBy.id" value="${crmUser?.addedBy?.id}"/>
 </fieldset>

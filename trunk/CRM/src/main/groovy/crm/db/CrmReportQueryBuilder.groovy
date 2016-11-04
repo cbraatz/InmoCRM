@@ -2,8 +2,8 @@ package crm.db
 
 import crm.ReportDesignerColumn
 import crm.exception.CRMException
-import crm.enums.FilterCriteria;
-import crm.enums.ReportDesignerType;
+import crm.enums.report.FilterCriteria;
+import crm.enums.report.ReportDesignerType;
 
 import java.util.List;
 

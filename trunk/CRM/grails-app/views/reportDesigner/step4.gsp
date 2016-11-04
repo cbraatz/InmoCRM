@@ -1,4 +1,4 @@
-<%@ page import="crm.enums.FilterCriteria" %>
+<%@ page import="crm.enums.report.FilterCriteria" %>
 <!DOCTYPE html>
 <html>
     <head>

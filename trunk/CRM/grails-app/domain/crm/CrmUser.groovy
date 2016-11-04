@@ -6,18 +6,16 @@ class CrmUser extends CrmDomain{
 	String name;
 	String password;
 	String emailAddress;
-	Boolean isAdmin;
 	Boolean isActive;
 	Partner partner;
 	CrmUser addedBy;//self referenced properties should not have the same name than the Domain. See Partner Domain Class for more info
 	//Office office
-	static hasMany = [clients: Client, propertyDemandsCreator:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userContextRoles:UserContextRole, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static hasMany = [clients: Client, propertyDemandsCreator:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userGroups:UserGroup, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [propertyDemandsCreator: "creator", propertyDemandsAssignee: "assignee", tasksCreator: "creator", tasksAssignee: "assignee"];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..20);
 		password(blank:false, nullable:false);//al editar un usuario no es necesario volver a cargar el pass.
 		emailAddress(blank:false, nullable:false, unique:true, email: true);		
-		isAdmin(nullable:false);
 		isActive(nullable:false);
 		partner(nullable:false);
 		addedBy(nullable:true);
@@ -67,12 +65,15 @@ class CrmUser extends CrmDomain{
 		return true;
 	}
 	private String getpermissionIDFromActionAndController(String controller, String action){
-		switch(action){
-			case "index": return "VIEW_"+controller.toUpperCase();
-			case "show": return "VIEW_"+controller.toUpperCase();
-			case "create":  return "CREATE_"+controller.toUpperCase();
-			case "edit":  return "EDIT_"+controller.toUpperCase();
-			case "delete":  return "DELETE_"+controller.toUpperCase();
+		if(null!= action && null!= controller && !action.isEmpty() && !controller.isEmpty()){
+			switch(action){
+				case "show": return "VIEW_"+controller.toUpperCase();
+				case "create":  return "EDIT_"+controller.toUpperCase();
+				case "edit":  return "EDIT_"+controller.toUpperCase();
+				case "index": return "VIEW_"+controller.toUpperCase();
+				case "delete":  return "DELETE_"+controller.toUpperCase();
+				default:  return "SPECIAL_"+controller.toUpperCase();
+			}
 		}
 		return null;
 	}

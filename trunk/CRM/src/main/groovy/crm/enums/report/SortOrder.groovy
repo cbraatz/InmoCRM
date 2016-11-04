@@ -1,8 +1,8 @@
-package crm.enums
+package crm.enums.report
 
 import java.util.List;
 
-import crm.enums.SortOrder;
+import crm.enums.report.SortOrder;
 
 public enum SortOrder {
 	ASC(true),

@@ -25,18 +25,6 @@ class BootStrap {
     def destroy = {
     }
 	private void addDevelopmentData(){
-		
-		//ContextPermission
-		this.saveObj(new ContextRole(name: "Basic", isActive:true));
-		this.saveObj(new ContextRole(name: "Administrative", isActive:true));
-		this.saveObj(new ContextRole(name: "Sales", isActive:true));
-
-		//ContextPermission
-		this.saveObj(new ContextPermission(name: "Create Bank",permissionID:"CREATE_BANK"));
-		this.saveObj(new ContextPermission(name: "View Bank",permissionID:"VIEW_BANK"));
-		this.saveObj(new ContextPermission(name: "Edit Bank",permissionID:"EDIT_BANK"));
-		this.saveObj(new ContextPermission(name: "Delete Bank",permissionID:"DELETE_BANK"));
-		
 		//Language
 		this.saveObj(new Language(name: "Español", symbol:"es", prepositionOfPlace:"en"));
 		this.saveObj(new Language(name: "English", symbol:"en", prepositionOfPlace:"in"));
@@ -99,8 +87,16 @@ class BootStrap {
 		//Partner
 		this.saveObj(new Partner(name: "Default", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
 		
-		//crmUser
-		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isAdmin:true, isActive:true);
+		//CrmUser
+		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isActive:true);
+		this.saveObj(defUsr);
+		
+		//UserGroup
+		UserGroup adminGroup=new UserGroup(name:"Administrators", isAdmin:Boolean.parseBoolean("true"));
+		adminGroup.addToCrmUsers(defUsr);
+		this.saveObj(adminGroup);
+		
+		defUsr.addToUserGroups(adminGroup);
 		this.saveObj(defUsr);
 		
 		//ReportFolder
@@ -291,7 +287,7 @@ class BootStrap {
 		this.saveObj(managedProperty1);
 		ManagedProperty managedProperty2=new ManagedProperty(title:"Terreno de 2200m2 en Obligado Centro", propertyDescription:"Terreno grande en Obligado", measures:"30m x 100m", publicAddress:"Obligado Centro", publicCashPrice:"340.000 USS", price:340000, currency:Currency.findBySymbol("USS"), value:350000,
 			clientInitialPrice:340000, addedDate:new Date(), placedBillboards:1, area:2200,excess:0, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:1500, soldByUs:false);
-		this.saveObj(managedProperty1);
+		this.saveObj(managedProperty2);
 		System.out.println(managedProperty1.id);
 		
 		//PropertyUsage
@@ -361,7 +357,7 @@ class BootStrap {
 		this.saveObj(new ContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
 			
 		//CrmConfig
-		this.saveObj(new CrmConfig(dateFormat:"dd/MM/yyyy", companyName:"MacroInmuebles"/*, crmPartnerImagePath:"uploads/partner", crmPropertyImagePath:"uploads/property", webPropertyImagePath:"img/crm/property", webPartnerImagePath:"img/crm/partner"*/));
+		this.saveObj(new CrmConfig(dateFormat:"dd/MM/yyyy", companyName:"MacroInmuebles", plan:crm.enums.software.Plan.FULL/*, crmPartnerImagePath:"uploads/partner", crmPropertyImagePath:"uploads/property", webPropertyImagePath:"img/crm/property", webPartnerImagePath:"img/crm/partner"*/));
 	}
 	
 	private void saveObj(Object obj){

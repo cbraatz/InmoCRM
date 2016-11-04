@@ -1,5 +1,5 @@
-<%@ page import="crm.enums.FilterCriteria" %>
-<%@ page import="crm.enums.SortOrder" %>
+<%@ page import="crm.enums.report.FilterCriteria" %>
+<%@ page import="crm.enums.report.SortOrder" %>
 <!DOCTYPE html>
 <html>
     <head>

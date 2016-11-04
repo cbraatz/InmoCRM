@@ -1,4 +1,4 @@
-package crm.enums
+package crm.enums.report
 
 public enum PaperType {
 	A(0, 0),//Ilimitado
