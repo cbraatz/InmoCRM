@@ -23,6 +23,5 @@
 	<f:field bean="client" property="isProspectiveClient"/>
 	<g:hiddenField name="isActive" value="${client?.isActive}"/>
 </fieldset>
-
-<h1><g:message code="address.label"/></h1>
-<g:render template="/address/multiForm" model="['parentBean':'client']"/>
+	<h1><g:message code="address.label"/></h1>
+	<g:render template="/address/multiForm" model="['parentBean':'client']"/>

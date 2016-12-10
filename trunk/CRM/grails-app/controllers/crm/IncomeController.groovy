@@ -1,7 +1,7 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
-
+import crm.enums.income.RelatedDomain;
 import java.util.Date;
 
 import grails.transaction.Transactional
@@ -54,24 +54,24 @@ class IncomeController {
 			return;
 		}
 		
-		if(income.incomeType.isConcessionRelated){
-			if(income.concession){
-				income.concession = Concession.get(income.concession.id);//find concession by id
-				if(!income.concession){
-					income.errors.rejectValue('concession',message(code:'income.concession.not.found.error.label').toString());
+		if(income.incomeType.relatedDomain.equals(RelatedDomain.CONCESSION.name())){
+			if(income.relatedToId){
+				income.relatedToId = Concession.get(income.relatedToId).id;//find concession by id
+				if(!income.relatedToId){
+					income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.concession.not.found.error.label').toString());
 					transactionStatus.setRollbackOnly();
 					respond income.errors, view:'create';
 					return;
 				}
 			}else{
-				income.errors.rejectValue('concession',message(code:'income.concession.required.error.label').toString());
+				income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.concession.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'create';
 				return;
 			}
 		}else{
-			if(income.concession?.id){
-				income.errors.rejectValue('concession',message(code:'income.concession.not.required.error.label').toString());
+			if(income.relatedToId){
+				income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.not.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'create';
 				return;
@@ -221,24 +221,24 @@ class IncomeController {
 			return;
 		}
 		
-		if(income.incomeType.isConcessionRelated){
-			if(income.concession){
-				income.concession = Concession.get(income.concession.id);
-				if(!income.concession){
-					income.errors.rejectValue('concession',message(code:'income.concession.not.found.error.label').toString());
+		if(income.incomeType.relatedDomain.equals(RelatedDomain.CONCESSION.name())){
+			if(income.relatedToId){
+				income.relatedToId = Concession.get(income.relatedToId).id;
+				if(!income.relatedToId){
+					income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.concession.not.found.error.label').toString());
 					transactionStatus.setRollbackOnly();
 					respond income.errors, view:'edit';
 					return;
 				}
 			}else{
-				income.errors.rejectValue('concession',message(code:'income.concession.required.error.label').toString());
+				income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.concession.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'edit';
 				return;
 			}
 		}else{
-			if(income.concession?.id){
-				income.errors.rejectValue('concession',message(code:'income.concession.not.required.error.label').toString());
+			if(income.relatedToId){
+				income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.not.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'edit';
 				return;

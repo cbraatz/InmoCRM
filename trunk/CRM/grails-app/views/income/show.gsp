@@ -31,8 +31,8 @@
 		        <f:display bean="income" property="currency"/>
 		        <span id="name-label" class="property-label"><g:message code="income.client.label" default="Client"/></span>
 		        <f:display bean="income" property="client"/>
-		        <span id="name-label" class="property-label"><g:message code="income.concession.label" default="Concession"/></span>
-		        <f:display bean="income" property="concession.id"/>
+		        <span id="name-label" class="property-label"><g:message code="income.relatedToId.label" default="Related Object"/></span>
+		        <f:display bean="income" property="relatedToId"/>
 		        <span id="name-label" class="property-label"><g:message code="income.incomeType.label" default="Income type"/></span>
 		        <f:display bean="income" property="incomeType"/>
 		        <span id="name-label" class="property-label"><g:message code="income.isPaid.label" default="Is paid"/></span>

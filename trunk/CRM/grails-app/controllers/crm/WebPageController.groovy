@@ -17,6 +17,7 @@ class WebPageController {
     }
 
     def show(WebPage webPage) {
+		webPage.updateWebPageUrl();
         respond webPage
     }
 
@@ -73,32 +74,28 @@ class WebPageController {
             respond webPage.errors, view:'create'
             return
         }
-		boolean err=false;
         if(webPage.save(flush:true)){
 			List<String> lis=this.transferImagesToWeb(webPage);
 			if(!lis.empty){
-				err=true;
 				lis.each{
-					webPage.errors.rejectValue('',it);
+					webPage.errors.rejectValue('',"Error:"+it);
 				}
 			}
 			lis=this.createOrUpdateWebPage(webPage);
 			if(!lis.empty){
-				err=true;
 				lis.each{
-					webPage.errors.rejectValue('',it);
+					webPage.errors.rejectValue('',"Error:"+it);
 				}
 			}
 		}else{
 			webPage.errors.rejectValue('',message(code:'webPage.save.error').toString());
-			err=true;
 		}
 		
-		if (err==true) {
-			transactionStatus.setRollbackOnly()
-			respond webPage.errors, view:'create'
-			return
-		}
+		if (webPage.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond webPage.errors, view:'create'
+            return
+        }
 		
         request.withFormat {
             form multipartForm {
@@ -322,7 +319,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+conc.agent.partner.id + File.separatorChar + "profile.jpg");
+				fileContent=fileContent.replace(str, grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+conc.crmUser.partner.id + File.separatorChar + "profile.jpg");
 			}
 			//Holders.config.getProperty('web.image.partner') se usa para obtener los datos de application.yml desde la domain class
 			//IMPORT - LINKS
@@ -483,8 +480,8 @@ class WebPageController {
 		
 		//partner uploaded profile image transfer to target domain web page
 		Concession conc=webPage.managedProperty.getActiveConcession();
-		originPath=grailsApplication.config.getProperty('crm.upload.image.partner') + File.separatorChar+conc.agent.partner.id + File.separatorChar + "profile.jpg";
-		targetPath=webPage.domain.realPath + File.separatorChar + grailsApplication.config.getProperty('web.image.partner') + File.separatorChar + conc.agent.partner.id;
+		originPath=grailsApplication.config.getProperty('crm.upload.image.partner') + File.separatorChar+conc.crmUser.partner.id + File.separatorChar + "profile.jpg";
+		targetPath=webPage.domain.realPath + File.separatorChar + grailsApplication.config.getProperty('web.image.partner') + File.separatorChar + conc.crmUser.partner.id;
 		origin=new File(originPath);
 		target=new File(targetPath);
 		if(origin.exists()){

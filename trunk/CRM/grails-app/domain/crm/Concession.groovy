@@ -18,7 +18,7 @@ class Concession extends CrmDomain{
 	Boolean isActive;
 	Boolean isForRent;
 	static belongsTo = ManagedProperty;
-	static hasMany = [managedProperties:ManagedProperty, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,TagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [managedProperties:ManagedProperty, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	
 	static constraints = {
 		isNegotiable(nullable:false);

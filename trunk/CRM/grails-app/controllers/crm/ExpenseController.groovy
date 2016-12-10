@@ -52,30 +52,6 @@ class ExpenseController {
 			return;
 		}
 		
-		/*if(expense.expenseType.isConcessionRelated){
-			if(expense.concession){
-				expense.concession = Concession.get(expense.concession.id);//find concession by id
-				if(!expense.concession){
-					expense.errors.rejectValue('concession',message(code:'expense.concession.not.found.error.label').toString());
-					transactionStatus.setRollbackOnly();
-					respond expense.errors, view:'create';
-					return;
-				}
-			}else{
-				expense.errors.rejectValue('concession',message(code:'expense.concession.required.error.label').toString());
-				transactionStatus.setRollbackOnly();
-				respond expense.errors, view:'create';
-				return;
-			}
-		}else{
-			if(expense.concession.id){
-				expense.errors.rejectValue('concession',message(code:'expense.concession.not.required.error.label').toString());
-				transactionStatus.setRollbackOnly();
-				respond expense.errors, view:'create';
-				return;
-			}
-		}*/
-		
         expense.save flush:true;
 		
 		this.createPayments(expense);//create and save payments
@@ -218,30 +194,6 @@ class ExpenseController {
 			respond expense.errors, view:'edit';
 			return;
 		}
-		
-		/*if(expense.expenseType.isConcessionRelated){
-			if(expense.concession){
-				//expense.concession = Concession.get(expense.concession.id);
-				if(!expense.concession){
-					expense.errors.rejectValue('concession',message(code:'expense.concession.not.found.error.label').toString());
-					transactionStatus.setRollbackOnly();
-					respond expense.errors, view:'edit';
-					return;
-				}
-			}else{
-				expense.errors.rejectValue('concession',message(code:'expense.concession.required.error.label').toString());
-				transactionStatus.setRollbackOnly();
-				respond expense.errors, view:'edit';
-				return;
-			}
-		}else{
-			if(expense.concession.id){
-				expense.errors.rejectValue('concession',message(code:'expense.concession.not.required.error.label').toString());
-				transactionStatus.setRollbackOnly();
-				respond expense.errors, view:'edit';
-				return;
-			}
-		}*/
 		
 		if(expense.removeAllPayments()){
 			expense.save flush:true

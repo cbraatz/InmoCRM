@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <title><g:message code="default.home.page.label"/></title>
+        <title><g:message code="home.page.label"/></title>
         <g:set var="usr" value="${CrmUser.getAll().first().name}" />
     </head>
     <body>

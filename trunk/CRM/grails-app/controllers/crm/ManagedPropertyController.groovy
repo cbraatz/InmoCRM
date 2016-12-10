@@ -32,7 +32,7 @@ class ManagedPropertyController {
         respond mp
     }
 	def addEditImages(ManagedProperty managedProperty){
-		redirect(controller:'upload', action:'images', params: [obj:'property', oid: managedProperty.id])
+		redirect(controller:'upload', action:'edit', params: [obj:'property', oid: managedProperty.id])
 	}
     @Transactional
     def save(ManagedProperty managedProperty) {

@@ -155,7 +155,7 @@ class ConcessionController {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'concession.label', default: 'Concession'), concession.id])
 				if(addImages/* && saved*/){
-					redirect(controller:'upload', action:'images', params: [obj:'property', oid: managedProperty.id])
+					redirect(controller:'upload', action:'edit', params: [obj:'property', oid: managedProperty.id])
 				}else{
 					redirect concession//, view:'create', model:[managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];
 				}
@@ -170,7 +170,7 @@ class ConcessionController {
 	}
 	
 	def commissions(Concession concession){
-		redirect(controller:'commissionByConcession', action:'addCommission', params: [cid: concession.id])
+		redirect(controller:'commissionByConcession', action:'create', params: [cid: concession.id])
 	}
 	
     @Transactional

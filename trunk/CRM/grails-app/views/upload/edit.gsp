@@ -40,7 +40,7 @@
 		            </div>
 		        </fieldset> 
 		        <div class="buttons">
-		            <span class="button"><g:actionSubmit class="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" action="uploadImage" /></span>
+		            <span class="button"><g:actionSubmit class="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" action="update" /></span>
 		        </div> 
 	        </g:form>
 			<g:if test="${fileResourceInstanceList.size > 0}">
@@ -63,7 +63,7 @@
 	                            <td>${fileResourceInstance.isMainImage}</td>
 	                            <td>${fileResourceInstance.addToWeb}</td>
 	                            <td>${fileResourceInstance.description}</td>
-	                            <td><g:link action="deleteImage" id="${fileResourceInstance.id}" onclick="return confirm('Are you sure?');"><g:message code="upload.delete.image.label"/></g:link></td>
+	                            <td><g:link action="delete" id="${fileResourceInstance.id}" onclick="return confirm('Are you sure?');"><g:message code="upload.delete.image.label"/></g:link></td>
 	                        </tr>
 	                    </g:each>
 	                    </tbody>

@@ -1,7 +1,12 @@
+import crm.ContextPermissionCategory;
 import crm.Currency;
+import crm.enums.income.RelatedDomain;
 import java.util.Date;
+
 import grails.util.Environment;
 import crm.*;
+import crm.commands.ContextCrmActionsByCategoryCommand
+
 import java.text.SimpleDateFormat
 class BootStrap {
 
@@ -90,14 +95,33 @@ class BootStrap {
 		//CrmUser
 		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isActive:true);
 		this.saveObj(defUsr);
+		def testUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test2", password:CrmUser.encodePassword("test"), emailAddress: "test2_user@test.com", isActive:true);
+		this.saveObj(testUsr);
+		
+		//ContextPermissionCategory
+		ContextPermissionCategory cpcat=new ContextPermissionCategory(name:"Todos", isAll:true, isNone:false);
+		this.saveObj(cpcat);
+		/*crm.enums.software.CrmController.values().each{
+			for(crm.enums.software.CrmAction a:it.actions){
+				this.saveObj(new CrmActionByContextCategory(crmController:it.name(), crmAction:a.name(), contextPermissionCategory:cpcat));
+			}
+		}*/
+		ContextPermissionCategory cpcat2=new ContextPermissionCategory(name:"Ninguno", isAll:false, isNone:true);
+		this.saveObj(cpcat2);
+		//ContextCrmActionsByCategoryCommand x=new ContextCrmActionsByCategoryCommand(cpcat);
 		
 		//UserGroup
-		UserGroup adminGroup=new UserGroup(name:"Administrators", isAdmin:Boolean.parseBoolean("true"));
+		UserGroup adminGroup=new UserGroup(name:"Administrators", isAdmin:true, contextPermissionCategory:ContextPermissionCategory.findByIsAll(true));
 		adminGroup.addToCrmUsers(defUsr);
 		this.saveObj(adminGroup);
-		
 		defUsr.addToUserGroups(adminGroup);
 		this.saveObj(defUsr);
+		
+		UserGroup testGroup=new UserGroup(name:"Test_Group", isAdmin:false, contextPermissionCategory:ContextPermissionCategory.findByIsAll(true));
+		testGroup.addToCrmUsers(testUsr);
+		this.saveObj(testGroup);
+		testUsr.addToUserGroups(testGroup);
+		this.saveObj(testUsr);
 		
 		//ReportFolder
 		this.saveObj(new ReportFolder(name:"Reportes Públicos", crmUser: defUsr, isPublic:new Boolean("true")));
@@ -309,7 +333,7 @@ class BootStrap {
 			contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:55600, totalCommission:55600);
 		concession2.addToManagedProperties(managedProperty2);
 		this.saveObj(concession2);
-		managedProperty1.addToConcessions(concession2);
+		managedProperty2.addToConcessions(concession2);
 		this.saveObj(managedProperty2);
 
 
@@ -328,8 +352,8 @@ class BootStrap {
 		this.saveObj(new CommissionType(name:"Comisión de Captación de Inmueble", description:"Comisión por captación de un inmueble vendido", internalID:"2", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));
 		
 		//IncomeType
-		this.saveObj(new IncomeType(name:"Honoraios por venta de Concesión", description:"Cobro de honorarios por intermediación en la venta de una concesión inmobiliaria", isConcessionRelated:true, billingDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
-		this.saveObj(new IncomeType(name:"Honorarios por tasación", description:"Cobro de honorarios por servicio de tasación inmobiliaria", isConcessionRelated:false, billingDefaultDescription:"Honorarios por servicios de tasación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
+		this.saveObj(new IncomeType(name:"Honoraios por venta de Concesión", description:"Cobro de honorarios por intermediación en la venta de una concesión inmobiliaria", relatedDomain:RelatedDomain.CONCESSION, billingDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
+		this.saveObj(new IncomeType(name:"Honorarios por tasación", description:"Cobro de honorarios por servicio de tasación inmobiliaria", relatedDomain:RelatedDomain.NONE, billingDefaultDescription:"Honorarios por servicios de tasación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
 		
 		//PaymentPlan
 		this.saveObj(new PaymentPlan(name:"2 pagos anuales con 50% de entrega", initialFreeTimeInDays:0, regularPaymentsInDays:0, regularPaymentsInMonths:12, initialPaymentPercentage:50, numberOfParts:3, interestPercentage:0));
@@ -355,7 +379,7 @@ class BootStrap {
 		this.saveObj(new ContactType(name:"Informacion por llamada telefónica", description:"Información suministrada al cliente por llamada telefónica.", email:false, phoneCall:true, chat:false, showing:false, personally:false));
 		this.saveObj(new ContactType(name:"Visita del inmueble con el cliente", description:"Visita del inmueble con el cliente.", email:false, phoneCall:false, chat:false, showing:true, personally:false));
 		this.saveObj(new ContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
-			
+	
 		//CrmConfig
 		this.saveObj(new CrmConfig(dateFormat:"dd/MM/yyyy", companyName:"MacroInmuebles", plan:crm.enums.software.Plan.FULL/*, crmPartnerImagePath:"uploads/partner", crmPropertyImagePath:"uploads/property", webPropertyImagePath:"img/crm/property", webPartnerImagePath:"img/crm/partner"*/));
 	}

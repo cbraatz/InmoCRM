@@ -38,6 +38,9 @@ class WebPage extends CrmDomain{
 		return "webPages";
 	}
 	public String getWebPage(){
-		return "http://www."+this.domain.realPath+this.pageUrl;
+		return "http://www."+this.domain.name+this.pageUrl;
     }
+	public void updateWebPageUrl(){
+		this.pageUrl=this.getWebPage();
+	}
 }

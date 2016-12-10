@@ -698,7 +698,9 @@ a.skip {
 .feature-list{
 	padding-left:30px;
 }
-
+.category-action{
+	display: inline-block;
+}
 .comment_note{
 	margin-top:15px;
 	font-size: 10px;

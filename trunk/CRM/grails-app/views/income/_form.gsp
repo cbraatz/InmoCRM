@@ -8,7 +8,7 @@
 	<f:field bean="income" property="currency" input-propId="${income?.currency?.id}"/>
 	<f:field bean="income" property="client" input-propId="${income?.client?.id}"/>
 	<f:field bean="income" property="incomeType" input-propId="${income?.incomeType?.id}"/>
-	<f:field bean="income" property="concession.id" required="false"/>
+	<f:field bean="income" property="relatedToId" required="false"/>
 	<!--<f:field bean="income" property="isPaid"/>  -->
 	<f:field bean="income" property="isCredit"/>
 	<div id="paymentPlan-id">

@@ -19,7 +19,7 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             
-            <f:table collection="${incomeTypeList}" properties="['name', 'taxRate', 'isConcessionRelated']"/>
+            <f:table collection="${incomeTypeList}" properties="['name', 'taxRate', 'relatedDomain']"/>
 
             <div class="pagination">
                 <g:paginate total="${incomeTypeCount ?: 0}" />

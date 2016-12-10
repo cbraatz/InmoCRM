@@ -11,8 +11,8 @@ class Expense extends CrmDomain{
 	Commission commission;
 	ExpenseType expenseType;
 	PaymentPlan paymentPlan;
-	boolean isCredit;
-	boolean isPaid;
+	Boolean isCredit;
+	Boolean isPaid;
 	static hasMany = [expensePayments:ExpensePayment/*,GoodsPurchaseDetail*/];
     static constraints = {
 		date(blank:false, nullable:false);

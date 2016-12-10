@@ -11,7 +11,7 @@ not used at the moment, call this template using something like:
 			    <thead>
 			         <tr>
 			         	<g:each in="${properties}" var="prop">
-				            <th class="sortable"><a href="/search/searchResults?sort=${prop}&amp;order=asc"><g:message code="${className}.${prop}.label" default="${prop}"/></a></th>
+				            <th class="sortable"><a href="/search/show?sort=${prop}&amp;order=asc"><g:message code="${className}.${prop}.label" default="${prop}"/></a></th>
 			            </g:each>
 			        </tr>
 			    </thead>

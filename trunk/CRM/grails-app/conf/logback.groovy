@@ -8,16 +8,15 @@ appender('STDOUT', ConsoleAppender) {
         pattern = "%level %logger - %msg%n"
     }
 }
+root(INFO, ['STDOUT'])
 
-root(ERROR, ['STDOUT'])
-
-if(Environment.current == Environment.DEVELOPMENT) {
+if(Environment.current == Environment.DEVELOPMENT || Environment.current == Environment.PRODUCTION) {
     def targetDir = BuildSettings.TARGET_DIR
     if(targetDir) {
 
         appender("FULL_STACKTRACE", FileAppender) {
-
-            file = "${targetDir}/stacktrace.log"
+			
+            file = "D:/CrmFull.log"
             append = true
             encoder(PatternLayoutEncoder) {
                 pattern = "%level %logger - %msg%n"

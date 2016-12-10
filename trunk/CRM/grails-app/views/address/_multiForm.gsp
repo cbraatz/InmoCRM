@@ -58,7 +58,7 @@
 		//el if a continuacion es para que al acceder directamente a por ej client/create sin estar logueado no me retorne la pagina de login en lugar del selector de neighborhood.
 		if("${session.user != null}"){
 			var neid="${(params.id ? (parentBean ? Class.forName('crm.'+GUtils.getFirstCharInUpperCase(parentBean)).get(params.id)?.address?.neighborhood?.id : Address.get(params.id).neighborhood?.id) : '')}"
-	    	jQuery.ajax({type:'POST',data:{mainDomainType: "${parentBean}", cityId:cityId, neighborhoodId:neid} , url:'/neighborhood/getNeighborhoodsByCityAJAX2',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+	    	jQuery.ajax({type:'POST',data:{mainDomainType: "${parentBean}", cityId:cityId, neighborhoodId:neid} , url:'/neighborhood/getNeighborhoodsByCityAJAX',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
 		}
     }
 	$(".city-selector").change();

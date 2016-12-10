@@ -17,11 +17,11 @@ class ExpensePaymentController {
 		respond expensePayment
 	}
 	
-	def edit(ExpensePayment expensePayment) {
+	/*def edit(ExpensePayment expensePayment) {
 		respond expensePayment
-	}
+	}no hay vista para este metodo*/
 
-	@Transactional
+	/*@Transactional
 	def pay(ExpensePayment expensePayment) {
 
 		if (expensePayment == null) {
@@ -57,7 +57,7 @@ class ExpensePaymentController {
 			}
 			'*'{ respond expensePayment, [status: OK] }
 		}
-	}
+	}*/
 
 	protected void notFound() {
 		request.withFormat {

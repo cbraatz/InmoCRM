@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class UploadController {
-	def index = { redirect(action:images, params:params) }
+	def index = { redirect(action:edit, params:params) }
 	static transactional = true
 	
 	def allowedMethods = []
@@ -16,7 +16,7 @@ class UploadController {
 	
 	//from https://fbflex.wordpress.com/2008/11/26/a-simple-grails-controller-for-file-management/
 	@Transactional
-	def images(){
+	def edit(){
 		this.parentObject=params.obj;
 		this.objectId=params.oid;
 		def fileResourceInstanceList = []
@@ -78,7 +78,7 @@ class UploadController {
 		respond managedProperty, model:[fileResourceInstanceList:fileResourceInstanceList]
 	}
 	@Transactional
-	def deleteImage(){
+	def delete(){
 		UploadedImage upIm=UploadedImage.get(params.id);
 		def file=null;
 		if(null != upIm){
@@ -95,11 +95,11 @@ class UploadController {
 			GUtils.printErrors(upIm, "Deleting image '"+file.name+"'");
 			flash.message = message(code: 'upload.file.delete.error', args: [upIm.fileName]);
 		}
-		redirect(controller:'upload', action:'images', params: [obj:this.parentObject, oid: this.objectId])
+		redirect(controller:'upload', action:'edit', params: [obj:this.parentObject, oid: this.objectId])
 	}
 	
 	@Transactional
-	def uploadImage(String description, boolean mainImage, boolean addToWebPage){
+	def update(String description, boolean mainImage, boolean addToWebPage){
 		def f = request.getFile('fileUpload')
 		if(!f.empty) {
 		File dire=new File(this.myPath);
@@ -139,6 +139,6 @@ class UploadController {
 		}else {
 		   flash.message=message(code: 'upload.image.empty.file.error');
 		}
-		redirect(controller:'upload', action:'images', params: [obj:this.parentObject, oid:this.objectId]);
+		redirect(controller:'upload', action:'edit', params: [obj:this.parentObject, oid:this.objectId]);
 	}
 }

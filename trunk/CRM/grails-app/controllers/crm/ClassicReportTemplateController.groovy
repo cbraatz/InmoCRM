@@ -69,7 +69,7 @@ class ClassicReportTemplateController {
 			classicReportTemplate.errors.rejectValue('',message(code:'classicReportTemplate.empty.file.error').toString());
 		}
 		return classicReportTemplate;
-		//redirect(controller:'upload', action:'images', params: [obj:this.parentObject, oid:this.objectId]);
+		//redirect(controller:'upload', action:'edit', params: [obj:this.parentObject, oid:this.objectId]);
 	}
     @Transactional
     def save(ClassicReportTemplate classicReportTemplate) {

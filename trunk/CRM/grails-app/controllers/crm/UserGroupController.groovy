@@ -1,7 +1,6 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
-import crm.commands.UserByGroupCommand
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -19,7 +18,7 @@ class UserGroupController {
     }
 
     def create() {
-        respond new UserGroup(params)
+        respond new UserGroup(isAdmin:false)
     }
 	def members(UserGroup userGroup){
 		redirect(action:'addEditMembers', params: [gid: userGroup.id])
@@ -57,11 +56,12 @@ class UserGroupController {
 				}
 			}
 		}
-		
-		if(!saved){//no se como probar esto....
+
+		if(!saved){
 			userGroup.errors.rejectValue('',message(code:'default.save.error').toString());
 			transactionStatus.setRollbackOnly()
-			respond userGroup, view:'addEditMembers', model:[gid:userGroup.id]
+			userGroup.crmUsers.size();//to load crmUsers and avoid LazyInitializationException, aparently is not working
+			respond userGroup, view:'addEditMembers', model:[someObject:new ReportFolder(crmUser:crmUser)]
 			return
 		}else{
 			redirect(controller:'userGroup', action:'addEditMembers', params: [gid:userGroup.id]);
@@ -70,7 +70,7 @@ class UserGroupController {
 	@Transactional
 	def deleteMember(UserGroup userGroup) {
 		CrmUser crmUser = CrmUser.get(params.uid);
-		if(userGroup.isAdmin.booleanValue() == true && crmUser.addedBy == null){//if is default user
+		if(userGroup.isAdmin.booleanValue() == true && crmUser.addedBy == null){//if is default user group
 			userGroup.errors.rejectValue('',message(code:'default.default.object.delete.error').toString());
 			transactionStatus.setRollbackOnly();
 			userGroup.crmUsers.size();//to load crmUsers and avoid LazyInitializationException

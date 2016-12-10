@@ -7,20 +7,15 @@ import grails.transaction.Transactional
 class CommissionByConcessionController {
 
     static allowedMethods = [save:"POST"]
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond CommissionByConcession.list(params), model:[commissionByConcessionCount: CommissionByConcession.count()]
-    }
-
     
-	def addCommission(){
+	def create(){
 		//this.commissionId=params.cid;
 		//def commissionInstanceList;
 		Concession concession;
 		if(params.cid != null){
 			concession=Concession.get(params.cid);
 		}else{
-			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["cid = "+params.cid])]);
+			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["cid = null"])]);
 		}
 		/*if(null==commissionInstanceList){
 			commissionInstanceList=CommissionByConcession.list(concession:concession);
@@ -48,17 +43,17 @@ class CommissionByConcessionController {
 		if (commissionByConcession.hasErrors()) {
 			transactionStatus.setRollbackOnly()
 			respond concession, model:[commissionByConcession:commissionByConcession]
-			respond commissionByConcession, view:'addCommission', model:[concession:concession]
+			respond commissionByConcession, view:'create', model:[concession:concession]
 			return
 		}
 		
 		if(!commissionByConcession.save(flush:true)){
 			commissionByConcession.errors.rejectValue('',message(code:'default.save.error').toString());
 			transactionStatus.setRollbackOnly()
-			respond commissionByConcession, view:'addCommission', model:[concession:concession]
+			respond commissionByConcession, view:'create', model:[concession:concession]
 			return
 		}else{
-			redirect(controller:'commissionByConcession', action:'addCommission', params: [cid:concession.id]);
+			redirect(controller:'commissionByConcession', action:'create', params: [cid:concession.id]);
 		}
 	}
 	def edit(CommissionByConcession commissionByConcession) {
@@ -86,7 +81,7 @@ class CommissionByConcessionController {
 			respond commissionByConcession, view:'edit'
 			return
 		}else{
-			redirect(controller:'commissionByConcession', action:'addCommission', params: [cid:concessionId]);
+			redirect(controller:'commissionByConcession', action:'create', params: [cid:concessionId]);
 		}
 	}
     @Transactional
@@ -101,7 +96,7 @@ class CommissionByConcessionController {
 		
 		commissionByConcession.delete(flush:true)
 		
-		redirect(controller:'commissionByConcession', action:'addCommission', params: [cid:concessionId]);
+		redirect(controller:'commissionByConcession', action:'create', params: [cid:concessionId]);
         /*request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'commissionByConcession.label', default: 'CommissionByConcession'), commissionByConcession.id])

@@ -6,7 +6,7 @@ class SearchController {
 
     def index() { }
 	
-	def searchResults(String searchKeyWords){
+	def show(String searchKeyWords){
 		SearchResultItemList searchResultList=new SearchResultItemList();
 		if(searchKeyWords != null){
 			def searchDomains =[];

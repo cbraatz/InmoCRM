@@ -19,7 +19,20 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:display bean="incomeType" />
+            
+			<fieldset class="fieldcontain">
+            	<span id="name-label" class="property-label"><g:message code="incomeType.name.label" default="Name"/></span>
+		        <f:display bean="incomeType" property="name"/>
+		        <span id="name-label" class="property-label"><g:message code="incomeType.description.label" default="Description"/></span>
+		        <f:display bean="incomeType" property="description"/>
+		        <span id="name-label" class="property-label"><g:message code="incomeType.taxRate.label" default="Tax Rate"/></span>
+		        <f:display bean="incomeType" property="taxRate"/>
+		        <span id="name-label" class="property-label"><g:message code="incomeType.billingDefaultDescription.label" default="Billing Default Description"/></span>
+		        <f:display bean="incomeType" property="billingDefaultDescription"/>
+		        <span id="name-label" class="property-label"><g:message code="incomeType.relatedDomain.label" default="Related Domain"/></span>
+		        <span class="property-value"><g:message code="ENUM.RelatedDomain.${incomeType.relatedDomain}"/></span> 
+            </fieldset>
+            
             <g:form resource="${this.incomeType}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.incomeType}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

@@ -118,7 +118,7 @@
 	function cityChanged(cityId) {
 		if("${session.user != null}"){
 			//mainDomainType es vacio porque o sino en el selector pone address.neighborhood en lugar de solo neighborhood
-    		jQuery.ajax({type:'POST',data:{mainDomainType: '', cityId:cityId, neighborhoodId:"${(propertyDemand?.neighborhood?.id ? propertyDemand?.neighborhood?.id : null)}"} , url:'/neighborhood/getNeighborhoodsByCityAJAX2',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+    		jQuery.ajax({type:'POST',data:{mainDomainType: '', cityId:cityId, neighborhoodId:"${(propertyDemand?.neighborhood?.id ? propertyDemand?.neighborhood?.id : null)}"} , url:'/neighborhood/getNeighborhoodsByCityAJAX',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
 		}
     }
 	$(".city-selector").change();

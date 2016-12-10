@@ -22,7 +22,7 @@ class ClientController {
     }
 
     def create() {
-		Client client=new Client(params);
+		Client client=new Client();
 		client.isActive=true;
         respond client
     }
@@ -44,6 +44,9 @@ class ClientController {
 		//////
 		client.address = new Address();
 		client.address.properties=params.address;
+		if(client.isProspectiveClient.booleanValue()==true && client.address.addressLine == null){
+			client.address.addressLine="DIRECCION."
+		}
 		client.address.validate();
 		if (client.address.hasErrors()) {
 			transactionStatus.setRollbackOnly();

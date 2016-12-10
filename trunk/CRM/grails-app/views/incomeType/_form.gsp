@@ -5,5 +5,5 @@
 		<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="4" cols="50"/>
 	</f:field>
 	<f:field bean="incomeType" property="billingDefaultDescription"/>
-	<f:field bean="incomeType" property="isConcessionRelated"/>
+	<g:select class="" name="relatedDomain" value="${(incomeType?.relatedDomain!=null?crm.enums.income.RelatedDomain.valueOf(incomeType?.relatedDomain):null)}" from="${crm.enums.income.RelatedDomain.values()}" valueMessagePrefix="ENUM.RelatedDomain"/>
 </fieldset>

@@ -25,6 +25,7 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
+            
             <g:form action="save">
             
                 <g:render template="form"/>

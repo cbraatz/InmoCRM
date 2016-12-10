@@ -3,9 +3,6 @@
 	<h1><g:message code="concession.property.title"/></h1>
 	<g:render template="/managedProperty/form"/>
 	
-	<h1><g:message code="concession.address.title"/></h1>
-	<g:render template="/address/multiForm" model="['parentBean':'managedProperty']"/>
-	
 	<h1><g:message code="propertyFeature.features.title"/></h1>
 	<g:render template="/propertyFeature/cmdForm"/>
 

@@ -12,7 +12,7 @@ class Income extends CrmDomain{
 	PaymentPlan paymentPlan;
 	Currency currency;
 	Client client;
-	Concession concession;
+	String relatedToId;//defined in IncomeType >> RelatedDomain
 	IncomeType incomeType;
 	
 	static hasMany = [incomePayments:IncomePayment/*,GoodsSaleDetail*/];
@@ -26,20 +26,18 @@ class Income extends CrmDomain{
 		paymentPlan(nullable:true);
 		currency(nullable:false);
 		client(nullable:true);
-		concession(nullable:true);
+		relatedToId(blank:true, nullable:true, size:0..60);
 		incomeType(nullable:true);
-		
     }
 	static mapping = {
 		incomePayments sort: "dueDate"
 	}
 	
 	public Income(){
-		this.concession=new Concession();
+
 	}
 	public Income(def params){
 		this.properties = params;
-		this.concession=new Concession();
 	}
 	@Override
 	public static String getPluralName(){

@@ -87,7 +87,7 @@ class CrmDbTableList {
 		}
 	}
 	
-	//select c.id, m.id, u.name from Concession as c INNER JOIN c.managedProperties as m, CrmUser as u WHERE c.agent = u.id
+	//select c.id, m.id, u.name from Concession as c INNER JOIN c.managedProperties as m, CrmUser as u WHERE c.crmUser = u.id
 	//no anda el inner join xx on c.id=m.id ni el where c.id=m.id xq tira error.
 	
 	public CrmDbTable getTableByName(String tableName){

@@ -1,5 +1,10 @@
 package crm
 
+import crm.enums.software.CrmAction
+import crm.enums.software.CrmController
+import crm.enums.software.Plan
+import crm.exception.CRMException
+
 //import org.apache.jasper.tagplugins.jstl.core.Otherwise;
 
 class CrmUser extends CrmDomain{
@@ -10,6 +15,9 @@ class CrmUser extends CrmDomain{
 	Partner partner;
 	CrmUser addedBy;//self referenced properties should not have the same name than the Domain. See Partner Domain Class for more info
 	//Office office
+	private List<String> contextPermissions;
+	
+	static transients = ["contextPermissions"];
 	static hasMany = [clients: Client, propertyDemandsCreator:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissions:Commission, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userGroups:UserGroup, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [propertyDemandsCreator: "creator", propertyDemandsAssignee: "assignee", tasksCreator: "creator", tasksAssignee: "assignee"];
 	static constraints = {
@@ -24,15 +32,60 @@ class CrmUser extends CrmDomain{
 	public static String getPluralName(){
 		return "crmUsers";
 	}
-	private boolean checkPermissions(String controller, String action) {
+	/*private boolean checkPermissions(String controller, String action) {
 			if(isActivateInUIX(controller)){
 				return hasPermission(controller, action);
 			}else{
 				return false;
 			}
+	}*/
+	public boolean isAdmin(){
+		for(UserGroup g:this.userGroups){
+			if(g.isAdmin==true){
+				return true;
+			}
+		}
+		return false;
 	}
-	def hasPermission(String controller, String action) {
-		/*String permissionID=getpermissionIDFromActionAndController(controller, action);
+	def hasPermission(String controllerName, String actionName, Plan softwarePlan) throws CRMException{
+		boolean skip=false;
+		for(String aa:CrmAction.getActionsToSkip()){
+			if(aa.equals(actionName)){
+				skip=true;
+				break;
+			}
+		}
+		if(skip == false){
+			CrmAction crmAction=CrmAction.getCrmActionByName(actionName);
+			if(crmAction !=null){
+				CrmController crmController=CrmController.getCrmControllerByName(controllerName);
+				if(crmController != null){
+					if(crmController.isCrmControllersAvailableForCurrentPlan(softwarePlan)){
+						if(this.isAdmin()){
+							return true;
+						}else{
+							if(false == crmController.isAdminOnly()){	
+								for(String p:this.getContextPermissions()){
+									if(p.equals(crmController.name()+"@"+crmAction.name())){
+										return true;
+									}
+								}
+							}
+						}
+					}
+					return false;
+				}else{
+					throw new CRMException("CrmController has null value. Not found CrmController with name="+controllerName);
+				}
+			}else{
+				throw new CRMException("CrmAction has null value. Not found CrmAction with name="+actionName);
+			}
+		}else{
+			return true;
+		}
+	}
+	/*def hasPermission(String controller, String action) {
+		String permissionID=getpermissionIDFromActionAndController(controller, action);
 		System.out.println("Verifying "+permissionID+" permission.");
 		if(null!=controller && null!=action && null!=permissionID){
 			System.out.println(UserContextRole.findAllByUser(this).size());
@@ -49,10 +102,9 @@ class CrmUser extends CrmDomain{
 		}else{
 			System.out.println("Null value for Controller= "+controller+". Action= "+action+". permissionID="+permissionID);
 		}
-		return false;*/
+		return false;
 		return this.isAdmin;
-	}
-	
+	}*/
 	public static String encodePassword(String pass){
 		return Utils.getSHA512Password(pass);
 	}
@@ -82,4 +134,11 @@ class CrmUser extends CrmDomain{
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("name"), new SearchAttribute("emailAddress")];
 	}
+	public List<String> getContextPermissions() {
+		return contextPermissions;
+	}
+	public void setContextPermissions(List<String> contextPermissions) {
+		this.contextPermissions = contextPermissions;
+	}
+	
 }

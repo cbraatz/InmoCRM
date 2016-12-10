@@ -17,11 +17,11 @@ class IncomePaymentController {
         respond incomePayment
     }
 	
-	def edit(IncomePayment incomePayment) {
+	/*def edit(IncomePayment incomePayment) {
 		respond incomePayment
-	}
+	}no hay vista para este metodo*/
 
-	@Transactional
+	/*@Transactional
 	def pay(IncomePayment incomePayment) {
 
 		if (incomePayment == null) {
@@ -57,7 +57,7 @@ class IncomePaymentController {
 			}
 			'*'{ respond incomePayment, [status: OK] }
 		}
-	}
+	}*/
 
     /*@Transactional
     def cancel(IncomePayment incomePayment) {
