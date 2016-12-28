@@ -39,7 +39,7 @@ public class CrmDynamicColumnReportService {
 		//System.out.println("Filling the report");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, pdfDataSource);
 		
-		crm.GUtils.removeAllFilesFromDirectory("temp");
+		//GUtils.removeAllFilesFromDirectory("temp");
 		
 		String exportedTempFilePath="temp/dynamicTempReport_"+crm.Utils.getShortUUID();
 		switch(exportFormat){

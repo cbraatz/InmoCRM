@@ -2,12 +2,11 @@ import crm.ContextPermissionCategory;
 import crm.Currency;
 import crm.enums.income.RelatedDomain;
 import java.util.Date;
-
 import grails.util.Environment;
 import crm.*;
 import crm.commands.ContextCrmActionsByCategoryCommand
-
 import java.text.SimpleDateFormat
+
 class BootStrap {
 
     def init = { servletContext ->
@@ -15,11 +14,16 @@ class BootStrap {
 		File tempDir=new File("temp");
 		File uploadsDir=new File("uploads");
 		if(!tempDir.exists()){
-			tempDir.mkdirs()
+			if(tempDir.mkdirs()==false){
+				crm.CrmLogger.logError(this.getClass(), "TempDir was not created.");
+			}
 		}
 		if(!uploadsDir.exists()){
-			uploadsDir.mkdirs()
+			if(uploadsDir.mkdirs()==false){
+				crm.CrmLogger.logError(this.getClass(), "UploadsDir was not created.");
+			}
 		}
+		
 		//if(Environment.current.equals(Environment.DEVELOPMENT)){
 		if(CrmConfig.count()==0){
 			addDevelopmentData();

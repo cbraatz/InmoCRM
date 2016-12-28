@@ -75,15 +75,15 @@ class WebPageController {
             return
         }
         if(webPage.save(flush:true)){
-			List<String> lis=this.transferImagesToWeb(webPage);
-			if(!lis.empty){
-				lis.each{
+			List<String> errList1=this.transferImagesToWeb(webPage);
+			List<String> errList2=this.createOrUpdateWebPage(webPage);
+			if(!errList1.empty){
+				errList1.each{
 					webPage.errors.rejectValue('',"Error:"+it);
 				}
 			}
-			lis=this.createOrUpdateWebPage(webPage);
-			if(!lis.empty){
-				lis.each{
+			if(!errList2.empty){
+				errList2.each{
 					webPage.errors.rejectValue('',"Error:"+it);
 				}
 			}
@@ -161,6 +161,7 @@ class WebPageController {
 			String str;
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PTITLE"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#PTITLE"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -170,6 +171,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#PDESC");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PDESC"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#PDESC"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -179,6 +181,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#HEADER");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#HEADER"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#HEADER"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -188,6 +191,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#RESUM");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#RESUM"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#RESUM"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -197,6 +201,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#FIRSTP");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#FIRSTP"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#FIRSTP"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -206,6 +211,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#SECONDP");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#SECONDP"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#SECONDP"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -215,6 +221,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#THIRDP");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#THIRDP"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#THIRDP"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -224,6 +231,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#CALLTOACT");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#CALLTOACT"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#CALLTOACT"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -233,6 +241,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#PKEYW");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PKEYW"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#PKEYW"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -242,6 +251,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#PRICE");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PRICE"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#PRICE"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -251,6 +261,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#ID");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#ID"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#ID"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -260,6 +271,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#TYPE");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#TYPE"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#TYPE"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -270,6 +282,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#PF");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#PF"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#PF"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -287,6 +300,7 @@ class WebPageController {
 									fileContent=fileContent.replace(str, newStr);
 								}else{
 									errs.add(message(code: 'webPage.template.property.feature.replace.error', args: [str]).toString());
+									CrmLogger.logError(this.getClass(), message(code: 'webPage.template.property.feature.replace.error', args: [str]).toString());
 								}
 								fir=false;
 								str=str.substring(4,str.length()-2);
@@ -307,6 +321,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#AGENTCOM");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#AGENTCOM"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#AGENTCOM"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -316,6 +331,7 @@ class WebPageController {
 			idx=fileContent.indexOf("@#AGENTPH");
 			if(idx<0){
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["@#AGENTPH"]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["@#AGENTPH"]).toString());
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
@@ -330,6 +346,7 @@ class WebPageController {
 				fileContent=fileContent.replace(str, "rel='stylesheet' href=\""+webPage.domain.realPath+File.separatorChar);
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#1: "+str]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#1: "+str]).toString());
 			}
 			//#2
 			str="<script src=\"js";
@@ -338,6 +355,7 @@ class WebPageController {
 				fileContent=fileContent.replace(str, "<script src=\""+webPage.domain.realPath+File.separatorChar+"js");
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#2: "+str]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#2: "+str]).toString());
 			}
 			//#3
 			str="<script src=\'js";
@@ -346,6 +364,7 @@ class WebPageController {
 				fileContent=fileContent.replace(str, "<script src=\'"+webPage.domain.realPath+File.separatorChar+"js");
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#3: "+str]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#3: "+str]).toString());
 			}
 			
 			//adding images
@@ -369,6 +388,7 @@ class WebPageController {
 											fileContent=fileContent.replace(oldStr, newStr);
 										}else{
 											errs.add(message(code: 'webPage.template.property.image.replace.error', args: [oldStr]).toString());
+											CrmLogger.logError(this.getClass(), message(code: 'webPage.template.property.image.replace.error', args: [oldStr]).toString());
 										}
 										fir=false;
 									}else{
@@ -382,19 +402,24 @@ class WebPageController {
 								}
 							}else{
 								errs.add(message(code: 'webPage.file.not.found.error', args: [file.name]).toString());
+								CrmLogger.logError(this.getClass(), message(code: 'webPage.file.not.found.error', args: [file.name]).toString());
 							}
 						}
 					}else{
 						errs.add(message(code: 'webPage.directory.empty.error', args: [direPath]).toString());
+						CrmLogger.logError(this.getClass(), message(code: 'webPage.directory.empty.error', args: [direPath]).toString());
 					}
 				}else{
 					errs.add(message(code: 'webPage.directory.is.not.directory.error', args: [direPath]).toString());
+					CrmLogger.logError(this.getClass(), message(code: 'webPage.directory.is.not.directory.error', args: [direPath]).toString());
 				}
 			}else{
 				errs.add(message(code: 'webPage.directory.not.exist.error', args: [direPath]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.directory.not.exist.error', args: [direPath]).toString());
 			}
 			if(addedCount==0){
 				errs.add(message(code: 'webPage.add.files.error').toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.add.files.error').toString());
 			}
 			//IMPORTS #4
 			str="src=\"img";
@@ -403,6 +428,7 @@ class WebPageController {
 				fileContent=fileContent.replace(str, "src=\""+webPage.domain.realPath+File.separatorChar+"img");//esta despues de agregar las imagenes xq sino remplaza la imagen por defecto
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
 			}
 			GUtils.writeFile(filePath, fileContent);
 			webPage.inWeb=true;
@@ -411,6 +437,7 @@ class WebPageController {
 			
 		}catch(Exception e){
 			errs.add(message(code: 'webPage.creation.error', args: ["Message: "+e.message+". Detailed Message: "+e.detailMessage]).toString());
+			CrmLogger.logError(this.getClass(), message(code: 'webPage.creation.error', args: ["Message: "+e.message+". Detailed Message: "+e.detailMessage]).toString());
 		}
 		return errs;
 	}
@@ -444,16 +471,21 @@ class WebPageController {
 						}*/
 					}
 					if(copy){
-						System.out.println("Transfiriendo property image. De"+originFile.getAbsolutePath()+" a "+targetFile.getAbsolutePath());
-						Files.copy(originFile.toPath(),targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-					}else{
+						//System.out.println("Transfiriendo property image. De"+originFile.getAbsolutePath()+" a "+targetFile.getAbsolutePath());
+						try{
+							Files.copy(originFile.toPath(),targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+						}catch(Exception e){
+							CrmLogger.logException(this.getClass(), "Exception copying property image in method transferImagesToWeb.", e);
+						}
+					}/*else{
 						System.out.println("Transfiriendo property image."+originFile.name);
-					}
+					}*/
 				}
 			}
 			
 		}else{
 			errs.add(message(code: 'upload.property.image.origin.not.exist.error', args: [originPath]).toString());
+			CrmLogger.logError(this.getClass(), message(code: 'upload.property.image.origin.not.exist.error', args: [originPath]).toString());
 		}
 		//verify transfer and delete unnecessary images
 		if(target.exists()){
@@ -469,13 +501,18 @@ class WebPageController {
 						}
 					}
 					if(!exists){
-						ft.delete();
+						try{
+							ft.delete();
+						}catch(Exception e){
+							CrmLogger.logException(this.getClass(), "Exception deleting property from web site in method transferImagesToWeb.", e);
+						}
 						System.out.println("Borrando property image en el sitio web."+ft.name);
 					}
 				}
 			}
 		}else{
 			errs.add(message(code: 'upload.property.image.copy.failed.error', args: [targetPath]).toString());
+			CrmLogger.logError(this.getClass(), message(code: 'upload.property.image.copy.failed.error', args: [targetPath]).toString());
 		}
 		
 		//partner uploaded profile image transfer to target domain web page
@@ -486,7 +523,9 @@ class WebPageController {
 		target=new File(targetPath);
 		if(origin.exists()){
 			if(!target.exists()){
-				target.mkdirs()
+				if(target.mkdirs()==false){
+					crm.CrmLogger.logError(this.getClass(), "Target was not created.");
+				}
 			}
 			//targetPath=targetPath + File.separatorChar + "profile.jpg"
 			targetFile= new File(targetPath + File.separatorChar + "profile.jpg");
@@ -503,12 +542,17 @@ class WebPageController {
 			}
 			if(copy){
 				//origin.transferTo(targetFile);
-				Files.copy(origin.toPath(),targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			}else{
+				try{
+					Files.copy(origin.toPath(),targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				}catch(Exception e){
+					CrmLogger.logException(this.getClass(), "Exception copying partner profile image in method transferImagesToWeb.", e);
+				}
+			}/*else{
 				System.out.println("Transfiriendo profile image.");
-			}
+			}*/
 		}else{
 			errs.add(message(code: 'upload.partner.origin.profile.image.not.exist.error', args: [originPath]).toString());
+			CrmLogger.logError(this.getClass(), message(code: 'upload.partner.origin.profile.image.not.exist.error', args: [originPath]).toString());
 		}	
 		return errs;	   
 	}
@@ -535,18 +579,16 @@ class WebPageController {
 
         boolean err=false;
         if(webPage.save(flush:true)){
-			List<String> lis=this.transferImagesToWeb(webPage);
-			if(!lis.empty){
-				err=true;
-				lis.each{
-					webPage.errors.rejectValue('',it);
+			List<String> errList1=this.transferImagesToWeb(webPage);
+			List<String> errList2=this.createOrUpdateWebPage(webPage);
+			if(!errList1.empty){
+				errList1.each{
+					webPage.errors.rejectValue('',"Error:"+it);
 				}
 			}
-			lis=this.createOrUpdateWebPage(webPage);
-			if(!lis.empty){
-				err=true;
-				lis.each{
-					webPage.errors.rejectValue('',it);
+			if(!errList2.empty){
+				errList2.each{
+					webPage.errors.rejectValue('',"Error:"+it);
 				}
 			}
 		}else{
