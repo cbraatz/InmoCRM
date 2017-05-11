@@ -16,6 +16,12 @@ public class CrmLogger {
 		final Logger log = LoggerFactory.getLogger(fromClass);
 		log.info message
 	}
+	public static void logWarning(Class fromClass, String message){
+		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+		StatusPrinter.print(lc);
+		final Logger log = LoggerFactory.getLogger(fromClass);
+		log.warn message
+	}
 	public static void logException(Class fromClass, String message, Exception exception){
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		StatusPrinter.print(lc);
