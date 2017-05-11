@@ -247,15 +247,17 @@ class ReportDesignerController {
 		}
 		
 
-		System.err.println("Numero filas="+res2.size());
+		//System.err.println("Numero filas="+res2.size());
 		try {
 			this.runReport(queryBuilder.getSelectedColumnDisplayNames(), res2, reportDesigner.name, params.ef);
 		} catch (JRException e) {
 			 // TODO Auto-generated catch block
-			 e.printStackTrace();
+			CrmLogger.logException(this.getClass(), "JRException running Report "+reportDesigner.name+".", e);
+			 //e.printStackTrace();
 		} catch (FileNotFoundException e) {
 		 // TODO Auto-generated catch block
-		 e.printStackTrace();
+			CrmLogger.logException(this.getClass(), "FileNotFoundException running Report "+reportDesigner.name+".", e);
+		// e.printStackTrace();
 		}
 	}
 	

@@ -1,10 +1,13 @@
 import crm.ContextPermissionCategory;
 import crm.Currency;
 import crm.enums.income.RelatedDomain;
+
 import java.util.Date;
+
 import grails.util.Environment;
 import crm.*;
 import crm.commands.ContextCrmActionsByCategoryCommand
+
 import java.text.SimpleDateFormat
 
 class BootStrap {
@@ -30,6 +33,7 @@ class BootStrap {
 		}
 		//}
 		println("Finishing init......................");
+		crm.CrmLogger.logWarning(this.getClass(), "Finishing init......................");
     }
     def destroy = {
     }
@@ -222,6 +226,7 @@ class BootStrap {
 		this.saveObj(new Locale(name: "Español-Paraguay", isDefault:true, symbol:"es_PY", language:Language.findByName("Español"), country:Country.findByName("Paraguay")));
 		this.saveObj(new Locale(name: "Alemán-Alemania", isDefault:false, symbol:"de_GE", language:Language.findByName("Deutsch"), country:Country.findByName("Deutschland")));
 		//Domain 
+		this.saveObj(new Domain(name: "inmueblespy.com", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
 		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
 		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"/var/www/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
 		

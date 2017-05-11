@@ -64,7 +64,7 @@ class ReportDesignerColumn extends CrmDomain{
 				this.foreignTableDisplay=field.getName();
 				this.dataType=(String) DataType.DOMAIN;
 			} catch (Exception e) {
-				GUtils.printException(e, null);
+				CrmLogger.logException(this.getClass(), "Exception in ReportDesignerColumn constructor. TableName="+tableName+". ParentTableName = "+parentTableName+". Field = "+field, e);
 			}
 		}else{
 			this.propertyName=field.getName();
