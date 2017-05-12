@@ -53,14 +53,27 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    compile "org.springframework.boot:spring-boot-starter-tomcat" //change to provided instead of compile to use an external container; eg: tomcat
     compile "org.grails:grails-dependencies"
     compile "org.grails:grails-web-boot"
-
     compile "org.grails.plugins:hibernate"
     compile "org.grails.plugins:cache"
     compile "org.hibernate:hibernate-ehcache"
+	//compile "org.grails.plugins:ajax-tags:1.0.0"//added on 20/06/16
 	
+	compile "org.olap4j:olap4j:1.2.0" //jasper agregado por mi nomas
+	//compile "ar.com.fdvs:DynamicJasper:5.0.9"//dynamic jasper
+	
+	//compile "com.itextpdf:com.itextpdf:5.5.0"
+	//compile "com.itextpdf:itext-pdfa:5.5.0"
+	
+	//estos si incluir
+	compile "commons-collections:commons-collections:3.2.1" //jasper
+	compile "com.lowagie:itext:2.1.7" //jasper added instead of com.itextpdf:com.itextpdf:5.5.0..list of required jars here: http://o7planning.org/en/10293/calling-jasper-report-from-java-application
+	compile "commons-logging:commons-logging:1.1.1" //jasper
+	compile "net.sf.jasperreports:jasperreports:6.2.1" //jasper
+	compile "commons-digester:commons-digester:2.1" //jasper
+	compile "commons-beanutils:commons-beanutils:1.9.0" //jasper
     runtime "org.grails.plugins:asset-pipeline"
     runtime "org.grails.plugins:scaffolding"
 	runtime "org.postgresql:postgresql:9.3-1102-jdbc41"
