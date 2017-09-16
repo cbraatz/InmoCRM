@@ -73,7 +73,7 @@ class CrmUser extends CrmDomain{
 							}
 						}
 					}
-					return false;
+					return null;//returns null when the plan is not available for this user
 				}else{
 					throw new CRMException("CrmController has null value. Not found CrmController with name="+controllerName);
 				}

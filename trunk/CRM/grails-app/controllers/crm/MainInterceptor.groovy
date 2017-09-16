@@ -14,7 +14,8 @@ class MainInterceptor {
 			if(controllerName.equals("favicon")){
 				return false;
 			}else{
-				this.checkUser(); //borrar el return true...
+				def chee = this.checkUser(); //borrar el return true...
+				return chee;
 				//return true;
 			}
 		}
@@ -30,7 +31,16 @@ class MainInterceptor {
 			redirect(controller:'login',action:'loginForm', params: [controllerN: controllerName, actionN:actionName, idV:params['id']]);//enviar por parametro p
 		}else{
 		try{
-			return session.user.hasPermission(controllerName, actionName, session.softwarePlan);
+			def hasperm=session.user.hasPermission(controllerName, actionName, session.softwarePlan);
+			if(hasperm==null){
+				render(view:'/error', model:[message: 'EL plan actual no permite ver esta página.']);
+			}else{                                   
+				if(hasperm==true){
+					return true;
+				}else{
+					render(view:'/error', model:[message: 'EL usuario actual no tiene permisos de ver esta página.']);
+				}
+			}
 		}catch(Exception e){
 			render(view:'/error', model:[message: e.getMessage()]);
 		}

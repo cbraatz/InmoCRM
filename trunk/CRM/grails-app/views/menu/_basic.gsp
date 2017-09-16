@@ -1,4 +1,3 @@
-<g:render template="/client/menu"/>
 <g:render template="/buildingFeature/menu"/>
 <g:render template="/buildingType/menu"/>
 <g:render template="/city/menu"/>

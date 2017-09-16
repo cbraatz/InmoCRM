@@ -11,4 +11,9 @@ public abstract class CrmDomain{
 	public static String getPluralName(){
 		return null;
 	}
+	/*def beforeValidate() {
+        if(null==this.id){
+			this.id = Utils.getShortUUID();
+        }
+    }*/
 }

@@ -18,7 +18,12 @@ class AgentCommentController {
     }
 
     def create() {
-        respond new AgentComment(params)
+		AgentComment ac=new AgentComment(params);
+		ac.crmUser=CrmUser.get(params.cid);
+		if(null==ac.crmUser){
+			ac.errors.rejectValue('crmUser',message(code:'agentComment.crmUser.required.error').toString());
+		}
+		respond ac
     }
 
     @Transactional

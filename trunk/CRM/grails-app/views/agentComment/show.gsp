@@ -24,7 +24,7 @@
 				<span id="contact-label" class="property-label"><g:message code="agentComment.contact.label" default="Contact"/></span>
 		        <f:display bean="agentComment" property="contact"/>
             	<span id="locale-label" class="property-label"><g:message code="agentComment.locale.label" default="Locale"/></span>
-		        <f:display bean="agentComment" property="Locale"/>
+		        <f:display bean="agentComment" property="locale"/>
 		        <span id="crmUser-label" class="property-label"><g:message code="agentComment.crmUser.label" default="User"/></span>
 		        <f:display bean="agentComment" property="crmUser"/>   
             </fieldset>
