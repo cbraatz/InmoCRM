@@ -36,8 +36,6 @@ class PropertyDemand extends CrmDomain{
 	String timeAvailability;
 	Boolean offersOnly;
 	Double price;
-	Double minPrice;
-	Double maxPrice;
 	String specifyPrice;
 	Boolean isPriceRequired;
 	Currency currency;
@@ -88,8 +86,6 @@ class PropertyDemand extends CrmDomain{
 		timeAvailability(blank: true, nullable:true, size:0..80);
 		offersOnly(nullable:true);
 		price(blank: true, nullable:true);
-		minPrice(blank: true, nullable:true);
-		maxPrice(blank: true, nullable:true);
 		specifyPrice(blank: true, nullable:true, size:0..80);
 		isPriceRequired(blank: false, nullable:false);
 		currency(nullable:true);
@@ -152,7 +148,7 @@ class PropertyDemand extends CrmDomain{
 					}
 				}
 				/*if(it.isPriceRequired && this.price != null){
-					if(this.price >= it.propertyMinPrice && this.price <= it.propertyMaxPrice){
+					if(this.price <= it.price){
 						addPD=false;
 					}
 				}*/
@@ -205,10 +201,10 @@ class PropertyDemand extends CrmDomain{
 				query.append(" and a.zone = ?");
 				paramethers.add(this.zone);
 			}
-			/*if(this.isPriceRequired && this.minPrice !=null && this.maxPrice !=null){
+			/*if(this.isPriceRequired !=null && this.price !=null){
 				query.append(" and mp.price BETWEEN ? and ?");
-				paramethers.add(this.minPrice);
-				paramethers.add(this.maxPrice);
+				paramethers.add(0);
+				paramethers.add(this.price);
 			}*/
 			if(this.isBuildingConditionRequired && this.buildingCondition != null){
 				query.append(" and b.buildingCondition = ?");

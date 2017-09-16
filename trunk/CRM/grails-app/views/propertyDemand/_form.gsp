@@ -1,6 +1,15 @@
  <fieldset class="form">
 	<div class="buy-demand">
-		<f:field bean="propertyDemand" property="isSellDemand"/>
+		<div class="fieldcontain">
+			<label><g:message code="propertyDemand.isSell-BuyDemand.label"/></label>
+		</div>
+		<div class="fieldcontain">
+			<label><g:message code="propertyDemand.isBuyDemand.label"/></label>
+			<g:checkBox id="isBuyDemand" name="invalidCheckbox" value="${true}" />
+			<label><g:message code="propertyDemand.isSellDemand.label"/></label>
+			<g:checkBox id="isSellDemand" name="isSellDemand" value="${false}" />
+		</div>
+		<!--<f:field bean="propertyDemand" property="isSellDemand"/>  -->
 		<div class="grouping-box demand-info">
 			<f:field bean="propertyDemand" property="name"/>
 			<f:field bean="propertyDemand" property="creator" input-propId="${propertyDemand?.creator?.id}"/>
@@ -65,13 +74,9 @@
 		<div class="buy-only">
 			<!--<f:field bean="propertyDemand" property="offersOnly"/>-->
 		</div>
-		<div class="sell-only">
-			<f:field bean="propertyDemand" property="price"/>
-		</div>
-		<div class="buy-only">
-			<f:field bean="propertyDemand" property="minPrice"/>
-			<f:field bean="propertyDemand" property="maxPrice"/>
-		</div>
+		<g:hiddenField id="price-label" name="hiddenPrice" value="${message(code: 'propertyDemand.price.label', default: 'Price')}"/>
+		<g:hiddenField id="max-price-label" name="hiddenMaxPrice" value="${message(code: 'propertyDemand.maxPrice.label', default: 'Max Price')}"/>
+		<f:field bean="propertyDemand" property="price"/>
 		<f:field bean="propertyDemand" property="specifyPrice"/>
 		<div class="buy-only">
 			<!--<f:field bean="propertyDemand" property="isPriceRequired"/>-->
@@ -91,22 +96,30 @@
 <script>
 	function displayOrHideFields(){
 		if($("#isSellDemand").is(":checked")){
+			$("#isBuyDemand").prop('checked', false);
 			$(".buy-only").hide();
 			$(".sell-only").show();
 			$(".buy-demand").addClass("sell-demand");
 		  	$(".buy-demand").removeClass("buy-demand");
+		  	$("label[for='price']").text($("#price-label").val());
+		  	//alert("venta");
 		}else{
 			$(".buy-only").show();
 			$(".sell-only").hide();
 			$(".sell-demand").addClass("buy-demand");
 		  	$(".sell-demand").removeClass("sell-demand");
+		  	$("label[for='price']").text($("#max-price-label").val());
+		  	//alert($("label[for='price']").val());
 		}
 	}
 	
 	$("#isSellDemand").change(function() {
 		displayOrHideFields();
 	});
-	
+	$("#isBuyDemand").change(function() {
+		$("#isSellDemand").prop('checked', false);
+		displayOrHideFields();
+	});
 	displayOrHideFields();
 
 	//actualizar neighborhood drop-down al seleccionar city

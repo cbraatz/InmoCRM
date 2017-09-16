@@ -121,21 +121,18 @@
 						</g:if>
 						<g:if test="${propertyDemand.isSellDemand}">
 							<span id="price-label" class="property-label"><g:message code="propertyDemand.price.label" default="price"/></span>
-							<f:display bean="propertyDemand" property="price"/>
 						</g:if>
-						<g:if test="${!propertyDemand.isSellDemand}">
-							<span id="minPrice-label" class="property-label"><g:message code="propertyDemand.minPrice.label" default="minPrice"/></span>
-							<f:display bean="propertyDemand" property="minPrice"/>
-							<span id="maxPrice-label" class="property-label"><g:message code="propertyDemand.maxPrice.label" default="maxPrice"/></span>
-							<f:display bean="propertyDemand" property="maxPrice"/>
-						</g:if>
-						<span id="specifyPrice-label" class="property-label"><g:message code="propertyDemand.specifyPrice.label" default="specifyPrice"/></span>
+						<g:else>
+							<span id="maxPrice-label" class="property-label"><g:message code="propertyDemand.maxPrice.label" default="Max Price"/></span>
+						</g:else>
+						<f:display bean="propertyDemand" property="price"/>
+						<span id="specifyPrice-label" class="property-label"><g:message code="propertyDemand.specifyPrice.label" default="Specify Price"/></span>
 						<f:display bean="propertyDemand" property="specifyPrice"/>
 						<g:if test="${!propertyDemand.isSellDemand}">
 							<!--<span id="isPriceRequired-label" class="property-label"><g:message code="propertyDemand.isPriceRequired.label" default="isPriceRequired"/></span>-->
 							<!--<f:display bean="propertyDemand" property="isPriceRequired"/>-->
 						</g:if>
-						<span id="currency-label" class="property-label"><g:message code="propertyDemand.currency.label" default="currency"/></span>
+						<span id="currency-label" class="property-label"><g:message code="propertyDemand.currency.label" default="Currency"/></span>
 						<f:display bean="propertyDemand" property="currency"/>
 						<g:if test="${propertyDemand.isSellDemand}">
 							<span id="broadcastMedia-label" class="property-label"><g:message code="propertyDemand.broadcastMedia.label" default="broadcastMedia"/></span>
@@ -150,7 +147,7 @@
 				</fieldset>
 				<g:if test="${propertyDemand.isSellDemand}">     
 		            <h1><g:message code="propertyDemand.buy.smart.matches.title"/></h1>
-		            <f:table collection="${propertyDemand.getSmartMatchesForSellDemand()}" properties="['propertyType','buildingType','city','maxPrice','currency','interestLevel']" />
+		            <f:table collection="${propertyDemand.getSmartMatchesForSellDemand()}" properties="['propertyType','buildingType','city','price','currency','interestLevel']" />
 	            </g:if>
 	            <g:else>     
 		            <h1><g:message code="propertyDemand.sell.smart.matches.title"/></h1>

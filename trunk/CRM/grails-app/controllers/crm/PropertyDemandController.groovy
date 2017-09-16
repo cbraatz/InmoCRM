@@ -72,20 +72,14 @@ class PropertyDemandController {
 				}
 			}
 			if(propertyDemand.isPriceRequired){
-				if(!propertyDemand.minPrice){
-					propertyDemand.errors.rejectValue('minPrice',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.minPrice.label')]).toString());
-				}
-				if(!propertyDemand.maxPrice){
-					propertyDemand.errors.rejectValue('maxPrice',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.maxPrice.label')]).toString());
+				if(!propertyDemand.pricerice){
+					propertyDemand.errors.rejectValue('price',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.maxPrice.label')]).toString());
 				}
 			}
 			if(propertyDemand.isBuildingConditionRequired){
 				if(!propertyDemand.buildingCondition){
 					propertyDemand.errors.rejectValue('buildingCondition',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.buildingCondition.label')]).toString());
 				}
-			}
-			if(propertyDemand.minPrice > propertyDemand.maxPrice){
-				propertyDemand.errors.rejectValue('minPrice',message(code:'default.invalid.compared.value.message', args: [message(code:'propertyDemand.minPrice.label'), propertyDemand.minPrice, message(code:'propertyDemand.maxPrice.label'), propertyDemand.maxPrice]).toString());
 			}
 			if(propertyDemand.propertyMinArea > propertyDemand.propertyMaxArea){
 				propertyDemand.errors.rejectValue('propertyMinArea',message(code:'default.invalid.compared.value.message', args: [message(code:'propertyDemand.propertyMinArea.label'), propertyDemand.propertyMinArea, message(code:'propertyDemand.propertyMaxArea.label'), propertyDemand.propertyMaxArea]).toString());
