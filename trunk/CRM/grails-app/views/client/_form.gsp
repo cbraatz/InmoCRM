@@ -12,11 +12,11 @@
 	<f:field bean="client" property="emailAddress"/>
 	<f:field bean="client" property="timeAvailability"/>
 	<f:field bean="client" property="country"/>
-	<f:field bean="client" property="gender" input-propId="${client?.gender?.id}"/>
-	<f:field bean="client" property="profession" input-propId="${client?.profession?.id}" input-allowNull="${true}"/>
-	<f:field bean="client" property="maritalStatus" input-propId="${client?.maritalStatus?.id}"/>
-	<f:field bean="client" property="crmUser" input-propId="${client?.crmUser?.id}" input-propName="crmUser"/>
-	<f:field bean="client" property="category" input-propId="${client?.category?.id}" input-propName="clientCategory"/>
+	<f:field bean="client" property="gender" widget-propId="${client?.gender?.id}"/>
+	<f:field bean="client" property="profession" widget-propId="${client?.profession?.id}" widget-allowNull="${true}"/>
+	<f:field bean="client" property="maritalStatus" widget-propId="${client?.maritalStatus?.id}"/>
+	<f:field bean="client" property="crmUser" widget-propId="${client?.crmUser?.id}" input-propName="crmUser"/>
+	<f:field bean="client" property="category" widget-propId="${client?.category?.id}" input-propName="clientCategory"/>
 	<f:field bean="client" property="readsEmail"/>
 	<f:field bean="client" property="readsSms"/>
 	<f:field bean="client" property="receiveNotifications"/>

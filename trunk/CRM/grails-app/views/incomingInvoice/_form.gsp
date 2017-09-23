@@ -2,7 +2,7 @@
 <fieldset class="form">
 	<h1 class="paymentTitle"><g:message code="incomingInvoice.title.label"/></h1>
 	<f:field bean="incomingInvoice" property="date"/>
-	<f:field bean="incomingInvoice" property="currency" input-propId="${incomingInvoice?.currency?.id}"/>
+	<f:field bean="incomingInvoice" property="currency" widget-propId="${incomingInvoice?.currency?.id}"/>
 	<f:field bean="incomingInvoice" property="amountInExpenseCurrency" label="${message(code: 'incomingInvoice.amount.in.x.currency.label', default: 'Amount in Expense currency', args:[ex_curr])}"/>
 	<f:field bean="incomingInvoice" property="isSelfInvoice"/>
 	<span class="buttons right refreshBtn">
@@ -11,7 +11,7 @@
 	
 	<h1 class="paymentTitle"><g:message code="incomingInvoice.details.title.label"/></h1>
 	<f:field bean="incomingInvoice" property="number"/>
-	<f:field bean="incomingInvoice" property="vendor" input-propId="${incomingInvoice?.vendor?.id}"/>
+	<f:field bean="incomingInvoice" property="vendor" widget-propId="${incomingInvoice?.vendor?.id}"/>
 	<f:field bean="incomingInvoice" property="deductibleAmount"/>
 	<f:field bean="incomingInvoice" property="amount"/>
 	<f:field bean="incomingInvoice" property="totalTax"/>

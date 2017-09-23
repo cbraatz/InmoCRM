@@ -34,7 +34,7 @@
 	         	<f:field bean="reportDesigner" property="description">
 					<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="4" cols="50"/>
 				</f:field>
-	         	<f:field bean="reportDesigner" property="reportFolder" input-propId="${reportDesigner?.reportFolder?.id}"/>
+	         	<f:field bean="reportDesigner" property="reportFolder" widget-propId="${reportDesigner?.reportFolder?.id}"/>
 	         	
 	         	
 	         	<!-- no se xq al name del hiddenField no le puedo poner en frente reportDesigner. como en los otros steps xq sino deja null el contenido de los demás fields-->

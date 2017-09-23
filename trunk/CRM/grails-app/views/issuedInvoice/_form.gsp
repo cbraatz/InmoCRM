@@ -2,7 +2,7 @@
 <fieldset class="form">
 	<h1 class="paymentTitle"><g:message code="issuedInvoice.title.label"/></h1>
 	<f:field bean="issuedInvoice" property="date"/>
-	<f:field bean="issuedInvoice" property="currency" input-propId="${issuedInvoice?.currency?.id}"/>
+	<f:field bean="issuedInvoice" property="currency" widget-propId="${issuedInvoice?.currency?.id}"/>
 	<f:field bean="issuedInvoice" property="amountInIncomeCurrency" label="${message(code: 'issuedInvoice.amount.in.x.currency.label', default: 'Amount in Income currency', args:[inc_curr])}"/>
 	<span class="buttons right">
 		<g:actionSubmit action="refresh" class="refresh" value="${message(code: 'default.button.refresh.label', default: 'Refresh')}" />
@@ -10,7 +10,7 @@
 	
 	<h1 class="paymentTitle"><g:message code="issuedInvoice.details.title.label"/></h1>
 	<f:field bean="issuedInvoice" property="number"/>
-	<f:field bean="issuedInvoice" property="client" input-propId="${issuedInvoice?.client?.id}"/>
+	<f:field bean="issuedInvoice" property="client" widget-propId="${issuedInvoice?.client?.id}"/>
 	<f:field bean="issuedInvoice" property="amount"/>
 	<f:field bean="issuedInvoice" property="totalTax"/>
 	<g:hiddenField name="incomePayment" value="${issuedInvoice?.incomePayment?.id}"/>

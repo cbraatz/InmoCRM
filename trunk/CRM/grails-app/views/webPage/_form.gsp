@@ -2,7 +2,7 @@
 <fieldset class="form">
 	<f:field bean="webPage" property="price"/>
 	<f:field bean="webPage" property="operationType"/>
-	<f:field bean="webPage" property="domain" input-propId="${webPage?.domain?.id}"/>
+	<f:field bean="webPage" property="domain" widget-propId="${webPage?.domain?.id}"/>
 	<f:field bean="webPage" property="title"/>
 	<f:field bean="webPage" property="summary">
 		<g:textArea name="${property}" maxlength="300" value="${it.value}" rows="5" cols="60"/>

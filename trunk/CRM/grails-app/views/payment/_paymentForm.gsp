@@ -9,14 +9,14 @@
 	
 	<h1 class="paymentTitle"><g:message code="payment.title.label"/></h1>
 	<f:field bean="payment" property="inAmount"/>
-	<f:field bean="payment" property="inCurrency" input-propId="${payment?.inCurrency?.id}"/>
-	<f:field bean="payment" property="inPaymentMethod" input-propId="${payment?.inPaymentMethod?.id}"/>
+	<f:field bean="payment" property="inCurrency" widget-propId="${payment?.inCurrency?.id}"/>
+	<f:field bean="payment" property="inPaymentMethod" widget-propId="${payment?.inPaymentMethod?.id}"/>
 	
 	<h1 class="paymentTitle"><g:message code="payment.document.title.label"/></h1>
 	<f:field bean="payment" property="inPaymentDocument.internalID"/>
 	<f:field bean="payment" property="inPaymentDocument.startDate"/>
 	<f:field bean="payment" property="inPaymentDocument.endDate"/>
-	<f:field bean="payment" property="inPaymentDocument.bank" input-propId="${payment?.inPaymentDocument?.bank?.id}"/>
+	<f:field bean="payment" property="inPaymentDocument.bank" widget-propId="${payment?.inPaymentDocument?.bank?.id}"/>
 	
 	
 	<g:hiddenField name="incomePayment" value="${payment?.incomePayment?.id}"/>

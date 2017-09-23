@@ -12,36 +12,36 @@
 		<!--<f:field bean="propertyDemand" property="isSellDemand"/>  -->
 		<div class="grouping-box demand-info">
 			<f:field bean="propertyDemand" property="name"/>
-			<f:field bean="propertyDemand" property="creator" input-propId="${propertyDemand?.creator?.id}"/>
-			<f:field bean="propertyDemand" property="assignee" input-propId="${propertyDemand?.assignee?.id}"/>
+			<f:field bean="propertyDemand" property="creator" widget-propId="${propertyDemand?.creator?.id}"/>
+			<f:field bean="propertyDemand" property="assignee" widget-propId="${propertyDemand?.assignee?.id}" widget-allowNull="${true}" widget-allowNull="${true}"/>
 			<g:if test="${actionName.equals('edit')}">
-				<f:field bean="propertyDemand" property="demandStatus" input-propId="${propertyDemand?.demandStatus?.id}"/>
+				<f:field bean="propertyDemand" property="demandStatus" widget-propId="${propertyDemand?.demandStatus?.id}"/>
 			</g:if>
-			<f:field bean="propertyDemand" property="addedDate"/>
+			<g:hiddenField name="addedDate" value="${propertyDemand?.addedDate}"/>
 			<f:field bean="propertyDemand" property="dueDate"/>
-			<f:field bean="propertyDemand" property="client" input-propId="${propertyDemand?.client?.id}"/>
-			<f:field bean="propertyDemand" property="priorityLevel" input-propId="${propertyDemand?.priorityLevel?.id}"/>
-			<f:field bean="propertyDemand" property="interestLevel" input-propId="${propertyDemand?.interestLevel?.id}"/>
+			<f:field bean="propertyDemand" property="client" widget-propId="${propertyDemand?.client?.id}"/>
+			<f:field bean="propertyDemand" property="priorityLevel" widget-propId="${propertyDemand?.priorityLevel?.id}"/>
+			<f:field bean="propertyDemand" property="interestLevel" widget-propId="${propertyDemand?.interestLevel?.id}"/>
 		</div>
-		<f:field bean="propertyDemand" property="propertyType" input-propId="${propertyDemand?.propertyType?.id}"/>
+		<f:field bean="propertyDemand" property="propertyType" widget-propId="${propertyDemand?.propertyType?.id}"/>
 		<f:field bean="propertyDemand" property="specifyPropertyType"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isPropertyTypeRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="buildingType" input-propId="${propertyDemand?.buildingType?.id}" input-allowNull="${true}"/>
+		<f:field bean="propertyDemand" property="buildingType" widget-propId="${propertyDemand?.buildingType?.id}" widget-allowNull="${true}"/>
 		<f:field bean="propertyDemand" property="specifyBuildingType"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isBuildingTypeRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="buildingCondition" input-propId="${propertyDemand?.buildingCondition?.id}"/>
+		<f:field bean="propertyDemand" property="buildingCondition" widget-propId="${propertyDemand?.buildingCondition?.id}" widget-allowNull="${true}"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isBuildingConditionRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="department" input-propId="${propertyDemand?.department?.id}"/>
+		<f:field bean="propertyDemand" property="department" widget-propId="${propertyDemand?.department?.id}"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isDepartmentRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="city" input-propId="${propertyDemand?.city?.id}" input-allowNull="${true}"/>
+		<f:field bean="propertyDemand" property="city" widget-propId="${propertyDemand?.city?.id}"/>
 		<f:field bean="propertyDemand" property="specifyCity"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isCityRequired"/>
@@ -81,12 +81,12 @@
 		<div class="buy-only">
 			<!--<f:field bean="propertyDemand" property="isPriceRequired"/>-->
 		</div>
-		<f:field bean="propertyDemand" property="currency" input-propId="${propertyDemand?.currency?.id}"/>
+		<f:field bean="propertyDemand" property="currency" widget-propId="${propertyDemand?.currency?.id}"/>
 		<f:field bean="propertyDemand" property="additionalDescription">
 			<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="3" cols="60"/>
 		</f:field>
 		<div class="sell-only">
-			<f:field bean="propertyDemand" property="broadcastMedia" input-propId="${propertyDemand?.broadcastMedia?.id}" input-allowNull="${true}"/>
+			<f:field bean="propertyDemand" property="broadcastMedia" widget-propId="${propertyDemand?.broadcastMedia?.id}" widget-allowNull="${true}"/>
 			<f:field bean="propertyDemand" property="specifyBroadcastMedia">
 				<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="2" cols="60"/>
 			</f:field>

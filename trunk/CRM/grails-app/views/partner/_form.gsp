@@ -7,11 +7,11 @@
 	<f:field bean="partner" property="corporatePhone"/>
 	<f:field bean="partner" property="emailAddress"/>
 	<f:field bean="partner" property="corporateEmail"/>
-	<f:field bean="partner" property="gender" input-propId="${partner?.gender?.id}"/>
-	<f:field bean="partner" property="profession" input-propId="${partner?.profession?.id}"/>
-	<f:field bean="partner" property="partnerRole" input-propId="${partner?.partnerRole?.id}"/>
-	<f:field bean="partner" property="maritalStatus" input-propId="${partner?.maritalStatus?.id}"/>
-	<f:field bean="partner" property="invitedBy" input-propId="${partner?.invitedBy?.id}"/>
+	<f:field bean="partner" property="gender" widget-propId="${partner?.gender?.id}"/>
+	<f:field bean="partner" property="profession" widget-propId="${partner?.profession?.id}"/>
+	<f:field bean="partner" property="partnerRole" widget-propId="${partner?.partnerRole?.id}"/>
+	<f:field bean="partner" property="maritalStatus" widget-propId="${partner?.maritalStatus?.id}"/>
+	<f:field bean="partner" property="invitedBy" widget-propId="${partner?.invitedBy?.id}"/>
 	<div class="fieldcontain">
 		<label id="partner-label" class="property-label"><g:message code="partner.photo.label" default="Photo"/></label>
 		<input type="file" id="fileUpload" name="photo" class="property-value"/>

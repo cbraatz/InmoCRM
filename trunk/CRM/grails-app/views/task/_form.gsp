@@ -6,9 +6,9 @@
 	</f:field>
 	<f:field bean="task" property="dateTime"/>
 	<f:field bean="task" property="minutesBeforeNotification"/>
-	<f:field bean="task" property="priorityLevel" input-propId="${task?.priorityLevel?.id}"/>
-	<f:field bean="task" property="assignee" input-propId="${task?.assignee?.id}"/>
-	<f:field bean="task" property="taskStatus" input-propId="${task?.taskStatus?.id}"/>
+	<f:field bean="task" property="priorityLevel" widget-propId="${task?.priorityLevel?.id}"/>
+	<f:field bean="task" property="assignee" widget-propId="${task?.assignee?.id}"/>
+	<f:field bean="task" property="taskStatus" widget-propId="${task?.taskStatus?.id}"/>
 
 	<g:hiddenField name="creator.id" value="${session?.user?.id}"/>
 	<g:hiddenField name="internalID" value="${task?.internalID}"/>
