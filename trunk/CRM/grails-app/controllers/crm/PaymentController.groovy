@@ -212,11 +212,11 @@ class PaymentController {
 		TransactionType transactionType;
 		if(payment.incomePayment){
 			internalID="IP-"+payment.incomePayment.id;
-			transactionType=TransactionType.findByinternalID("INCOME_PAYMENT");
+			transactionType=TransactionType.findByInternalID("INCOME_PAYMENT");
 		}
 		if(payment.expensePayment){
 			internalID="EP-"+payment.expensePayment.id;
-			transactionType=TransactionType.findByinternalID("EXPENSE_PAYMENT");
+			transactionType=TransactionType.findByInternalID("EXPENSE_PAYMENT");
 		}		
 		
 		boolean saved=true;
@@ -241,7 +241,7 @@ class PaymentController {
 		}
 		if(saved){
 			if(payment.outAmount > 0){
-				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(payment.outAmount * -1), internalID , payment, payment.outCurrency, payment.outPaymentMethod, TransactionType.findByinternalID("PAYMENT_CHANGE"), null, null);
+				MoneyTransaction changeMoneyTransaction=new MoneyTransaction(new Date(), new Double(payment.outAmount * -1), internalID , payment, payment.outCurrency, payment.outPaymentMethod, TransactionType.findByInternalID("PAYMENT_CHANGE"), null, null);
 				if(!changeMoneyTransaction.save(flush:true)){
 					saved=false;
 					GUtils.printErrors(changeMoneyTransaction, "changeMoneyTransaction save");

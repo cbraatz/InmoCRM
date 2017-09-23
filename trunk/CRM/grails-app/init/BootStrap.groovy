@@ -29,7 +29,13 @@ class BootStrap {
 		
 		//if(Environment.current.equals(Environment.DEVELOPMENT)){
 		if(CrmConfig.count()==0){
-			addDevelopmentData();
+			addCommonData();
+			if(Environment.current.equals(Environment.DEVELOPMENT)){
+				addDevelopmentData();
+			}
+			if(Environment.current.equals(Environment.TEST)){
+				addTestData();
+			}
 		}
 		//}
 		println("Finishing init......................");
@@ -37,7 +43,20 @@ class BootStrap {
     }
     def destroy = {
     }
+	
+	private void addTestData(){
+		//Domain
+		this.saveObj(new Domain(name: "inmueblespy.com", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"/var/www/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
+	}
 	private void addDevelopmentData(){
+		//Domain
+		this.saveObj(new Domain(name: "inmueblespy.com", realPath:"C:/Users/claus/Documents/TRABAJO/inmo/cb_rep/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"C:/Users/claus/Documents/TRABAJO/inmo/cb_rep/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"C:/Users/claus/Documents/TRABAJO/inmo/cb_rep/web_trunk/HTML/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
+	}
+	private void addCommonData(){
 		//Language
 		this.saveObj(new Language(name: "Español", symbol:"es", prepositionOfPlace:"en"));
 		this.saveObj(new Language(name: "English", symbol:"en", prepositionOfPlace:"in"));
@@ -226,10 +245,10 @@ class BootStrap {
 		this.saveObj(new Locale(name: "Español-Paraguay", isDefault:true, symbol:"es_PY", language:Language.findByName("Español"), country:Country.findByName("Paraguay")));
 		this.saveObj(new Locale(name: "Alemán-Alemania", isDefault:false, symbol:"de_GE", language:Language.findByName("Deutsch"), country:Country.findByName("Deutschland")));
 		//Domain 
-		this.saveObj(new Domain(name: "inmueblespy.com", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		/*this.saveObj(new Domain(name: "inmueblespy.com", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
 		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
 		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"/var/www/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
-		
+		added in development and test data*/
 		//OperationType
 		this.saveObj(new OperationType(sale:"En Venta",rent:"En Alquiler",language:Language.findByName("Español")));
 		this.saveObj(new OperationType(sale:"Zum Verkauf",rent:"Zu vermieten",language:Language.findByName("Deutsch")));

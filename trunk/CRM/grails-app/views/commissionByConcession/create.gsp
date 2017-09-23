@@ -35,7 +35,7 @@
 		            <span class="button"><g:actionSubmit class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" action="save"/></span>
 		        </div> 
 	        </g:form>
-	        <h1><g:message code="upload.image.list.title"/></h1>
+	        <h1><g:message code="commissionByConcession.commission.list.title"/></h1>
 			<g:if test="${concession.commissionsByConcession.size() > 0}">
 				<div class="list">
 	                <table>

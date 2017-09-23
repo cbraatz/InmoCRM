@@ -18,11 +18,15 @@ class PropertyDemandController {
     }
 
     def create() {
-        respond new PropertyDemand(isUsageRequired:false);
+        PropertyDemand pd=new PropertyDemand();
+		pd.isUsageRequired=false;
+		//pd.addedDate=new Date(); lo hago en el save()
+		respond pd;
     }
 
     @Transactional
     def save(PropertyDemand propertyDemand) {
+		propertyDemand.addedDate=new Date();
         if (propertyDemand == null) {
             transactionStatus.setRollbackOnly()
             notFound()

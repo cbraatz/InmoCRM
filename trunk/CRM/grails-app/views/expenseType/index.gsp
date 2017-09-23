@@ -18,7 +18,7 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${expenseTypeList}" />
+            <f:table collection="${expenseTypeList}" properties="['name', 'description', 'selfInvoiceDefaultDescription', 'taxRate', 'isCompanyExpense']"/>
 
             <div class="pagination">
                 <g:paginate total="${expenseTypeCount ?: 0}" />

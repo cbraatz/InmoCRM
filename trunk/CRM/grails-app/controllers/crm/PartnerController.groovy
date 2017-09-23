@@ -107,9 +107,9 @@ class PartnerController {
             respond partner.errors, view:'edit'
             return
         }		
-		
+		String applicationPath = grailsApplication.config.getProperty('crm.application.path');
 		String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+File.separatorChar+partner.id;
-		String filePath=imageContainer + File.separatorChar + "profile.jpg";
+		String filePath=applicationPath+File.separatorChar+imageContainer + File.separatorChar + "profile.jpg";
 		def f = request.getFile('photo')
 		if(!f.empty) {
 			File dire=new File(imageContainer);
