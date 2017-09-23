@@ -1,1 +1,2 @@
-<span class="property-value" aria-labelledby="${property}-label">${crm.Utils.dateToStr(bean.getProperty(property))}</span>
+<!--<span class="property-value" aria-labelledby="${property}-label">${crm.Utils.dateToStr(bean.getProperty(property))}</span>-->
+Date component is deprecated. If you see this message, please contact your administrator.
