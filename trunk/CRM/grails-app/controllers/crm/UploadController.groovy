@@ -128,16 +128,16 @@ class UploadController {
 					  }
 				  }else{
 						GUtils.printErrors(upIm, "Error transfering new image '"+file.name+"'");
-						flash.message=message(code: 'upload.image.transfer.error', args: [file.name]);
+						flash.message=message(code: 'upload.file.transfer.error', args: [file.name]);
 				  }
 			  }else{
-				  flash.message=message(code: 'upload.image.already.uploaded.error', args: [file.name]);
+				  flash.message=message(code: 'upload.file.already.uploaded.error', args: [file.name]);
 			  }
 		   }else {
 			  flash.message = message(code: 'upload.file.size.error', args: [file.name, file.length(), Long.parseLong(grailsApplication.config.getProperty('grails.controllers.upload.internalMaxFileSize'))]);
 		   }
 		}else {
-		   flash.message=message(code: 'upload.image.empty.file.error');
+		   flash.message=message(code: 'upload.empty.file.error');
 		}
 		redirect(controller:'upload', action:'edit', params: [obj:this.parentObject, oid:this.objectId]);
 	}

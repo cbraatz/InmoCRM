@@ -13,7 +13,7 @@ public enum CrmController {
 	c2("client", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	c3("commissionByConcession", Arrays.asList(CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	c4("commissionRate", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
-	c5("concession", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	c5("concession", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	c6("contact", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	c7("contextPermissionCategory", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), true),
 	c8("crmUser", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
@@ -24,11 +24,11 @@ public enum CrmController {
 	i1("income", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	i2("incomePayment", Arrays.asList(CrmAction.ix, CrmAction.sh), false),
 	i3("incomeType", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), true),
-	i4("incomingInvoice", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), true),
+	i4("incomingInvoice", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), true),
 	i5("issuedInvoice", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	k1("keyWorkd", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	//l1("login", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
-	m1("managedProperty", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed), false),
+	m1("managedProperty", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.sp), false),
 	n1("neighborhood", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	p1("partner", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	p2("payment", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
@@ -36,7 +36,7 @@ public enum CrmController {
 	p4("propertyFeatureByLanguage", Arrays.asList(CrmAction.sh), false),
 	p5("propertyFeature", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	p6("propertyType", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
-	r1("reportDesigner", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	r1("reportDesigner", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	s1("search", Arrays.asList(CrmAction.sh), false),
 	t1("task", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	
@@ -45,7 +45,8 @@ public enum CrmController {
 	
 	
 	u1("upload", Arrays.asList(CrmAction.ix, CrmAction.ed, CrmAction.de), false),
-	u2("userGroup", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
+	u2("uploadedDocument", Arrays.asList(CrmAction.ix, CrmAction.ed, CrmAction.de), false),
+	u3("userGroup", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	v1("vendor", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	w1("webPage", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	z1("zone", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false);

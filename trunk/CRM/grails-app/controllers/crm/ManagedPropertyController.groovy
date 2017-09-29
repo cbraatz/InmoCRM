@@ -31,7 +31,7 @@ class ManagedPropertyController {
 		mp.soldByUs=false;
         respond mp
     }
-	def addEditImages(ManagedProperty managedProperty){
+	def addEditFiles(ManagedProperty managedProperty){
 		redirect(controller:'upload', action:'edit', params: [obj:'property', oid: managedProperty.id])
 	}
     @Transactional

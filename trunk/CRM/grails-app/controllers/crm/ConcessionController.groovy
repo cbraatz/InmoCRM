@@ -30,7 +30,9 @@ class ConcessionController {
 		
 		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, soldByUs:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
-	
+	def addEditFiles(Concession concession){
+		redirect(controller:'uploadedDocument', action:'edit', params: [obj:'concession', oid: concession.id])
+	}
     @Transactional
     def save(Concession concession, ManagedProperty managedProperty, Building building, FeatureByBuildingCommand featureByBuildingCommand, FeatureByPropertyCommand featureByPropertyCommand, boolean hasBuilding, boolean addImages) {
         if (concession == null) {

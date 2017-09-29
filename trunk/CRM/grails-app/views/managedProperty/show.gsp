@@ -106,7 +106,7 @@
             <g:form resource="${this.managedProperty}">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.managedProperty}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <g:actionSubmit action="addEditImages" class="addEditImages" value="${message(code: 'default.button.add.edit.images.label', default: 'Add or Edit Images')}"/>
+                    <g:actionSubmit action="addEditFiles" class="addEditFiles" value="${message(code: 'default.button.add.edit.images.label', default: 'Add or Edit Images')}"/>
                 	<g:if test="${managedProperty.hasImagesForWeb()}">
                 		<g:link class="web" action="create" controller="webPage" params="[pid:managedProperty.id]"><g:message code="managedProperty.button.web.label" default="Web Page" /></g:link>
                     </g:if>
