@@ -9,7 +9,7 @@ class LoginController {
 	def pageNotAvailable = {
 	}
 	def doLogin(CrmUri crmUri){
-		 def user = CrmUser.findWhere(name:params['login'], password:CrmUser.encodePassword(params['pass']));
+		 def user = CrmUser.findWhere(login:params['login'], password:CrmUser.encodePassword(params['pass']));
 		 CrmConfig crmConfig=CrmConfig.getAll().first();
 		 session.user = user;
 		 session.softwarePlan = crm.enums.software.Plan.valueOf(crmConfig.plan);

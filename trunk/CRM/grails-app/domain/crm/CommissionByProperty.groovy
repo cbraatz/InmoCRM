@@ -1,27 +1,27 @@
 package crm
 
-class Commission extends CrmDomain{
+class CommissionByProperty extends CrmDomain{
 	Float percentage;
 	String description;
-	Double fixedAmount;
-	Double taxTotal;
+	Double amount;
 	Currency currency;
 	CrmUser crmUser;
 	Partner partner;
 	CommissionRate commissionRate;
+	ManagedProperty managedProperty;
 	static hasMany = [expenses:Expense];
     static constraints = {
 		percentage(blank: true, nullable:true, min:0F, max:100F, scale:2);
 		description(blank: true, nullable:true, widget:'textArea', size:0..200);
-		fixedAmount(blank: true, nullable:true);
+		amount(blank: true, nullable:true);
 		currency(nullable:false);
 		crmUser(nullable:false);
-		taxTotal(blank: false, nullable:false);
 		partner(nullable:false);
 		commissionRate(nullable:false);
+		managedProperty(nullable:false);
     }
 	@Override
 	public static String getPluralName(){
-		return "commissions";
+		return "commissionsByProperty";
 	}
 }

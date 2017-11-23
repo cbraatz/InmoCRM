@@ -31,6 +31,10 @@ class Address extends CrmDomain{
 		neighborhood (nullable:true);
 		zone (nullable:true);
 	}
+	/*static mapping = {
+		id generator: 'hilo',
+		params: [table: 'hi_value', column: 'next_value', max_lo: 100]
+	}*/
 	@Override
 	public String toString(){
 		return this.addressLine;

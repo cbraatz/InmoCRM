@@ -18,7 +18,7 @@ class UserGroupController {
     }
 
     def create() {
-        respond new UserGroup(isAdmin:false)
+        respond new UserGroup(/*isAdmin:false*/)
     }
 	def members(UserGroup userGroup){
 		redirect(action:'addEditMembers', params: [gid: userGroup.id])
@@ -70,13 +70,13 @@ class UserGroupController {
 	@Transactional
 	def deleteMember(UserGroup userGroup) {
 		CrmUser crmUser = CrmUser.get(params.uid);
-		if(userGroup.isAdmin.booleanValue() == true && crmUser.addedBy == null){//if is default user group
+		/*if(userGroup.isAdmin.booleanValue() == true && crmUser.addedBy == null){//if is default user group
 			userGroup.errors.rejectValue('',message(code:'default.default.object.delete.error').toString());
 			transactionStatus.setRollbackOnly();
 			userGroup.crmUsers.size();//to load crmUsers and avoid LazyInitializationException
 			respond userGroup, view:'addEditMembers', model:[someObject:new ReportFolder()]
 			return;
-		}
+		}*/
 
 		if (crmUser == null) {
 			transactionStatus.setRollbackOnly()

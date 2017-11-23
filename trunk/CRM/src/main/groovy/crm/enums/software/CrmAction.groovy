@@ -8,7 +8,7 @@ public enum CrmAction {
 	cr(Arrays.asList("create", "save")),
 	ed(Arrays.asList("edit", "update")),
 	de(Arrays.asList("delete")),
-	sp(Arrays.asList("run", "refresh", "confirmPayment", "step1", "step2", "step3", "step4", "step5", "addEditFiles", "members", "addEditMembers", "saveMember", "deleteMember", "translate", "saveTranslations", "define", "saveDefine", "commissions"/*, "hqlQuery"*/));//los mas usados primero
+	sp(Arrays.asList("run", "refresh", "confirm", "step1", "step2", "step3", "step4", "step5", "addEditFiles", "members", "addEditMembers", "saveMember", "deleteMember", "translate", "saveTranslations", "define", "saveDefine", "commissions"/*, "hqlQuery"*/));//los mas usados primero
 	private final List<String> actionNames;
 	
 	private CrmAction(List<String> actionNames) {

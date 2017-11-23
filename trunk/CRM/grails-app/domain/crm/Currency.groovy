@@ -8,7 +8,7 @@ class Currency extends CrmDomain{
 	Boolean isDefault;
 	Boolean isInvoicingCurrency;
 	Country country;
-	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissions:Commission, moneyTransactions:MoneyTransaction, actions:Action,
+	static hasMany = [propertyDemands:PropertyDemand, concessions:Concession, commissionsByProperty:CommissionByProperty, moneyTransactions:MoneyTransaction, actions:Action, soldProperties:SoldProperty,
 					 incomes:Income, expenses:Expense, issuedInvoices:IssuedInvoice, incomingInvoices:IncomingInvoice, incomePayments:IncomePayment, 
 					 expensePayments:ExpensePayment, currencyExchagesSourceCurrency:CurrencyExchange, currencyExchagesTargetCurrency:CurrencyExchange, managedProperties:ManagedProperty,
 					 bankAccounts:BankAccount, paymentsInCurrency:Payment, paymentsOutCurrency:Payment, moneyTransactionTotals:MoneyTransactionTotal, defaultDateRanges:DefaultDateRange/*InsuranceDemand,ThirdPartyIncome,ThirdPartyPayment,InsuranceProposal,Policy*/];

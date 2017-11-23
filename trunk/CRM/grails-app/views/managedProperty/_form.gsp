@@ -11,6 +11,7 @@
 		<f:field bean="managedProperty" property="publicAddress"/>
 		<f:field bean="managedProperty" property="publicCashPrice"/>
 		<f:field bean="managedProperty" property="publicCreditPrice"/>
+		<f:field bean="managedProperty" property="gift"/>
 		<f:field bean="managedProperty" property="currency" widget-propId="${managedProperty?.currency?.id}"/>
 		<f:field bean="managedProperty" property="price"/>
 		<f:field bean="managedProperty" property="value"/>
@@ -18,7 +19,7 @@
 		<f:field bean="managedProperty" property="commissionAmount"/>
 		<f:field bean="managedProperty" property="valueDegree"/>
 		<f:field bean="managedProperty" property="placedBillboards"/>
-		<g:hiddenField name="soldByUs" value="${managedProperty?.soldByUs}"/>
+		<g:hiddenField name="resolution" value="${managedProperty?.resolution}"/>
 	</div>		
 </fieldset>
 

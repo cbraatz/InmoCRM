@@ -3,9 +3,9 @@ package crm
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(CommissionByConcessionController)
-@Mock(CommissionByConcession)
-class CommissionByConcessionControllerSpec extends Specification {
+@TestFor(CommissionByPropertyController)
+@Mock(CommissionByProperty)
+class CommissionByPropertyControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class CommissionByConcessionControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.commissionByConcessionList
-            model.commissionByConcessionCount == 0
+            !model.commissionByPropertyList
+            model.commissionByPropertyCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class CommissionByConcessionControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.commissionByConcession!= null
+            model.commissionByProperty!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class CommissionByConcessionControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def commissionByConcession = new CommissionByConcession()
-            commissionByConcession.validate()
-            controller.save(commissionByConcession)
+            def commissionByProperty = new CommissionByProperty()
+            commissionByProperty.validate()
+            controller.save(commissionByProperty)
 
         then:"The create view is rendered again with the correct model"
-            model.commissionByConcession!= null
+            model.commissionByProperty!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            commissionByConcession = new CommissionByConcession(params)
+            commissionByProperty = new CommissionByProperty(params)
 
-            controller.save(commissionByConcession)
+            controller.save(commissionByProperty)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/commissionByConcession/show/1'
+            response.redirectedUrl == '/commissionByProperty/show/1'
             controller.flash.message != null
-            CommissionByConcession.count() == 1
+            CommissionByProperty.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class CommissionByConcessionControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def commissionByConcession = new CommissionByConcession(params)
-            controller.show(commissionByConcession)
+            def commissionByProperty = new CommissionByProperty(params)
+            controller.show(commissionByProperty)
 
         then:"A model is populated containing the domain instance"
-            model.commissionByConcession == commissionByConcession
+            model.commissionByProperty == commissionByProperty
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class CommissionByConcessionControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def commissionByConcession = new CommissionByConcession(params)
-            controller.edit(commissionByConcession)
+            def commissionByProperty = new CommissionByProperty(params)
+            controller.edit(commissionByProperty)
 
         then:"A model is populated containing the domain instance"
-            model.commissionByConcession == commissionByConcession
+            model.commissionByProperty == commissionByProperty
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class CommissionByConcessionControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/commissionByConcession/index'
+            response.redirectedUrl == '/commissionByProperty/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def commissionByConcession = new CommissionByConcession()
-            commissionByConcession.validate()
-            controller.update(commissionByConcession)
+            def commissionByProperty = new CommissionByProperty()
+            commissionByProperty.validate()
+            controller.update(commissionByProperty)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.commissionByConcession == commissionByConcession
+            model.commissionByProperty == commissionByProperty
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            commissionByConcession = new CommissionByConcession(params).save(flush: true)
-            controller.update(commissionByConcession)
+            commissionByProperty = new CommissionByProperty(params).save(flush: true)
+            controller.update(commissionByProperty)
 
         then:"A redirect is issued to the show action"
-            commissionByConcession != null
-            response.redirectedUrl == "/commissionByConcession/show/$commissionByConcession.id"
+            commissionByProperty != null
+            response.redirectedUrl == "/commissionByProperty/show/$commissionByProperty.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class CommissionByConcessionControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/commissionByConcession/index'
+            response.redirectedUrl == '/commissionByProperty/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def commissionByConcession = new CommissionByConcession(params).save(flush: true)
+            def commissionByProperty = new CommissionByProperty(params).save(flush: true)
 
         then:"It exists"
-            CommissionByConcession.count() == 1
+            CommissionByProperty.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(commissionByConcession)
+            controller.delete(commissionByProperty)
 
         then:"The instance is deleted"
-            CommissionByConcession.count() == 0
-            response.redirectedUrl == '/commissionByConcession/index'
+            CommissionByProperty.count() == 0
+            response.redirectedUrl == '/commissionByProperty/index'
             flash.message != null
     }
 }

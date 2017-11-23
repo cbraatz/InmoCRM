@@ -1,6 +1,10 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
+
+import java.awt.Component.BaselineResizeBehavior
+import java.util.regex.Pattern.First
+
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -19,6 +23,7 @@ class CrmUserController {
     def create() {
 		CrmUser usr=new CrmUser();
 		usr.isActive= new Boolean("true");
+		usr.isAdmin= new Boolean("false");
 		usr.addedBy=session.user;
         respond usr
     }
@@ -41,6 +46,20 @@ class CrmUserController {
 			transactionStatus.setRollbackOnly();
             respond crmUser.errors, view:'create';
             return;
+		}
+		List<CrmUser> us=new ArrayList<CrmUser>();
+		us=CrmUser.findAllByPartnerAndIsActive(crmUser.partner, true);
+		if(!us.empty) {
+			us.each{
+				if(!crmUser.id.equals(it.id)){
+					crmUser.errors.rejectValue('partner',message(code:'crmUser.partner.uniqueness.error').toString());
+				}
+			}
+		}
+		if (crmUser.hasErrors()) {
+			transactionStatus.setRollbackOnly()
+			respond crmUser.errors, view:'create'
+			return
 		}
 		crmUser.password=crmUser.getEncodedPassword();
         crmUser.save flush:true
@@ -66,13 +85,13 @@ class CrmUserController {
             return
         }
 		if(crmUser.password == null){
-			String tempName=crmUser.name;
+			String tempName=crmUser.login;
 			String tempEmailAddress=crmUser.emailAddress;
 			//Boolean tempIsAdmin=crmUser.isAdmin;
 			Boolean tempIsActive=crmUser.isActive;
 			Partner tempPartner=crmUser.partner;
 			crmUser.refresh();//get crmUser from DB
-			crmUser.name= tempName;
+			crmUser.login= tempName;
 			crmUser.emailAddress= tempEmailAddress;
 			//crmUser.isAdmin= tempIsAdmin;
 			crmUser.isActive= tempIsActive;
@@ -86,6 +105,15 @@ class CrmUserController {
 	            return;
 			}
 			crmUser.password=crmUser.getEncodedPassword();
+		}
+		List<CrmUser> us=new ArrayList<CrmUser>();
+		us=CrmUser.findAllByPartnerAndIsActive(crmUser.partner, true);
+		if(!us.empty) {
+			us.each{
+				if(!crmUser.id.equals(it.id)){
+					crmUser.errors.rejectValue('partner',message(code:'crmUser.partner.uniqueness.error').toString());
+				}
+			}
 		}
         if (crmUser.hasErrors()) {
 	        transactionStatus.setRollbackOnly()

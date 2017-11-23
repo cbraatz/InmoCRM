@@ -8,7 +8,7 @@ class Expense extends CrmDomain{
 	Double amount;
 	Currency currency;
 	Vendor vendor;
-	Commission commission;
+	CommissionByProperty commissionByProperty;
 	ExpenseType expenseType;
 	PaymentPlan paymentPlan;
 	Boolean isCredit;
@@ -20,7 +20,7 @@ class Expense extends CrmDomain{
 		amount(blank:false, nullable:false);
 		currency(nullable:false);
 		vendor(nullable:true);
-		commission(nullable:true);
+		commissionByProperty(nullable:true);
 		expenseType(nullable:false);
 		paymentPlan(nullable:true);
 		isCredit(nullable:false);

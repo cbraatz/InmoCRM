@@ -5,7 +5,7 @@
     <head>
         <meta name="layout" content="main" />
         <title><g:message code="home.page.label"/></title>
-        <g:set var="usr" value="${CrmUser.getAll().first().name}" />
+        <g:set var="usr" value="${CrmUser.getAll().first().login}" />
     </head>
     <body>
         <div id="list-home" class="content scaffold-list" role="main">

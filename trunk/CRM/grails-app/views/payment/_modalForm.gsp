@@ -31,7 +31,7 @@
 							<div class="modal-footer">
 								<fieldset class="buttons">
 				                	<button type="button" class="close" data-dismiss="modal"><g:message code="payment.close.label" default="Close"/></button>
-				                    <g:actionSubmit action="confirmPayment" class="save" value="${message(code: 'default.button.confirm.payment.label', default: 'Create')}" />
+				                    <g:actionSubmit action="confirm" class="save" value="${message(code: 'default.button.confirm.payment.label', default: 'Create')}" />
 			                    </fieldset>
 							</div>
 				</div><!-- /.modal-content -->

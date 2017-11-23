@@ -3,8 +3,7 @@ package crm
 import static org.springframework.http.HttpStatus.*
 import crm.enums.income.RelatedDomain;
 import java.util.Date;
-
-import grails.transaction.Transactional
+import grails.transaction.Transactional;
 
 @Transactional(readOnly = true)
 class IncomeController {
@@ -22,7 +21,15 @@ class IncomeController {
     }
 
     def create() {
-        respond new Income(params);
+		Income inc=new Income(params);
+		if(null != params.cid) {
+			Concession concession=Concession.get(params.cid);
+			if(null != concession) {
+				inc.relatedToId=concession.id;
+				inc.incomeType=IncomeType.getIncomeTypeWithConcessionAsRelatedDomain();
+			}
+		}
+		respond inc;
     }
 
     @Transactional
@@ -56,8 +63,8 @@ class IncomeController {
 		
 		if(income.incomeType.relatedDomain.equals(RelatedDomain.CONCESSION.name())){
 			if(income.relatedToId){
-				income.relatedToId = Concession.get(income.relatedToId).id;//find concession by id
-				if(!income.relatedToId){
+				Concession conc= Concession.get(income.relatedToId);//find concession by id
+				if(null==conc){
 					income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.concession.not.found.error.label').toString());
 					transactionStatus.setRollbackOnly();
 					respond income.errors, view:'create';
@@ -77,9 +84,13 @@ class IncomeController {
 				return;
 			}
 		}
-		
-        income.save flush:true;
-		
+        if(!income.save(flush:true)){
+			income.errors.rejectValue('',message(code:'income.save.error').toString());
+			transactionStatus.setRollbackOnly();
+			respond income.errors, view:'create';
+			return;
+		}
+
 		this.createPayments(income);//create and save payments
 		
 		

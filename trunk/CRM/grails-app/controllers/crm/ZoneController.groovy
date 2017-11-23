@@ -28,7 +28,7 @@ class ZoneController {
             notFound()
             return
         }
-
+		zone.isCenter=false;//isCenter=true is created only when adding new city
         if (zone.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond zone.errors, view:'create'

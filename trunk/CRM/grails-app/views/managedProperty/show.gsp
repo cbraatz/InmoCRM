@@ -8,7 +8,7 @@
     <body>
         <a href="#show-managedProperty" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
-        	<g:set var="conc" value="${this.managedProperty.getActiveConcession()}" />
+        	<g:set var="conc" value="${this.managedProperty.concession}" />
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
@@ -49,6 +49,8 @@
 				<f:display bean="managedProperty" property="publicCashPrice"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.publicCreditPrice.label" default="publicCreditPrice"/></span>
 				<f:display bean="managedProperty" property="publicCreditPrice"/>
+				<span id="name-label" class="property-label"><g:message code="managedProperty.gift.label" default="gift"/></span>
+				<f:display bean="managedProperty" property="gift"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.currency.label" default="currency"/></span>
 				<f:display bean="managedProperty" property="currency"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.price.label" default="price"/></span>
@@ -63,8 +65,6 @@
 				<f:display bean="managedProperty" property="valueDegree"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.placedBillboards.label" default="placedBillboards"/></span>
 				<f:display bean="managedProperty" property="placedBillboards"/>
-				<span id="name-label" class="property-label"><g:message code="managedProperty.soldByUs.label" default="Sold by Us"/></span>
-				<f:display bean="managedProperty" property="soldByUs"/>
 			</fieldset>
 			
 			 <h1><g:message code="address.label"/></h1>
@@ -110,6 +110,10 @@
                 	<g:if test="${managedProperty.hasImagesForWeb()}">
                 		<g:link class="web" action="create" controller="webPage" params="[pid:managedProperty.id]"><g:message code="managedProperty.button.web.label" default="Web Page" /></g:link>
                     </g:if>
+                    <g:link class="commissionByProperty" action="create" controller="commissionByProperty" params="[pid:managedProperty?.id]"><g:message code="default.button.commissions.label" default="Commissions" /></g:link>
+                    <g:link class="soldProperty" action="create" controller="soldProperty" params="[pid:managedProperty?.id]"><g:message code="managedProperty.button.soldProperty.label" default="Sold" /></g:link>
+                    <g:link class="action" action="create" controller="action" params="[pid:managedProperty?.id]"><g:message code="managedProperty.button.action.label" default="Add Action" /></g:link>
+                    <g:link class="contact" action="create" controller="contact" params="[pid:managedProperty?.id]"><g:message code="managedProperty.button.contact.label" default="Add Contact" /></g:link>
                     <!--<g:actionSubmit action="delete" class="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />  -->
                 </fieldset>
             </g:form>

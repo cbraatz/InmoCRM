@@ -12,7 +12,7 @@
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="return" action="show" controller="concession" id="${contact?.concession?.id}"><g:message code="concession.label" default="Concession" /></g:link></li>
+                <li><g:link class="return" action="show" controller="managedProperty" id="${contact?.managedProperty?.id}"><g:message code="managedProperty.label" default="Managed Property" /></g:link></li>
             </ul>
         </div>
         <div id="show-contact" class="content scaffold-show" role="main">
@@ -22,16 +22,16 @@
             </g:if>
             
 			<fieldset class="fieldcontain">
-				<span id="concession-label" class="property-label"><g:message code="contact.concession.label" default="Concession"/></span>
-		        <f:display bean="contact" property="concession.id"/>
+				<span id="managedProperty-label" class="property-label"><g:message code="contact.managedProperty.label" default="Concession"/></span>
+		        <f:display bean="contact" property="managedProperty.id"/>
             	<span id="date-label" class="property-label"><g:message code="contact.date.label" default="Date"/></span>
 		        <f:display bean="contact" property="date"/>
 		        <span id="description-label" class="property-label"><g:message code="contact.description.label" default="Description"/></span>
 		        <f:display bean="contact" property="description"/>
 		        <span id="contactType-label" class="property-label"><g:message code="contact.contactType.label" default="Contact Type"/></span>
 		        <f:display bean="contact" property="contactType"/>
-		        <span id="partner-label" class="property-label"><g:message code="contact.partner.label" default="Partner"/></span>
-		        <f:display bean="contact" property="partner"/>
+		        <span id="crmUser-label" class="property-label"><g:message code="contact.crmUser.label" default="User"/></span>
+		        <f:display bean="contact" property="crmUser"/>
 		        <span id="client-label" class="property-label"><g:message code="contact.client.label" default="Client"/></span>
 		        <f:display bean="contact" property="client"/>
             </fieldset>

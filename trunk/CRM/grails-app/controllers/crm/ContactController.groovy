@@ -19,9 +19,9 @@ class ContactController {
 
     def create() {
         Contact rec=new Contact(params);
-		rec.concession=Concession.get(params.cid);
-		if(null==rec.concession){
-			rec.errors.rejectValue('concession',message(code:'contact.concession.required.error').toString());
+		rec.managedProperty=ManagedProperty.get(params.pid);
+		if(null==rec.managedProperty){
+			rec.errors.rejectValue('managedProperty',message(code:'contact.managedProperty.required.error').toString());
 		}
         respond rec
     }

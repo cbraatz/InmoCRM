@@ -23,8 +23,8 @@
 			<fieldset class="fieldcontain">
             	<span id="name-label" class="property-label"><g:message code="userGroup.name.label" default="Name"/></span>
 		        <f:display bean="userGroup" property="name"/>
-				<span id="name-label" class="property-label"><g:message code="userGroup.isAdmin.label" default="Is Admin Group"/></span>
-		        <f:display bean="userGroup" property="isAdmin"/>
+			<!--	<span id="name-label" class="property-label"><g:message code="userGroup.isAdmin.label" default="Is Admin Group"/></span>-->
+		     <!--   <f:display bean="userGroup" property="isAdmin"/>-->
             </fieldset>
 
             <g:form resource="${this.userGroup}" method="DELETE">

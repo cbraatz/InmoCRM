@@ -195,12 +195,12 @@ class PaymentController {
 			respond payment, view:'create';
 			return;
 		}else{
-			confirmPayment();
+			confirm();
 		}
         
     }
 	@Transactional
-	def confirmPayment(Payment payment) {
+	def confirm(Payment payment) {
 		if (this.paid) {
 			payment.errors.rejectValue('',message(code:'payment.already.paid.message').toString());
 			transactionStatus.setRollbackOnly();

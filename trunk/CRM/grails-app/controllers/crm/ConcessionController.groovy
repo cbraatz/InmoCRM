@@ -22,32 +22,39 @@ class ConcessionController {
     }
 
     def show(Concession concession) {
+		Contract c=concession.getCurrentContract();
+		if(null==c){
+			concession.errors.rejectValue('',message(code:'concession.current.contract.required.error').toString());
+		}
         respond concession
     }
 
     def create() {
-		Concession concession=new Concession(isActive:true, contract:new Contract(), totalPrice:new Double(0), totalCommission:new Double(0));
-		
-		respond concession, model:[managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0, soldByUs:false), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
+		Concession concession=new Concession(isActive:true, isForRent:false, totalPrice:new Double(0), totalCommission:new Double(0));
+		respond concession, model:[contract:new Contract(internalID:Utils.getUUID(), isCurrentContract:true), managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
 	def addEditFiles(Concession concession){
 		redirect(controller:'uploadedDocument', action:'edit', params: [obj:'concession', oid: concession.id])
 	}
     @Transactional
-    def save(Concession concession, ManagedProperty managedProperty, Building building, FeatureByBuildingCommand featureByBuildingCommand, FeatureByPropertyCommand featureByPropertyCommand, boolean hasBuilding, boolean addImages) {
+    def save(Concession concession, Contract contract, ManagedProperty managedProperty, Building building, FeatureByBuildingCommand featureByBuildingCommand, FeatureByPropertyCommand featureByPropertyCommand, boolean hasBuilding, boolean addImages) {
         if (concession == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
-		concession.contract.date=concession.startDate;
+
+		contract.startDate=concession.startDate;
+		contract.endDate=concession.endDate;
+		contract.concession=concession;
 		managedProperty.addedDate=concession.startDate;
+		managedProperty.concession=concession;
 		building.managedProperty=managedProperty;
 		concession.validate();
 		managedProperty.validate();
 		managedProperty.address.validate();
 		building.validate();
-		concession.contract.validate();
+		contract.validate();
 
 		if (managedProperty.commissionAmount <= 0) {
 			concession.errors.rejectValue('',message(code:'concession.managedProperty.commission.required.error').toString());
@@ -64,27 +71,37 @@ class ConcessionController {
 		if (managedProperty.value <= 0) {
 			managedProperty.errors.rejectValue('value',message(code:'managedProperty.value.required.error').toString());
 		}
-        if (concession.hasErrors() || concession.contract.hasErrors() || managedProperty.address.hasErrors() || managedProperty.hasErrors() || building.hasErrors()) {
+		if (concession.crmUser.partner.isAgent.booleanValue()==false) {
+			concession.errors.rejectValue('crmUser',message(code:'concession.crmUser.agent.required.error').toString());
+		}
+        if (concession.hasErrors() || contract.hasErrors() || managedProperty.address.hasErrors() || managedProperty.hasErrors() || building.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond concession, view:'create', model:[managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];
+            respond concession, view:'create', model:[contract:contract, managedProperty: managedProperty, building: building, featureByBuildingCommand: featureByBuildingCommand, featureByPropertyCommand: featureByPropertyCommand, displayBuilding: hasBuilding, addImages:addImages];
             return
         }
 		
 		concession.totalPrice=managedProperty.price;//asignando el mismo precio y comision a la concesión que el del ManagedProperty (se puede mantener así mientras cada concesión tenga solo un ManagedProperty)
 		concession.totalCommission=managedProperty.commissionAmount;
-		
 		boolean saved=true;
-		if(!concession.contract.save(flush:true)){
-			GUtils.printErrors(concession.contract,"contract save");
+		
+		if(!managedProperty.address.save(flush:true)){
+			GUtils.printErrors(managedProperty.address,"managedProperty.address save");
 			transactionStatus.setRollbackOnly();
 			saved=false;
-			throw new CRMException("contract save Error");
+			throw new CRMException("managedProperty.address save");
 		}else{
-			if(!managedProperty.address.save(flush:true)){
-				GUtils.printErrors(managedProperty.address,"managedProperty.address save");
+				/*if(!managedProperty.save(flush:true)){
+					GUtils.printErrors(managedProperty,"managedProperty save 1");
+					transactionStatus.setRollbackOnly();
+					saved=false;
+					throw new CRMException("managedProperty save 1");
+				}else{*/
+				//concession.addToManagedProperties(managedProperty);
+			if(!concession.save(flush:true)){
+				GUtils.printErrors(concession,"concession save");
 				transactionStatus.setRollbackOnly();
 				saved=false;
-				throw new CRMException("managedProperty.address save");
+				throw new CRMException("concession save");
 			}else{
 				if(!managedProperty.save(flush:true)){
 					GUtils.printErrors(managedProperty,"managedProperty save");
@@ -92,55 +109,53 @@ class ConcessionController {
 					saved=false;
 					throw new CRMException("managedProperty save");
 				}else{
-					if(!managedProperty.save(flush:true)){
-						GUtils.printErrors(managedProperty,"managedProperty save 1");
+					if(!contract.save(flush:true)){
+						GUtils.printErrors(contract,"contract save");
 						transactionStatus.setRollbackOnly();
 						saved=false;
-						throw new CRMException("managedProperty save 1");
+						throw new CRMException("contract save Error");
 					}else{
-						concession.addToManagedProperties(managedProperty);
-						if(!concession.save(flush:true)){
-							GUtils.printErrors(concession,"concession save");
+						/*managedProperty.addToConcessions(concession);
+						if(!managedProperty.save(flush:true)){
+							GUtils.printErrors(managedProperty,"managedProperty save 2");
 							transactionStatus.setRollbackOnly();
 							saved=false;
-							throw new CRMException("concession save");
-						}else{
-							managedProperty.addToConcessions(concession);
-							if(!managedProperty.save(flush:true)){
-								GUtils.printErrors(managedProperty,"managedProperty save 2");
+							throw new CRMException("managedProperty save 2");
+							}else{
+						String errmsg=this.updateCommissionsByPropertyIfNecessary(concession);
+						if(null != errmsg) {
+							GUtils.printErrors(managedProperty,errmsg);
+							transactionStatus.setRollbackOnly();
+							saved=false;
+							throw new CRMException(errmsg);
+						}*/
+						if(hasBuilding){
+							building.managedProperty=managedProperty;
+							if(!building.save(flush:true)){
+								GUtils.printErrors(building,"building save");
 								transactionStatus.setRollbackOnly();
 								saved=false;
-								throw new CRMException("managedProperty save 2");
+								throw new CRMException("building save");
 							}else{
-								if(hasBuilding){
-									building.managedProperty=managedProperty;
-									if(!building.save(flush:true)){
-										GUtils.printErrors(building,"building save");
-										transactionStatus.setRollbackOnly();
-										saved=false;
-										throw new CRMException("building save");
-									}else{
-										featureByBuildingCommand.bfitems.each{
-											if(it.value > 0){
-												it.building=building;
-												if(!it.save(flush:true)){
-													GUtils.printErrors(it,"featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
-													transactionStatus.setRollbackOnly();
-													saved=false;
-													throw new CRMException("featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
-												}
-											}
+								featureByBuildingCommand.bfitems.each{
+									if(it.value > 0){
+										it.building=building;
+										if(!it.save(flush:true)){
+											GUtils.printErrors(it,"featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
+											transactionStatus.setRollbackOnly();
+											saved=false;
+											throw new CRMException("featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
 										}
-										if(saved){
-											featureByPropertyCommand.pfitems.each{
-												if(it.value > 0){
-													it.managedProperty=managedProperty;
-													if(!it.save(flush:true)){
-														GUtils.printErrors(it,"featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
-														transactionStatus.setRollbackOnly();
-														throw new CRMException("featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
-													}
-												}
+									}
+								}
+								if(saved){
+									featureByPropertyCommand.pfitems.each{
+										if(it.value > 0){
+											it.managedProperty=managedProperty;
+											if(!it.save(flush:true)){
+												GUtils.printErrors(it,"featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
+												transactionStatus.setRollbackOnly();
+												throw new CRMException("featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
 											}
 										}
 									}
@@ -165,14 +180,11 @@ class ConcessionController {
             '*' { respond concession, [status: CREATED] }
         }
     }
-
+	
+	
     def edit(Concession concession) {
         //respond concession, model:[managedProperty: manProp, building: bui, featureByBuildingCommand: new FeatureByBuildingCommand(bui?.featuresByBuilding), featureByPropertyCommand: new FeatureByPropertyCommand(manProp?.featuresByProperty), displayBuilding: (bui ? true : false), addImages:true];
 		respond concession
-	}
-	
-	def commissions(Concession concession){
-		redirect(controller:'commissionByConcession', action:'create', params: [cid: concession.id])
 	}
 	
     @Transactional
@@ -182,13 +194,13 @@ class ConcessionController {
             notFound()
             return
         }
-		concession.contract.validate();
-        if (concession.hasErrors() || concession.contract.hasErrors()) {
+		//concession.contract.validate();
+        if (concession.hasErrors()/* || concession.contract.hasErrors()*/) {
             transactionStatus.setRollbackOnly();
             respond concession.errors, view:'edit';
             return;
         }
-		concession.contract.save flush:true;
+		//concession.contract.save flush:true;
         concession.save flush:true;
 
         request.withFormat {

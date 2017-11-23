@@ -34,8 +34,8 @@
 		        <f:display bean="partner" property="corporatePhone"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.emailAddress.label" default="Email Address"/></span>
 		        <f:display bean="partner" property="emailAddress"/>
-		        <span id="name-label" class="property-label"><g:message code="partner.corporateEmail.label" default="Corporate Email"/></span>
-		        <f:display bean="partner" property="corporateEmail"/>
+		        <span id="name-label" class="property-label"><g:message code="partner.country.label" default="Nationality"/></span>
+		        <f:display bean="partner" property="country"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.gender.label" default="Gender"/></span>
 		        <f:display bean="partner" property="gender"/>
 		        <span id="name-label" class="property-label"><g:message code="partner.profession.label" default="Profession"/></span>

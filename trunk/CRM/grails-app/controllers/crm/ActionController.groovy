@@ -19,9 +19,9 @@ class ActionController {
 
     def create() {
 		Action rea=new Action(params);
-		rea.concession=Concession.get(params.cid);
-		if(null==rea.concession){
-			rea.errors.rejectValue('concession',message(code:'action.concession.required.error').toString());
+		rea.managedProperty=ManagedProperty.get(params.pid);
+		if(null==rea.managedProperty){
+			rea.errors.rejectValue('managedProperty',message(code:'action.managedProperty.required.error').toString());
 		}
         respond rea
     }

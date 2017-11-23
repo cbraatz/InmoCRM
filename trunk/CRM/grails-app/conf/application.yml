@@ -123,6 +123,10 @@ crm:
             property: uploads/property
         template:
             report: uploads/template/report
+        document:
+            concession: uploads/document/concession
+    application:
+       path: C:/Users/claus/Documents/TRABAJO/inmo/cb_rep/trunk/CRM
 web:
     image:
         partner: img/crm/partner

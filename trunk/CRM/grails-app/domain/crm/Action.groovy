@@ -3,17 +3,17 @@ package crm
 class Action extends CrmDomain{
 	Date date;
 	String description;
-	Concession concession;
+	ManagedProperty managedProperty;
 	ActionType actionType;
-	Partner partner;
+	CrmUser crmUser;
 	Float cost;
 	Currency currency;
     static constraints = {
 		date(blank:false, nullable:false);
 		description(blank:false, nullable:false, widget:'textArea', size:1..300);
-		concession(blank:false, nullable:false);
+		managedProperty(blank:false, nullable:false);
 		actionType(blank:false, nullable:false);
-		partner(blank:true, nullable:true);
+		crmUser(blank:true, nullable:true);
 		cost(blank:true, nullable:true);
 		currency(blank:true, nullable:true);
     }

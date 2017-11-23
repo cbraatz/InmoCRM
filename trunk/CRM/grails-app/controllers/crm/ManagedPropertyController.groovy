@@ -16,20 +16,22 @@ class ManagedPropertyController {
     }
 
     def show(ManagedProperty managedProperty) {
-		Concession conc=managedProperty.getActiveConcession();
-		if (!conc.crmUser.partner.isAgent) {
+		Concession conc=managedProperty.concession;
+		if(null==conc) {
+			managedProperty.errors.rejectValue('',message(code:'concession.is.inactive.error').toString());
+		}
+		if (conc.crmUser.partner.isAgent.booleanValue()==false) {
 			managedProperty.errors.rejectValue('',message(code:'concession.crmUser.agent.required.error').toString());
 		}
 		if (!managedProperty.hasImagesForWeb()) {
 			managedProperty.errors.rejectValue('',message(code:'managedProperty.images.required.error').toString());
 		}
+		
         respond managedProperty
     }
 
     def create() {
-		ManagedProperty mp=new ManagedProperty(params);
-		mp.soldByUs=false;
-        respond mp
+        respond new ManagedProperty(params)
     }
 	def addEditFiles(ManagedProperty managedProperty){
 		redirect(controller:'upload', action:'edit', params: [obj:'property', oid: managedProperty.id])
@@ -48,8 +50,22 @@ class ManagedPropertyController {
             return
         }
 
-        managedProperty.save flush:true
-
+        boolean saved=(managedProperty.save(flush:true));
+		String msg=updateCommissionsByPropertyIfNecessary(managedProperty);
+		if (!saved){
+			managedProperty.errors.rejectValue('',message(code: 'managedProperty.save.error'));
+			respond managedProperty.errors, view:'create'
+			return
+		}
+		if (null!=msg && !msg.isEmpty()){
+			if (!msg.isEmpty()){
+				managedProperty.errors.rejectValue('',msg);
+				transactionStatus.setRollbackOnly()
+				respond managedProperty.errors, view:'create'
+				return
+			}
+		}
+		
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'managedProperty.label', default: 'ManagedProperty'), managedProperty.id])
@@ -60,6 +76,25 @@ class ManagedPropertyController {
     }
 	
 	
+	
+	/*def commissions(ManagedProperty managedProperty){
+		redirect(controller:'commissionByProperty', action:'create', params: [id: managedProperty?.id])
+	}*/
+	
+	@Transactional
+	def sold(Concession concession) {
+		if (concession == null) {
+			transactionStatus.setRollbackOnly()
+			notFound()
+			return
+		}
+		concession.contract.validate();
+		if (concession.hasErrors() || concession.contract.hasErrors()) {
+			transactionStatus.setRollbackOnly();
+			respond concession.errors, view:'edit';
+			return;
+		}
+	}
 	
     def edit(ManagedProperty managedProperty) {
         respond managedProperty, model:[featureByPropertyCommand: new FeatureByPropertyCommand(FeatureByProperty.getStoredFeatureByPropertyListForEachPropertyFeature(managedProperty))]
@@ -72,14 +107,24 @@ class ManagedPropertyController {
             notFound()
             return
         }
-
+		
         if (managedProperty.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond managedProperty.errors, view:'edit'
             return
         }
 
-        
+        /*String msg=updateCommissionsByPropertyIfNecessary(managedProperty);
+		
+		if (null!=msg && !msg.isEmpty()){
+			if (!msg.isEmpty()){
+				managedProperty.errors.rejectValue('',msg);
+				transactionStatus.setRollbackOnly()
+				respond managedProperty.errors, view:'edit'
+				return
+			}
+		}*/
+		
 		if(managedProperty.save(flush:true)){
 			FeatureByProperty fbp=null;
 			featureByPropertyCommand.pfitems.each{

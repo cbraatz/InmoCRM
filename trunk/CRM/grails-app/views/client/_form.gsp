@@ -11,7 +11,7 @@
 	<f:field bean="client" property="notificationPhone"/>
 	<f:field bean="client" property="emailAddress"/>
 	<f:field bean="client" property="timeAvailability"/>
-	<f:field bean="client" property="country"/>
+	<f:field bean="client" property="country" widget-propId="${client?.country?.id}"/>
 	<f:field bean="client" property="gender" widget-propId="${client?.gender?.id}"/>
 	<f:field bean="client" property="profession" widget-propId="${client?.profession?.id}" widget-allowNull="${true}"/>
 	<f:field bean="client" property="maritalStatus" widget-propId="${client?.maritalStatus?.id}"/>

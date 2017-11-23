@@ -33,7 +33,7 @@ class MainInterceptor {
 		try{
 			def hasperm=session.user.hasPermission(controllerName, actionName, session.softwarePlan);
 			if(hasperm==null){
-				render(view:'/error', model:[message: 'EL plan actual no permite ver esta página.']);
+				render(view:'/error', model:[message: 'El plan actual no permite ver esta página.']);
 			}else{                                   
 				if(hasperm==true){
 					return true;

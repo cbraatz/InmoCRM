@@ -1,5 +1,3 @@
-import crm.ContextPermissionCategory;
-import crm.Currency;
 import crm.enums.income.RelatedDomain;
 
 import java.util.Date;
@@ -89,6 +87,11 @@ class BootStrap {
 		this.saveObj(new City(name: "Encarnación", department: Department.findByName("Itapúa")));		
 		this.saveObj(new City(name: "Hohenau", department: Department.findByName("Itapúa")));
 		
+		//Zone
+		this.saveObj(new Zone(name: "Obligado Centro", description: "Obligado Centro", isCenter:true, city:City.findByName("Obligado")));
+		this.saveObj(new Zone(name: "Encarnación Centro", description: "Encarnación Centro", isCenter:true, city:City.findByName("Encarnación")));
+		this.saveObj(new Zone(name: "Hohenau Centro", description: "Hohenau Centro", isCenter:true, city:City.findByName("Hohenau")));
+		
 		//MaritalStatus
 		this.saveObj(new MaritalStatus(name: "Soltero/a"));		
 		this.saveObj(new MaritalStatus(name: "Casado/a"));
@@ -102,29 +105,33 @@ class BootStrap {
 		this.saveObj(new Profession(name: "Ingeniero Agrónomo"));		
 		this.saveObj(new Profession(name: "Agente de Seguros"));
 		
+		City ct=City.findByName("Obligado");
 		//neighborhood
-		this.saveObj(new Neighborhood(name:"Centro", description:"test", city: City.findByName("Obligado")));		
-		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test", city: City.findByName("Obligado")));		
-		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test", city: City.findByName("Obligado")));
+		this.saveObj(new Neighborhood(name:"Centro", description:"test", city: ct, zone: ct.getCenterZone()));		
+		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test", city: ct, zone: ct.getCenterZone()));		
+		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test", city: ct, zone: ct.getCenterZone()));
 		
-		//Zone
-		this.saveObj(new Zone(name: "Colonias Unidas", description: "Obligado + Hohenau + Bella Vista"));
+		
 		
 		//Address
-		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:"1568", addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:"0988541258", city: City.findByName("Obligado"), neighborhood: Neighborhood.findByName("Centro"), zone: Zone.findByName("Colonias Unidas")));
+		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:"1568", addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:"0988541258", city: ct, neighborhood: Neighborhood.findByName("Centro"), zone: ct.getCenterZone()));
 		
 		//PartnerRole
-		this.saveObj(new PartnerRole(name: "Admin", isEmployee:false, description:"Default Partner."));
+		this.saveObj(new PartnerRole(name: "Atalaya", isEmployee:false, description:"Atalaya o vendedor externo."));
+		this.saveObj(new PartnerRole(name: "Agente", isEmployee:true, description:"Agente o vendedor interno."));
+		this.saveObj(new PartnerRole(name: "Gerente de Venta", isEmployee:true, description:"Gerente de ventas."));
 		
 		//Partner
-		this.saveObj(new Partner(name: "Default", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", emailAddress: "admin_partner@test.com", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Admin"), isAgent:true));
-		
+		this.saveObj(new Partner(name: "Default", emailAddress: "default_partner@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Agente"), isAgent:true));
+		this.saveObj(new Partner(name: "Partner 2", emailAddress: "default_partner2@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"1", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Atalaya"), isAgent:false));
+		this.saveObj(new Partner(name: "Partner 3", emailAddress: "default_partner3@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"2", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Agente"), isAgent:true));
 		//CrmUser
-		def defUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isActive:true);
+		def defUsr=new CrmUser(partner: Partner.findByName("Default"), login:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isActive:true, hasAccess:true, isAdmin:true);
 		this.saveObj(defUsr);
-		def testUsr=new CrmUser(partner: Partner.findByName("Default"), name:"test2", password:CrmUser.encodePassword("test"), emailAddress: "test2_user@test.com", isActive:true);
+		def testUsr=new CrmUser(partner: Partner.findByName("Partner 2"), login:"test2", password:CrmUser.encodePassword("test"), emailAddress: "test2_user@test.com", isActive:true, hasAccess:true, isAdmin:false);
 		this.saveObj(testUsr);
-		
+		def testUsr3=new CrmUser(partner: Partner.findByName("Partner 3"), login:"test3", password:CrmUser.encodePassword("test"), emailAddress: "test3_user@test.com", isActive:true, hasAccess:true, isAdmin:true);
+		this.saveObj(testUsr3);
 		//ContextPermissionCategory
 		ContextPermissionCategory cpcat=new ContextPermissionCategory(name:"Todos", isAll:true, isNone:false);
 		this.saveObj(cpcat);
@@ -138,7 +145,7 @@ class BootStrap {
 		//ContextCrmActionsByCategoryCommand x=new ContextCrmActionsByCategoryCommand(cpcat);
 		
 		//UserGroup
-		UserGroup adminGroup=new UserGroup(name:"Administrators", isAdmin:true, contextPermissionCategory:ContextPermissionCategory.findByIsAll(true));
+		/*UserGroup adminGroup=new UserGroup(name:"Test_Group", isAdmin:true, contextPermissionCategory:ContextPermissionCategory.findByIsAll(true));
 		adminGroup.addToCrmUsers(defUsr);
 		this.saveObj(adminGroup);
 		defUsr.addToUserGroups(adminGroup);
@@ -148,7 +155,7 @@ class BootStrap {
 		testGroup.addToCrmUsers(testUsr);
 		this.saveObj(testGroup);
 		testUsr.addToUserGroups(testGroup);
-		this.saveObj(testUsr);
+		this.saveObj(testUsr);*/
 		
 		//ReportFolder
 		this.saveObj(new ReportFolder(name:"Reportes Públicos", crmUser: defUsr, isPublic:new Boolean("true")));
@@ -158,7 +165,7 @@ class BootStrap {
 		this.saveObj(new ClientCategory(name: "Pequeño-Medio", description:"Clientes con más de sueldo mínimo, hasta 3 sueldos mínimo."));
 		
 		//Client
-		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", country: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), crmUser: CrmUser.findByName("test"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
+		this.saveObj(new Client(name: "Cliente 1", description: "test", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/1980"), phone:"0985000000", phone2:"0985000001", notificationPhone:"0985000002", emailAddress: "cliente1@test.com", country: Country.findByName("Paraguay"), maritalStatus: MaritalStatus.findByName("Soltero/a"), profession: Profession.findByName("Agricultor"), gender: Gender.findByName("Masculino"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), category:ClientCategory.findByName("Pequeño"), crmUser: CrmUser.findByLogin("test"), isActive:true, readsEmail:true, readsSms:true, receiveNotifications:true, isProspectiveClient:false));
 		
 		//Vendor
 		this.saveObj(new Vendor(name: "Cooperativa Colonias Unidas", description: "Cooperativa", phone:"071720512", emailAddress: "ccu@test.com", TIN:"80090084-2"));
@@ -327,46 +334,47 @@ class BootStrap {
 		this.saveObj(new ContractType(name: "No Eclusivo", isExclusive:false, description:"Contrato no exclusivo.", commissionPercentage:4, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato no exclusivo."));
 		this.saveObj(new ContractType(name: "Eclusivo", isExclusive:true, description:"Contrato exclusivo.", commissionPercentage:3, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato exclusivo."));
 		
-		//Contract
-		this.saveObj(new Contract(internalID:"1", date:new Date(), contractType:ContractType.findByDescription("Contrato exclusivo.")));
 		
 		//PropertyType
 		this.saveObj(new PropertyType(name:"Sitio", plural:"Sitios", internalID:"SITIO", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano.", language:Language.findByName("Español")));
 		this.saveObj(new PropertyType(name:"Terreno agrícola", plural:"Terrenos agrícolas", internalID:"TERRENO_AGRICOLA", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola", language:Language.findByName("Español")));
 		this.saveObj(new PropertyType(name:"Estancia", plural:"Estancias", internalID:"ESTANCIA", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal.", language:Language.findByName("Español")));
 		
+		
+		//Concession 1
+		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
+											  publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByLogin("test"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
+		//concession1.addToManagedProperties(managedProperty1);
+		//this.saveObj(concession1);
+		//managedProperty1.addToConcessions(concession1);
+		//this.saveObj(managedProperty1);
+		//Concession 2
+		Concession concession2=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("20/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("20/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
+			publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByLogin("test"), isActive:true, isForRent:false, totalPrice:55600, totalCommission:55600);
+		//concession2.addToManagedProperties(managedProperty2);
+		//this.saveObj(concession2);
+		//managedProperty2.addToConcessions(concession2);
+		//this.saveObj(managedProperty2);
 		//ManagedProperty
-		ManagedProperty managedProperty1=new ManagedProperty(title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600, soldByUs:false);
+		
+		ManagedProperty managedProperty1=new ManagedProperty(concession:concession1, title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600);
 		this.saveObj(managedProperty1);
-		ManagedProperty managedProperty2=new ManagedProperty(title:"Terreno de 2200m2 en Obligado Centro", propertyDescription:"Terreno grande en Obligado", measures:"30m x 100m", publicAddress:"Obligado Centro", publicCashPrice:"340.000 USS", price:340000, currency:Currency.findBySymbol("USS"), value:350000,
-			clientInitialPrice:340000, addedDate:new Date(), placedBillboards:1, area:2200,excess:0, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:1500, soldByUs:false);
+		ManagedProperty managedProperty2=new ManagedProperty(concession:concession2, title:"Terreno de 2200m2 en Obligado Centro", propertyDescription:"Terreno grande en Obligado", measures:"30m x 100m", publicAddress:"Obligado Centro", publicCashPrice:"340.000 USS", price:340000, currency:Currency.findBySymbol("USS"), value:350000,
+			clientInitialPrice:340000, addedDate:new Date(), placedBillboards:1, area:2200,excess:0, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:1500);
 		this.saveObj(managedProperty2);
 		System.out.println(managedProperty1.id);
 		
 		//PropertyUsage
-		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));
-		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso comercial"), managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));
+		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso habitacional"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));
+		this.saveObj(new PropertyUsage(usage:Usage.findByName("Uso comercial"), quantity:100, isQuantityInPercentage:true, isCurrentUsage:false));
 		
 		//Building
 		this.saveObj(new Building(builtSize:500, builtYear:2013, managedProperty:ManagedProperty.findByTitle("Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud"), buildingType:BuildingType.findByName("Casa"), buildingCondition:BuildingCondition.findByName("Semi nuevo"), buildingDescription:"Es una casa estilo moderno, sin goteras y ladrillo visto."));
 		
-		//Concession 1
-		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
-									contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
-		concession1.addToManagedProperties(managedProperty1);
-		this.saveObj(concession1);
-		managedProperty1.addToConcessions(concession1);
-		this.saveObj(managedProperty1);
-		//Concession 2
-		Concession concession2=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("20/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("20/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
-			contract:Contract.findByInternalID("1"), publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByName("test"), isActive:true, isForRent:false, totalPrice:55600, totalCommission:55600);
-		concession2.addToManagedProperties(managedProperty2);
-		this.saveObj(concession2);
-		managedProperty2.addToConcessions(concession2);
-		this.saveObj(managedProperty2);
-
-
+		//Contract
+		this.saveObj(new Contract(concession:concession1, isCurrentContract:true, internalID:Utils.getUUID(), startDate:new Date(), endDate:new Date(), contractType:ContractType.findByDescription("Contrato exclusivo.")));
+		
 		//UploadedImage
 		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
 		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
@@ -376,10 +384,23 @@ class BootStrap {
 		
 		//ExpenseType
 		this.saveObj(new ExpenseType(name:"Comisión por Intermediación", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %"), isCompanyExpense:true));//mejorar busqueda o no incluir esto por defecto
+		this.saveObj(new ExpenseType(name:"Comisión Atalaya", description:"Pago de comisiones por servicios prestados por Agentes Inmobiliarios", internalID:"2", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %"), isCompanyExpense:true));
 		
 		//CommissionType
-		this.saveObj(new CommissionType(name:"Comisión de Venta de Inmueble", description:"Comisión por cerrar una venta de un inmueble", internalID:"1", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));
-		this.saveObj(new CommissionType(name:"Comisión de Captación de Inmueble", description:"Comisión por captación de un inmueble vendido", internalID:"2", selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1")));
+		this.saveObj(new CommissionType(name:"Comisión de Venta de Inmueble", description:"Comisión por cerrar una venta de un inmueble", internalID: CommissionType.getPartnerSellCommissionTypeInternalID(), selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1"),appliedToSalesByOffice:false,appliedToAllSales:false));
+		this.saveObj(new CommissionType(name:"Comisión de Captación de Inmueble", description:"Comisión por captación de un inmueble vendido", internalID: CommissionType.getPartnerCatchCommissionTypeInternalID(), selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1"),appliedToSalesByOffice:false,appliedToAllSales:false));//usado el internalID en IncomeController
+		this.saveObj(new CommissionType(name:"Comisión de Venta de Inmueble con atalaya", description:"Comisión por cerrar una venta de un inmueble con agente externo", internalID: CommissionType.getPartnerWithAtalayaSellCommissionTypeInternalID(), selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1"),appliedToSalesByOffice:false,appliedToAllSales:false));
+		this.saveObj(new CommissionType(name:"Comisión de Captación de Inmueble con atalaya", description:"Comisión por captación de un inmueble vendido con agente externo", internalID: CommissionType.getPartnerWithAtalayaCatchCommissionTypeInternalID(), selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("1"),appliedToSalesByOffice:false,appliedToAllSales:false));//usado el internalID en IncomeController
+		this.saveObj(new CommissionType(name:"Comisión por brindar informacion sobre venta", description:"Comisión para atalayas por informar sobre comprador.", internalID: CommissionType.getAtalayaSellCommissionTypeInternalID(), selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("2"),appliedToSalesByOffice:false,appliedToAllSales:false));//usado el internalID en IncomeController
+		this.saveObj(new CommissionType(name:"Comisión por brindar informacion sobre captacion", description:"Comisión para atalayas por informar sobre inmuebles a captar.", internalID: CommissionType.getAtalayaCatchCommissionTypeInternalID(), selfInvoiceDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", expenseType:ExpenseType.findByInternalID("2"),appliedToSalesByOffice:false,appliedToAllSales:false));//usado el internalID en IncomeController
+		
+		//CommissionRate
+		this.saveObj(new CommissionRate(name: "Comision Agente Venta", percentage:25, commissionType:CommissionType.getPartnerSellCommissionType(), partnerRole:PartnerRole.findByName("Agente")));
+		this.saveObj(new CommissionRate(name: "Comision Agente Captacion", percentage:20, commissionType:CommissionType.getPartnerCatchCommissionType(), partnerRole:PartnerRole.findByName("Agente")));
+		this.saveObj(new CommissionRate(name: "Comision Agente Venta con Atalaya", percentage:22, commissionType:CommissionType.getPartnerWithAtalayaSellCommissionType(), partnerRole:PartnerRole.findByName("Agente")));
+		this.saveObj(new CommissionRate(name: "Comision Agente Captacion con Atalaya", percentage:15, commissionType:CommissionType.getPartnerWithAtalayaCatchCommissionType(), partnerRole:PartnerRole.findByName("Agente")));
+		this.saveObj(new CommissionRate(name: "Comision Atalaya Venta ", percentage:13, commissionType:CommissionType.getAtalayaSellCommissionType(), partnerRole:PartnerRole.findByName("Atalaya")));
+		this.saveObj(new CommissionRate(name: "Comision Atalaya Captacion", percentage:7, commissionType:CommissionType.getAtalayaCatchCommissionType(), partnerRole:PartnerRole.findByName("Atalaya")));
 		
 		//IncomeType
 		this.saveObj(new IncomeType(name:"Honoraios por venta de Concesión", description:"Cobro de honorarios por intermediación en la venta de una concesión inmobiliaria", relatedDomain:RelatedDomain.CONCESSION, billingDefaultDescription:"Honorarios por servicios de intermediación Inmobiliaria", taxRate:TaxRate.findByName("10 %")));
@@ -411,7 +432,7 @@ class BootStrap {
 		this.saveObj(new ContactType(name:"Informacion brindada personalmente", description:"Información suministrada al cliente personalmente.", email:false, phoneCall:false, chat:false, showing:false, personally:true));
 	
 		//CrmConfig
-		this.saveObj(new CrmConfig(dateFormat:"dd/MM/yyyy", companyName:"MacroInmuebles", plan:crm.enums.software.Plan.FULL/*, crmPartnerImagePath:"uploads/partner", crmPropertyImagePath:"uploads/property", webPropertyImagePath:"img/crm/property", webPartnerImagePath:"img/crm/partner"*/));
+		this.saveObj(new CrmConfig(dateFormat:"dd/MM/yyyy", companyName:"MacroInmuebles", plan:crm.enums.software.Plan.FULL, dbVersion:1/*, crmPartnerImagePath:"uploads/partner", crmPropertyImagePath:"uploads/property", webPropertyImagePath:"img/crm/property", webPartnerImagePath:"img/crm/partner"*/));
 	}
 	
 	private void saveObj(Object obj){

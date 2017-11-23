@@ -1,5 +1,8 @@
 	<g:render template="form"/>	
 	
+	<h1><g:message code="concession.contract.title"/></h1>
+	<g:render template="/contract/shortForm"/>
+	
 	<h1><g:message code="concession.property.title"/></h1>
 	<g:render template="/managedProperty/form"/>
 	

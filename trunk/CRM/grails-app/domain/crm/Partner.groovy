@@ -9,7 +9,7 @@ class Partner extends CrmDomain{
 	String phone;
 	String corporatePhone;
 	String emailAddress;
-	String corporateEmail;
+	Country country;
 	Gender gender;
 	Profession profession;
 	PartnerRole partnerRole;
@@ -20,7 +20,7 @@ class Partner extends CrmDomain{
 	Boolean isAgent;
 	Integer salary;
 	
-	static hasMany = [partnersInvitedBy:Partner, crmUsers:CrmUser, commissions:Commission, bankAccounts:BankAccount, actions:Action, contacts:Contact, commissionsByConcession:CommissionByConcession/*,tagSelectedValue,CustomFieldSelectedValue*/];
+	static hasMany = [partnersInvitedBy:Partner, crmUsers:CrmUser, bankAccounts:BankAccount, commissionsByProperty:CommissionByProperty/*,tagSelectedValue,CustomFieldSelectedValue*/];
 
 	static constraints = {
 		name (blank: false, nullable:false, size:1..100);
@@ -28,8 +28,8 @@ class Partner extends CrmDomain{
 		birthDate(blank:false, nullable:false);
 		phone(blank:false, nullable:false, size:1..40);
 		corporatePhone(blank:true, nullable:true, size:0..40);
-		emailAddress(blank:false, nullable:false, email: true, size:1..50);
-		corporateEmail(blank:true, nullable:true, email: true, size:0..50);
+		emailAddress(blank:false, nullable:false, email:true, size:1..50);
+		country(nullable:false);
 		gender(nullable:true);
 		profession(nullable:true);
 		partnerRole(nullable:false);

@@ -40,7 +40,7 @@ class PropertyDemand extends CrmDomain{
 	Boolean isPriceRequired;
 	Currency currency;
 	Client client;
-	CrmUser creator;
+	CrmUser owner;
 	CrmUser assignee;
 	BroadcastMedia broadcastMedia;
 	String specifyBroadcastMedia;
@@ -49,7 +49,7 @@ class PropertyDemand extends CrmDomain{
 	PriorityLevel priorityLevel;
 	InterestLevel interestLevel;
 	DemandStatus demandStatus;
-	static hasMany = [concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, propertyFeaturesByPropertyDemand:PropertyFeatureByPropertyDemand, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand/*,RealEstateAction,TagSelectedValue,CustomFieldSelectedValue*/]
+	static hasMany = [concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, propertyFeaturesByPropertyDemand:PropertyFeatureByPropertyDemand, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand, soldProperties:SoldProperty/*,RealEstateAction,TagSelectedValue,CustomFieldSelectedValue*/]
     static constraints = {
 		name(blank: false, nullable:false, size:1..50);
 		isSellDemand(nullable:false);
@@ -90,7 +90,7 @@ class PropertyDemand extends CrmDomain{
 		isPriceRequired(blank: false, nullable:false);
 		currency(nullable:true);
 		client(nullable:false);
-		creator(nullable:false);
+		owner(nullable:false);
 		assignee(nullable:true);
 		broadcastMedia(nullable:true);
 		specifyBroadcastMedia(blank: true, nullable:true, widget:'textArea', size:0..100);
@@ -169,7 +169,7 @@ class PropertyDemand extends CrmDomain{
 	public ArrayList<ManagedProperty> getSmartMatchesForBuyDemand(){
 		if(!this.isSellDemand){
 			List paramethers=new ArrayList<Object>();
-			StringBuffer query = new StringBuffer("select mp from ManagedProperty mp join mp.concessions co join mp.address a join a.city ci join mp.buildings b where ? BETWEEN co.startDate and co.endDate and co.isActive = ?");
+			StringBuffer query = new StringBuffer("select mp from ManagedProperty mp join mp.concession co join mp.address a join a.city ci join mp.buildings b where ? BETWEEN co.startDate and co.endDate and co.isActive = ?");
 			paramethers.add(new Date());
 			paramethers.add(true);
 			if(this.isDepartmentRequired && this.department != null){	

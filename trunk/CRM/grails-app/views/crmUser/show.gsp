@@ -21,14 +21,16 @@
             </g:if>
             
             <fieldset class="fieldcontain">
-            	<span id="name-label" class="property-label"><g:message code="crmUser.name.label" default="Name"/></span>
-		        <f:display bean="crmUser" property="name"/>
+            	<span id="name-label" class="property-label"><g:message code="crmUser.login.label" default="Name"/></span>
+		        <f:display bean="crmUser" property="login"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.emailAddress.label" default="Email"/></span>
 		        <f:display bean="crmUser" property="emailAddress"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.partner.label" default="Partner"/></span>
 		        <f:display bean="crmUser" property="partner"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.isActive.label" default="Active"/></span>
 		        <f:display bean="crmUser" property="isActive"/>
+		        <span id="name-label" class="property-label"><g:message code="crmUser.hasAccess.label" default="Has access"/></span>
+		        <f:display bean="crmUser" property="hasAccess"/>
 		        <span id="name-label" class="property-label"><g:message code="crmUser.addedBy.label" default="Added By"/></span>
 		        <f:display bean="crmUser" property="addedBy"/>
             </fieldset>

@@ -27,6 +27,9 @@
 		        <f:display bean="commissionRate" property="percentage"/>
 		        <span id="name-label" class="property-label"><g:message code="commissionRate.commissionType.label" default="Commission Type"/></span>
 		        <f:display bean="commissionRate" property="commissionType"/>
+		        <span id="name-label" class="property-label"><g:message code="commissionRate.partnerRole.label" default="Partner Role"/></span>
+		        <f:display bean="commissionRate" property="partnerRole"/>
+		        partnerRole
             </fieldset>
             
             <g:form resource="${this.commissionRate}" method="DELETE">

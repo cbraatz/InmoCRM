@@ -6,7 +6,7 @@
 	<f:field bean="partner" property="phone"/>
 	<f:field bean="partner" property="corporatePhone"/>
 	<f:field bean="partner" property="emailAddress"/>
-	<f:field bean="partner" property="corporateEmail"/>
+	<f:field bean="client" property="country" widget-propId="${client?.country?.id}"/>
 	<f:field bean="partner" property="gender" widget-propId="${partner?.gender?.id}"/>
 	<f:field bean="partner" property="profession" widget-propId="${partner?.profession?.id}"/>
 	<f:field bean="partner" property="partnerRole" widget-propId="${partner?.partnerRole?.id}"/>

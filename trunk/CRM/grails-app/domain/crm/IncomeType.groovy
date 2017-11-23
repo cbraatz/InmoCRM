@@ -1,5 +1,5 @@
 package crm
-
+import crm.enums.income.RelatedDomain;
 class IncomeType extends CrmDomain{
 	String name;
 	String description;
@@ -23,5 +23,9 @@ class IncomeType extends CrmDomain{
 	@Override
 	public static String getPluralName(){
 		return "incomeTypes";
+	}
+	public IncomeType getIncomeTypeWithConcessionAsRelatedDomain() {
+		IncomeType it=IncomeType.findByRelatedDomain(RelatedDomain.CONCESSION);
+		return it
 	}
 }

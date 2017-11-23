@@ -5,17 +5,17 @@ import java.util.Date;
 class Contact extends CrmDomain{
 	Date date;
 	String description;
-	Concession concession;
+	ManagedProperty managedProperty;
 	Client client;
-	Partner partner;
+	CrmUser crmUser;
 	ContactType contactType;
 	
 	static constraints = {
 		date(blank:false, nullable:false);
 		description(blank:false, nullable:false, widget:'textArea', size:1..300);
-		concession(blank:false, nullable:false);
+		managedProperty(blank:false, nullable:false);
 		client(nullable:false);
-		partner(nullable:false);
+		crmUser(nullable:false);
 		contactType(nullable:false);
 	}
 	@Override

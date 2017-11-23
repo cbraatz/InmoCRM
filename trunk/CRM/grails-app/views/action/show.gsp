@@ -12,7 +12,7 @@
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            	<li><g:link class="return" action="show" controller="concession" id="${action?.concession?.id}"><g:message code="concession.label" default="Concession" /></g:link></li>
+            	<li><g:link class="return" action="show" controller="managedProperty" id="${action?.managedProperty?.id}"><g:message code="managedProperty.label" default="Managed Property" /></g:link></li>
             </ul>
         </div>
         <div id="show-action" class="content scaffold-show" role="main">
@@ -22,16 +22,16 @@
             </g:if>
             
 			<fieldset class="fieldcontain">
-				<span id="concession-label" class="property-label"><g:message code="action.concession.label" default="Concession"/></span>
-		        <f:display bean="action" property="concession.id"/>
+				<span id="managedProperty-label" class="property-label"><g:message code="action.managedProperty.label" default="Concession"/></span>
+		        <f:display bean="action" property="managedProperty.id"/>
             	<span id="date-label" class="property-label"><g:message code="action.date.label" default="Date"/></span>
 		        <f:display bean="action" property="date"/>
 		        <span id="description-label" class="property-label"><g:message code="action.description.label" default="Description"/></span>
 		        <f:display bean="action" property="description"/>
 		        <span id="actionType-label" class="property-label"><g:message code="action.actionType.label" default="RealEstateActionType"/></span>
 		        <f:display bean="action" property="actionType"/>
-		        <span id="partner-label" class="property-label"><g:message code="action.partner.label" default="Partner"/></span>
-		        <f:display bean="action" property="partner"/>
+		        <span id="crmUser-label" class="property-label"><g:message code="action.crmUser.label" default="User"/></span>
+		        <f:display bean="action" property="crmUser"/>
 		        <span id="cost-label" class="property-label"><g:message code="action.cost.label" default="Cost"/></span>
 		        <f:display bean="action" property="cost"/>
 		        <span id="currency-label" class="property-label"><g:message code="action.currency.label" default="Currency"/></span>

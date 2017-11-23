@@ -5,6 +5,7 @@ class UploadedDocument extends CrmDomain{
 	String description;
 	Long sizeInKB;
 	Concession concession;
+
     static constraints = {
 		fileName(blank:false, nullable:false, size:1..40);
 		description(blank:true, nullable:true, size:0..50);

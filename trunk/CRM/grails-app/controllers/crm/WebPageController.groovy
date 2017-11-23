@@ -12,8 +12,18 @@ class WebPageController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond WebPage.list(params), model:[webPageCount: WebPage.count()]
+		ManagedProperty managedProperty;
+		if(params.pid != null){
+			managedProperty=ManagedProperty.get(params.pid);
+			if(managedProperty != null){
+		        params.max = Math.min(max ?: 10, 100)
+		        respond managedProperty, model:[webPageCount: managedProperty.webPages.size()]
+			}else{
+				render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["pid = "+params.pid])]);
+			}
+		}else{
+			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["pid = null"])]);
+		}
     }
 
     def show(WebPage webPage) {
@@ -25,7 +35,7 @@ class WebPageController {
 		WebPage webPage=new WebPage(params);
 		if(params.pid!=null){
 			ManagedProperty managedProperty=ManagedProperty.get(params.pid);
-			Concession concession=managedProperty.getActiveConcession();
+			Concession concession=managedProperty.concession;
 			webPage.domain=Domain.findByLocale(Locale.getDefaultLocale());
 			webPage.agentComment=AgentComment.findByLocale(webPage.domain.locale);
 			webPage.price=(managedProperty.publicCreditPrice ? managedProperty.publicCreditPrice : managedProperty.publicCashPrice);
@@ -153,7 +163,7 @@ class WebPageController {
 			new File(pageContainer).mkdirs()
 			String filePath=pageContainer+File.separatorChar+title+webPage.id+".html";//título finaliza con . que es remplazado por _ y luego va el id de la WebPage
 			String fileContent=GUtils.readFile(webPage.domain.realPath+File.separatorChar+"real_estate_detail.html");
-			Concession conc=webPage.managedProperty.getActiveConcession();
+			Concession conc=webPage.managedProperty.concession;
 			
 			//PTITLE
 			int idx=fileContent.indexOf("@#PTITLE");
@@ -516,7 +526,7 @@ class WebPageController {
 		}
 		
 		//partner uploaded profile image transfer to target domain web page
-		Concession conc=webPage.managedProperty.getActiveConcession();
+		Concession conc=webPage.managedProperty.concession;
 		originPath=grailsApplication.config.getProperty('crm.upload.image.partner') + File.separatorChar+conc.crmUser.partner.id + File.separatorChar + "profile.jpg";
 		targetPath=webPage.domain.realPath + File.separatorChar + grailsApplication.config.getProperty('web.image.partner') + File.separatorChar + conc.crmUser.partner.id;
 		origin=new File(originPath);

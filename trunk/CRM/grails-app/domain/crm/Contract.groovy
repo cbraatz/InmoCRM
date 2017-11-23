@@ -1,16 +1,21 @@
 package crm
 
 class Contract extends CrmDomain{
-	Date date;
-	String documentURL;
+	Date startDate;
+	Date endDate;
 	ContractType contractType;
 	String internalID;
-	static hasMany = [concessions:Concession];
+	Boolean isCurrentContract;
+	UploadedDocument uploadedDocument;
+	Concession concession
     static constraints = {
-		date(blank: false, nullable:false);
-		documentURL(blank: true, nullable:true, size:0..200);
+		startDate(blank: false, nullable:false);
+		endDate(blank: false, nullable:false);//start y end dates no son siempre iguales a las de la concesion, ya que la concesion al renovarse se estira su end date, pero el startDate queda el mismo.
 		contractType(nullable:false);
 		internalID(blank: false, nullable:false, size:1..40, unique:true);
+		isCurrentContract(blank: false, nullable:false);
+		uploadedDocument(nullable:true);
+		concession(nullable:false);
     }
 	@Override
 	public static String getDefaultPropertyName(){
@@ -20,4 +25,7 @@ class Contract extends CrmDomain{
 	public static String getPluralName(){
 		return "contracts";
 	}
+	/*public static List<Contract> getAllContractsByConcession(Concession concession){
+		return Contract.findAllByConcession(concession);
+	}*/
 }

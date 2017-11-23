@@ -11,12 +11,14 @@ public enum CrmController {
 	//cx("classicReport", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	//cy("classicReportTemplate", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), true),
 	c2("client", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
-	c3("commissionByConcession", Arrays.asList(CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	c3("commissionByProperty", Arrays.asList(CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	c4("commissionRate", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	c5("concession", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	c6("contact", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
-	c7("contextPermissionCategory", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), true),
-	c8("crmUser", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	c7("contract", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	c8("contextPermissionCategory", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), true),
+	c9("crmUser", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	
 	e1("expense", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	e2("expensePayment", Arrays.asList(CrmAction.ix, CrmAction.sh), false),
 	e3("expenseType", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), true),
@@ -38,6 +40,7 @@ public enum CrmController {
 	p6("propertyType", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	r1("reportDesigner", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	s1("search", Arrays.asList(CrmAction.sh), false),
+	s2("soldProperty", Arrays.asList(CrmAction.sh, CrmAction.cr, CrmAction.de), false),
 	t1("task", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	
 	
@@ -69,15 +72,19 @@ public enum CrmController {
 		return null;
 	}
 	public boolean isCrmControllersAvailableForCurrentPlan(Plan softwarePlan){
-		for(Module m:softwarePlan.getModules()){
-			for(CrmController c:m.getControllers()){
-				if(c.equals(this)){
-					return true;
+		if(softwarePlan.equals(Plan.FULL)) {
+			return true;
+		}else {
+			for(Module m:softwarePlan.getModules()){
+				for(CrmController c:m.getControllers()){
+					if(c.equals(this)){
+						return true;
+					}
+					
 				}
-				
 			}
+			return false;
 		}
-		return false;
 	}
 	public boolean isAdminOnly(){
 		return this.isAdminOnly;

@@ -2,11 +2,10 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'commissionByConcession.label', default: 'Commission By Concession')}" />
-        <title><g:message code="default.edit.label" args="[entityName]" /></title>
+        <title><g:message code="concession.close.label" /></title>
     </head>
     <body>
-        <a href="#edit-commissionByConcession" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <a href="#edit-concession" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -14,23 +13,23 @@
                 <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="edit-commissionByConcession" class="content scaffold-edit" role="main">
+        <div id="edit-concession" class="content scaffold-edit" role="main">
             <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.commissionByConcession}">
+            <g:hasErrors bean="${this.concession}">
             <ul class="errors" role="alert">
-                <g:eachError bean="${this.commissionByConcession}" var="error">
+                <g:eachError bean="${this.concession}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.commissionByConcession}" method="PUT">           
-            	<g:hiddenField name="version" value="${this.commissionByConcession?.version}" />
-            	
-                <g:render template="editForm"/>
+            <g:form resource="${this.concession}" method="PUT">
+                <g:hiddenField name="version" value="${this.concession?.version}" />
                 
+				<g:render template="form"/>
+	
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
                 </fieldset>
