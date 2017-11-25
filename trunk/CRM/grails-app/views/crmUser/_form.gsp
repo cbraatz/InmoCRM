@@ -10,7 +10,7 @@
 	<f:field bean="crmUser" property="partner" widget-propId="${crmUser?.partner?.id}"/>
 	<f:field bean="crmUser" property="isActive"/>
 	<f:field bean="crmUser" property="hasAccess"/>
-	<g:if test="${session.user.isAdmin.booleanValue==true}">
+	<g:if test="${session.user.isAdmin.booleanValue()==true}">
     	<f:field bean="crmUser" property="isAdmin"/>
     </g:if>
     <g:else test="${session.user.isAdmin.booleanValue==true}">
