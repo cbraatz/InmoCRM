@@ -39,7 +39,8 @@ class WebPageController {
 			webPage.domain=Domain.findByLocale(Locale.getDefaultLocale());
 			webPage.agentComment=AgentComment.findByLocale(webPage.domain.locale);
 			webPage.price=(managedProperty.publicCreditPrice ? managedProperty.publicCreditPrice : managedProperty.publicCashPrice);
-			webPage.keyWords=KeyWord.findByLocaleAndPropertyType(webPage.domain.locale, managedProperty.propertyType);
+			KeyWord kw=KeyWord.findByLocaleAndPropertyType(webPage.domain.locale, managedProperty.propertyType);
+			webPage.keyWords=(kw!=null?kw.getExtendedKeys(managedProperty):"");
 			OperationType ot=OperationType.findByLanguage(webPage.domain.locale.language);
 			webPage.operationType=(concession.isForRent?ot.rent:ot.sale);
 			webPage.managedProperty=managedProperty;

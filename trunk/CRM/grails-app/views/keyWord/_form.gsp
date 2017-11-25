@@ -5,5 +5,4 @@
 	</f:field>
 	<f:field bean="keyWord" property="locale" widget-propId="${keyWord?.locale?.id}"/>
 	<f:field bean="keyWord" property="propertyType" widget-propId="${keyWord?.propertyType?.id}"/>
-	<f:field bean="keyWord" property="buildingType" widget-propId="${keyWord?.buildingType?.id}"/>
 </fieldset>

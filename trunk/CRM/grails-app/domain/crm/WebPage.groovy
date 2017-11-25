@@ -25,7 +25,7 @@ class WebPage extends CrmDomain{
 		thirdDescription(blank:true, nullable:true, widget:'textArea', size:0..300);
 		callToAction(blank:false, nullable:false, widget:'textArea', size:10..300);
 		price(blank:false, nullable:false, size:1..20);
-		keyWords(blank:false, nullable:false, widget:'textArea', size:10..500);
+		keyWords(blank:false, nullable:false, widget:'textArea', size:10..1000);
 		agentComment(blank:false, nullable:false, widget:'textArea', size:1..255);
 		operationType(blank:false, nullable:false, size:1..20);
 		pageUrl(blank:true, nullable:true, unique:true);

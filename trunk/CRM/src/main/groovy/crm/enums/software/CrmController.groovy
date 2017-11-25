@@ -28,7 +28,7 @@ public enum CrmController {
 	i3("incomeType", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), true),
 	i4("incomingInvoice", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), true),
 	i5("issuedInvoice", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
-	k1("keyWorkd", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
+	k1("keyWord", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	//l1("login", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	m1("managedProperty", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.sp), false),
 	n1("neighborhood", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),

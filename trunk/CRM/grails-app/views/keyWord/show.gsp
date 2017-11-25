@@ -25,8 +25,6 @@
 		        <f:display bean="keyWord" property="keys"/>
 		        <span id="locale-label" class="property-label"><g:message code="keyWord.locale.label" default="Locale"/></span>
 		        <f:display bean="keyWord" property="locale"/>
-		        <span id="buildingType-label" class="property-label"><g:message code="keyWord.buildingType.label" default="Building Type"/></span>
-		        <f:display bean="propertyType" property="buildingType"/>
 		        <span id="propertyType-label" class="property-label"><g:message code="keyWord.propertyType.label" default="Property Type"/></span>
 		        <f:display bean="keyWord" property="propertyType"/>
             </fieldset>
