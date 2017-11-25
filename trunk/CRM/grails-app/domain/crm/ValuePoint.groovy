@@ -6,7 +6,7 @@ class ValuePoint extends CrmDomain{
 	Address address;
 	static hasMany = [managedProperties:ManagedProperty];
     static constraints = {
-		value(blank:false, nullable:false, min:0D);
+		value(blank:false, nullable:false, min:0F);
 		date(blank:false, nullable:false);
     }
 }
