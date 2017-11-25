@@ -94,15 +94,7 @@
 		        <span id="name-label" class="property-label"><g:message code="address.zone.label" default="Zone"/></span>
 		        <f:display bean="managedProperty" property="address.zone"/>
             </fieldset>
-			<g:if test="${managedProperty.buildings.size() > 0}">
-				<h1><g:message code="managedProperty.buildings.label"/></h1>
-	            <f:table collection="${managedProperty.buildings}" properties="['buildingType','builtSize', 'builtYear', 'buildingCondition', 'buildingDescription']" />
-	       </g:if>
-	       <g:if test="${managedProperty.featuresByProperty.size() > 0}">     
-	            <h1><g:message code="managedProperty.featuresByProperty.title"/></h1>
-	            <f:table collection="${managedProperty.featuresByProperty}" properties="['propertyFeature','value', 'description']" />
-            </g:if>
-            
+
             <g:form resource="${this.managedProperty}">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.managedProperty}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
@@ -117,6 +109,28 @@
                     <!--<g:actionSubmit action="delete" class="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />  -->
                 </fieldset>
             </g:form>
+            
+            <g:if test="${managedProperty.buildings.size() > 0}">
+				<h1><g:message code="managedProperty.buildings.label"/></h1>
+	            <f:table collection="${managedProperty.buildings}" properties="['buildingType','builtSize', 'builtYear', 'buildingCondition', 'buildingDescription']" />
+	       </g:if>
+	       
+	       <g:if test="${managedProperty.featuresByProperty.size() > 0}">     
+	            <h1><g:message code="managedProperty.featuresByProperty.title"/></h1>
+	            <f:table collection="${managedProperty.featuresByProperty}" properties="['propertyFeature','value', 'description']" />
+            </g:if>
+             <g:if test="${managedProperty.contacts.size() > 0}">     
+	            <h1><g:message code="managedProperty.contacts.title"/></h1>
+	            <f:table collection="${managedProperty.contacts}" properties="['date','crmUser', 'description', 'contactType']" />
+            </g:if>
+             <g:if test="${managedProperty.actions.size() > 0}">     
+	            <h1><g:message code="managedProperty.actions.title"/></h1>
+	            <f:table collection="${managedProperty.actions}" properties="['date','crmUser', 'description', 'actionType']" />
+            </g:if>
+            <g:if test="${managedProperty.webPages.size() > 0}">     
+	            <h1><g:message code="managedProperty.webPages.title"/></h1>
+	            <f:table collection="${managedProperty.webPages}" properties="['title', 'domain','summary']" />
+            </g:if>
         </div>
     </body>
 </html>

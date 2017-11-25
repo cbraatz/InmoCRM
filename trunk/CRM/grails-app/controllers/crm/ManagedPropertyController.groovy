@@ -51,20 +51,20 @@ class ManagedPropertyController {
         }
 
         boolean saved=(managedProperty.save(flush:true));
-		String msg=updateCommissionsByPropertyIfNecessary(managedProperty);
+		//String msg=updateCommissionsByPropertyIfNecessary(managedProperty);
 		if (!saved){
 			managedProperty.errors.rejectValue('',message(code: 'managedProperty.save.error'));
 			respond managedProperty.errors, view:'create'
 			return
 		}
-		if (null!=msg && !msg.isEmpty()){
+		/*if (null!=msg && !msg.isEmpty()){
 			if (!msg.isEmpty()){
 				managedProperty.errors.rejectValue('',msg);
 				transactionStatus.setRollbackOnly()
 				respond managedProperty.errors, view:'create'
 				return
 			}
-		}
+		}*/
 		
         request.withFormat {
             form multipartForm {

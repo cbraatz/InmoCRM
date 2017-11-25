@@ -50,8 +50,7 @@
 				<span id="name-label" class="property-label"><g:message code="concession.isForRent.label" default="Is For Rent"/></span>
 				<f:display bean="concession" property="isForRent"/>
             </fieldset>
-            <h1><g:message code="concession.managedProperties.label"/></h1>
-            <f:table collection="${concession.managedProperties}" properties="['title', 'area', 'price', 'currency']"/>
+            
             <g:form resource="${this.concession}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.concession}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
@@ -59,7 +58,8 @@
                     <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
                 </fieldset>
             </g:form>
-            
+            <h1><g:message code="concession.managedProperties.label"/></h1>
+            <f:table collection="${concession.managedProperties}" properties="['title', 'area', 'price', 'currency']"/>
             <h1><g:message code="concession.contracts.label"/></h1>
             <f:table collection="${concession.contracts}" properties="['startDate', 'endDate', 'contractType']"/>
         </div>

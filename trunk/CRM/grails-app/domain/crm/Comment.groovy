@@ -8,7 +8,7 @@ class Comment extends CrmDomain{
 	Client client;
 	PropertyDemand propertyDemand;
 	Concession concession;
-	//Task task;
+	Task task;
 	//InsuranceDemand insuranceDemand;
     static constraints = {
 		comment(blank:false, nullable:false, widget:'textArea', size:1..400);

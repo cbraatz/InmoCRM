@@ -12,7 +12,7 @@ class Task extends CrmDomain{
 	TaskStatus taskStatus;
 	String internalID;
 	
-	static hasMany = [notificationMethods:NotificationMethod];
+	static hasMany = [notificationMethods:NotificationMethod, comments:Comment];
 	static belongsTo = NotificationMethod;
     static constraints = {
 		name(blank:false, nullable:false, size:1..50);

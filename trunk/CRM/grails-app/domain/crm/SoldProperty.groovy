@@ -1,6 +1,6 @@
 package crm
 
-class SoldProperty {
+class SoldProperty extends CrmDomain{
 	Double sellPrice;
 	Double commissionAmount;
 	Date date;

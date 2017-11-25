@@ -29,6 +29,7 @@ class ManagedProperty extends CrmDomain{
 	String resolution;//motivo por el que está cerrado
 	PropertyType propertyType;
 	Concession concession;
+	ValuePoint valuePoint;
 	//String internalID;
 	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, uploadedImages:UploadedImage, propertyUnits:PropertyUnit, advertisements:Advertisement, webPages:WebPage, commissionsByProperty:CommissionByProperty, actions:Action, contacts:Contact, soldProperties:SoldProperty/*propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
     static constraints = {
@@ -53,6 +54,7 @@ class ManagedProperty extends CrmDomain{
 		resolution(blank:true, nullable:true, size:0..10);
 		propertyType(nullable:false);
 		concession(nullable:false);
+		valuePoint(nullable:true);
 		//internalID(blank:true, nullable:true, size:1..10);
     }
 	
