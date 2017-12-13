@@ -106,8 +106,7 @@ class BootStrap {
 		this.saveObj(new Profession(name: "Agente de Seguros"));
 		
 		City ct=City.findByName("Obligado");
-		//neighborhood
-		this.saveObj(new Neighborhood(name:"Centro", description:"test", city: ct, zone: ct.getCenterZone()));		
+		//neighborhood		
 		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test", city: ct, zone: ct.getCenterZone()));		
 		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test", city: ct, zone: ct.getCenterZone()));
 		
@@ -195,7 +194,7 @@ class BootStrap {
 		//BuildingType
 		this.saveObj(new BuildingType(name: "Casa", description:"Inmueble independiente y de uso habitacional", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
 		this.saveObj(new BuildingType(name: "Edificio de Departamentos", description:"Inmueble independiente que está dividido en departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), language:Language.findByName("Español")));		
+		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
 		this.saveObj(new BuildingType(name: "Local Comercial", description:"Inmueble en planta baja destinado a actividades comerciales", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
 		this.saveObj(new BuildingType(name: "Depósito", description:"Inmueble destinado a guardar/depositar bienes", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));
 		
@@ -283,11 +282,11 @@ class BootStrap {
 		this.saveObj(new PriorityLevel(name: "Baja", color: "green", level:4));	
 		
 		//TaskStatus
-		this.saveObj(new TaskStatus(name: "Nueva", isNew:true, isClosed:false));
-		this.saveObj(new TaskStatus(name: "Calendarizada", isNew:false, isClosed:false));
-		this.saveObj(new TaskStatus(name: "En Proceso", isNew:false, isClosed:false));
-		this.saveObj(new TaskStatus(name: "Terminada", isNew:false, isClosed:true));
-		this.saveObj(new TaskStatus(name: "Cancelada", isNew:false, isClosed:true));
+		this.saveObj(new TaskStatus(name: "Nueva", internalID:"1"));
+		this.saveObj(new TaskStatus(name: "Calendarizada", internalID:"2"));
+		this.saveObj(new TaskStatus(name: "En Proceso", internalID:"3"));
+		this.saveObj(new TaskStatus(name: "Terminada", internalID:"4"));
+		this.saveObj(new TaskStatus(name: "Cancelada", internalID:"5"));
 		
 		//NotificationMethod
 		this.saveObj(new NotificationMethod(name: "Email", isEmail:true, isSms:false, isInternetMessage1:false));
@@ -324,11 +323,12 @@ class BootStrap {
 		this.saveObj(new PaymentMethod(name: "Tarjeta de Crédito", discountPercentage:3, isCash:false, hasStartDate:false, hasEndDate:false, hasBank:true));
 		
 		//DemandStatus
-		this.saveObj(new DemandStatus(name: "Nueva", isNew:true, isClosed:false));
-		this.saveObj(new DemandStatus(name: "Necesita más información", isNew:false, isClosed:false));
-		this.saveObj(new DemandStatus(name: "Verificada", isNew:false, isClosed:false));
-		this.saveObj(new DemandStatus(name: "Listo para cerrar", isNew:false, isClosed:false));
-		this.saveObj(new DemandStatus(name: "Cerrado", isNew:false, isClosed:true));
+		this.saveObj(new DemandStatus(name: "Nueva", internalID:"1"));
+		this.saveObj(new DemandStatus(name: "Necesita más información", internalID:"2"));
+		this.saveObj(new DemandStatus(name: "Verificada", internalID:"3"));
+		this.saveObj(new DemandStatus(name: "Tomada", internalID:"4"));
+		this.saveObj(new DemandStatus(name: "Listo para cerrar", internalID:"5"));
+		this.saveObj(new DemandStatus(name: "Cerrado", internalID:"6"));
 		
 		//ContractType
 		this.saveObj(new ContractType(name: "No Eclusivo", isExclusive:false, description:"Contrato no exclusivo.", commissionPercentage:4, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato no exclusivo."));
@@ -336,9 +336,9 @@ class BootStrap {
 		
 		
 		//PropertyType
-		this.saveObj(new PropertyType(name:"Sitio", plural:"Sitios", internalID:"SITIO", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano.", language:Language.findByName("Español")));
-		this.saveObj(new PropertyType(name:"Terreno agrícola", plural:"Terrenos agrícolas", internalID:"TERRENO_AGRICOLA", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola", language:Language.findByName("Español")));
-		this.saveObj(new PropertyType(name:"Estancia", plural:"Estancias", internalID:"ESTANCIA", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal.", language:Language.findByName("Español")));
+		this.saveObj(new PropertyType(name:"Sitio", plural:"Sitios", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
+		this.saveObj(new PropertyType(name:"Terreno agrícola", plural:"Terrenos agrícolas", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola"));
+		this.saveObj(new PropertyType(name:"Estancia", plural:"Estancias", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal."));
 		
 		
 		//Concession 1

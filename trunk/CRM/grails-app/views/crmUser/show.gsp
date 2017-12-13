@@ -44,6 +44,10 @@
                 	</g:if>
                 </fieldset>
             </g:form>
+            <g:if test="${!crmUser.agentComments.isEmpty()}">
+	            <h1><g:message code="agentComment.list.label"/></h1>
+	        	<f:table collection="${crmUser.agentComments}" properties="['contact', 'locale']"/>
+        	</g:if>
         </div>
     </body>
 </html>

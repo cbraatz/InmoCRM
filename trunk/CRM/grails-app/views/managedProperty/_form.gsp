@@ -20,6 +20,7 @@
 		<f:field bean="managedProperty" property="valueDegree"/>
 		<f:field bean="managedProperty" property="placedBillboards"/>
 		<g:hiddenField name="resolution" value="${managedProperty?.resolution}"/>
+		<g:hiddenField name="internalID" value="${managedProperty?.internalID}"/>
 	</div>		
 </fieldset>
 

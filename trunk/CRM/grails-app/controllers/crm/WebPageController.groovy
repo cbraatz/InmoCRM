@@ -276,7 +276,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, conc.id+"-"+webPage.managedProperty.id.toString());
+				fileContent=fileContent.replace(str, webPage.managedProperty.id.toString());
 			}
 			//PDESC
 			idx=fileContent.indexOf("@#TYPE");
@@ -441,9 +441,30 @@ class WebPageController {
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
 				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
 			}
-			GUtils.writeFile(filePath, fileContent);
+			//share title-summary
+			str="Summary here...";
+			idx=fileContent.indexOf(str);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: [str]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: [str]).toString());
+			}else{
+				fileContent=fileContent.replaceAll(str, webPage.summary);
+			}
+			
 			webPage.inWeb=true;
 			webPage.pageUrl=filePath.replace(webPage.domain.realPath, "");//guarda la url sin la direccion fija del dominio
+			
+			//share url
+			str="www.par.com.py";
+			idx=fileContent.indexOf(str);
+			if(idx<0){
+				errs.add(message(code: 'webPage.template.missing.string.error', args: [str]).toString());
+				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: [str]).toString());
+			}else{
+				fileContent=fileContent.replaceAll(str, webPage.getWebPage());
+			}
+			
+			GUtils.writeFile(filePath, fileContent);
 			webPage.save();
 			
 		}catch(Exception e){

@@ -16,7 +16,7 @@ class Concession extends CrmDomain{
 	CrmUser crmUser;
 	Boolean isActive;
 	Boolean isForRent;
-	//String internalID;
+	String internalID;//es para setear los clones de esta propiedad
 	static belongsTo = ManagedProperty;
 	static hasMany = [contracts:Contract,managedProperties:ManagedProperty, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, uploadedDocuments:UploadedDocument/*,TagSelectedValue,CustomFieldSelectedValue*/];
 	static constraints = {
@@ -35,7 +35,7 @@ class Concession extends CrmDomain{
 		crmUser(nullable:false);
 		isActive(nullable:false);
 		isForRent(nullable:false);
-		//internalID(blank:true, nullable:true, size:1..10);
+		internalID(blank:true, nullable:true, size:1..10);
 	}
 	
 	public Concession(){}

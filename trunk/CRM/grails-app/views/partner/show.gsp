@@ -73,10 +73,10 @@
 		        <f:display bean="partner" property="address.homePhone"/>
 		        <span id="name-label" class="property-label"><g:message code="address.city.label" default="City"/></span>
 		        <f:display bean="partner" property="address.city"/>
-		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
-		        <f:display bean="partner" property="address.neighborhood"/>
 		        <span id="name-label" class="property-label"><g:message code="address.zone.label" default="Zone"/></span>
 		        <f:display bean="partner" property="address.zone"/>
+		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
+		        <f:display bean="partner" property="address.neighborhood"/>
             </fieldset>
             
             

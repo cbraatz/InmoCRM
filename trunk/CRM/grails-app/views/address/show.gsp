@@ -41,10 +41,11 @@
 		        <f:display bean="address" property="homePhone"/>
 		        <span id="name-label" class="property-label"><g:message code="address.city.label" default="City"/></span>
 		        <f:display bean="address" property="city"/>
-		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
-		        <f:display bean="address" property="neighborhood"/>
 		        <span id="name-label" class="property-label"><g:message code="address.zone.label" default="Zone"/></span>
 		        <f:display bean="address" property="zone"/>
+		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
+		        <f:display bean="address" property="neighborhood"/>
+		        
             </fieldset>
             
             <g:form resource="${this.address}" method="DELETE">

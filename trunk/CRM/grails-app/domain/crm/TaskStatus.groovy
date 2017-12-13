@@ -2,13 +2,11 @@ package crm
 
 class TaskStatus extends CrmDomain{
 	String name;
-	Boolean isNew;
-	Boolean isClosed;
+	String internalID;
 	static hasMany = [tasks:Task];
 	static constraints = {
 		name(blank:false, nullable:false, unique:true, size:1..50);
-		isNew(nullable:false);
-		isClosed(nullable:false);
+		internalID(blank:false, nullable:false, unique:true, size:1..10);
 	}
 	@Override
 	public static String getPluralName(){

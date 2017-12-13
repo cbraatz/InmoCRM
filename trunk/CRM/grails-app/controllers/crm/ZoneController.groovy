@@ -18,7 +18,7 @@ class ZoneController {
     }
 
     def create() {
-        respond new Zone(params)
+        respond new Zone(isCenter:new Boolean("false"))
     }
 
     @Transactional
@@ -104,4 +104,7 @@ class ZoneController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	def getZonesByCityAJAX(String mainDomainType, String cityId, String zoneId, String update) {
+		render(template:"/zone/dynamicZoneSelector", model:[doty: mainDomainType, cid:cityId, zid:zoneId, upd:update]);
+	}
 }

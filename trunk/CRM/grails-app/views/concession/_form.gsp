@@ -14,9 +14,10 @@
 		<f:field bean="concession" property="publishInMLS"/>
 		<f:field bean="concession" property="publishInPortals"/>
 		<f:field bean="concession" property="crmUser" widget-propId="${concession?.crmUser?.id}"/>
-		<f:field bean="concession" property="propertyDemand"  widget-propId="${concession?.propertyDemand?.id}"/>
+		<f:field bean="concession" property="propertyDemand"  widget-propId="${concession?.propertyDemand?.id}" widget-allowNull="${true}"/>
 		
 		<g:hiddenField name="isActive" value="${concession?.isActive}"/>
 		<g:hiddenField name="isForRent" value="${concession?.isForRent}"/>
+		<g:hiddenField name="internalID" value="${concession?.internalID}"/>
 	</div>
 </fieldset>

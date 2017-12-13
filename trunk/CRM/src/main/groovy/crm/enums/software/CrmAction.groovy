@@ -25,6 +25,6 @@ public enum CrmAction {
 		return null;
 	}
 	public static List<String> getActionsToSkip(){
-		return Arrays.asList("getNeighborhoodsByCityAJAX","getCategoryFieldNumberAJAX");
+		return Arrays.asList("getNeighborhoodsByZoneAJAX","getZonesByCityAJAX","getCategoryFieldNumberAJAX");
 	}
 }

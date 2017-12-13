@@ -18,7 +18,7 @@ class Zone extends CrmDomain{
 		return "zones";
 	}
 	
-	public String getCenterZoneName(){
+	public static String getCenterZoneName(){
 		return "Centro";
 	}
 }

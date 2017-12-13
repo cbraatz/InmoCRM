@@ -82,10 +82,11 @@
 		        <f:display bean="client" property="address.homePhone"/>
 		        <span id="name-label" class="property-label"><g:message code="address.city.label" default="City"/></span>
 		        <f:display bean="client" property="address.city"/>
-		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
-		        <f:display bean="client" property="address.neighborhood"/>
 		        <span id="name-label" class="property-label"><g:message code="address.zone.label" default="Zone"/></span>
 		        <f:display bean="client" property="address.zone"/>
+		        <span id="name-label" class="property-label"><g:message code="address.neighborhood.label" default="Neighborhood"/></span>
+		        <f:display bean="client" property="address.neighborhood"/>
+		        
             </fieldset>
             
             <g:form resource="${this.client}" method="DELETE">

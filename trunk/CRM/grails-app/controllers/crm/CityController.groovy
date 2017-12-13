@@ -36,8 +36,16 @@ class CityController {
             respond city.errors, view:'create'
             return
         }
-        city.save flush:true
-		
+        if(city.save(flush:true)) {
+			String desc=city.name+" "+Zone.getCenterZoneName();
+			Zone zone=new Zone(name: desc, description:desc, isCenter:new Boolean("true"), city:city);
+			if(zone.save(flush:true)) {
+				city.errors.rejectValue('',message(code:'zone.save.error').toString());
+				transactionStatus.setRollbackOnly()
+				respond city.errors, view:'create'
+				return
+			}
+        }
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'city.label', default: 'City'), city.id])

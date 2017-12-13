@@ -13,7 +13,7 @@
 		<div class="grouping-box demand-info">
 			<f:field bean="propertyDemand" property="name"/>
 			<f:field bean="propertyDemand" property="owner" widget-propId="${propertyDemand?.owner?.id}"/>
-			<f:field bean="propertyDemand" property="assignee" widget-propId="${propertyDemand?.assignee?.id}" widget-allowNull="${true}" widget-allowNull="${true}"/>
+			<f:field bean="propertyDemand" property="assignee" widget-propId="${propertyDemand?.assignee?.id}" widget-allowNull="${true}"/>
 			<g:if test="${actionName.equals('edit')}">
 				<f:field bean="propertyDemand" property="demandStatus" widget-propId="${propertyDemand?.demandStatus?.id}"/>
 			</g:if>

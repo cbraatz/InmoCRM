@@ -18,6 +18,7 @@
 	</div>
 	<f:field bean="partner" property="isAgent"/>
 	<f:field bean="partner" property="isActive"/>
+	<f:field bean="partner" property="salary"/>
 </fieldset>
 
 <h1><g:message code="address.label"/></h1>

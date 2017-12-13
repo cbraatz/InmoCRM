@@ -30,7 +30,11 @@ class ConcessionController {
     }
 
     def create() {
-		Concession concession=new Concession(isActive:true, isForRent:false, totalPrice:new Double(0), totalCommission:new Double(0));
+		PropertyDemand pd;
+		if(null != params.pdid) {
+			pd=PropertyDemand.get(params.pdid);
+		}
+		Concession concession=new Concession(isActive:true, isForRent:false, totalPrice:new Double(0), totalCommission:new Double(0), propertyDemand:pd);
 		respond concession, model:[contract:new Contract(internalID:Utils.getUUID(), isCurrentContract:true), managedProperty: new ManagedProperty(address:new Address(), placedBillboards:0, valueDegree:0), building:new Building(), featureByBuildingCommand: new FeatureByBuildingCommand(BuildingFeature.getEmptyFeatureByBuildingListForEachBuildingFeature()), featureByPropertyCommand: new FeatureByPropertyCommand(PropertyFeature.getEmptyFeatureByPropertyListForEachPropertyFeature()), displayBuilding: false];
     }
 	def addEditFiles(Concession concession){
