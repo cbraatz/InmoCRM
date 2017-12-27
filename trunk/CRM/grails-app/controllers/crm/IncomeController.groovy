@@ -62,7 +62,7 @@ class IncomeController {
 		}
 		
 		if(income.incomeType.relatedDomain.equals(RelatedDomain.CONCESSION.name())){
-			if(income.relatedToId){
+			if(income.relatedToId && !income.relatedToId.isEmpty()){
 				Concession conc= Concession.get(income.relatedToId);//find concession by id
 				if(null==conc){
 					income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.concession.not.found.error.label').toString());
@@ -77,7 +77,7 @@ class IncomeController {
 				return;
 			}
 		}else{
-			if(income.relatedToId){
+			if(income.relatedToId&& !income.relatedToId.isEmpty()){
 				income.errors.rejectValue('relatedToId',message(code:'income.relatedToId.not.required.error.label').toString());
 				transactionStatus.setRollbackOnly();
 				respond income.errors, view:'create';

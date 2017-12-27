@@ -9,7 +9,6 @@
 			<label><g:message code="propertyDemand.isSellDemand.label"/></label>
 			<g:checkBox id="isSellDemand" name="isSellDemand" value="${false}" />
 		</div>
-		<!--<f:field bean="propertyDemand" property="isSellDemand"/>  -->
 		<div class="grouping-box demand-info">
 			<f:field bean="propertyDemand" property="name"/>
 			<f:field bean="propertyDemand" property="owner" widget-propId="${propertyDemand?.owner?.id}"/>
@@ -47,16 +46,24 @@
 			<f:field bean="propertyDemand" property="isCityRequired"/>
 		</div>
 		<span class="fieldcontain">
-			<span id="neighborhood-label" class="property-label"  style="margin: 1em 0.25em 0 0;"><g:message code="propertyDemand.neighborhood.label" default="neighborhood"/></span>
+			<span id="zone-label" class="property-label" style="margin: 1em 0.25em 0 0;"><g:message code="zone.label" default="zone"/></span>
 		</span>
-		<div id="neighborhoodField"></div>
-		<f:field bean="propertyDemand" property="specifyNeighborhood"/>
-		<div class="buy-only">
-			<f:field bean="propertyDemand" property="isNeighborhoodRequired"/>
-		</div>
+		<div id="zoneField"></div>
+		<br/>
+		<br/>
 		<f:field bean="propertyDemand" property="specifyZone"/>
 		<div class="buy-only">
 			<f:field bean="propertyDemand" property="isZoneRequired"/>
+		</div>
+		<span class="fieldcontain">
+			<span id="neighborhood-label" class="property-label"  style="margin: 1em 0.25em 0 0;"><g:message code="propertyDemand.neighborhood.label" default="neighborhood"/></span>
+		</span>
+		<div id="neighborhoodField"></div>
+		<br/>
+		<br/>
+		<f:field bean="propertyDemand" property="specifyNeighborhood"/>
+		<div class="buy-only">
+			<f:field bean="propertyDemand" property="isNeighborhoodRequired"/>
 		</div>
 		<g:hiddenField name="isUsageRequired" value="${propertyDemand?.isUsageRequired}"/>
 		<div class="sell-only">
@@ -68,8 +75,6 @@
 			<f:field bean="propertyDemand" property="propertyMaxArea"/>
 			<f:field bean="propertyDemand" property="isAreaRequired"/>
 		</div>
-		<f:field bean="propertyDemand" property="specifyPropertyFeatures"/>
-		<f:field bean="propertyDemand" property="specifyBuildingFeatures"/>
 		<f:field bean="propertyDemand" property="timeAvailability"/>
 		<div class="buy-only">
 			<!--<f:field bean="propertyDemand" property="offersOnly"/>-->
@@ -82,6 +87,9 @@
 			<!--<f:field bean="propertyDemand" property="isPriceRequired"/>-->
 		</div>
 		<f:field bean="propertyDemand" property="currency" widget-propId="${propertyDemand?.currency?.id}"/>
+		<h2><g:message code="propertyFeature.features.title"/></h2>
+		<g:render template="/propertyFeature/cmdDemandForm"/>
+		<f:field bean="propertyDemand" property="specifyPropertyFeatures"/>
 		<f:field bean="propertyDemand" property="additionalDescription">
 			<g:textArea name="${property}" maxlength="200" value="${it.value}" rows="3" cols="60"/>
 		</f:field>
@@ -122,19 +130,34 @@
 	});
 	displayOrHideFields();
 
-	//actualizar neighborhood drop-down al seleccionar city
+	//actualizar zone drop-down al cambiar city
 	
 	$(".city-selector").change(function() {
 		cityChanged(this.value);
 	});
-	
+	$(".address_city-selector").change(function() {//dos veces xq la clase del selector city es distinto en la pagina de address/create y client/create por ej
+		cityChanged(this.value);
+	});
 	function cityChanged(cityId) {
+		//el if a continuacion es para que al acceder directamente a por ej client/create sin estar logueado no me retorne la pagina de login en lugar del selector de zone.
 		if("${session.user != null}"){
-			//mainDomainType es vacio porque o sino en el selector pone address.neighborhood en lugar de solo neighborhood
-    		jQuery.ajax({type:'POST',data:{mainDomainType: '', cityId:cityId, neighborhoodId:"${(propertyDemand?.neighborhood?.id ? propertyDemand?.neighborhood?.id : null)}"} , url:'/neighborhood/getNeighborhoodsByCityAJAX',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+			var zoid="${propertyDemand?.zone?.id}"
+	    	jQuery.ajax({type:'POST',data:{mainDomainType: "${parentBean}", cityId:cityId, zoneId:zoid, update:"T"} , url:'/zone/getZonesByCityAJAX',success:function(data,textStatus){console.log(data);jQuery('#zoneField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
 		}
     }
 	$(".city-selector").change();
+
+	function zoneChanged(zoneId) {
+		//el if a continuacion es para que al acceder directamente a por ej client/create sin estar logueado no me retorne la pagina de login en lugar del selector de neighborhood.
+		if(zoneId != 'null'){
+			if("${session.user != null}"){
+				var neid="${propertyDemand?.neighborhood?.id}"
+		    	jQuery.ajax({type:'POST',data:{mainDomainType: "${parentBean}", zoneId:zoneId, neighborhoodId:neid} , url:'/neighborhood/getNeighborhoodsByZoneAJAX',success:function(data,textStatus){console.log(data);jQuery('#neighborhoodField').html(data);},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+			}
+		}else{
+			$("#neighborhoodField").html('');
+		}
+    }
 </script>
 
 

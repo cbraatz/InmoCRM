@@ -20,12 +20,12 @@ class BuildingController {
         respond building
     }
 
-    def create() {
+    /*def create() {
         respond new Building(params)
     }
 
     @Transactional
-    def save(Building building) {
+    def save(Building building) { agregar buildingFeatures cuando se habilite
         if (building == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -47,7 +47,7 @@ class BuildingController {
             }
             '*' { respond building, [status: CREATED] }
         }
-    }
+    }*/
 
     def edit(Building building) {
         respond building, model:[featureByBuildingCommand: new FeatureByBuildingCommand(FeatureByBuilding.getStoredFeatureByBuildingListForEachBuildingFeature(building))]
@@ -70,10 +70,12 @@ class BuildingController {
         if(building.save(flush:true)){
 			FeatureByBuilding fbp=null;
 			featureByBuildingCommand.bfitems.each{
-				if(it.value > 0){
-					it.building=building;
-					fbp=FeatureByBuilding.findByBuildingAndBuildingFeature(building,it.buildingFeature);
-					if(null!=fbp){
+				it.building=building;
+				fbp=FeatureByBuilding.findByBuildingAndBuildingFeature(building,it.buildingFeature);
+				if(null!=fbp){
+					if(it.value == 0){
+						fbp.delete flush:true
+					}else {
 						if(fbp.value != it.value || !fbp.description.equals(it.description)){
 							fbp.value=it.value;
 							fbp.description=it.description;
@@ -82,8 +84,12 @@ class BuildingController {
 								transactionStatus.setRollbackOnly();
 								throw new CRMException("featureByBuilding save. BuildingFeature = "+fbp.buildingFeature?.name);
 							}
+						}else {
+							fbp.delete flush:true
 						}
-					}else{
+					}
+				}else{
+					if(it.value > 0){
 						if(!it.save(flush:true)){
 							GUtils.printErrors(it,"featureByBuilding save. BuildingFeature = "+it.buildingFeature?.name);
 							transactionStatus.setRollbackOnly();

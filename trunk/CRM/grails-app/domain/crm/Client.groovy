@@ -26,7 +26,6 @@ class Client extends CrmDomain{
 	
 	static hasMany=[propertyDemands:PropertyDemand, concessions:Concession, incomes:Income, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, issuedInvoices:IssuedInvoice,
 					contacts:Contact, soldProperties:SoldProperty/*InsuranceProposal,InsuredGood,ThirdPartyPayment,ThirdPartyIncome,TagSelectedValue,CustomFieldSelectedValue,InsuranceDemand,*/];
-
     static constraints = {
 		name(blank:false, nullable:false, size:1..100);
 		IDNumber(blank:true, nullable:true);

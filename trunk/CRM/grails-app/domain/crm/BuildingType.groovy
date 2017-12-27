@@ -5,7 +5,7 @@ class BuildingType extends CrmDomain{
 	String description;
 	DimensionMeasuringUnit dimensionMeasuringUnit;
 	
-	static hasMany = [buildingFeatures:BuildingFeature, propertyDemands:PropertyDemand, buildings:Building];
+	static hasMany = [buildingFeatures:BuildingFeature, propertyDemands:PropertyDemand, buildings:Building, buildingTypesByLanguage:BuildingTypeByLanguage];
 	static constraints = {
 		name(blank: false, nullable:false, unique:true, size:1..50);
 		description(blank:false, nullable:false, widget:'textArea', size:1..100);

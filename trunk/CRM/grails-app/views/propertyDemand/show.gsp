@@ -3,6 +3,8 @@
     <head>
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'propertyDemand.label', default: 'PropertyDemand')}" />
+        <g:set var="isSellDem" value="${propertyDemand.propertyDemandType.isSellDemand()}" />
+        <g:set var="isBuyDem" value="${propertyDemand.propertyDemandType.isBuyDemand()}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -20,9 +22,9 @@
             <div class="message" role="status">${flash.message}</div>
             </g:if>
             	<fieldset class="fieldcontain">
-            		<div class="${propertyDemand.isSellDemand ? 'sell-demand' : 'buy-demand'}">
-            			<span id="isSellDemand-label" class="property-label"><g:message code="propertyDemand.isSellDemand.label" default="isSellDemand"/></span>
-						<f:display bean="propertyDemand" property="isSellDemand"/>
+            		<div class="${isSellDem ? 'sell-demand' : (isBuyDem ? 'buy-demand': 'unknown-demand-type')}">
+            			<span id="propertyDemandType-label" class="property-label"><g:message code="propertyDemandType.label" default="Demand Type"/></span>
+						<f:display bean="propertyDemand" property="propertyDemandType"/>
 	            		<div class="grouping-box demand-info">
 	            			<span id="name-label" class="property-label"><g:message code="propertyDemand.name.label" default="name"/></span>
 							<f:display bean="propertyDemand" property="name"/>
@@ -47,7 +49,7 @@
 						<f:display bean="propertyDemand" property="propertyType"/>
 						<span id="specifyPropertyType-label" class="property-label"><g:message code="propertyDemand.specifyPropertyType.label" default="specifyPropertyType"/></span>
 						<f:display bean="propertyDemand" property="specifyPropertyType"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isPropertyTypeRequired-label" class="property-label"><g:message code="propertyDemand.isPropertyTypeRequired.label" default="isPropertyTypeRequired"/></span>
 							<f:display bean="propertyDemand" property="isPropertyTypeRequired"/>
 						</g:if>
@@ -55,19 +57,19 @@
 						<f:display bean="propertyDemand" property="buildingType"/>
 						<span id="specifyBuildingType-label" class="property-label"><g:message code="propertyDemand.specifyBuildingType.label" default="specifyBuildingType"/></span>
 						<f:display bean="propertyDemand" property="specifyBuildingType"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isBuildingTypeRequired-label" class="property-label"><g:message code="propertyDemand.isBuildingTypeRequired.label" default="isBuildingTypeRequired"/></span>
 							<f:display bean="propertyDemand" property="isBuildingTypeRequired"/>
 						</g:if>
 						<span id="buildingCondition-label" class="property-label"><g:message code="propertyDemand.buildingCondition.label" default="buildingCondition"/></span>
 						<f:display bean="propertyDemand" property="buildingCondition"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isBuildingConditionRequired-label" class="property-label"><g:message code="propertyDemand.isBuildingConditionRequired.label" default="isBuildingConditionRequired"/></span>
 							<f:display bean="propertyDemand" property="isBuildingConditionRequired"/>
 						</g:if>
 						<span id="department-label" class="property-label"><g:message code="propertyDemand.department.label" default="department"/></span>
 						<f:display bean="propertyDemand" property="department"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isDepartmentRequired-label" class="property-label"><g:message code="propertyDemand.isDepartmentRequired.label" default="isDepartmentRequired"/></span>
 							<f:display bean="propertyDemand" property="isDepartmentRequired"/>
 						</g:if>
@@ -75,7 +77,7 @@
 						<f:display bean="propertyDemand" property="city"/>
 						<span id="specifyCity-label" class="property-label"><g:message code="propertyDemand.specifyCity.label" default="specifyCity"/></span>
 						<f:display bean="propertyDemand" property="specifyCity"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isCityRequired-label" class="property-label"><g:message code="propertyDemand.isCityRequired.label" default="isCityRequired"/></span>
 							<f:display bean="propertyDemand" property="isCityRequired"/>
 						</g:if>
@@ -83,7 +85,7 @@
 						<f:display bean="propertyDemand" property="neighborhood"/>
 						<span id="specifyNeighborhood-label" class="property-label"><g:message code="propertyDemand.specifyNeighborhood.label" default="specifyNeighborhood"/></span>
 						<f:display bean="propertyDemand" property="specifyNeighborhood"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isNeighborhoodRequired-label" class="property-label"><g:message code="propertyDemand.isNeighborhoodRequired.label" default="isNeighborhoodRequired"/></span>
 							<f:display bean="propertyDemand" property="isNeighborhoodRequired"/>
 						</g:if>
@@ -91,7 +93,7 @@
 						<f:display bean="propertyDemand" property="zone"/>
 						<span id="specifyZone-label" class="property-label"><g:message code="propertyDemand.specifyZone.label" default="specifyZone"/></span>
 						<f:display bean="propertyDemand" property="specifyZone"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isZoneRequired-label" class="property-label"><g:message code="propertyDemand.isZoneRequired.label" default="isZoneRequired"/></span>
 							<f:display bean="propertyDemand" property="isZoneRequired"/>	
 							<span id="propertyMinArea-label" class="property-label"><g:message code="propertyDemand.propertyMinArea.show.label" default="propertyMinArea" args="[propertyDemand?.propertyType?.dimensionMeasuringUnit?.abbreviationInPlural]"/></span>
@@ -99,13 +101,13 @@
 							<span id="propertyMaxArea-label" class="property-label"><g:message code="propertyDemand.propertyMaxArea.show.label" default="propertyMaxArea" args="[propertyDemand?.propertyType?.dimensionMeasuringUnit?.abbreviationInPlural]"/></span>
 							<f:display bean="propertyDemand" property="propertyMaxArea"/>
 						</g:if>	
-						<g:if test="${propertyDemand.isSellDemand}">
+						<g:if test="${isSellDem}">
 							<span id="propertyArea-label" class="property-label"><g:message code="propertyDemand.propertyArea.show.label" default="propertyArea" args="[propertyDemand?.propertyType?.dimensionMeasuringUnit?.abbreviationInPlural]"/></span>
 							<f:display bean="propertyDemand" property="propertyArea"/>
 							<span id="buildingArea-label" class="property-label"><g:message code="propertyDemand.buildingArea.show.label" default="buildingArea" args="[propertyDemand?.buildingType?.dimensionMeasuringUnit?.abbreviationInPlural]"/></span>
 							<f:display bean="propertyDemand" property="buildingArea"/>
 						</g:if>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<span id="isAreaRequired-label" class="property-label"><g:message code="propertyDemand.isAreaRequired.label" default="isAreaRequired"/></span>
 							<f:display bean="propertyDemand" property="isAreaRequired"/>
 						</g:if>
@@ -115,11 +117,11 @@
 						<f:display bean="propertyDemand" property="specifyBuildingFeatures"/>
 						<span id="timeAvailability-label" class="property-label"><g:message code="propertyDemand.timeAvailability.label" default="timeAvailability"/></span>
 						<f:display bean="propertyDemand" property="timeAvailability"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<!--<span id="offersOnly-label" class="property-label"><g:message code="propertyDemand.offersOnly.label" default="offersOnly"/></span>-->
 							<!--<f:display bean="propertyDemand" property="offersOnly"/>-->
 						</g:if>
-						<g:if test="${propertyDemand.isSellDemand}">
+						<g:if test="${isSellDem}">
 							<span id="price-label" class="property-label"><g:message code="propertyDemand.price.label" default="price"/></span>
 						</g:if>
 						<g:else>
@@ -128,13 +130,13 @@
 						<f:display bean="propertyDemand" property="price"/>
 						<span id="specifyPrice-label" class="property-label"><g:message code="propertyDemand.specifyPrice.label" default="Specify Price"/></span>
 						<f:display bean="propertyDemand" property="specifyPrice"/>
-						<g:if test="${!propertyDemand.isSellDemand}">
+						<g:if test="${isBuyDem}">
 							<!--<span id="isPriceRequired-label" class="property-label"><g:message code="propertyDemand.isPriceRequired.label" default="isPriceRequired"/></span>-->
 							<!--<f:display bean="propertyDemand" property="isPriceRequired"/>-->
 						</g:if>
 						<span id="currency-label" class="property-label"><g:message code="propertyDemand.currency.label" default="Currency"/></span>
 						<f:display bean="propertyDemand" property="currency"/>
-						<g:if test="${propertyDemand.isSellDemand}">
+						<g:if test="${isSellDem}">
 							<span id="broadcastMedia-label" class="property-label"><g:message code="propertyDemand.broadcastMedia.label" default="broadcastMedia"/></span>
 							<f:display bean="propertyDemand" property="broadcastMedia"/>
 							<span id="specifyBroadcastMedia-label" class="property-label"><g:message code="propertyDemand.specifyBroadcastMedia.label" default="specifyBroadcastMedia"/></span>
@@ -145,7 +147,7 @@
 						<!--<f:display bean="propertyDemand" property="usage"/><f:display bean="propertyDemand" property="specifyUsage"/><!--<f:display bean="propertyDemand" property="isUsageRequired"/>-->
 					</div>
 				</fieldset>
-				<g:if test="${propertyDemand.isSellDemand}">     
+				<g:if test="${isSellDem}">     
 		            <h1><g:message code="propertyDemand.buy.smart.matches.title"/></h1>
 		            <f:table collection="${propertyDemand.getSmartMatchesForSellDemand()}" properties="['propertyType','buildingType','city','price','currency','interestLevel']" />
 	            </g:if>

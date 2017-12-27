@@ -14,7 +14,7 @@ class Address extends CrmDomain{
 	City city;
 	Neighborhood neighborhood;
 	Zone zone;
-	static hasMany = [clients: Client, managedProperties:ManagedProperty, partners:Partner, valuePoints:ValuePoint];
+	static hasMany = [clients: Client, managedProperties:ManagedProperty, partners:Partner, valuePoints:ValuePoint, offices:Office];
 	
 	static constraints = {
 		streetOne (blank:true, nullable:true, size:0..45);

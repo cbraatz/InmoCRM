@@ -48,7 +48,7 @@ class SoldPropertyController {
         }
 		
 		if (soldProperty.propertyDemand) {
-			if(soldProperty.propertyDemand.isSellDemand.booleanValue()==true) {
+			if(soldProperty.propertyDemand.propertyDemandType.isSellDemand()) {
 				soldProperty.errors.rejectValue('propertyDemand',message(code:'soldProperty.propertyDemand.sell.type.error').toString());
 			}
 		}

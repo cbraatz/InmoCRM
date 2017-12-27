@@ -37,10 +37,11 @@ class UploadedDocumentController {
 							//si no existe en la base de datos hacer new UploadedDocument y save
 							uploadedDoc=UploadedDocument.findByFileNameAndConcession(file.name, concession);
 							if(!uploadedDoc){
-								uploadedDoc=new UploadedDocument(description:"", fileName:file.name, sizeInKB:file.length(), concession:concession);
+								uploadedDoc=new UploadedDocument(description:"-", fileName:file.name, sizeInKB:file.length(), concession:concession, date:new Date());
 								if(uploadedDoc.save(flush:true)){
 									documentFileInstanceList.add(uploadedDoc);
 								}else{
+									transactionStatus.setRollbackOnly()
 									GUtils.printErrors(uploadedDoc, "Saving document '"+file.name+"'");
 									render(view:'/error', model:[message: message(code: 'uploadedDocument.preloaded.document.save.error')]);
 								}
@@ -68,6 +69,9 @@ class UploadedDocumentController {
 				}else{
 					render(view:'/error', model:[message: message(code: 'uploadedDocument.directory.error')]);
 				}
+				if(!concession?.getCurrentContract()?.uploadedDocument) {
+					flash.message = message(code: 'uploadedDocument.required.message');
+				}
 			}else{
 				render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["oid = null"])]);
 			}
@@ -94,9 +98,40 @@ class UploadedDocumentController {
 			GUtils.printErrors(upDoc, "Deleting document '"+file.name+"'");
 			flash.message = message(code: 'upload.file.delete.error', args: [upDoc.fileName]);
 		}
-		redirect(controller:'upload', action:'edit', params: [obj:this.parentObject, oid: this.objectId])
+		redirect(controller:'uploadedDocument', action:'edit', params: [obj:this.parentObject, oid: this.objectId])
 	}
-	
+	@Transactional
+	def confirm(){//confirm document as current contract
+		Concession concession;
+		if(params.cid != null){
+				concession=Concession.get(params.cid);
+				if(concession != null){
+					Contract contract=concession.getCurrentContract();
+					if(contract != null){
+						UploadedDocument ud=UploadedDocument.get(params.id);
+						if(null != ud){
+							contract.uploadedDocument=ud;
+							if(contract.save(flush:true)){
+								flash.message = message(code: 'uploadedDocument.current.contract.saved.message');
+							}else{
+								transactionStatus.setRollbackOnly()
+								render(view:'/error', model:[message: message(code: 'uploadedDocument.current.contract.save.error')]);
+							}
+						}else{
+							GUtils.printErrors(upDoc, "Deleting document '"+file.name+"'");
+							flash.message = message(code: 'upload.file.delete.error', args: [upDoc.fileName]);
+						}
+					}else{
+						render(view:'/error', model:[message: message(code: 'uploadedDocument.current.contract.not.found.error')]);
+					}
+				}else{
+					render(view:'/error', model:[message: message(code: 'uploadedDocument.concession.not.found.error', args: [params.cid])]);
+				}
+		}else{
+			render(view:'/error', model:[message: message(code: 'default.invalid.paramethers.error', args: ["cid = "+params.cid])]);
+		}
+		redirect(controller:'uploadedDocument', action:'edit', params: [obj:this.parentObject, oid: this.objectId])
+	}
 	@Transactional
 	def update(String description){
 		def f = request.getFile('fileUpload')
@@ -119,8 +154,9 @@ class UploadedDocumentController {
 				  //f.transferTo(file);
 				  if(GUtils.transferFile(f, file)){
 					  if(!UploadedDocument.findByFileNameAndConcession(file.name, Concession.get(this.objectId))){
-						  UploadedDocument upDoc=new UploadedDocument(description:description, fileName:file.name, sizeInKB:file.length()/1024 , concession:Concession.get(this.objectId));
+						  UploadedDocument upDoc=new UploadedDocument(description:description, fileName:file.name, sizeInKB:file.length()/1024 , concession:Concession.get(this.objectId), date:new Date());
 						  if(!upDoc.save(flush:true)){
+							  transactionStatus.setRollbackOnly()
 							  GUtils.printErrors(upDoc, "Error Saving new document '"+file.name+"'");
 							  flash.message=message(code: 'uploadedDocument.document.save.error', args: [file.name]);
 						  }

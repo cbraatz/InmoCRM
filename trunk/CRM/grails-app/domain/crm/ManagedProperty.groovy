@@ -30,7 +30,7 @@ class ManagedProperty extends CrmDomain{
 	PropertyType propertyType;
 	Concession concession;
 	ValuePoint valuePoint;
-	String internalID;
+	String relatedToID;
 	static hasMany = [propertyUsages:PropertyUsage, buildings:Building, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, featuresByProperty:FeatureByProperty, uploadedImages:UploadedImage, propertyUnits:PropertyUnit, advertisements:Advertisement, webPages:WebPage, commissionsByProperty:CommissionByProperty, actions:Action, contacts:Contact, soldProperties:SoldProperty/*propertyDocument,insuredGood,tagSelectedValue,customFieldSelectedValue*/];
     static constraints = {
 		title(blank:false, nullable:false, size:1..100, unique:true);
@@ -55,7 +55,7 @@ class ManagedProperty extends CrmDomain{
 		propertyType(nullable:false);
 		concession(nullable:false);
 		valuePoint(nullable:true);
-		internalID(blank:true, nullable:true, size:1..10);//es para setear los clones de esta propiedad
+		relatedToID(blank:true, nullable:true, size:1..40);//es para setear los clones de esta propiedad
     }
 	
 	/*public Concession getActiveConcession(){

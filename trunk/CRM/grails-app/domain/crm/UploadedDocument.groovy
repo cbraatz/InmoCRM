@@ -4,12 +4,14 @@ class UploadedDocument extends CrmDomain{
 	String fileName;
 	String description;
 	Long sizeInKB;
+	Date date;
 	Concession concession;
 
     static constraints = {
 		fileName(blank:false, nullable:false, size:1..40);
 		description(blank:true, nullable:true, size:0..50);
 		sizeInKB(nullable:false);
+		date(nullable:false);
 		concession(nullable:true);
     }
 	@Override

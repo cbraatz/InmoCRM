@@ -83,12 +83,13 @@ class BootStrap {
 		this.saveObj(new Department(name: "Alto Paraná", country: Country.findByName("Paraguay")));		
 		
 		//city
-		this.saveObj(new City(name: "Obligado", department: Department.findByName("Itapúa")));		
+		City ct=new City(name: "Obligado", department: Department.findByName("Itapúa"));
+		this.saveObj(ct);		
 		this.saveObj(new City(name: "Encarnación", department: Department.findByName("Itapúa")));		
 		this.saveObj(new City(name: "Hohenau", department: Department.findByName("Itapúa")));
 		
 		//Zone
-		this.saveObj(new Zone(name: "Obligado Centro", description: "Obligado Centro", isCenter:true, city:City.findByName("Obligado")));
+		this.saveObj(new Zone(name: "Obligado Centro", description: "Obligado Centro", isCenter:true, city:ct));
 		this.saveObj(new Zone(name: "Encarnación Centro", description: "Encarnación Centro", isCenter:true, city:City.findByName("Encarnación")));
 		this.saveObj(new Zone(name: "Hohenau Centro", description: "Hohenau Centro", isCenter:true, city:City.findByName("Hohenau")));
 		
@@ -105,14 +106,13 @@ class BootStrap {
 		this.saveObj(new Profession(name: "Ingeniero Agrónomo"));		
 		this.saveObj(new Profession(name: "Agente de Seguros"));
 		
-		City ct=City.findByName("Obligado");
 		//neighborhood		
 		this.saveObj(new Neighborhood(name:"Barrio Los Colonos", description:"test", city: ct, zone: ct.getCenterZone()));		
 		this.saveObj(new Neighborhood(name:"Los Cedrales", description:"test", city: ct, zone: ct.getCenterZone()));
 		
-		
-		
 		//Address
+		Address a1=new Address(streetOne:"Independencia Nacional", streetTwo:"Avda. Fulgencio Yegros", addressLine:"Ind. Nacional c/ Avda. Fulgencio Yegros", reference:"Frente a los cedrales.", description:"Casa de Claudio.", city: ct);
+		this.saveObj(a1);
 		this.saveObj(new Address(streetOne:"Calle 1", streetTwo:"Calle 2", number:"1568", addressLine:"Calle 1 1522 c/ Calle 2", reference:"Frente al Centro de Salud.", description:"Casa de rejas blancas y patio amplio.", code:"6000", latitude:Double.parseDouble("-27.054249533179895"), longitude:Double.parseDouble("-55.6293557718102"), homePhone:"0988541258", city: ct, neighborhood: Neighborhood.findByName("Centro"), zone: ct.getCenterZone()));
 		
 		//PartnerRole
@@ -120,10 +120,14 @@ class BootStrap {
 		this.saveObj(new PartnerRole(name: "Agente", isEmployee:true, description:"Agente o vendedor interno."));
 		this.saveObj(new PartnerRole(name: "Gerente de Venta", isEmployee:true, description:"Gerente de ventas."));
 		
+		//Office
+		Office of=new Office(name: "Casa Central", description: "Casa Central Obligado.", address:a1, internalID:"MATRIZ");
+		this.saveObj(of);
+			
 		//Partner
-		this.saveObj(new Partner(name: "Default", emailAddress: "default_partner@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Agente"), isAgent:true));
-		this.saveObj(new Partner(name: "Partner 2", emailAddress: "default_partner2@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"1", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Atalaya"), isAgent:false));
-		this.saveObj(new Partner(name: "Partner 3", emailAddress: "default_partner3@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"2", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Agente"), isAgent:true));
+		this.saveObj(new Partner(name: "Default", emailAddress: "default_partner@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"0", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Agente"), isAgent:true, office:of));
+		this.saveObj(new Partner(name: "Partner 2", emailAddress: "default_partner2@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"1", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Atalaya"), isAgent:false, office:of));
+		this.saveObj(new Partner(name: "Partner 3", emailAddress: "default_partner3@test.com", gender: Gender.findByName("Masculino"), phone:"0", IDNumber:"2", birthDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("01/01/1900"), country: Country.findByName("Paraguay"), address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), isActive:true, partnerRole:PartnerRole.findByName("Agente"), isAgent:true, office:of));
 		//CrmUser
 		def defUsr=new CrmUser(partner: Partner.findByName("Default"), login:"test", password:CrmUser.encodePassword("test"), emailAddress: "default_user@test.com", isActive:true, hasAccess:true, isAdmin:true);
 		this.saveObj(defUsr);
@@ -193,7 +197,6 @@ class BootStrap {
 		
 		//BuildingType
 		this.saveObj(new BuildingType(name: "Casa", description:"Inmueble independiente y de uso habitacional", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
-		this.saveObj(new BuildingType(name: "Edificio de Departamentos", description:"Inmueble independiente que está dividido en departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
 		this.saveObj(new BuildingType(name: "Piso", description:"Un piso de un edificio", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
 		this.saveObj(new BuildingType(name: "Local Comercial", description:"Inmueble en planta baja destinado a actividades comerciales", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));		
 		this.saveObj(new BuildingType(name: "Depósito", description:"Inmueble destinado a guardar/depositar bienes", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2")));
@@ -213,20 +216,6 @@ class BootStrap {
 			bf=BuildingFeature.findByName("Amoblamiento completo");
 			this.saveObj(bt.addToBuildingFeatures(bf));
 			this.saveObj(bf.addToBuildingTypes(bt));
-		//Edificio de Departamentos
-			bt=BuildingType.findByName("Edificio de Departamentos");
-			  //Acondicionador de aire
-			  bf=BuildingFeature.findByName("Acondicionador de aire");
-			  this.saveObj(bt.addToBuildingFeatures(bf));
-			  this.saveObj(bf.addToBuildingTypes(bt));
-			  //Cocina con amoblado básico
-			  bf=BuildingFeature.findByName("Cocina con amoblado básico");
-			  this.saveObj(bt.addToBuildingFeatures(bf));
-			  this.saveObj(bf.addToBuildingTypes(bt));
-			  //Amoblamiento completo
-			  bf=BuildingFeature.findByName("Amoblamiento completo");
-			  this.saveObj(bt.addToBuildingFeatures(bf));
-			  this.saveObj(bf.addToBuildingTypes(bt));
 		//Piso
 			  bt=BuildingType.findByName("Piso");
 				//Acondicionador de aire
@@ -323,12 +312,13 @@ class BootStrap {
 		this.saveObj(new PaymentMethod(name: "Tarjeta de Crédito", discountPercentage:3, isCash:false, hasStartDate:false, hasEndDate:false, hasBank:true));
 		
 		//DemandStatus
-		this.saveObj(new DemandStatus(name: "Nueva", internalID:"1"));
-		this.saveObj(new DemandStatus(name: "Necesita más información", internalID:"2"));
-		this.saveObj(new DemandStatus(name: "Verificada", internalID:"3"));
-		this.saveObj(new DemandStatus(name: "Tomada", internalID:"4"));
-		this.saveObj(new DemandStatus(name: "Listo para cerrar", internalID:"5"));
-		this.saveObj(new DemandStatus(name: "Cerrado", internalID:"6"));
+		this.saveObj(new DemandStatus(name: "Nueva", internalID:DemandStatus.getNewDemandStatusInternalID()));
+		this.saveObj(new DemandStatus(name: "Necesita más información", internalID:DemandStatus.getNeedMoreInfoDemandStatusInternalID()));
+		this.saveObj(new DemandStatus(name: "Verificada", internalID:DemandStatus.getVerifiedDemandStatusInternalID()));
+		this.saveObj(new DemandStatus(name: "Tomada", internalID:DemandStatus.getTakenDemandStatusInternalID()));
+		this.saveObj(new DemandStatus(name: "No relevante", internalID:DemandStatus.getNotRelevantDemandStatusInternalID()));
+		this.saveObj(new DemandStatus(name: "Vieja", internalID:DemandStatus.getOldDemandStatusInternalID()));
+		this.saveObj(new DemandStatus(name: "Cerrado", internalID:DemandStatus.getClosedDemandStatusInternalID()));
 		
 		//ContractType
 		this.saveObj(new ContractType(name: "No Eclusivo", isExclusive:false, description:"Contrato no exclusivo.", commissionPercentage:4, billingDefaultDescription:"Intermediación de venta de inmueble. Contrato no exclusivo."));
@@ -337,10 +327,15 @@ class BootStrap {
 		
 		//PropertyType
 		this.saveObj(new PropertyType(name:"Sitio", plural:"Sitios", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra generalmente urbano."));
+		this.saveObj(new PropertyType(name:"Casa", plural:"Casas", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra con edificación destinada para vivienda."));
 		this.saveObj(new PropertyType(name:"Terreno agrícola", plural:"Terrenos agrícolas", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción agrícola"));
 		this.saveObj(new PropertyType(name:"Estancia", plural:"Estancias", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("ha"), description:"Lote de tierra generalmente rural destinado a la producción animal."));
+		this.saveObj(new PropertyType(name: "Edificio de Departamentos", plural:"Edificios de Departamentos", dimensionMeasuringUnit:DimensionMeasuringUnit.findByAbbreviation("m2"), description:"Lote de tierra con un edificio de departamentos"));
 		
-		
+		//PropertyDemandType
+		this.saveObj(new PropertyDemandType(name:"Venta", internalID:PropertyDemandType.getSellDemandInternalID()));
+		this.saveObj(new PropertyDemandType(name:"Compra", internalID:PropertyDemandType.getBuyDemandInternalID()));
+			
 		//Concession 1
 		Concession concession1=new Concession(isNegotiable:false, startDate:new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2015"), endDate: new SimpleDateFormat(Utils.getDefaultDateFormat()).parse("15/06/2016"), description:"Ninguna", //propertyDemand:PropertyDemand,
 											  publishInMLS:false, publishInPortals:false, barter:"NO", financing:"NO", client:Client.findByName("Cliente 1"), crmUser:CrmUser.findByLogin("test"), isActive:true, isForRent:false, totalPrice:9600, totalCommission:9600);
@@ -376,8 +371,8 @@ class BootStrap {
 		this.saveObj(new Contract(concession:concession1, isCurrentContract:true, internalID:Utils.getUUID(), startDate:new Date(), endDate:new Date(), contractType:ContractType.findByDescription("Contrato exclusivo.")));
 		
 		//UploadedImage
-		this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
-		this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1));
+		//this.saveObj(new UploadedImage(description:"test image", fileName:"image1.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1), date:new Date());
+		//this.saveObj(new UploadedImage(description:"test image", fileName:"image2.jpg", isMainImage:true, addToWeb:true, sizeInKB:1221 , managedProperty:managedProperty1), date:new Date());
 		//managedProperty1.createOrUpdateWebPage();
 		//InterestType
 		this.saveObj(new InterestType(name:"Simple", description:"Interés Simple", internalID:"1", isSimpleInterest:true));

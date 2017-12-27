@@ -10,8 +10,8 @@
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <g:if test="${managedProperty}">
-                	<li><g:link class="return" action="show" controller="managedProperty" id="${managedProperty?.id}"><g:message code="managedProperty.label" default="Managed Property" /></g:link></li>
+                <g:if test="${params.oid}">
+                	<li><g:link class="return" action="show" controller="concession" id="${params.oid}"><g:message code="concession.label" default="Concession" /></g:link></li>
                 </g:if>
             </ul>
         </div>
@@ -52,6 +52,9 @@
 	                            <td>${fileResourceInstance.fileName}</td>
 	                            <td>${fileResourceInstance.description}</td>
 	                            <td><g:link action="delete" id="${fileResourceInstance.id}" onclick="return confirm('Are you sure?');"><g:message code="upload.delete.label"/></g:link></td>
+	                            <g:if test="${params.obj.equals('concession')}">
+	                            	<td><g:link action="confirm" params="[cid: params.oid]" id="${fileResourceInstance.id}" onclick="return confirm('Do you want to define this document as Current Contract?');"><g:message code="uploadedDocument.confirm.contract.label"/></g:link></td>
+	                            </g:if>
 	                        </tr>
 	                    </g:each>
 	                    </tbody>

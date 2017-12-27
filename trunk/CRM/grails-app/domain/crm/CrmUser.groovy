@@ -17,7 +17,7 @@ class CrmUser extends CrmDomain{
 	Boolean hasAccess;//si deseamos que el usuario pueda hacer login
 	Partner partner;
 	CrmUser addedBy;//self referenced properties should not have the same name than the Domain. See Partner Domain Class for more info
-	//Office office
+
 	private List<String> contextPermissions;
 	static transients = ["contextPermissions", "name"];
 	static hasMany = [clients: Client, propertyDemandsOwner:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissionsByProperty:CommissionByProperty, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userGroups:UserGroup, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser, actions:Action, contacts:Contact, soldProperties:SoldProperty/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];

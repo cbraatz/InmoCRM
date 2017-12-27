@@ -6,6 +6,7 @@ class UploadedImage extends CrmDomain{
 	Long sizeInKB;
 	Boolean isMainImage;
 	Boolean addToWeb;
+	Date date;
 	ManagedProperty managedProperty;
     static constraints = {
 		fileName(blank:false, nullable:false, size:1..40);
@@ -13,6 +14,7 @@ class UploadedImage extends CrmDomain{
 		sizeInKB(nullable:false);
 		isMainImage(nullable:false);
 		addToWeb(nullable:false);
+		date(nullable:false);
 		managedProperty(nullable:true);
     }
 	@Override

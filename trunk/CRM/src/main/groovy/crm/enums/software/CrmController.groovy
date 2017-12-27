@@ -48,7 +48,7 @@ public enum CrmController {
 	
 	
 	u1("upload", Arrays.asList(CrmAction.ix, CrmAction.ed, CrmAction.de), false),
-	u2("uploadedDocument", Arrays.asList(CrmAction.ix, CrmAction.ed, CrmAction.de), false),
+	u2("uploadedDocument", Arrays.asList(CrmAction.ix, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	u3("userGroup", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de, CrmAction.sp), false),
 	v1("vendor", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),
 	w1("webPage", Arrays.asList(CrmAction.ix, CrmAction.sh, CrmAction.cr, CrmAction.ed, CrmAction.de), false),

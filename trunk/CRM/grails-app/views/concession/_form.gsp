@@ -18,6 +18,6 @@
 		
 		<g:hiddenField name="isActive" value="${concession?.isActive}"/>
 		<g:hiddenField name="isForRent" value="${concession?.isForRent}"/>
-		<g:hiddenField name="internalID" value="${concession?.internalID}"/>
+		<g:hiddenField name="relatedToID" value="${concession?.relatedToID}"/>
 	</div>
 </fieldset>

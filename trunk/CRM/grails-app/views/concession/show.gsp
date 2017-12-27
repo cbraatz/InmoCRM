@@ -19,7 +19,13 @@
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-           
+            <g:hasErrors bean="${this.concession}">
+            <ul class="errors" role="alert">
+                <g:eachError bean="${this.concession}" var="error">
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                </g:eachError>
+            </ul>
+            </g:hasErrors>
 			<fieldset class="fieldcontain">
             	<span id="name-label" class="property-label"><g:message code="concession.startDate.label" default="Start Date"/></span>
 		        <f:display bean="concession" property="startDate"/>

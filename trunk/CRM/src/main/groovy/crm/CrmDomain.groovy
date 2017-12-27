@@ -2,6 +2,9 @@ package crm
 
 import java.lang.reflect.Field;
 public abstract class CrmDomain{
+	static mapping = {
+		id generator: 'increment';
+	}
 	public static SearchAttribute[] searchByAttributes(){//returns the searchBy attribute name, null if it is not searchable
 		return null;
 	}

@@ -38,7 +38,7 @@ class UploadController {
 							//si no existe en la base de datos hacer new uploadedImage y save
 							uploadedImage=UploadedImage.findByFileNameAndManagedProperty(file.name, managedProperty);
 							if(!uploadedImage){
-								uploadedImage=new UploadedImage(description:"", fileName:file.name, sizeInKB:file.length(), managedProperty:managedProperty, isMainImage:false, addToWeb:true);
+								uploadedImage=new UploadedImage(description:"-", fileName:file.name, sizeInKB:file.length(), managedProperty:managedProperty, isMainImage:false, addToWeb:true, date:new Date());
 								if(uploadedImage.save(flush:true)){
 									fileResourceInstanceList.add(uploadedImage);
 								}else{
@@ -120,7 +120,7 @@ class UploadController {
 				  //f.transferTo(file);
 				  if(GUtils.transferFile(f, file)){
 					  if(!UploadedImage.findByFileNameAndManagedProperty(file.name, ManagedProperty.get(this.objectId))){
-						  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId));
+						  UploadedImage upIm=new UploadedImage(description:description, fileName:file.name, isMainImage:mainImage, addToWeb:addToWebPage, sizeInKB:file.length()/1024 , managedProperty:ManagedProperty.get(this.objectId), date:new Date());
 						  if(!upIm.save(flush:true)){
 							  GUtils.printErrors(upIm, "Error Saving new image '"+file.name+"'");
 							  flash.message=message(code: 'upload.image.save.error', args: [file.name]);

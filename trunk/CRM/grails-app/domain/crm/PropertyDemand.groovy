@@ -2,7 +2,7 @@ package crm
 
 class PropertyDemand extends CrmDomain{
 	String name;
-	Boolean isSellDemand;
+	PropertyDemandType propertyDemandType;
 	Date addedDate;
 	Date dueDate;
 	Department department;
@@ -52,7 +52,7 @@ class PropertyDemand extends CrmDomain{
 	static hasMany = [concessions:Concession, comments:Comment, userNotificationSubscriptions:UserNotificationSubscription, propertyFeaturesByPropertyDemand:PropertyFeatureByPropertyDemand, buildingFeaturesByPropertyDemand:BuildingFeatureByPropertyDemand, soldProperties:SoldProperty/*,RealEstateAction,TagSelectedValue,CustomFieldSelectedValue*/]
     static constraints = {
 		name(blank: false, nullable:false, size:1..50);
-		isSellDemand(nullable:false);
+		propertyDemandType(nullable:false);
 		addedDate(nullable:false);
 		dueDate(nullable:true);
 		department(nullable:true);
@@ -105,11 +105,11 @@ class PropertyDemand extends CrmDomain{
 		return "propertyDemands";
 	}
 	public ArrayList<PropertyDemand> getSmartMatchesForSellDemand(){
-		if(this.isSellDemand){
+		if(this.propertyDemandType.isSellDemand()){
 			List<PropertyDemand> demands;
 			List<PropertyDemand> result=new ArrayList<PropertyDemand>();
 			boolean addPD=true;
-			demands=ManagedProperty.executeQuery("select pd from PropertyDemand pd join pd.demandStatus ds where ds.isClosed = ?", [false]);
+			demands=ManagedProperty.executeQuery("select pd from PropertyDemand pd join pd.demandStatus ds where ds.internalID != ?", [DemandStatus.getClosedDemandStatusInternalID()]);
 			demands.each{
 				addPD=true;
 				if(it.isDepartmentRequired && this.department != null){
@@ -167,7 +167,7 @@ class PropertyDemand extends CrmDomain{
 		}
 	}
 	public ArrayList<ManagedProperty> getSmartMatchesForBuyDemand(){
-		if(!this.isSellDemand){
+		if(this.propertyDemandType.isBuyDemand()){
 			List paramethers=new ArrayList<Object>();
 			StringBuffer query = new StringBuffer("select mp from ManagedProperty mp join mp.concession co join mp.address a join a.city ci join mp.buildings b where ? BETWEEN co.startDate and co.endDate and co.isActive = ?");
 			paramethers.add(new Date());
@@ -215,7 +215,12 @@ class PropertyDemand extends CrmDomain{
 			return null;
 		}
 	}
-	
+	public boolean isSellDemand() {
+		return this.propertyDemandType.isSellDemand();
+	}
+	public boolean isBuyDemand() {
+		return this.propertyDemandType.isBuyDemand();
+	}
 	@Override
 	public static SearchAttribute[] searchByAttributes() {
 		return [new SearchAttribute("additionalDescription")];

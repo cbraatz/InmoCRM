@@ -2,6 +2,9 @@ package crm
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import crm.commands.FeatureByPropertyCommand
+import crm.commands.PropertyFeatureByPropertyDemandCommand;
+import crm.exception.CRMException
 
 @Transactional(readOnly = true)
 class PropertyDemandController {
@@ -21,22 +24,27 @@ class PropertyDemandController {
         PropertyDemand pd=new PropertyDemand();
 		pd.isUsageRequired=false;
 		//pd.addedDate=new Date(); lo hago en el save()
-		respond pd;
+		respond pd, model:[propertyFeatureByPropertyDemandCommand: new PropertyFeatureByPropertyDemandCommand(PropertyFeatureByPropertyDemand.getEmptyPropertyDemandList())];
     }
 
     @Transactional
-    def save(PropertyDemand propertyDemand) {
+    def save(PropertyDemand propertyDemand, PropertyFeatureByPropertyDemandCommand propertyFeatureByPropertyDemandCommand, boolean isSellDemand) {
 		propertyDemand.addedDate=new Date();
         if (propertyDemand == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
-		propertyDemand.demandStatus=DemandStatus.findByIsNew(true);
+		if(isSellDemand) {
+			propertyDemand.propertyDemandType=PropertyDemandType.getSellDemand();
+		}else {
+			propertyDemand.propertyDemandType=PropertyDemandType.getBuyDemand();
+		}
+		propertyDemand.demandStatus=DemandStatus.getNewDemandStatus();
 		propertyDemand.offersOnly=false;
 		propertyDemand.isPriceRequired=false;
 		propertyDemand.validate();
-		if(!propertyDemand.isSellDemand){//if it is a buy demand
+		if(propertyDemand.propertyDemandType.isBuyDemand()){//if it is a buy demand
 			if(propertyDemand.isDepartmentRequired){
 				if(!propertyDemand.department){
 					propertyDemand.errors.rejectValue('department',message(code:'default.null.with.required.message', args: [message(code:'propertyDemand.department.label')]).toString());
@@ -91,12 +99,40 @@ class PropertyDemandController {
 		}
         if (propertyDemand.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond propertyDemand.errors, view:'create'
+            respond propertyDemand.errors, view:'create', model:[isSellDemand:isSellDemand,propertyFeatureByPropertyDemandCommand: propertyFeatureByPropertyDemandCommand]
             return
         }
 
-        propertyDemand.save flush:true
-
+        if(propertyDemand.save(flush:true)) {
+			PropertyFeatureByPropertyDemand fbp=null;
+			propertyFeatureByPropertyDemandCommand.pfitems.each{
+				if((propertyDemand.propertyDemandType.isSellDemand()==true && it.value > 0) || (propertyDemand.propertyDemandType.isBuyDemand()==true && (it.maxValue > 0 || it.minValue > 0))){
+					it.propertyDemand=propertyDemand;
+					fbp=PropertyFeatureByPropertyDemand.findByPropertyDemandAndPropertyFeature(propertyDemand,it.propertyFeature);
+					if(null!=fbp){
+						if(fbp.value != it.value || fbp.minValue != it.minValue ||fbp.maxValue != it.maxValue){
+							fbp.value=it.value;
+							fbp.minValue=it.minValue;
+							fbp.maxValue=it.maxValue;
+							
+							if(!fbp.save(flush:true)){
+								GUtils.printErrors(fbp,"PropertyFeatureByPropertyDemand save. PropertyFeature = "+fbp.propertyFeature?.name);
+								transactionStatus.setRollbackOnly();
+								throw new CRMException("PropertyFeatureByPropertyDemand save. PropertyFeature = "+fbp.propertyFeature?.name);
+							}
+						}
+					}else{
+						if(!it.save(flush:true)){
+							GUtils.printErrors(it,"PropertyFeatureByPropertyDemand save. PropertyFeature = "+it.propertyFeature?.name);
+							transactionStatus.setRollbackOnly();
+							throw new CRMException("PropertyFeatureByPropertyDemand save. PropertyFeature = "+it.propertyFeature?.name);
+						}
+					}
+				}
+			}
+		}else{
+			throw new CRMException("Error saving propertyDemand.");
+		}
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'propertyDemand.label', default: 'PropertyDemand'), propertyDemand.id])
@@ -107,24 +143,66 @@ class PropertyDemandController {
     }
 
     def edit(PropertyDemand propertyDemand) {
-        respond propertyDemand
+        respond propertyDemand, model:[isSellDemand:(propertyDemand.propertyDemandType.isSellDemand()),propertyFeatureByPropertyDemandCommand: new PropertyFeatureByPropertyDemandCommand(PropertyFeatureByPropertyDemand.getStoredPropertyFeatureByPropertyDemandList(propertyDemand))]
     }
 
     @Transactional
-    def update(PropertyDemand propertyDemand) {
+    def update(PropertyDemand propertyDemand, PropertyFeatureByPropertyDemandCommand propertyFeatureByPropertyDemandCommand, boolean isSellDemand) {
         if (propertyDemand == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
-
+		if(isSellDemand) {
+			propertyDemand.propertyDemandType=PropertyDemandType.getSellDemand();
+		}else {
+			propertyDemand.propertyDemandType=PropertyDemandType.getBuyDemand();
+		}
+		propertyDemand.validate();
         if (propertyDemand.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond propertyDemand.errors, view:'edit'
+            respond propertyDemand.errors, view:'edit', model:[isSellDemand:isSellDemand,propertyFeatureByPropertyDemandCommand: propertyFeatureByPropertyDemandCommand]
             return
         }
 
-        propertyDemand.save flush:true
+		if(propertyDemand.save(flush:true)){
+			PropertyFeatureByPropertyDemand fbp=null;
+			propertyFeatureByPropertyDemandCommand.pfitems.each{
+				it.propertyDemand=propertyDemand;
+				fbp=PropertyFeatureByPropertyDemand.findByPropertyDemandAndPropertyFeature(propertyDemand,it.propertyFeature);
+				if(null!=fbp){
+					if((propertyDemand.propertyDemandType.isSellDemand()==true && it.value == 0) || (propertyDemand.propertyDemandType.isBuyDemand()==true && (it.maxValue == 0 && it.minValue == 0))){
+						fbp.delete flush:true
+					}else {
+						if(fbp.value != it.value || fbp.minValue != it.minValue ||fbp.maxValue != it.maxValue){
+							if(it.value > 0 || it.minValue > 0 || it.maxValue > 0){
+								fbp.value=it.value;
+								fbp.minValue=it.minValue;
+								fbp.maxValue=it.maxValue;
+								
+								if(!fbp.save(flush:true)){
+									GUtils.printErrors(fbp,"PropertyFeatureByPropertyDemand save. PropertyFeature = "+fbp.propertyFeature?.name);
+									transactionStatus.setRollbackOnly();
+									throw new CRMException("PropertyFeatureByPropertyDemand save. PropertyFeature = "+fbp.propertyFeature?.name);
+								}
+							}else {
+								fbp.delete flush:true
+							}
+						}
+					}
+				}else{
+					if((propertyDemand.propertyDemandType.isSellDemand()==true && it.value > 0) || (propertyDemand.propertyDemandType.isBuyDemand()==true && (it.maxValue > 0 || it.minValue > 0))){
+						if(!it.save(flush:true)){
+							GUtils.printErrors(it,"PropertyFeatureByPropertyDemand save. PropertyFeature = "+it.propertyFeature?.name);
+							transactionStatus.setRollbackOnly();
+							throw new CRMException("PropertyFeatureByPropertyDemand save. PropertyFeature = "+it.propertyFeature?.name);
+						}
+					}
+				}
+			}
+		}else{
+			throw new CRMException("Error saving propertyDemand.");
+		}
 
         request.withFormat {
             form multipartForm {

@@ -28,4 +28,25 @@ class PropertyFeature extends CrmDomain{
 		}
 		return list;
 	}
+	public static List<FeatureByProperty> extractFeatureByPropertyListFromExistingPropertyDemand(PropertyDemand propertyDemand){
+		def listPD=propertyDemand?.propertyFeaturesByPropertyDemand;
+		List<FeatureByProperty> list = new ArrayList<FeatureByProperty>();
+		List<PropertyFeature> listAll=PropertyFeature.getAll();
+		boolean exists=false;
+		for(PropertyFeatureByPropertyDemand f:listPD){
+			list.add(new FeatureByProperty(propertyFeature: f.propertyFeature, value: (propertyDemand.isSellDemand()?f.value:null)));
+		}
+		for(PropertyFeature f:listAll){
+			exists=false;
+			listPD.each{
+				if(it.propertyFeature.id.equals(f.id)){
+					 exists=true;
+				}
+			}
+			if(exists == false){
+				list.add(new FeatureByProperty(propertyFeature: f, value: new Float(0)));
+			}
+		}
+		return list;
+	}
 }

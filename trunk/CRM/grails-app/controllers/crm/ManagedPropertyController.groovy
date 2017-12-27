@@ -30,14 +30,16 @@ class ManagedPropertyController {
         respond managedProperty
     }
 
-    def create() {
-        respond new ManagedProperty(params)
-    }
+    
 	def addEditFiles(ManagedProperty managedProperty){
 		redirect(controller:'upload', action:'edit', params: [obj:'property', oid: managedProperty.id])
 	}
-    @Transactional
-    def save(ManagedProperty managedProperty) {
+    /*def create() {
+        respond new ManagedProperty(params)
+    }
+    
+    @Transactional comentado porque aparentemente no se usa
+    def save(ManagedProperty managedProperty) { agregar propertyFeatures cuando se habilite
         if (managedProperty == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -57,14 +59,6 @@ class ManagedPropertyController {
 			respond managedProperty.errors, view:'create'
 			return
 		}
-		/*if (null!=msg && !msg.isEmpty()){
-			if (!msg.isEmpty()){
-				managedProperty.errors.rejectValue('',msg);
-				transactionStatus.setRollbackOnly()
-				respond managedProperty.errors, view:'create'
-				return
-			}
-		}*/
 		
         request.withFormat {
             form multipartForm {
@@ -73,7 +67,7 @@ class ManagedPropertyController {
             }
             '*' { respond managedProperty, [status: CREATED] }
         }
-    }
+    }*/
 	
 	
 	
@@ -128,10 +122,12 @@ class ManagedPropertyController {
 		if(managedProperty.save(flush:true)){
 			FeatureByProperty fbp=null;
 			featureByPropertyCommand.pfitems.each{
-				if(it.value > 0){
-					it.managedProperty=managedProperty;
-					fbp=FeatureByProperty.findByManagedPropertyAndPropertyFeature(managedProperty,it.propertyFeature);
-					if(null!=fbp){
+				it.managedProperty=managedProperty;
+				fbp=FeatureByProperty.findByManagedPropertyAndPropertyFeature(managedProperty,it.propertyFeature);
+				if(null!=fbp){
+					if(it.value == 0){
+						fbp.delete flush:true
+					}else {
 						if(fbp.value != it.value || !fbp.description.equals(it.description)){
 							fbp.value=it.value;
 							fbp.description=it.description;
@@ -141,7 +137,9 @@ class ManagedPropertyController {
 								throw new CRMException("featureByProperty save. PropertyFeature = "+fbp.propertyFeature?.name);
 							}
 						}
-					}else{
+					}
+				}else{
+					if(it.value > 0){
 						if(!it.save(flush:true)){
 							GUtils.printErrors(it,"featureByProperty save. PropertyFeature = "+it.propertyFeature?.name);
 							transactionStatus.setRollbackOnly();
