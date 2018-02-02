@@ -36,7 +36,9 @@ public class Utils {
 		}
 	    return generatedPass;
 	}
-	
+	public static String convertToWebUrlFormat(String old) {
+		return old.replaceAll("ñ", "n").replaceAll("Ñ", "N").replaceAll("á", "a").replaceAll("é", "e").replaceAll("í", "i").replaceAll("ó", "o").replaceAll("ú", "u").replaceAll("Á", "A").replaceAll("É", "E").replaceAll("Í", "I").replaceAll("Ó", "O").replaceAll("Ú", "U");
+	}
     public static String getActionFromUri(String uri){
         int idx=uri.lastIndexOf('/');
         System.out.println("controller="+uri.substring(1,idx));
@@ -207,5 +209,12 @@ public class Utils {
 	}
 	public static boolean isNumber(String str){
 		return str.matches("-?\\d+(\\.\\d+)?");
+	}
+	public static char getLocalSeparatorChar() {
+		//return File.separatorChar;
+		return Utils.getWebSeparatorChar();
+	}
+	public static char getWebSeparatorChar() {
+		return '/';
 	}
 }

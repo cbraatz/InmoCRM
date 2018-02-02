@@ -27,7 +27,7 @@ class UploadedDocumentController {
 		if(params.obj.equals("concession")){
 			if(params.oid != null){
 				concession=Concession.get(params.oid);
-				this.myPath=grailsApplication.config.getProperty('crm.upload.document.concession')+File.separatorChar+params.oid;
+				this.myPath=grailsApplication.config.getProperty('crm.upload.document.concession')+Utils.getLocalSeparatorChar()+params.oid;
 				def dire = new File(this.myPath);
 				dire.mkdirs();
 				UploadedDocument uploadedDoc;
@@ -85,7 +85,7 @@ class UploadedDocumentController {
 		UploadedDocument upDoc=UploadedDocument.get(params.id);
 		def file=null;
 		if(null != upDoc){
-			file=new File(grailsApplication.config.getProperty('crm.upload.document.concession')+File.separatorChar+upDoc.concession.id+File.separatorChar+upDoc.fileName);
+			file=new File(grailsApplication.config.getProperty('crm.upload.document.concession')+Utils.getLocalSeparatorChar()+upDoc.concession.id+Utils.getLocalSeparatorChar()+upDoc.fileName);
 			upDoc.delete(flush:true);//deleting uploaded document
 		}
 		if(null == UploadedDocument.get(params.id) && null != file){//si ya se borró o el documento quedó cargada por error
@@ -138,7 +138,7 @@ class UploadedDocumentController {
 		if(!f.empty) {
 		File dire=new File(this.myPath);
 		dire.mkdirs()
-		File file= new File(dire.getAbsolutePath() + File.separatorChar + f.getOriginalFilename());
+		File file= new File(dire.getAbsolutePath() + Utils.getLocalSeparatorChar() + f.getOriginalFilename());
 		   if(file.length() <= Long.parseLong(grailsApplication.config.getProperty('grails.controllers.upload.internalMaxFileSize'))){
 			  boolean exists=false;
 			  //verify if file is already loaded

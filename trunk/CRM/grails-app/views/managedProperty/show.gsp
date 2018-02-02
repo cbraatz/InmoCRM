@@ -41,6 +41,8 @@
 				<f:display bean="managedProperty" property="measures"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.area.label" default="area"/></span>
 				<f:display bean="managedProperty" property="area"/>
+				<span id="name-label" class="property-label"><g:message code="managedProperty.builtArea.label" default="builtArea"/></span>
+				<f:display bean="managedProperty" property="builtArea"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.excess.label" default="excess"/></span>
 				<f:display bean="managedProperty" property="excess"/>
 				<span id="name-label" class="property-label"><g:message code="managedProperty.publicAddress.label" default="publicAddress"/></span>

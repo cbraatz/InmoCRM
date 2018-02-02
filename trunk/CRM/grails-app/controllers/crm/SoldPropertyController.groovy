@@ -170,7 +170,7 @@ class SoldPropertyController {
 				return message(code:'commissionType.not.found.error', args:[CommissionType.getAtalayaCatchCommissionTypeInternalID()]).toString();
 			}
 			cbcs.each{
-				if(it.commissionRate.commissionType.internalID.equals(ct.internalID) {
+				if(it.commissionRate.commissionType.internalID.equals(ct.internalID)) {
 					cbc=it;
 				}
 			}
@@ -194,7 +194,7 @@ class SoldPropertyController {
 			if(concession.propertyDemand) {//el agente pudo captar en base a una propertyDemand
 				ct=CommissionType.getPartnerCatchCommissionType()
 				cbcs.each{
-					if(it.commissionRate.commissionType.internalID.equals(ct.internalID) {
+					if(it.commissionRate.commissionType.internalID.equals(ct.internalID)) {
 						cbc=it;
 					}
 				}
@@ -205,7 +205,7 @@ class SoldPropertyController {
 				
 				ct=CommissionType.getPartnerWithAtalayaCatchCommissionType()
 				cbcs.each{
-					if(it.commissionRate.commissionType.internalID.equals(ct.internalID) {
+					if(it.commissionRate.commissionType.internalID.equals(ct.internalID)) {
 						cbc=it;
 					}
 				}
@@ -224,7 +224,7 @@ class SoldPropertyController {
 				cbc=null;
 				ct=CommissionType.getPartnerWithAtalayaCatchCommissionType();
 				cbcs.each{
-					if(it.commissionRate.commissionType.internalID.equals(ct.internalID){
+					if(it.commissionRate.commissionType.internalID.equals(ct.internalID)){
 						cbc=it;
 					}
 				}
@@ -234,7 +234,7 @@ class SoldPropertyController {
 				}
 				ct=CommissionType.getPartnerCatchCommissionType();
 				cbcs.each{
-					if(it.commissionRate.commissionType.internalID.equals(ct.internalID){
+					if(it.commissionRate.commissionType.internalID.equals(ct.internalID)){
 						cbc=it;
 					}
 				}

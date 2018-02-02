@@ -44,9 +44,8 @@ class BootStrap {
 	
 	private void addTestData(){
 		//Domain
-		this.saveObj(new Domain(name: "inmueblespy.com", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
-		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
-		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"/var/www/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
+		this.saveObj(new Domain(name: "parxen.com.py", realPath:"/var/www/py/public_html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
+		this.saveObj(new Domain(name: "parxen.com", realPath:"/var/www/com/public_html", locale:Locale.findBySymbol("en_US"), realEstateFolder:"realestate"));
 	}
 	private void addDevelopmentData(){
 		//Domain
@@ -76,7 +75,7 @@ class BootStrap {
 		this.saveObj(new Country(name: "Brasil"));		
 		this.saveObj(new Country(name: "Uruguay"));		
 		this.saveObj(new Country(name: "Deutschland"));
-		this.saveObj(new Country(name: "United States"));
+		this.saveObj(new Country(name: "USA"));
 		
 		//department
 		this.saveObj(new Department(name: "Itapúa", country: Country.findByName("Paraguay")));		
@@ -238,12 +237,11 @@ class BootStrap {
 		
 		//Locale
 		this.saveObj(new Locale(name: "Español-Paraguay", isDefault:true, symbol:"es_PY", language:Language.findByName("Español"), country:Country.findByName("Paraguay")));
+		this.saveObj(new Locale(name: "Inglés-USA", isDefault:false, symbol:"en_US", language:Language.findByName("English"), country:Country.findByName("USA")));
 		this.saveObj(new Locale(name: "Alemán-Alemania", isDefault:false, symbol:"de_GE", language:Language.findByName("Deutsch"), country:Country.findByName("Deutschland")));
 		//Domain 
-		/*this.saveObj(new Domain(name: "inmueblespy.com", realPath:"/var/www/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
-		this.saveObj(new Domain(name: "inmuebles-paraguay.com.py", realPath:"D:/TRABAJOS/crm/git_projects/root/web_trunk/HTML/html", locale:Locale.findBySymbol("es_PY"), realEstateFolder:"inmuebles"));
-		this.saveObj(new Domain(name: "inmobilien-paraguay.com.de", realPath:"/var/www/html", locale:Locale.findBySymbol("de_GE"), realEstateFolder:"inmobilien"));
-		added in development and test data*/
+		/*added in development and test data*/
+		
 		//OperationType
 		this.saveObj(new OperationType(sale:"En Venta",rent:"En Alquiler",language:Language.findByName("Español")));
 		this.saveObj(new OperationType(sale:"Zum Verkauf",rent:"Zu vermieten",language:Language.findByName("Deutsch")));
@@ -252,9 +250,9 @@ class BootStrap {
 		this.saveObj(new BroadcastMedia(name: "Boca a boca", adSummaryMaxLength:0, adTextMaxLength:0));
 		this.saveObj(new BroadcastMedia(name: "Inmobiliaria", adSummaryMaxLength:0, adTextMaxLength:0));
 		this.saveObj(new BroadcastMedia(name: "Facebook", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"https://es-la.facebook.com/"));		
-		this.saveObj(new BroadcastMedia(name: "Clasipar", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"http://clasipar.paraguay.com/", Country: Country.findByName("Paraguay")));		
-		this.saveObj(new BroadcastMedia(name: "Quebarato", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"http://www.quebarato.com.py/", Country: Country.findByName("Paraguay")));		
-		this.saveObj(new BroadcastMedia(name: "Boletín Coop. Colonias Unidas", adSummaryMaxLength:0, adTextMaxLength:0, Country: Country.findByName("Paraguay")));
+		this.saveObj(new BroadcastMedia(name: "Clasipar", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"http://clasipar.paraguay.com/", country: Country.findByName("Paraguay")));		
+		this.saveObj(new BroadcastMedia(name: "Quebarato", adSummaryMaxLength:0, adTextMaxLength:0, urlToSite:"http://www.quebarato.com.py/", country: Country.findByName("Paraguay")));		
+		this.saveObj(new BroadcastMedia(name: "Boletín Coop. Colonias Unidas", adSummaryMaxLength:0, adTextMaxLength:0, country: Country.findByName("Paraguay")));
 		
 		//BuildingCondition
 		this.saveObj(new BuildingCondition(name: "Nuevo"));		
@@ -353,10 +351,10 @@ class BootStrap {
 		//ManagedProperty
 		
 		ManagedProperty managedProperty1=new ManagedProperty(concession:concession1, title:"Terreno de 1200m2 en Obligado Centro, al lado del Centro de Salud", propertyDescription:"Terreno con vereda y árboles frutales", measures:"20m x 60m", publicAddress:"Obligado Centro, cerca del Centro de Salud", publicCashPrice:"240.000 USS", price:240000, currency:Currency.findBySymbol("USS"), value:250000,
-			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200,excess:2, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600);
+			clientInitialPrice:240000, addedDate:new Date(), placedBillboards:1, area:1200, builtArea:500,excess:2, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:9600);
 		this.saveObj(managedProperty1);
 		ManagedProperty managedProperty2=new ManagedProperty(concession:concession2, title:"Terreno de 2200m2 en Obligado Centro", propertyDescription:"Terreno grande en Obligado", measures:"30m x 100m", publicAddress:"Obligado Centro", publicCashPrice:"340.000 USS", price:340000, currency:Currency.findBySymbol("USS"), value:350000,
-			clientInitialPrice:340000, addedDate:new Date(), placedBillboards:1, area:2200,excess:0, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:1500);
+			clientInitialPrice:340000, addedDate:new Date(), placedBillboards:1, area:2200, builtArea:0,excess:0, address:Address.findByAddressLine("Calle 1 1522 c/ Calle 2"), propertyType:PropertyType.findByName("Sitio"), valueDegree:1, commissionAmount:1500);
 		this.saveObj(managedProperty2);
 		System.out.println(managedProperty1.id);
 		

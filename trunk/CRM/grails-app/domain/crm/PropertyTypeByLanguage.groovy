@@ -3,6 +3,7 @@ package crm
 class PropertyTypeByLanguage extends CrmDomain{
 	String name;
 	String plural;
+	String nameForWeb;//name used in web pages path
 	Language language;
 	PropertyType propertyType;
 	
@@ -10,6 +11,7 @@ class PropertyTypeByLanguage extends CrmDomain{
 	static constraints = {
 		name(blank:false, nullable:false, size:1..50);
 		plural(blank: false, nullable:false, size:1..50);
+		nameForWeb(blank: false, nullable:false, size:1..50);
 		language(blank: false, nullable:false);
 		propertyType(nullable:false);
 	}

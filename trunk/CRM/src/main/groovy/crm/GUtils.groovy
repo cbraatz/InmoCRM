@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.springframework.web.multipart.MultipartFile
 import crm.ui.SearchResultItem
 import grails.util.Holders;
+
 class GUtils {
 	public static void printErrors(Object obj, String message){
 

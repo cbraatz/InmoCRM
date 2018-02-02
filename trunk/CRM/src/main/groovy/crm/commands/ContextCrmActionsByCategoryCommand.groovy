@@ -2,14 +2,6 @@ package crm.commands
 
 import crm.ContextPermissionCategory
 import crm.CrmActionByContextCategory
-//import crm.CrmUser
-//import crm.DimensionMeasuringUnit
-//import crm.FeatureNameByLanguage
-//import crm.BuildingFeatureByLanguage
-//import crm.BuildingFeature
-//import crm.BuildingType
-//import crm.Language
-//import crm.UserGroup
 import crm.enums.software.CrmAction
 import crm.enums.software.CrmController
 import crm.enums.software.Plan

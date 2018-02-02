@@ -5,9 +5,9 @@
 		</div>
 		<div class="fieldcontain">
 			<label><g:message code="propertyDemand.isBuyDemand.label"/></label>
-			<g:checkBox id="isBuyDemand" name="invalidCheckbox" value="${true}" />
+			<g:checkBox id="isBuyDemand" name="invalidCheckbox" value="${!isSellDemand}" />
 			<label><g:message code="propertyDemand.isSellDemand.label"/></label>
-			<g:checkBox id="isSellDemand" name="isSellDemand" value="${false}" />
+			<g:checkBox id="isSellDemand" name="isSellDemand" value="${isSellDemand}" />
 		</div>
 		<div class="grouping-box demand-info">
 			<f:field bean="propertyDemand" property="name"/>

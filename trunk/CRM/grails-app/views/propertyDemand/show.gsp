@@ -153,13 +153,15 @@
 	            </g:if>
 	            <g:else>     
 		            <h1><g:message code="propertyDemand.sell.smart.matches.title"/></h1>
-		            <f:table collection="${propertyDemand.getSmartMatchesForBuyDemand()}" properties="['title', 'propertyType','price','currency','area']" />
+		            <f:table collection="${propertyDemand.getSmartMatchesForBuyDemand()}" properties="['title', 'propertyType','price','currency','area','builtArea']" />
 	            </g:else>
             <g:form resource="${this.propertyDemand}" method="DELETE">
                 <fieldset class="buttons">
                     <g:link class="edit" action="edit" resource="${this.propertyDemand}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
                     <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                    <g:link class="addConcession" action="create" controller="concession" params="[pdid:propertyDemand.id]"><g:message code="propertyDemand.button.add.concession.from.pd.label" default="Add Concession" /></g:link>
+                    <g:if test="${isSellDem}">
+                    	<g:link class="addConcession" action="create" controller="concession" params="[pdid:propertyDemand.id]"><g:message code="propertyDemand.button.add.concession.from.pd.label" default="Add Concession" /></g:link>
+                	</g:if>
                 </fieldset>
             </g:form>
         </div>

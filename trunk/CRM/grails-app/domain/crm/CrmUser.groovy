@@ -20,7 +20,7 @@ class CrmUser extends CrmDomain{
 
 	private List<String> contextPermissions;
 	static transients = ["contextPermissions", "name"];
-	static hasMany = [clients: Client, propertyDemandsOwner:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissionsByProperty:CommissionByProperty, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userGroups:UserGroup, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, classicReports:ClassicReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser, actions:Action, contacts:Contact, soldProperties:SoldProperty/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
+	static hasMany = [clients: Client, propertyDemandsOwner:PropertyDemand, propertyDemandsAssignee:PropertyDemand, concessions:Concession, commissionsByProperty:CommissionByProperty, comments:Comment, userNotificationSuscriptions:UserNotificationSubscription, userGroups:UserGroup, agentComments:AgentComment, tasksCreator:Task, tasksAssignee:Task, inboxes:Inbox, customReports:CustomReport, reportDesigners:ReportDesigner, reportFolders:ReportFolder, crmUsersAddedBy:CrmUser, actions:Action, contacts:Contact, soldProperties:SoldProperty/*tagSelectedValue,customFieldSelectedValue,userByCheckOut,addedInsuranceDemand,assignedInsuranceDemand*/];
 	static mappedBy = [propertyDemandsOwner: "owner", propertyDemandsAssignee: "assignee", tasksCreator: "creator", tasksAssignee: "assignee"];
 	static constraints = {
 		login(blank:false, nullable:false, unique:true, size:1..20);

@@ -3,9 +3,9 @@ package crm
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(ClassicReportController)
-@Mock(ClassicReport)
-class ClassicReportControllerSpec extends Specification {
+@TestFor(CustomReportTemplateController)
+@Mock(CustomReportTemplate)
+class CustomReportTemplateControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class ClassicReportControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.classicReportList
-            model.classicReportCount == 0
+            !model.customReportTemplateList
+            model.customReportTemplateCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class ClassicReportControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.classicReport!= null
+            model.customReportTemplate!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class ClassicReportControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def classicReport = new ClassicReport()
-            classicReport.validate()
-            controller.save(classicReport)
+            def customReportTemplate = new CustomReportTemplate()
+            customReportTemplate.validate()
+            controller.save(customReportTemplate)
 
         then:"The create view is rendered again with the correct model"
-            model.classicReport!= null
+            model.customReportTemplate!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            classicReport = new ClassicReport(params)
+            customReportTemplate = new CustomReportTemplate(params)
 
-            controller.save(classicReport)
+            controller.save(customReportTemplate)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/classicReport/show/1'
+            response.redirectedUrl == '/customReportTemplate/show/1'
             controller.flash.message != null
-            ClassicReport.count() == 1
+            CustomReportTemplate.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class ClassicReportControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def classicReport = new ClassicReport(params)
-            controller.show(classicReport)
+            def customReportTemplate = new CustomReportTemplate(params)
+            controller.show(customReportTemplate)
 
         then:"A model is populated containing the domain instance"
-            model.classicReport == classicReport
+            model.customReportTemplate == customReportTemplate
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class ClassicReportControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def classicReport = new ClassicReport(params)
-            controller.edit(classicReport)
+            def customReportTemplate = new CustomReportTemplate(params)
+            controller.edit(customReportTemplate)
 
         then:"A model is populated containing the domain instance"
-            model.classicReport == classicReport
+            model.customReportTemplate == customReportTemplate
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class ClassicReportControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/classicReport/index'
+            response.redirectedUrl == '/customReportTemplate/index'
             flash.message != null
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def classicReport = new ClassicReport()
-            classicReport.validate()
-            controller.update(classicReport)
+            def customReportTemplate = new CustomReportTemplate()
+            customReportTemplate.validate()
+            controller.update(customReportTemplate)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.classicReport == classicReport
+            model.customReportTemplate == customReportTemplate
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            classicReport = new ClassicReport(params).save(flush: true)
-            controller.update(classicReport)
+            customReportTemplate = new CustomReportTemplate(params).save(flush: true)
+            controller.update(customReportTemplate)
 
         then:"A redirect is issued to the show action"
-            classicReport != null
-            response.redirectedUrl == "/classicReport/show/$classicReport.id"
+            customReportTemplate != null
+            response.redirectedUrl == "/customReportTemplate/show/$customReportTemplate.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class ClassicReportControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/classicReport/index'
+            response.redirectedUrl == '/customReportTemplate/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def classicReport = new ClassicReport(params).save(flush: true)
+            def customReportTemplate = new CustomReportTemplate(params).save(flush: true)
 
         then:"It exists"
-            ClassicReport.count() == 1
+            CustomReportTemplate.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(classicReport)
+            controller.delete(customReportTemplate)
 
         then:"The instance is deleted"
-            ClassicReport.count() == 0
-            response.redirectedUrl == '/classicReport/index'
+            CustomReportTemplate.count() == 0
+            response.redirectedUrl == '/customReportTemplate/index'
             flash.message != null
     }
 }

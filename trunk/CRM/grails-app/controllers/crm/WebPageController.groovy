@@ -52,24 +52,6 @@ class WebPageController {
 		respond webPage
     }
 	
-	/*def generateWebPage(ManagedProperty managedProperty) {
-		
-		if (managedProperty == null) {
-			notFound()
-			return
-		}
-		
-		managedProperty.createOrUpdateWebPage();
-
-		request.withFormat {
-			form multipartForm {
-				flash.message = message(code: 'managedProperty.web.page.generated.message', args: [message(code: 'managedProperty.label', default: 'ManagedProperty'), managedProperty.id])
-				redirect managedProperty
-			}
-			'*' { respond managedProperty, [status: OK] }
-		 }
-	}*/
-	
     @Transactional
     def save(WebPage webPage) {
         if (webPage == null) {
@@ -157,13 +139,13 @@ class WebPageController {
 	private List<String> createOrUpdateWebPage(WebPage webPage){
 		List<String> errs=new ArrayList<String>();
 		try{
-			String pageContainer=webPage.domain.realPath+File.separatorChar+webPage.domain.realEstateFolder+File.separatorChar+webPage.managedProperty.address.city.department.country.name+File.separatorChar+webPage.managedProperty.id;
+			String pageContainer=webPage.getWebPagePath();
 			String title=GUtils.replaceIncorrectChars(webPage.title);
 
 			//def f = request.getFile('photo')
 			new File(pageContainer).mkdirs()
-			String filePath=pageContainer+File.separatorChar+title+webPage.id+".html";//título finaliza con . que es remplazado por _ y luego va el id de la WebPage
-			String fileContent=GUtils.readFile(webPage.domain.realPath+File.separatorChar+"real_estate_detail.html");
+			String filePath=pageContainer+Utils.getLocalSeparatorChar()+title+webPage.id+".html";//título finaliza con . que es remplazado por _ y luego va el id de la WebPage
+			String fileContent=GUtils.readFile(webPage.getDomainRealPathForWeb()+Utils.getLocalSeparatorChar()+"real_estate_detail.html");
 			Concession conc=webPage.managedProperty.concession;
 			
 			//PTITLE
@@ -216,7 +198,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, webPage.summary);
+				fileContent=fileContent.replace(str, webPage.firstDescription);
 			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#SECONDP");
@@ -226,7 +208,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, webPage.summary);
+				fileContent=fileContent.replace(str, webPage.secondDescription);
 			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#THIRDP");
@@ -236,7 +218,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, webPage.summary);
+				fileContent=fileContent.replace(str, webPage.thirdDescription);
 			}
 			//FIRSTP
 			idx=fileContent.indexOf("@#CALLTOACT");
@@ -246,7 +228,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, webPage.summary);
+				fileContent=fileContent.replace(str, webPage.callToAction);
 			}
 			//PKEYW
 			idx=fileContent.indexOf("@#PKEYW");
@@ -346,7 +328,7 @@ class WebPageController {
 			}else{
 				idx2=fileContent.indexOf("#@",idx+2);
 				str=fileContent.substring(idx,idx2+2);
-				fileContent=fileContent.replace(str, grailsApplication.config.getProperty('web.image.partner')+File.separatorChar+conc.crmUser.partner.id + File.separatorChar + "profile.jpg");
+				fileContent=fileContent.replace(str, grailsApplication.config.getProperty('web.image.partner')+Utils.getLocalSeparatorChar()+conc.crmUser.partner.id + Utils.getLocalSeparatorChar() + "profile.jpg");
 			}
 			//Holders.config.getProperty('web.image.partner') se usa para obtener los datos de application.yml desde la domain class
 			//IMPORT - LINKS
@@ -354,7 +336,7 @@ class WebPageController {
 			str="rel='stylesheet' href=\"";
 			idx=fileContent.indexOf(str);
 			if(idx>=0){
-				fileContent=fileContent.replace(str, "rel='stylesheet' href=\""+webPage.domain.realPath+File.separatorChar);
+				fileContent=fileContent.replace(str, "rel='stylesheet' href=\""+webPage.domain.realPath+Utils.getLocalSeparatorChar());
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#1: "+str]).toString());
 				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#1: "+str]).toString());
@@ -363,7 +345,7 @@ class WebPageController {
 			str="<script src=\"js";
 			idx=fileContent.indexOf(str);
 			if(idx>=0){
-				fileContent=fileContent.replace(str, "<script src=\""+webPage.domain.realPath+File.separatorChar+"js");
+				fileContent=fileContent.replace(str, "<script src=\""+webPage.domain.realPath+Utils.getLocalSeparatorChar()+"js");
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#2: "+str]).toString());
 				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#2: "+str]).toString());
@@ -372,14 +354,14 @@ class WebPageController {
 			str="<script src=\'js";
 			idx=fileContent.indexOf(str);
 			if(idx>=0){
-				fileContent=fileContent.replace(str, "<script src=\'"+webPage.domain.realPath+File.separatorChar+"js");
+				fileContent=fileContent.replace(str, "<script src=\'"+webPage.domain.realPath+Utils.getLocalSeparatorChar()+"js");
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#3: "+str]).toString());
 				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#3: "+str]).toString());
 			}
 			
 			//adding images
-			String direPath=webPage.domain.realPath+File.separatorChar+grailsApplication.config.getProperty('web.image.property')+File.separatorChar+webPage.managedProperty.id;
+			String direPath=webPage.domain.realPath+Utils.getLocalSeparatorChar()+grailsApplication.config.getProperty('web.image.property')+Utils.getLocalSeparatorChar()+webPage.managedProperty.id;
 			def dire = new File(direPath);
 			def fir=true;
 			int addedCount=0;
@@ -436,7 +418,7 @@ class WebPageController {
 			str="src=\"img";
 			idx=fileContent.indexOf(str);
 			if(idx>=0){
-				fileContent=fileContent.replace(str, "src=\""+webPage.domain.realPath+File.separatorChar+"img");//esta despues de agregar las imagenes xq sino remplaza la imagen por defecto
+				fileContent=fileContent.replace(str, "src=\""+webPage.domain.realPath+Utils.getLocalSeparatorChar()+"img");//esta despues de agregar las imagenes xq sino remplaza la imagen por defecto
 			}else{
 				errs.add(message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
 				CrmLogger.logError(this.getClass(), message(code: 'webPage.template.missing.string.error', args: ["#4: "+str]).toString());
@@ -463,7 +445,7 @@ class WebPageController {
 			}else{
 				fileContent=fileContent.replaceAll(str, webPage.getWebPage());
 			}
-			
+			GUtils.removeAllFilesFromDirectory(pageContainer);//borra las paginas anteriores
 			GUtils.writeFile(filePath, fileContent);
 			webPage.save();
 			
@@ -477,8 +459,8 @@ class WebPageController {
 	private List<String> transferImagesToWeb(WebPage webPage){
 		List<String> errs = new ArrayList<String>();
 		//property uploaded images transfer to target domain web page
-		String originPath=grailsApplication.config.getProperty('crm.upload.image.property')+File.separatorChar+webPage.managedProperty.id;
-		String targetPath=webPage.domain.realPath + File.separatorChar + grailsApplication.config.getProperty('web.image.property') + File.separatorChar + webPage.managedProperty.id;
+		String originPath=grailsApplication.config.getProperty('crm.upload.image.property')+Utils.getLocalSeparatorChar()+webPage.managedProperty.id;
+		String targetPath=webPage.domain.realPath + Utils.getLocalSeparatorChar() + grailsApplication.config.getProperty('web.image.property') + Utils.getLocalSeparatorChar() + webPage.managedProperty.id;
 		File origin=new File(originPath);
 		File target=new File(targetPath);
 		File targetFile, originFile;
@@ -489,7 +471,7 @@ class WebPageController {
 			}
 			origin.eachFile(){ ff->
 				if( !ff.isDirectory() ){
-					targetFile= new File(targetPath + File.separatorChar + ff.name);		
+					targetFile= new File(targetPath + Utils.getLocalSeparatorChar() + ff.name);		
 					copy=true;
 					originFile=new File(ff.getAbsolutePath());
 					if(targetFile.exists()){
@@ -549,8 +531,8 @@ class WebPageController {
 		
 		//partner uploaded profile image transfer to target domain web page
 		Concession conc=webPage.managedProperty.concession;
-		originPath=grailsApplication.config.getProperty('crm.upload.image.partner') + File.separatorChar+conc.crmUser.partner.id + File.separatorChar + "profile.jpg";
-		targetPath=webPage.domain.realPath + File.separatorChar + grailsApplication.config.getProperty('web.image.partner') + File.separatorChar + conc.crmUser.partner.id;
+		originPath=grailsApplication.config.getProperty('crm.upload.image.partner') + Utils.getLocalSeparatorChar()+conc.crmUser.partner.id + Utils.getLocalSeparatorChar() + "profile.jpg";
+		targetPath=webPage.domain.realPath + Utils.getLocalSeparatorChar() + grailsApplication.config.getProperty('web.image.partner') + Utils.getLocalSeparatorChar() + conc.crmUser.partner.id;
 		origin=new File(originPath);
 		target=new File(targetPath);
 		if(origin.exists()){
@@ -559,8 +541,8 @@ class WebPageController {
 					crm.CrmLogger.logError(this.getClass(), "Target was not created.");
 				}
 			}
-			//targetPath=targetPath + File.separatorChar + "profile.jpg"
-			targetFile= new File(targetPath + File.separatorChar + "profile.jpg");
+			//targetPath=targetPath + Utils.getLocalSeparatorChar() + "profile.jpg"
+			targetFile= new File(targetPath + Utils.getLocalSeparatorChar() + "profile.jpg");
 			copy=true;
 			if(targetFile.exists()){
 				byte[]of=origin.readBytes();

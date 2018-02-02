@@ -60,11 +60,11 @@ class PartnerController {
 			if(partner.save(flush: true)){
 				println "Partner SAVED";
 				if(f){
-					String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+File.separatorChar+partner.id;
-					//String filePath=imageContainer + File.separatorChar + "profile.jpg";
+					String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+Utils.getLocalSeparatorChar()+partner.id;
+					//String filePath=imageContainer + Utils.getLocalSeparatorChar() + "profile.jpg";
 					File dire=new File(imageContainer);
 					dire.mkdirs()
-					f.transferTo(new File(dire.getAbsolutePath()+File.separatorChar + "profile.jpg"));
+					f.transferTo(new File(dire.getAbsolutePath()+Utils.getLocalSeparatorChar() + "profile.jpg"));
 				}
 			}else{
 				println "Partner DONT SAVED";
@@ -108,8 +108,8 @@ class PartnerController {
             return
         }		
 		String applicationPath = grailsApplication.config.getProperty('crm.application.path');
-		String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+File.separatorChar+partner.id;
-		String filePath=applicationPath+File.separatorChar+imageContainer + File.separatorChar + "profile.jpg";
+		String imageContainer=grailsApplication.config.getProperty('crm.upload.image.partner')+Utils.getLocalSeparatorChar()+partner.id;
+		String filePath=applicationPath+Utils.getLocalSeparatorChar()+imageContainer + Utils.getLocalSeparatorChar() + "profile.jpg";
 		def f = request.getFile('photo')
 		if(!f.empty) {
 			File dire=new File(imageContainer);

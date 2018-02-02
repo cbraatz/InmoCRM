@@ -1,7 +1,7 @@
 package crm.commands
 
 import crm.DimensionMeasuringUnit
-import crm.FeatureNameByLanguage
+import crm.ItemNameByLanguage
 import crm.BuildingFeatureByLanguage
 import crm.BuildingFeature
 import crm.BuildingType
@@ -9,7 +9,7 @@ import crm.Language
 import grails.validation.Validateable
 
 class BuildingFeatureByLanguageCommand implements Validateable{
-	List<FeatureNameByLanguage> items = new ArrayList<FeatureNameByLanguage>();
+	List<ItemNameByLanguage> items = new ArrayList<ItemNameByLanguage>();
 	
 	public BuildingFeatureByLanguageCommand(BuildingFeature buildingFeature){
 		Language defLan=Language.getDefaultLanguage();
@@ -26,9 +26,9 @@ class BuildingFeatureByLanguageCommand implements Validateable{
 					}
 				}
 				if(exists==true){
-					items.add(new FeatureNameByLanguage(fbl.name, fbl.plural, fbl.language));
+					items.add(new ItemNameByLanguage(fbl.name, fbl.plural, fbl.language));
 				}else{
-					items.add(new FeatureNameByLanguage(null,null,it));
+					items.add(new ItemNameByLanguage(null,null,it));
 				}
 				
 			}

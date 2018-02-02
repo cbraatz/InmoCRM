@@ -1,6 +1,8 @@
 package crm
 
 import static org.springframework.http.HttpStatus.*
+
+import crm.commands.PropertyTypeByLanguageCommand
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -45,7 +47,8 @@ class PropertyTypeController {
             '*' { respond propertyType, [status: CREATED] }
         }
     }
-
+	
+	
     def edit(PropertyType propertyType) {
         respond propertyType
     }
@@ -94,7 +97,64 @@ class PropertyTypeController {
             '*'{ render status: NO_CONTENT }
         }
     }
+	def translate() {
+		PropertyType propertyType=PropertyType.get(params.ptid);
+		respond propertyType
+	}
+	
+	@Transactional
+	def saveTranslations(PropertyTypeByLanguageCommand propertyTypeByLanguageCommand, PropertyType propertyType) {
+		if (propertyType == null) {
+			transactionStatus.setRollbackOnly()
+			notFound()
+			return
+		}
+		PropertyTypeByLanguage ptbl=null;
+		boolean saveme=false;
+		propertyTypeByLanguageCommand.items.each{
+			if(null!=it.name && null!=it.plural && null!=it.nameForWeb){
+				ptbl=PropertyTypeByLanguage.findByPropertyTypeAndLanguage(propertyType, it.language);
+				saveme=false;
+				if(ptbl){//if it exists and it can be edited
+					if(!(ptbl.name.equals(it.name) && ptbl.plural.equals(it.plural)/*&& ptbl.nameForWeb.equals(it.nameForWeb)*/)){ //nameForWeb no debe poder ser editable xq se utiliza en la url a las paginas.
+						ptbl.name=it.name;
+						ptbl.plural=it.plural;
+						saveme=true;
+					}
+				}else{
+					ptbl=new PropertyTypeByLanguage(name: it.name, plural: it.plural, nameForWeb: it.nameForWeb, language: it.language, propertyType:propertyType);
+					saveme=true;
+				}
+				if(saveme==true){
+					if(!ptbl.save(flush:true)){
+						GUtils.printErrors(ptbl, "Error Saving Property Type By Language '"+ptbl.name+"'");
+						transactionStatus.setRollbackOnly()
+						render(view:'/error', model:[message: message(code: 'propertyType.translations.save.error')]);
+					}
+				}
+			}else{
+				if(null==it.nameForWeb){//no se permite borrar xq nameForWeb utiliza en la url a las paginas.
+					//ptbl=PropertyTypeByLanguage.getPropertyTypeByLanguageByPropertyTypeAndLanguage(propertyType, it.language);
+					//if(ptbl!=null){//if it exists and it should be deleted
+						//if(!ptbl.delete(flush:true)){
+					//GUtils.printErrors(ptbl, message(code: 'propertyType.translations.delete.not.allowed.error'));
+					//render(view:'/error', model:[message: message(code: 'propertyType.translations.delete.not.allowed.error')]);
+						//}
+					//}
+					flash.message = message(code: 'propertyType.translations.delete.not.allowed.error');
+				}
+			}
+		}
 
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.created.message', args: [message(code: 'propertyTypeByLanguage.label', default: 'Building Feature Translation'), propertyType.id])
+				redirect(id:propertyType.id, action:"show")
+			}
+			'*' { respond propertyType, view:"show", [status: CREATED] }
+		}
+	}
+	
     protected void notFound() {
         request.withFormat {
             form multipartForm {

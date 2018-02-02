@@ -24,6 +24,7 @@ class ManagedProperty extends CrmDomain{
 	Date addedDate;
 	Integer placedBillboards;
 	Float area;
+	Float builtArea;
 	Float excess;
 	Address address;
 	String resolution;//motivo por el que está cerrado
@@ -49,6 +50,7 @@ class ManagedProperty extends CrmDomain{
 		addedDate(nullable:false);
 		placedBillboards(nullable:false, min:0);
 		area(nullable:false, min:0F);
+		builtArea(nullable:false, min:0F);
 		excess(nullable:false, min:0F);
 		address(nullable:false);
 		resolution(blank:true, nullable:true, size:0..10);

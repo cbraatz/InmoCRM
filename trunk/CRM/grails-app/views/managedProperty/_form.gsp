@@ -7,6 +7,7 @@
 		</f:field>
 		<f:field bean="managedProperty" property="measures"/>
 		<f:field bean="managedProperty" property="area"/>
+		<f:field bean="managedProperty" property="builtArea"/>
 		<f:field bean="managedProperty" property="excess"/>
 		<f:field bean="managedProperty" property="publicAddress"/>
 		<f:field bean="managedProperty" property="publicCashPrice"/>

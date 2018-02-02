@@ -28,7 +28,7 @@ class UploadController {
 		if(params.obj.equals("property")){
 			if(params.oid != null){
 				managedProperty=ManagedProperty.get(params.oid);
-				this.myPath=grailsApplication.config.getProperty('crm.upload.image.property')+File.separatorChar+params.oid;
+				this.myPath=grailsApplication.config.getProperty('crm.upload.image.property')+Utils.getLocalSeparatorChar()+params.oid;
 				def dire = new File(this.myPath);
 				dire.mkdirs();
 				UploadedImage uploadedImage;
@@ -82,7 +82,7 @@ class UploadController {
 		UploadedImage upIm=UploadedImage.get(params.id);
 		def file=null;
 		if(null != upIm){
-			file=new File(grailsApplication.config.getProperty('crm.upload.image.property')+File.separatorChar+upIm.managedProperty.id+File.separatorChar+upIm.fileName);
+			file=new File(grailsApplication.config.getProperty('crm.upload.image.property')+Utils.getLocalSeparatorChar()+upIm.managedProperty.id+Utils.getLocalSeparatorChar()+upIm.fileName);
 			upIm.delete(flush:true);//deleting uploaded image
 		}
 		if(null == UploadedImage.get(params.id) && null != file){//si ya se borró o la imagen quedó cargada por error
@@ -104,7 +104,7 @@ class UploadController {
 		if(!f.empty) {
 		File dire=new File(this.myPath);
 		dire.mkdirs()
-		File file= new File(dire.getAbsolutePath() + File.separatorChar + f.getOriginalFilename());
+		File file= new File(dire.getAbsolutePath() + Utils.getLocalSeparatorChar() + f.getOriginalFilename());
 		   if(file.length() <= Long.parseLong(grailsApplication.config.getProperty('grails.controllers.upload.internalMaxFileSize'))){
 			  boolean exists=false;
 			  //verify if file is already loaded

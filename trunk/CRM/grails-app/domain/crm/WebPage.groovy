@@ -43,4 +43,22 @@ class WebPage extends CrmDomain{
 	public void updateWebPageUrl(){
 		this.pageUrl=this.getWebPage();
 	}
+	public String getCountryNameForWeb() {
+		return Utils.convertToWebUrlFormat(this.managedProperty.address.city.department.country.name.toLowerCase());
+	}
+	public String getDepartmentNameForWeb() {
+		return Utils.convertToWebUrlFormat(this.managedProperty.address.city.department.name.toLowerCase());
+	}
+	public String getDomainRealPathForWeb() {
+		return this.domain.realPath;
+	}
+	public String getRealEstateFolderName() {
+		return this.domain.realEstateFolder;
+	}
+	public String getCityNameForWeb() {
+		return Utils.convertToWebUrlFormat(this.managedProperty.address.city.name.toLowerCase());
+	}
+	public getWebPagePath() {
+		return this.getDomainRealPathForWeb()+Utils.getLocalSeparatorChar()+this.getRealEstateFolderName()+Utils.getLocalSeparatorChar()+this.getCountryNameForWeb()+Utils.getLocalSeparatorChar()+this.managedProperty.id;
+	}
 }

@@ -2,20 +2,20 @@ package crm
 
 import java.util.List;
 
-class ClassicReport extends CrmDomain{
+class CustomReport extends CrmDomain{
 	String name;
-	ClassicReportTemplate classicReportTemplate;
+	CustomReportTemplate customReportTemplate;
 	CrmUser crmUser;
 	ReportFolder reportFolder;
 	
 	static constraints = {
 		name(blank:false, nullable:false, size:1..50);
-		classicReportTemplate(nullable:false);
+		customReportTemplate(nullable:false);
 		crmUser(nullable:false);
 		reportFolder(nullable:true);
 	}
 	@Override
 	public static String getPluralName(){
-		return "classicReports";
+		return "customReports";
 	}
 }
